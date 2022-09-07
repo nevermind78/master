@@ -1,0 +1,160 @@
+Traceback (most recent call last):
+  File "/Users/jvanscho/miniforge3/lib/python3.9/site-packages/jupyter_cache/executors/utils.py", line 51, in single_nb_execution
+    executenb(
+  File "/Users/jvanscho/miniforge3/lib/python3.9/site-packages/nbclient/client.py", line 1093, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+  File "/Users/jvanscho/miniforge3/lib/python3.9/site-packages/nbclient/util.py", line 84, in wrapped
+    return just_run(coro(*args, **kwargs))
+  File "/Users/jvanscho/miniforge3/lib/python3.9/site-packages/nbclient/util.py", line 62, in just_run
+    return loop.run_until_complete(coro)
+  File "/Users/jvanscho/miniforge3/lib/python3.9/asyncio/base_events.py", line 642, in run_until_complete
+    return future.result()
+  File "/Users/jvanscho/miniforge3/lib/python3.9/site-packages/nbclient/client.py", line 559, in async_execute
+    await self.async_execute_cell(
+  File "/Users/jvanscho/miniforge3/lib/python3.9/site-packages/nbclient/client.py", line 854, in async_execute_cell
+    self._check_raise_for_error(cell, exec_reply)
+  File "/Users/jvanscho/miniforge3/lib/python3.9/site-packages/nbclient/client.py", line 756, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+# Visualize the (first five) misclassifications, together with the predicted and actual class
+fig, axes = plt.subplots(1, 5,  figsize=(10, 5))
+for nr, i in enumerate(misclassified_samples[:5]):
+    axes[nr].imshow(X_test.values[i].reshape(28, 28), cmap=plt.cm.gray_r)
+    axes[nr].set_xlabel("Predicted: %s,\n Actual : %s" % (fmnist_classes[int(y_pred[i])],fmnist_classes[int(y_test.values[i])]))
+    axes[nr].set_xticks(()), axes[nr].set_yticks(())
+
+plt.show();
+------------------
+
+[0;31m---------------------------------------------------------------------------[0m
+[0;31mKeyboardInterrupt[0m                         Traceback (most recent call last)
+[0;32m/var/folders/0t/5d8ttqzd773fy0wq3h5db0xr0000gn/T/ipykernel_59158/4277414344.py[0m in [0;36m<module>[0;34m[0m
+[1;32m      1[0m [0;31m# Visualize the (first five) misclassifications, together with the predicted and actual class[0m[0;34m[0m[0;34m[0m[0m
+[0;32m----> 2[0;31m [0mfig[0m[0;34m,[0m [0maxes[0m [0;34m=[0m [0mplt[0m[0;34m.[0m[0msubplots[0m[0;34m([0m[0;36m1[0m[0;34m,[0m [0;36m5[0m[0;34m,[0m  [0mfigsize[0m[0;34m=[0m[0;34m([0m[0;36m10[0m[0;34m,[0m [0;36m5[0m[0;34m)[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m      3[0m [0;32mfor[0m [0mnr[0m[0;34m,[0m [0mi[0m [0;32min[0m [0menumerate[0m[0;34m([0m[0mmisclassified_samples[0m[0;34m[[0m[0;34m:[0m[0;36m5[0m[0;34m][0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[1;32m      4[0m     [0maxes[0m[0;34m[[0m[0mnr[0m[0;34m][0m[0;34m.[0m[0mimshow[0m[0;34m([0m[0mX_test[0m[0;34m.[0m[0mvalues[0m[0;34m[[0m[0mi[0m[0;34m][0m[0;34m.[0m[0mreshape[0m[0;34m([0m[0;36m28[0m[0;34m,[0m [0;36m28[0m[0;34m)[0m[0;34m,[0m [0mcmap[0m[0;34m=[0m[0mplt[0m[0;34m.[0m[0mcm[0m[0;34m.[0m[0mgray_r[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[1;32m      5[0m     [0maxes[0m[0;34m[[0m[0mnr[0m[0;34m][0m[0;34m.[0m[0mset_xlabel[0m[0;34m([0m[0;34m"Predicted: %s,\n Actual : %s"[0m [0;34m%[0m [0;34m([0m[0mfmnist_classes[0m[0;34m[[0m[0mint[0m[0;34m([0m[0my_pred[0m[0;34m[[0m[0mi[0m[0;34m][0m[0;34m)[0m[0;34m][0m[0;34m,[0m[0mfmnist_classes[0m[0;34m[[0m[0mint[0m[0;34m([0m[0my_test[0m[0;34m.[0m[0mvalues[0m[0;34m[[0m[0mi[0m[0;34m][0m[0;34m)[0m[0;34m][0m[0;34m)[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/miniforge3/lib/python3.9/site-packages/matplotlib/pyplot.py[0m in [0;36msubplots[0;34m(nrows, ncols, sharex, sharey, squeeze, subplot_kw, gridspec_kw, **fig_kw)[0m
+[1;32m   1433[0m     """
+[1;32m   1434[0m     [0mfig[0m [0;34m=[0m [0mfigure[0m[0;34m([0m[0;34m**[0m[0mfig_kw[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0;32m-> 1435[0;31m     axs = fig.subplots(nrows=nrows, ncols=ncols, sharex=sharex, sharey=sharey,
+[0m[1;32m   1436[0m                        [0msqueeze[0m[0;34m=[0m[0msqueeze[0m[0;34m,[0m [0msubplot_kw[0m[0;34m=[0m[0msubplot_kw[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
+[1;32m   1437[0m                        gridspec_kw=gridspec_kw)
+
+[0;32m~/miniforge3/lib/python3.9/site-packages/matplotlib/figure.py[0m in [0;36msubplots[0;34m(self, nrows, ncols, sharex, sharey, squeeze, subplot_kw, gridspec_kw)[0m
+[1;32m    895[0m             [0mgridspec_kw[0m [0;34m=[0m [0;34m{[0m[0;34m}[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    896[0m         [0mgs[0m [0;34m=[0m [0mself[0m[0;34m.[0m[0madd_gridspec[0m[0;34m([0m[0mnrows[0m[0;34m,[0m [0mncols[0m[0;34m,[0m [0mfigure[0m[0;34m=[0m[0mself[0m[0;34m,[0m [0;34m**[0m[0mgridspec_kw[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 897[0;31m         axs = gs.subplots(sharex=sharex, sharey=sharey, squeeze=squeeze,
+[0m[1;32m    898[0m                           subplot_kw=subplot_kw)
+[1;32m    899[0m         [0;32mreturn[0m [0maxs[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/miniforge3/lib/python3.9/site-packages/matplotlib/gridspec.py[0m in [0;36msubplots[0;34m(self, sharex, sharey, squeeze, subplot_kw)[0m
+[1;32m    305[0m                 [0msubplot_kw[0m[0;34m[[0m[0;34m"sharex"[0m[0;34m][0m [0;34m=[0m [0mshared_with[0m[0;34m[[0m[0msharex[0m[0;34m][0m[0;34m[0m[0;34m[0m[0m
+[1;32m    306[0m                 [0msubplot_kw[0m[0;34m[[0m[0;34m"sharey"[0m[0;34m][0m [0;34m=[0m [0mshared_with[0m[0;34m[[0m[0msharey[0m[0;34m][0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 307[0;31m                 axarr[row, col] = figure.add_subplot(
+[0m[1;32m    308[0m                     self[row, col], **subplot_kw)
+[1;32m    309[0m [0;34m[0m[0m
+
+[0;32m~/miniforge3/lib/python3.9/site-packages/matplotlib/figure.py[0m in [0;36madd_subplot[0;34m(self, *args, **kwargs)[0m
+[1;32m    770[0m             projection_class, pkw = self._process_projection_requirements(
+[1;32m    771[0m                 *args, **kwargs)
+[0;32m--> 772[0;31m             [0max[0m [0;34m=[0m [0msubplot_class_factory[0m[0;34m([0m[0mprojection_class[0m[0;34m)[0m[0;34m([0m[0mself[0m[0;34m,[0m [0;34m*[0m[0margs[0m[0;34m,[0m [0;34m**[0m[0mpkw[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    773[0m             [0mkey[0m [0;34m=[0m [0;34m([0m[0mprojection_class[0m[0;34m,[0m [0mpkw[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    774[0m         [0;32mreturn[0m [0mself[0m[0;34m.[0m[0m_add_axes_internal[0m[0;34m([0m[0max[0m[0;34m,[0m [0mkey[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/miniforge3/lib/python3.9/site-packages/matplotlib/axes/_subplots.py[0m in [0;36m__init__[0;34m(self, fig, *args, **kwargs)[0m
+[1;32m     32[0m         """
+[1;32m     33[0m         [0;31m# _axes_class is set in the subplot_class_factory[0m[0;34m[0m[0;34m[0m[0m
+[0;32m---> 34[0;31m         [0mself[0m[0;34m.[0m[0m_axes_class[0m[0;34m.[0m[0m__init__[0m[0;34m([0m[0mself[0m[0;34m,[0m [0mfig[0m[0;34m,[0m [0;34m[[0m[0;36m0[0m[0;34m,[0m [0;36m0[0m[0;34m,[0m [0;36m1[0m[0;34m,[0m [0;36m1[0m[0;34m][0m[0;34m,[0m [0;34m**[0m[0mkwargs[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m     35[0m         [0;31m# This will also update the axes position.[0m[0;34m[0m[0;34m[0m[0m
+[1;32m     36[0m         [0mself[0m[0;34m.[0m[0mset_subplotspec[0m[0;34m([0m[0mSubplotSpec[0m[0;34m.[0m[0m_from_subplot_args[0m[0;34m([0m[0mfig[0m[0;34m,[0m [0margs[0m[0;34m)[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/miniforge3/lib/python3.9/site-packages/matplotlib/_api/deprecation.py[0m in [0;36mwrapper[0;34m(*args, **kwargs)[0m
+[1;32m    454[0m                 [0;34m"parameter will become keyword-only %(removal)s."[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    455[0m                 name=name, obj_type=f"parameter of {func.__name__}()")
+[0;32m--> 456[0;31m         [0;32mreturn[0m [0mfunc[0m[0;34m([0m[0;34m*[0m[0margs[0m[0;34m,[0m [0;34m**[0m[0mkwargs[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    457[0m [0;34m[0m[0m
+[1;32m    458[0m     [0;31m# Don't modify *func*'s signature, as boilerplate.py needs it.[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/miniforge3/lib/python3.9/site-packages/matplotlib/axes/_base.py[0m in [0;36m__init__[0;34m(self, fig, rect, facecolor, frameon, sharex, sharey, label, xscale, yscale, box_aspect, **kwargs)[0m
+[1;32m    630[0m [0;34m[0m[0m
+[1;32m    631[0m         [0mself[0m[0;34m.[0m[0m_rasterization_zorder[0m [0;34m=[0m [0;32mNone[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 632[0;31m         [0mself[0m[0;34m.[0m[0mcla[0m[0;34m([0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    633[0m [0;34m[0m[0m
+[1;32m    634[0m         [0;31m# funcs used to format x and y - fall back on major formatters[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/miniforge3/lib/python3.9/site-packages/matplotlib/axes/_base.py[0m in [0;36mcla[0;34m(self)[0m
+[1;32m   1298[0m         [0mself[0m[0;34m.[0m[0mset_axis_on[0m[0;34m([0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[1;32m   1299[0m [0;34m[0m[0m
+[0;32m-> 1300[0;31m         [0mself[0m[0;34m.[0m[0mxaxis[0m[0;34m.[0m[0mset_clip_path[0m[0;34m([0m[0mself[0m[0;34m.[0m[0mpatch[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m   1301[0m         [0mself[0m[0;34m.[0m[0myaxis[0m[0;34m.[0m[0mset_clip_path[0m[0;34m([0m[0mself[0m[0;34m.[0m[0mpatch[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[1;32m   1302[0m [0;34m[0m[0m
+
+[0;32m~/miniforge3/lib/python3.9/site-packages/matplotlib/axis.py[0m in [0;36mset_clip_path[0;34m(self, clippath, transform)[0m
+[1;32m    934[0m     [0;32mdef[0m [0mset_clip_path[0m[0;34m([0m[0mself[0m[0;34m,[0m [0mclippath[0m[0;34m,[0m [0mtransform[0m[0;34m=[0m[0;32mNone[0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    935[0m         [0msuper[0m[0;34m([0m[0;34m)[0m[0;34m.[0m[0mset_clip_path[0m[0;34m([0m[0mclippath[0m[0;34m,[0m [0mtransform[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 936[0;31m         [0;32mfor[0m [0mchild[0m [0;32min[0m [0mself[0m[0;34m.[0m[0mmajorTicks[0m [0;34m+[0m [0mself[0m[0;34m.[0m[0mminorTicks[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    937[0m             [0mchild[0m[0;34m.[0m[0mset_clip_path[0m[0;34m([0m[0mclippath[0m[0;34m,[0m [0mtransform[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    938[0m         [0mself[0m[0;34m.[0m[0mstale[0m [0;34m=[0m [0;32mTrue[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/miniforge3/lib/python3.9/site-packages/matplotlib/axis.py[0m in [0;36m__get__[0;34m(self, instance, cls)[0m
+[1;32m    595[0m             [0;32melse[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    596[0m                 [0minstance[0m[0;34m.[0m[0mminorTicks[0m [0;34m=[0m [0;34m[[0m[0;34m][0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 597[0;31m                 [0mtick[0m [0;34m=[0m [0minstance[0m[0;34m.[0m[0m_get_tick[0m[0;34m([0m[0mmajor[0m[0;34m=[0m[0;32mFalse[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    598[0m                 [0minstance[0m[0;34m.[0m[0mminorTicks[0m[0;34m.[0m[0mappend[0m[0;34m([0m[0mtick[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    599[0m                 [0;32mreturn[0m [0minstance[0m[0;34m.[0m[0mminorTicks[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/miniforge3/lib/python3.9/site-packages/matplotlib/axis.py[0m in [0;36m_get_tick[0;34m(self, major)[0m
+[1;32m   2055[0m         [0;32melse[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[1;32m   2056[0m             [0mtick_kw[0m [0;34m=[0m [0mself[0m[0;34m.[0m[0m_minor_tick_kw[0m[0;34m[0m[0;34m[0m[0m
+[0;32m-> 2057[0;31m         [0;32mreturn[0m [0mXTick[0m[0;34m([0m[0mself[0m[0;34m.[0m[0maxes[0m[0;34m,[0m [0;36m0[0m[0;34m,[0m [0mmajor[0m[0;34m=[0m[0mmajor[0m[0;34m,[0m [0;34m**[0m[0mtick_kw[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m   2058[0m [0;34m[0m[0m
+[1;32m   2059[0m     [0;32mdef[0m [0mset_label_position[0m[0;34m([0m[0mself[0m[0;34m,[0m [0mposition[0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/miniforge3/lib/python3.9/site-packages/matplotlib/axis.py[0m in [0;36m__init__[0;34m(self, *args, **kwargs)[0m
+[1;32m    413[0m [0;34m[0m[0m
+[1;32m    414[0m     [0;32mdef[0m [0m__init__[0m[0;34m([0m[0mself[0m[0;34m,[0m [0;34m*[0m[0margs[0m[0;34m,[0m [0;34m**[0m[0mkwargs[0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 415[0;31m         [0msuper[0m[0;34m([0m[0;34m)[0m[0;34m.[0m[0m__init__[0m[0;34m([0m[0;34m*[0m[0margs[0m[0;34m,[0m [0;34m**[0m[0mkwargs[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    416[0m         [0;31m# x in data coords, y in axes coords[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    417[0m         [0max[0m [0;34m=[0m [0mself[0m[0;34m.[0m[0maxes[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/miniforge3/lib/python3.9/site-packages/matplotlib/axis.py[0m in [0;36m__init__[0;34m(self, axes, loc, size, width, color, tickdir, pad, labelsize, labelcolor, zorder, gridOn, tick1On, tick2On, label1On, label2On, major, labelrotation, grid_color, grid_linestyle, grid_linewidth, grid_alpha, **kw)[0m
+[1;32m    170[0m             [0mfontsize[0m[0;34m=[0m[0mlabelsize[0m[0;34m,[0m [0mcolor[0m[0;34m=[0m[0mlabelcolor[0m[0;34m,[0m [0mvisible[0m[0;34m=[0m[0mlabel1On[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    171[0m             rotation=self._labelrotation[1])
+[0;32m--> 172[0;31m         self.label2 = mtext.Text(
+[0m[1;32m    173[0m             [0mnp[0m[0;34m.[0m[0mnan[0m[0;34m,[0m [0mnp[0m[0;34m.[0m[0mnan[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    174[0m             [0mfontsize[0m[0;34m=[0m[0mlabelsize[0m[0;34m,[0m [0mcolor[0m[0;34m=[0m[0mlabelcolor[0m[0;34m,[0m [0mvisible[0m[0;34m=[0m[0mlabel2On[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/miniforge3/lib/python3.9/site-packages/matplotlib/text.py[0m in [0;36m__init__[0;34m(self, x, y, text, color, verticalalignment, horizontalalignment, multialignment, fontproperties, rotation, linespacing, rotation_mode, usetex, wrap, transform_rotates_text, parse_math, **kwargs)[0m
+[1;32m    158[0m         [0mself[0m[0;34m.[0m[0m_linespacing[0m [0;34m=[0m [0mlinespacing[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    159[0m         [0mself[0m[0;34m.[0m[0mset_rotation_mode[0m[0;34m([0m[0mrotation_mode[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 160[0;31m         [0mself[0m[0;34m.[0m[0mupdate[0m[0;34m([0m[0mkwargs[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    161[0m [0;34m[0m[0m
+[1;32m    162[0m     [0;32mdef[0m [0mupdate[0m[0;34m([0m[0mself[0m[0;34m,[0m [0mkwargs[0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/miniforge3/lib/python3.9/site-packages/matplotlib/text.py[0m in [0;36mupdate[0;34m(self, kwargs)[0m
+[1;32m    162[0m     [0;32mdef[0m [0mupdate[0m[0;34m([0m[0mself[0m[0;34m,[0m [0mkwargs[0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    163[0m         [0;31m# docstring inherited[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 164[0;31m         [0mkwargs[0m [0;34m=[0m [0mcbook[0m[0;34m.[0m[0mnormalize_kwargs[0m[0;34m([0m[0mkwargs[0m[0;34m,[0m [0mText[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    165[0m         [0msentinel[0m [0;34m=[0m [0mobject[0m[0;34m([0m[0;34m)[0m  [0;31m# bbox can be None, so use another sentinel.[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    166[0m         [0;31m# Update fontproperties first, as it has lowest priority.[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/miniforge3/lib/python3.9/site-packages/matplotlib/cbook/__init__.py[0m in [0;36mnormalize_kwargs[0;34m(kw, alias_mapping)[0m
+[1;32m   1728[0m         [0malias_mapping[0m [0;34m=[0m [0mgetattr[0m[0;34m([0m[0malias_mapping[0m[0;34m,[0m [0;34m"_alias_map"[0m[0;34m,[0m [0;34m{[0m[0;34m}[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[1;32m   1729[0m [0;34m[0m[0m
+[0;32m-> 1730[0;31m     to_canonical = {alias: canonical
+[0m[1;32m   1731[0m                     [0;32mfor[0m [0mcanonical[0m[0;34m,[0m [0malias_list[0m [0;32min[0m [0malias_mapping[0m[0;34m.[0m[0mitems[0m[0;34m([0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[1;32m   1732[0m                     for alias in alias_list}
+
+[0;32m~/miniforge3/lib/python3.9/site-packages/matplotlib/cbook/__init__.py[0m in [0;36m<dictcomp>[0;34m(.0)[0m
+[1;32m   1730[0m     to_canonical = {alias: canonical
+[1;32m   1731[0m                     [0;32mfor[0m [0mcanonical[0m[0;34m,[0m [0malias_list[0m [0;32min[0m [0malias_mapping[0m[0;34m.[0m[0mitems[0m[0;34m([0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0;32m-> 1732[0;31m                     for alias in alias_list}
+[0m[1;32m   1733[0m     [0mcanonical_to_seen[0m [0;34m=[0m [0;34m{[0m[0;34m}[0m[0;34m[0m[0;34m[0m[0m
+[1;32m   1734[0m     [0mret[0m [0;34m=[0m [0;34m{[0m[0;34m}[0m  [0;31m# output dictionary[0m[0;34m[0m[0;34m[0m[0m
+
+[0;31mKeyboardInterrupt[0m: 
+KeyboardInterrupt: 
+

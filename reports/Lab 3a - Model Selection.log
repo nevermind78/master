@@ -1,0 +1,40 @@
+Traceback (most recent call last):
+  File "/Users/jvanscho/miniforge3/lib/python3.9/site-packages/jupyter_cache/executors/utils.py", line 51, in single_nb_execution
+    executenb(
+  File "/Users/jvanscho/miniforge3/lib/python3.9/site-packages/nbclient/client.py", line 1093, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+  File "/Users/jvanscho/miniforge3/lib/python3.9/site-packages/nbclient/util.py", line 84, in wrapped
+    return just_run(coro(*args, **kwargs))
+  File "/Users/jvanscho/miniforge3/lib/python3.9/site-packages/nbclient/util.py", line 62, in just_run
+    return loop.run_until_complete(coro)
+  File "/Users/jvanscho/miniforge3/lib/python3.9/asyncio/base_events.py", line 642, in run_until_complete
+    return future.result()
+  File "/Users/jvanscho/miniforge3/lib/python3.9/site-packages/nbclient/client.py", line 559, in async_execute
+    await self.async_execute_cell(
+  File "/Users/jvanscho/miniforge3/lib/python3.9/site-packages/nbclient/client.py", line 854, in async_execute_cell
+    self._check_raise_for_error(cell, exec_reply)
+  File "/Users/jvanscho/miniforge3/lib/python3.9/site-packages/nbclient/client.py", line 756, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+from sklearn.preprocessing import StandardScaler
+# Important here is to fit the scaler on the training data alone
+# Then, use it to scale both the training set and test set
+# This assumes that you named your training set X_train. Adapt if needed.
+scaler = StandardScaler().fit(X_train)
+Xs_train = scaler.transform(X_train)
+Xs_test = scaler.transform(X_test)
+------------------
+
+[0;31m---------------------------------------------------------------------------[0m
+[0;31mNameError[0m                                 Traceback (most recent call last)
+[0;32m/var/folders/0t/5d8ttqzd773fy0wq3h5db0xr0000gn/T/ipykernel_17418/1729114955.py[0m in [0;36m<module>[0;34m[0m
+[1;32m      3[0m [0;31m# Then, use it to scale both the training set and test set[0m[0;34m[0m[0;34m[0m[0m
+[1;32m      4[0m [0;31m# This assumes that you named your training set X_train. Adapt if needed.[0m[0;34m[0m[0;34m[0m[0m
+[0;32m----> 5[0;31m [0mscaler[0m [0;34m=[0m [0mStandardScaler[0m[0;34m([0m[0;34m)[0m[0;34m.[0m[0mfit[0m[0;34m([0m[0mX_train[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m      6[0m [0mXs_train[0m [0;34m=[0m [0mscaler[0m[0;34m.[0m[0mtransform[0m[0;34m([0m[0mX_train[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[1;32m      7[0m [0mXs_test[0m [0;34m=[0m [0mscaler[0m[0;34m.[0m[0mtransform[0m[0;34m([0m[0mX_test[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+
+[0;31mNameError[0m: name 'X_train' is not defined
+NameError: name 'X_train' is not defined
+

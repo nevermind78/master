@@ -1,0 +1,67 @@
+Traceback (most recent call last):
+  File "/Users/jvanscho/miniforge3/lib/python3.9/site-packages/jupyter_cache/executors/utils.py", line 51, in single_nb_execution
+    executenb(
+  File "/Users/jvanscho/miniforge3/lib/python3.9/site-packages/nbclient/client.py", line 1093, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+  File "/Users/jvanscho/miniforge3/lib/python3.9/site-packages/nbclient/util.py", line 84, in wrapped
+    return just_run(coro(*args, **kwargs))
+  File "/Users/jvanscho/miniforge3/lib/python3.9/site-packages/nbclient/util.py", line 62, in just_run
+    return loop.run_until_complete(coro)
+  File "/Users/jvanscho/miniforge3/lib/python3.9/asyncio/base_events.py", line 642, in run_until_complete
+    return future.result()
+  File "/Users/jvanscho/miniforge3/lib/python3.9/site-packages/nbclient/client.py", line 559, in async_execute
+    await self.async_execute_cell(
+  File "/Users/jvanscho/miniforge3/lib/python3.9/site-packages/nbclient/client.py", line 854, in async_execute_cell
+    self._check_raise_for_error(cell, exec_reply)
+  File "/Users/jvanscho/miniforge3/lib/python3.9/site-packages/nbclient/client.py", line 756, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+score = automl_with_ensemble.score(X_test, y_test)
+print("ensemble score: {:.4f}".format(score))
+------------------
+
+[0;31m---------------------------------------------------------------------------[0m
+[0;31mTypeError[0m                                 Traceback (most recent call last)
+[0;32m/var/folders/0t/5d8ttqzd773fy0wq3h5db0xr0000gn/T/ipykernel_17839/2789895616.py[0m in [0;36m<module>[0;34m[0m
+[0;32m----> 1[0;31m [0mscore[0m [0;34m=[0m [0mautoml_with_ensemble[0m[0;34m.[0m[0mscore[0m[0;34m([0m[0mX_test[0m[0;34m,[0m [0my_test[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m      2[0m [0mprint[0m[0;34m([0m[0;34m"ensemble score: {:.4f}"[0m[0;34m.[0m[0mformat[0m[0;34m([0m[0mscore[0m[0;34m)[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/miniforge3/lib/python3.9/site-packages/gama/gama.py[0m in [0;36mscore[0;34m(self, x, y)[0m
+[1;32m    383[0m             [0mself[0m[0;34m.[0m[0mpredict_proba[0m[0;34m([0m[0mx[0m[0;34m)[0m  [0;31m# type: ignore[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    384[0m             [0;32mif[0m [0mself[0m[0;34m.[0m[0m_metrics[0m[0;34m[[0m[0;36m0[0m[0;34m][0m[0;34m.[0m[0mrequires_probabilities[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 385[0;31m             [0;32melse[0m [0mself[0m[0;34m.[0m[0mpredict[0m[0;34m([0m[0mx[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    386[0m         )
+[1;32m    387[0m         [0;32mreturn[0m [0mself[0m[0;34m.[0m[0m_metrics[0m[0;34m[[0m[0;36m0[0m[0;34m][0m[0;34m.[0m[0mscore[0m[0;34m([0m[0my[0m[0;34m,[0m [0mpredictions[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/miniforge3/lib/python3.9/site-packages/gama/gama.py[0m in [0;36mpredict[0;34m(self, x)[0m
+[1;32m    328[0m         """
+[1;32m    329[0m         [0mx[0m [0;34m=[0m [0mself[0m[0;34m.[0m[0m_prepare_for_prediction[0m[0;34m([0m[0mx[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 330[0;31m         [0;32mreturn[0m [0mself[0m[0;34m.[0m[0m_predict[0m[0;34m([0m[0mx[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    331[0m [0;34m[0m[0m
+[1;32m    332[0m     def predict_from_file(
+
+[0;32m~/miniforge3/lib/python3.9/site-packages/gama/GamaClassifier.py[0m in [0;36m_predict[0;34m(self, x)[0m
+[1;32m     51[0m             [0mArray[0m [0;32mwith[0m [0mpredictions[0m [0mof[0m [0mshape[0m [0;34m([0m[0mN[0m[0;34m,[0m[0;34m)[0m [0mwhere[0m [0mN[0m [0;32mis[0m [0mlen[0m[0;34m([0m[0mX[0m[0;34m)[0m[0;34m.[0m[0;34m[0m[0;34m[0m[0m
+[1;32m     52[0m         """
+[0;32m---> 53[0;31m         [0my[0m [0;34m=[0m [0mself[0m[0;34m.[0m[0mmodel[0m[0;34m.[0m[0mpredict[0m[0;34m([0m[0mx[0m[0;34m)[0m  [0;31m# type: ignore[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m     54[0m         [0;31m# Decode the predicted labels - necessary only if ensemble is not used.[0m[0;34m[0m[0;34m[0m[0m
+[1;32m     55[0m         [0;32mif[0m [0my[0m[0;34m[[0m[0;36m0[0m[0;34m][0m [0;32mnot[0m [0;32min[0m [0mself[0m[0;34m.[0m[0m_label_encoder[0m[0;34m.[0m[0mclasses_[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/miniforge3/lib/python3.9/site-packages/gama/postprocessing/ensemble.py[0m in [0;36mpredict[0;34m(self, X)[0m
+[1;32m    463[0m             )
+[1;32m    464[0m         [0;32melse[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 465[0;31m             class_probabilities = self._get_weighted_mean_predictions(
+[0m[1;32m    466[0m                 [0mX[0m[0;34m,[0m [0;34m"predict"[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    467[0m             ).toarray()
+
+[0;32m~/miniforge3/lib/python3.9/site-packages/gama/postprocessing/ensemble.py[0m in [0;36m_get_weighted_mean_predictions[0;34m(self, X, predict_method)[0m
+[1;32m    357[0m     [0;32mdef[0m [0m_get_weighted_mean_predictions[0m[0;34m([0m[0mself[0m[0;34m,[0m [0mX[0m[0;34m,[0m [0mpredict_method[0m[0;34m=[0m[0;34m"predict"[0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    358[0m         [0mweighted_predictions[0m [0;34m=[0m [0;34m[[0m[0;34m][0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 359[0;31m         [0;32mfor[0m [0;34m([0m[0mmodel[0m[0;34m,[0m [0mweight[0m[0;34m)[0m [0;32min[0m [0mself[0m[0;34m.[0m[0m_fit_models[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    360[0m             [0mtarget_prediction[0m [0;34m=[0m [0mgetattr[0m[0;34m([0m[0mmodel[0m[0;34m,[0m [0mpredict_method[0m[0;34m)[0m[0;34m([0m[0mX[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    361[0m             [0;32mif[0m [0mself[0m[0;34m.[0m[0m_prediction_transformation[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+
+[0;31mTypeError[0m: 'NoneType' object is not iterable
+TypeError: 'NoneType' object is not iterable
+
