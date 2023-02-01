@@ -42,6 +42,8 @@
     <script src="_static/copybutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
     <script>
         const thebe_selector = ".thebe"
@@ -507,13 +509,14 @@ Upon opening the notebooks, you can <i class="fas fa-rocket"></i> launch them in
 <td><p><a class="reference external" href="https://www.youtube.com/watch?v=D-7JgAUlxb4&amp;list=PLl4kuMJ32K2r2CUKkZSVVxDnjB4NM335-">Youtube</a></p></td>
 </tr>
 <tr class="row-odd"><td class="text-align:left"><p>10</p></td>
-<td class="text-align:left"><p><a class="reference external" href="https://ml-course.github.io/master/notebooks/010%20-%20Neural%20Networks%20for%20text.html">Neural Networks for text</a></p></td>
-<td><p><a class="reference external" href="https://ml-course.github.io/master/10%20-%20Neural%20Networks%20for%20text.slides.html">HTML</a>  - <a class="reference external" href="https://ml-course.github.io/master/10%20-%20Neural%20Networks%20for%20text.pdf">PDF</a></p></td>
-<td><p><a class="reference external" href="https://www.youtube.com/watch?v=THbqTlVNIPg&amp;list=PLl4kuMJ32K2r2CUKkZSVVxDnjB4NM335-">Youtube</a></p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://ml-course.github.io/master/notebooks/010%20-%20Neural%20Networks%20for%20text.html">Neural Networks for text</a><sup>2</sup></p></td>
+<td><p><a class="reference external" href="https://ml-course.github.io/master/10%20-%20Neural%20Networks%20for%20text.slides.html">HTML</a><sup>2</sup>  - <a class="reference external" href="https://ml-course.github.io/master/10%20-%20Neural%20Networks%20for%20text.pdf">PDF</a><sup>2</sup></p></td>
+<td><p><a class="reference external" href="https://www.youtube.com/watch?v=THbqTlVNIPg&amp;list=PLl4kuMJ32K2r2CUKkZSVVxDnjB4NM335-">Youtube</a><sup>2</sup></p></td>
 </tr>
 </tbody>
 </table>
-<p><sup>1</sup> The order of the slides in the video is slightly different.</p>
+<p><sup>1</sup> The order of the slides in the video is slightly different.<br />
+<sup>2</sup> This lecture will be significantly updated. Stay tuned.</p>
 <div class="admonition-get-your-hands-dirty admonition">
 <p class="admonition-title">Get your hands dirty</p>
 <p>Retrieve all materials by cloning the <i class="fab fa-github"></i> <a class="reference external" href="https://ml-course.github.io/master">GitHub repo</a>. To run the notebooks locally, see the <a class="reference external" href="https://ml-course.github.io/master/labs/Lab%200%20-%20Prerequisites.html">prerequisites</a>.</p>
@@ -539,42 +542,42 @@ Upon opening the notebooks, you can <i class="fas fa-rocket"></i> launch them in
 <tr class="row-even"><td class="text-align:left"><p>1</p></td>
 <td class="text-align:left"><p><a class="reference external" href="https://ml-course.github.io/master/labs/Lab%201a%20-%20Linear%20Models%20for%20Regression">Linear Models for regression</a> <br> <a class="reference external" href="https://ml-course.github.io/master/labs/Lab%201b%20-%20Linear%20Models%20for%20Classification">Linear Models for classification</a></p></td>
 <td><p><a class="reference external" href="https://ml-course.github.io/master/labs/Lab%201%20-%20Tutorial">Tutorial</a></p></td>
-<td><p><a class="reference external" href="https://ml-course.github.io/master/labs/Lab%201a%20-%20Linear%20Models%20for%20Regression%20Solution">Lab 1a</a> <br> <a class="reference external" href="https://ml-course.github.io/master/labs/Lab%201b%20-%20Linear%20Models%20for%20Classification%20Solution">Lab 1b</a> (Release date: 9 Feb, 12:00)<br></p></td>
+<td><p><a class="reference external" href="https://ml-course.github.io/master/labs/Lab%201a%20-%20Linear%20Models%20for%20Regression%20Solution">Lab 1a</a> <br> <a class="reference external" href="https://ml-course.github.io/master/labs/Lab%201b%20-%20Linear%20Models%20for%20Classification%20Solution">Lab 1b</a> (Release date: 8 Feb, 12:00)<br></p></td>
 </tr>
 <tr class="row-odd"><td class="text-align:left"><p>2</p></td>
 <td class="text-align:left"><p><a class="reference external" href="https://ml-course.github.io/master/labs/Lab%202%20-%20Kernelization">Kernelization</a></p></td>
 <td><p>/</p></td>
-<td><p><a class="reference external" href="https://ml-course.github.io/master/labs/Lab%202%20-%20Kernelization%20Solution">Lab 2</a> (Release date: 16 Feb, 12:00)</p></td>
+<td><p><a class="reference external" href="https://ml-course.github.io/master/labs/Lab%202%20-%20Kernelization%20Solution">Lab 2</a> (Release date: 15 Feb, 12:00)</p></td>
 </tr>
 <tr class="row-even"><td class="text-align:left"><p>3</p></td>
 <td class="text-align:left"><p><a class="reference external" href="https://ml-course.github.io/master/labs/Lab%203a%20-%20Model%20Selection">Model Selection</a> <br> <a class="reference external" href="https://ml-course.github.io/master/labs/Lab%203b%20-%20Ensembles">Ensembles</a></p></td>
 <td><p><a class="reference external" href="https://ml-course.github.io/master/labs/Lab%203%20-%20Tutorial">Tutorial</a></p></td>
-<td><p><a class="reference external" href="https://ml-course.github.io/master/labs/Lab%203a%20-%20Model%20Selection%20Solution">Lab 3a</a> <br> <a class="reference external" href="https://ml-course.github.io/master/labs/Lab%203b%20-%20Ensembles%20Solution">Lab 3b</a> (Release date: 24 Feb, 12:00)</p></td>
+<td><p><a class="reference external" href="https://ml-course.github.io/master/labs/Lab%203a%20-%20Model%20Selection%20Solution">Lab 3a</a> <br> <a class="reference external" href="https://ml-course.github.io/master/labs/Lab%203b%20-%20Ensembles%20Solution">Lab 3b</a> (Release date: 1 Mar, 12:00)</p></td>
 </tr>
 <tr class="row-odd"><td class="text-align:left"><p>4</p></td>
 <td class="text-align:left"><p><a class="reference external" href="https://ml-course.github.io/master/labs/Lab%204%20-%20Pipelines">Data engineering</a></p></td>
 <td><p><a class="reference external" href="https://ml-course.github.io/master/labs/Lab%204%20-%20Tutorial">Tutorial</a></p></td>
-<td><p><a class="reference external" href="https://ml-course.github.io/master/labs/Lab%204%20-%20Pipelines%20Solution">Lab 4</a> (Release date: 9 Mar, 12:00)</p></td>
+<td><p><a class="reference external" href="https://ml-course.github.io/master/labs/Lab%204%20-%20Pipelines%20Solution">Lab 4</a> (Release date: 8 Mar, 12:00)</p></td>
 </tr>
 <tr class="row-even"><td class="text-align:left"><p>5</p></td>
 <td class="text-align:left"><p><a class="reference external" href="https://ml-course.github.io/master/labs/Lab%205%20-%20Bayesian%20learning">Bayesian learning</a></p></td>
 <td><p>/</p></td>
-<td><p><a class="reference external" href="https://ml-course.github.io/master/labs/Lab%205%20-%20Bayesian%20learning%20Solution">Lab 5</a> (Release date: 16 Mar, 12:00)</p></td>
+<td><p><a class="reference external" href="https://ml-course.github.io/master/labs/Lab%205%20-%20Bayesian%20learning%20Solution">Lab 5</a> (Release date: 15 Mar, 12:00)</p></td>
 </tr>
 <tr class="row-odd"><td class="text-align:left"><p>6</p></td>
 <td class="text-align:left"><p><a class="reference external" href="https://ml-course.github.io/master/labs/Lab%206%20-%20Neural%20Networks">Neural Networks</a></p></td>
 <td><p><a class="reference external" href="https://ml-course.github.io/master/labs/Lab%206%20-%20Tutorial">Tutorial</a></p></td>
-<td><p><a class="reference external" href="https://ml-course.github.io/master/labs/Lab%206%20-%20Neural%20Networks%20Solution">Lab 6</a> (Release date: 23 Mar, 12:00)</p></td>
+<td><p><a class="reference external" href="https://ml-course.github.io/master/labs/Lab%206%20-%20Neural%20Networks%20Solution">Lab 6</a> (Release date: 22 Mar, 12:00)</p></td>
 </tr>
 <tr class="row-even"><td class="text-align:left"><p>7</p></td>
 <td class="text-align:left"><p><a class="reference external" href="https://ml-course.github.io/master/labs/Lab%207a%20-%20Convolutional%20Neural%20Networks">Neural Nets for Images</a> <br> <a class="reference external" href="https://ml-course.github.io/master/labs/Lab%207b%20-%20Neural%20Networks%20for%20text">Neural Nets for Text</a></p></td>
 <td><p><a class="reference external" href="https://ml-course.github.io/master/labs/Lab%207%20-%20Tutorial">Tutorial</a></p></td>
-<td><p><a class="reference external" href="https://ml-course.github.io/master/labs/Lab%207a%20-%20Convolutional%20Neural%20Networks%20Solution">Lab 7a</a> <br> <a class="reference external" href="https://ml-course.github.io/master/labs/Lab%207b%20-%20Neural%20Networks%20for%20text%20Solution">Lab 7b</a> (Release date: 30 Mar, 12:00)</p></td>
+<td><p><a class="reference external" href="https://ml-course.github.io/master/labs/Lab%207a%20-%20Convolutional%20Neural%20Networks%20Solution">Lab 7a</a> <br> <a class="reference external" href="https://ml-course.github.io/master/labs/Lab%207b%20-%20Neural%20Networks%20for%20text%20Solution">Lab 7b</a> (Release date: 29 Mar, 12:00)</p></td>
 </tr>
 <tr class="row-odd"><td class="text-align:left"><p>8</p></td>
-<td class="text-align:left"><p><a class="reference external" href="https://ml-course.github.io/master/labs/Lab%208%20-%20AutoML">AutoML</a></p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://ml-course.github.io/master/labs/Lab%208%20-%20AutoML">AutoML</a> (may change)</p></td>
 <td><p>/</p></td>
-<td><p><a class="reference external" href="https://ml-course.github.io/master/labs/Lab%208%20-%20AutoML%20Solution">Lab 8</a> (Release date: 6 Apr, 12:00)</p></td>
+<td><p><a class="reference external" href="https://ml-course.github.io/master/labs/Lab%208%20-%20AutoML%20Solution">Lab 8</a> (Release date: 5 Apr, 12:00)</p></td>
 </tr>
 </tbody>
 </table>

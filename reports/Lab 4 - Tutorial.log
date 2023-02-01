@@ -20,7 +20,7 @@ nbclient.exceptions.CellExecutionError: An error occurred while executing the fo
 print("SVM component: {}".format(pipe.named_steps['svm']f))
 ------------------
 
-[0;36m  File [0;32m"/var/folders/0t/5d8ttqzd773fy0wq3h5db0xr0000gn/T/ipykernel_17470/4077450939.py"[0;36m, line [0;32m1[0m
+[0;36m  File [0;32m"/var/folders/0t/5d8ttqzd773fy0wq3h5db0xr0000gn/T/ipykernel_3486/4077450939.py"[0;36m, line [0;32m1[0m
 [0;31m    print("SVM component: {}".format(pipe.named_steps['svm']f))[0m
 [0m                                                            ^[0m
 [0;31mSyntaxError[0m[0;31m:[0m invalid syntax

@@ -42,6 +42,8 @@
     <script src="../_static/copybutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
@@ -715,13 +717,13 @@
 <span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
 <span class="k">if</span> <span class="s1">&#39;google.colab&#39;</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">get_ipython</span><span class="p">())</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s1">&#39;/content/master&#39;</span><span class="p">):</span>
     <span class="o">!</span>git clone -q https://github.com/ML-course/master.git /content/master
-    <span class="o">!</span>pip install -rq master/requirements_colab.txt
+    <span class="o">!</span>pip --quiet install -r /content/master/requirements_colab.txt
     <span class="o">%</span><span class="k">cd</span> master/notebooks
 
 <span class="c1"># Global imports and settings</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
 <span class="kn">from</span> <span class="nn">preamble</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="n">interactive</span> <span class="o">=</span> <span class="kc">False</span> <span class="c1"># Set to True for interactive plots </span>
+<span class="n">interactive</span> <span class="o">=</span> <span class="kc">True</span> <span class="c1"># Set to True for interactive plots </span>
 <span class="k">if</span> <span class="n">interactive</span><span class="p">:</span>
     <span class="n">fig_scale</span> <span class="o">=</span> <span class="mf">0.5</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">print_config</span><span class="p">)</span>
@@ -987,7 +989,7 @@
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "a3b1bfce5c144e348c03372a60d6a90f", "version_major": 2, "version_minor": 0}
+{"model_id": "d228e35fe8c741e78f49238a239afc5d", "version_major": 2, "version_minor": 0}
 </script></div>
 </div>
 <div class="cell docutils container">
@@ -1003,9 +1005,6 @@
     <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/09 - Convolutional Neural Networks_10_0.png" src="../_images/09 - Convolutional Neural Networks_10_0.png" />
 </div>
 </div>
 <div class="section" id="demonstration-on-google-streetview-data">
@@ -1075,7 +1074,7 @@
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "d933ad41693b4172b228569705545fb3", "version_major": 2, "version_minor": 0}
+{"model_id": "68a07fb0b1cf4dd9b7f1ed7d4d87be4d", "version_major": 2, "version_minor": 0}
 </script></div>
 </div>
 <div class="cell docutils container">
@@ -1091,9 +1090,6 @@
     <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/09 - Convolutional Neural Networks_18_0.png" src="../_images/09 - Convolutional Neural Networks_18_0.png" />
 </div>
 </div>
 </div>
@@ -1135,7 +1131,7 @@
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "7e41a8eb658b4ae194d3a709292892be", "version_major": 2, "version_minor": 0}
+{"model_id": "0e4df97c1b9c4e8b882472b2cd407c4b", "version_major": 2, "version_minor": 0}
 </script></div>
 </div>
 <div class="cell docutils container">
@@ -1150,9 +1146,6 @@
     <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/09 - Convolutional Neural Networks_22_0.png" src="../_images/09 - Convolutional Neural Networks_22_0.png" />
 </div>
 </div>
 <p>Demonstration on the streetview data</p>
@@ -1192,7 +1185,7 @@
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "7c754d8dcf764f459e98a8824c370b7b", "version_major": 2, "version_minor": 0}
+{"model_id": "67cea1abb845453f9ad50205a03a6b85", "version_major": 2, "version_minor": 0}
 </script></div>
 </div>
 <div class="cell docutils container">
@@ -1201,9 +1194,6 @@
     <span class="n">demoGabor2</span><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><span class="mf">0.16</span><span class="p">,</span> <span class="n">theta</span><span class="o">=</span><span class="mf">1.4</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="mf">1.2</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/09 - Convolutional Neural Networks_26_0.png" src="../_images/09 - Convolutional Neural Networks_26_0.png" />
 </div>
 </div>
 </div>
@@ -1341,7 +1331,7 @@
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "fabe29b671d24659b1b1d0edb7357766", "version_major": 2, "version_minor": 0}
+{"model_id": "08921668ab1c45f7abe8297a345f4d87", "version_major": 2, "version_minor": 0}
 </script></div>
 </div>
 <div class="cell docutils container">
@@ -1350,9 +1340,6 @@
     <span class="n">demoGabor3</span><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><span class="mf">0.81</span><span class="p">,</span> <span class="n">theta</span><span class="o">=</span><span class="mf">2.7</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/09 - Convolutional Neural Networks_34_0.png" src="../_images/09 - Convolutional Neural Networks_34_0.png" />
 </div>
 </div>
 <p>Fashion MNIST with multiple filters (filter bank)</p>
@@ -1833,7 +1820,7 @@ _________________________________________________________________
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Found 31 images belonging to 2 classes.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Found 20 images belonging to 2 classes.
 Found 20 images belonging to 2 classes.
 </pre></div>
 </div>
@@ -2167,7 +2154,7 @@ _________________________________________________________________
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Found 31 images belonging to 2 classes.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Found 20 images belonging to 2 classes.
 Found 20 images belonging to 2 classes.
 </pre></div>
 </div>
@@ -3356,7 +3343,7 @@ _________________________________________________________________
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Found 31 images belonging to 2 classes.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Found 20 images belonging to 2 classes.
 Found 20 images belonging to 2 classes.
 </pre></div>
 </div>

@@ -527,6 +527,12 @@ It contains about 100,000 observations of 7 types of trees (Spruce, Pine, Cotton
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/jvanscho/miniforge3/lib/python3.9/site-packages/statsmodels/tools/_testing.py:19: FutureWarning: pandas.util.testing is deprecated. Use the functions in the public API at pandas.testing instead.
+  import pandas.util.testing as tm
+</pre></div>
+</div>
+</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -535,6 +541,34 @@ It contains about 100,000 observations of 7 types of trees (Spruce, Pine, Cotton
 <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">covertype</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">covertype</span><span class="o">.</span><span class="n">default_target_attribute</span><span class="p">,</span> <span class="n">dataset_format</span><span class="o">=</span><span class="s1">&#39;array&#39;</span><span class="p">);</span> 
 <span class="n">classes</span> <span class="o">=</span> <span class="n">covertype</span><span class="o">.</span><span class="n">retrieve_class_labels</span><span class="p">()</span>
 <span class="n">features</span> <span class="o">=</span> <span class="p">[</span><span class="n">f</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">f</span> <span class="ow">in</span> <span class="n">covertype</span><span class="o">.</span><span class="n">features</span><span class="o">.</span><span class="n">items</span><span class="p">()][:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">AttributeError</span><span class="g g-Whitespace">                            </span>Traceback (most recent call last)
+<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="mi">0</span><span class="n">t</span><span class="o">/</span><span class="mi">5</span><span class="n">d8ttqzd773fy0wq3h5db0xr0000gn</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_3476</span><span class="o">/</span><span class="mf">2692424945.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># Download Covertype data. Takes a while the first time.</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">covertype</span> <span class="o">=</span> <span class="n">oml</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">get_dataset</span><span class="p">(</span><span class="mi">180</span><span class="p">)</span>
+<span class="ne">----&gt; </span><span class="mi">3</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">covertype</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">covertype</span><span class="o">.</span><span class="n">default_target_attribute</span><span class="p">,</span> <span class="n">dataset_format</span><span class="o">=</span><span class="s1">&#39;array&#39;</span><span class="p">);</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">classes</span> <span class="o">=</span> <span class="n">covertype</span><span class="o">.</span><span class="n">retrieve_class_labels</span><span class="p">()</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="n">features</span> <span class="o">=</span> <span class="p">[</span><span class="n">f</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">f</span> <span class="ow">in</span> <span class="n">covertype</span><span class="o">.</span><span class="n">features</span><span class="o">.</span><span class="n">items</span><span class="p">()][:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="nn">~/miniforge3/lib/python3.9/site-packages/openml/datasets/dataset.py</span> in <span class="ni">get_data</span><span class="nt">(self, target, include_row_id, include_ignore_attribute, dataset_format)</span>
+<span class="g g-Whitespace">    </span><span class="mi">696</span>             <span class="n">List</span> <span class="n">of</span> <span class="n">attribute</span> <span class="n">names</span><span class="o">.</span>
+<span class="g g-Whitespace">    </span><span class="mi">697</span>         <span class="s2">&quot;&quot;&quot;</span>
+<span class="ne">--&gt; </span><span class="mi">698</span><span class="s2">         data, categorical, attribute_names = self._load_data()</span>
+<span class="g g-Whitespace">    </span><span class="mi">699</span><span class="s2"> </span>
+<span class="g g-Whitespace">    </span><span class="mi">700</span><span class="s2">         to_exclude = []</span>
+
+<span class="nn">~/miniforge3/lib/python3.9/site-packages/openml/datasets/dataset.py</span> in <span class="ni">_load_data</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">    </span><span class="mi">542</span><span class="s2">             else:</span>
+<span class="g g-Whitespace">    </span><span class="mi">543</span><span class="s2">                 with open(self.data_pickle_file, &quot;rb&quot;) as fh:</span>
+<span class="ne">--&gt; </span><span class="mi">544</span><span class="s2">                     data, categorical, attribute_names = pickle.load(fh)</span>
+<span class="g g-Whitespace">    </span><span class="mi">545</span><span class="s2">         except FileNotFoundError:</span>
+<span class="g g-Whitespace">    </span><span class="mi">546</span><span class="s2">             raise ValueError(f&quot;Cannot find file for dataset </span><span class="si">{self.name}</span><span class="s2"> at location &#39;</span><span class="si">{fpath}</span><span class="s2">&#39;.&quot;)</span>
+
+<span class="ne">AttributeError</span>: Can&#39;t get attribute &#39;_unpickle_block&#39; on &lt;module &#39;pandas._libs.internals&#39; from &#39;/Users/jvanscho/miniforge3/lib/python3.9/site-packages/pandas/_libs/internals.cpython-39-darwin.so&#39;&gt;
 </pre></div>
 </div>
 </div>

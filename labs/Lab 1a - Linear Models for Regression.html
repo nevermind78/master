@@ -584,6 +584,33 @@
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">AttributeError</span><span class="g g-Whitespace">                            </span>Traceback (most recent call last)
+<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="mi">0</span><span class="n">t</span><span class="o">/</span><span class="mi">5</span><span class="n">d8ttqzd773fy0wq3h5db0xr0000gn</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_3445</span><span class="o">/</span><span class="mf">1269692864.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># Download NO2 data. Takes a while the first time.</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">no2</span> <span class="o">=</span> <span class="n">oml</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">get_dataset</span><span class="p">(</span><span class="mi">547</span><span class="p">)</span>
+<span class="ne">----&gt; </span><span class="mi">3</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">no2</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">no2</span><span class="o">.</span><span class="n">default_target_attribute</span><span class="p">);</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">attribute_names</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+
+<span class="nn">~/miniforge3/lib/python3.9/site-packages/openml/datasets/dataset.py</span> in <span class="ni">get_data</span><span class="nt">(self, target, include_row_id, include_ignore_attribute, dataset_format)</span>
+<span class="g g-Whitespace">    </span><span class="mi">696</span>             <span class="n">List</span> <span class="n">of</span> <span class="n">attribute</span> <span class="n">names</span><span class="o">.</span>
+<span class="g g-Whitespace">    </span><span class="mi">697</span>         <span class="s2">&quot;&quot;&quot;</span>
+<span class="ne">--&gt; </span><span class="mi">698</span><span class="s2">         data, categorical, attribute_names = self._load_data()</span>
+<span class="g g-Whitespace">    </span><span class="mi">699</span><span class="s2"> </span>
+<span class="g g-Whitespace">    </span><span class="mi">700</span><span class="s2">         to_exclude = []</span>
+
+<span class="nn">~/miniforge3/lib/python3.9/site-packages/openml/datasets/dataset.py</span> in <span class="ni">_load_data</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">    </span><span class="mi">542</span><span class="s2">             else:</span>
+<span class="g g-Whitespace">    </span><span class="mi">543</span><span class="s2">                 with open(self.data_pickle_file, &quot;rb&quot;) as fh:</span>
+<span class="ne">--&gt; </span><span class="mi">544</span><span class="s2">                     data, categorical, attribute_names = pickle.load(fh)</span>
+<span class="g g-Whitespace">    </span><span class="mi">545</span><span class="s2">         except FileNotFoundError:</span>
+<span class="g g-Whitespace">    </span><span class="mi">546</span><span class="s2">             raise ValueError(f&quot;Cannot find file for dataset </span><span class="si">{self.name}</span><span class="s2"> at location &#39;</span><span class="si">{fpath}</span><span class="s2">&#39;.&quot;)</span>
+
+<span class="ne">AttributeError</span>: Can&#39;t get attribute &#39;_unpickle_block&#39; on &lt;module &#39;pandas._libs.internals&#39; from &#39;/Users/jvanscho/miniforge3/lib/python3.9/site-packages/pandas/_libs/internals.cpython-39-darwin.so&#39;&gt;
+</pre></div>
+</div>
+</div>
 </div>
 <div class="section" id="quick-visualization">
 <h2>Quick visualization<a class="headerlink" href="#quick-visualization" title="Permalink to this headline">¶</a></h2>
@@ -706,7 +733,7 @@
 </div>
 <div class="section" id="exercise-1-model-benchmark">
 <h2>Exercise 1: Model benchmark<a class="headerlink" href="#exercise-1-model-benchmark" title="Permalink to this headline">¶</a></h2>
-<p>It is clear that <span class="math notranslate nohighlight">\(NO_2\)</span> concentrations depend on a combination of these features, so we will now try to learn this complex relationship. We first evaluate a range of linear regression problems, i.e. Linear Regression, Ridge, Lasso and ElasticNet, as well as kNN. Since we observed that somf features have very different scales, we’ll also build pipelines of all these measures with an additional scaling step. For now, we’ll stick to the default hyperparameter settings.</p>
+<p>It is clear that <span class="math notranslate nohighlight">\(NO_2\)</span> concentrations depend on a combination of these features, so we will now try to learn this complex relationship. We first evaluate a range of linear regression problems, i.e. Linear Regression, Ridge, Lasso and ElasticNet, as well as kNN. Since we observed that some features have very different scales, we’ll also build pipelines of all these measures with an additional scaling step. For now, we’ll stick to the default hyperparameter settings.</p>
 <div class="section" id="exercise-1-1">
 <h3>Exercise 1.1<a class="headerlink" href="#exercise-1-1" title="Permalink to this headline">¶</a></h3>
 <p>Implement a function below which evaluates each classifier passed into it on the given data, and then returns both the train and test scores of each as a list. You are allowed to import additional functions from whichever module you like, but you should be able to complete the function with <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.cross_validate.html"><code class="docutils literal notranslate"><span class="pre">cross_validate</span></code></a> function and standard Python built-ins. Below you the function you will find example output.</p>

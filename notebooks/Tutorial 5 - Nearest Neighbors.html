@@ -548,6 +548,48 @@
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">TypeError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="mi">0</span><span class="n">t</span><span class="o">/</span><span class="mi">5</span><span class="n">d8ttqzd773fy0wq3h5db0xr0000gn</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_3707</span><span class="o">/</span><span class="mf">659089216.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">      </span><span class="mi">8</span> <span class="c1"># Global imports and settings</span>
+<span class="g g-Whitespace">      </span><span class="mi">9</span> <span class="n">get_ipython</span><span class="p">()</span><span class="o">.</span><span class="n">run_line_magic</span><span class="p">(</span><span class="s1">&#39;matplotlib&#39;</span><span class="p">,</span> <span class="s1">&#39;inline&#39;</span><span class="p">)</span>
+<span class="ne">---&gt; </span><span class="mi">10</span> <span class="kn">from</span> <span class="nn">preamble</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="g g-Whitespace">     </span><span class="mi">11</span> <span class="n">interactive</span> <span class="o">=</span> <span class="kc">True</span> <span class="c1"># Set to True for interactive plots</span>
+<span class="g g-Whitespace">     </span><span class="mi">12</span> <span class="k">if</span> <span class="n">interactive</span><span class="p">:</span>
+
+<span class="o">~/</span><span class="n">Documents</span><span class="o">/</span><span class="n">ml</span><span class="o">-</span><span class="n">course</span><span class="o">/</span><span class="n">master</span><span class="o">/</span><span class="n">notebooks</span><span class="o">/</span><span class="n">preamble</span><span class="o">.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="kn">import</span> <span class="nn">openml</span> <span class="k">as</span> <span class="nn">oml</span>
+<span class="ne">----&gt; </span><span class="mi">7</span> <span class="kn">import</span> <span class="nn">mglearn</span>
+<span class="g g-Whitespace">      </span><span class="mi">8</span> <span class="kn">import</span> <span class="nn">os</span>
+<span class="g g-Whitespace">      </span><span class="mi">9</span> <span class="kn">from</span> <span class="nn">cycler</span> <span class="kn">import</span> <span class="n">cycler</span>
+
+<span class="o">~/</span><span class="n">Documents</span><span class="o">/</span><span class="n">ml</span><span class="o">-</span><span class="n">course</span><span class="o">/</span><span class="n">master</span><span class="o">/</span><span class="n">notebooks</span><span class="o">/</span><span class="n">mglearn</span><span class="o">/</span><span class="fm">__init__</span><span class="o">.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">plots</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">tools</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="kn">from</span> <span class="nn">.plots</span> <span class="kn">import</span> <span class="n">cm3</span><span class="p">,</span> <span class="n">cm2</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="kn">from</span> <span class="nn">.tools</span> <span class="kn">import</span> <span class="n">discrete_scatter</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="kn">from</span> <span class="nn">.plot_helpers</span> <span class="kn">import</span> <span class="n">ReBl</span>
+
+<span class="o">~/</span><span class="n">Documents</span><span class="o">/</span><span class="n">ml</span><span class="o">-</span><span class="n">course</span><span class="o">/</span><span class="n">master</span><span class="o">/</span><span class="n">notebooks</span><span class="o">/</span><span class="n">mglearn</span><span class="o">/</span><span class="n">plots</span><span class="o">.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">     </span><span class="mi">13</span> <span class="kn">from</span> <span class="nn">.plot_tree_nonmonotonous</span> <span class="kn">import</span> <span class="n">plot_tree_not_monotone</span>
+<span class="g g-Whitespace">     </span><span class="mi">14</span> <span class="kn">from</span> <span class="nn">.plot_scaling</span> <span class="kn">import</span> <span class="n">plot_scaling</span>
+<span class="ne">---&gt; </span><span class="mi">15</span> <span class="kn">from</span> <span class="nn">.plot_pca</span> <span class="kn">import</span> <span class="n">plot_pca_illustration</span><span class="p">,</span> <span class="n">plot_pca_whitening</span><span class="p">,</span> <span class="n">plot_pca_faces</span>
+<span class="g g-Whitespace">     </span><span class="mi">16</span> <span class="kn">from</span> <span class="nn">.plot_decomposition</span> <span class="kn">import</span> <span class="n">plot_decomposition</span>
+<span class="g g-Whitespace">     </span><span class="mi">17</span> <span class="kn">from</span> <span class="nn">.plot_nmf</span> <span class="kn">import</span> <span class="n">plot_nmf_illustration</span><span class="p">,</span> <span class="n">plot_nmf_faces</span>
+
+<span class="o">~/</span><span class="n">Documents</span><span class="o">/</span><span class="n">ml</span><span class="o">-</span><span class="n">course</span><span class="o">/</span><span class="n">master</span><span class="o">/</span><span class="n">notebooks</span><span class="o">/</span><span class="n">mglearn</span><span class="o">/</span><span class="n">plot_pca</span><span class="o">.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="kn">from</span> <span class="nn">joblib</span> <span class="kn">import</span> <span class="n">Memory</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span> 
+<span class="ne">----&gt; </span><span class="mi">7</span> <span class="n">memory</span> <span class="o">=</span> <span class="n">Memory</span><span class="p">(</span><span class="n">cachedir</span><span class="o">=</span><span class="s2">&quot;cache&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">8</span> 
+<span class="g g-Whitespace">      </span><span class="mi">9</span> 
+
+<span class="ne">TypeError</span>: __init__() got an unexpected keyword argument &#39;cachedir&#39;
+</pre></div>
+</div>
+</div>
 </div>
 <div class="section" id="k-nearest-neighbor-classification">
 <h2>k-Nearest Neighbor Classification<a class="headerlink" href="#k-nearest-neighbor-classification" title="Permalink to this headline">¶</a></h2>
@@ -655,27 +697,27 @@ k&gt;1: do a vote and return the majority (or a confidence value for each class)
 </div>
 <div class="section" id="scalability">
 <h4>Scalability<a class="headerlink" href="#scalability" title="Permalink to this headline">¶</a></h4>
-<p>With n = nr examples and p = nr features</p>
+<p>With <span class="math notranslate nohighlight">\(n\)</span> = nr examples and <span class="math notranslate nohighlight">\(p\)</span> = nr features</p>
 <ul class="simple">
 <li><p>Nearest shrunken threshold</p>
 <ul>
-<li><p>Fit: <span class="math notranslate nohighlight">\(O(n * p)\)</span></p></li>
-<li><p>Memory: <span class="math notranslate nohighlight">\(O(nrclasses * p)\)</span></p></li>
-<li><p>Predict: <span class="math notranslate nohighlight">\(O(nrclasses * p)\)</span></p></li>
+<li><p>Fit: <span class="math notranslate nohighlight">\(O(n \cdot p)\)</span></p></li>
+<li><p>Memory: <span class="math notranslate nohighlight">\(O(\text{nrclasses} \cdot p)\)</span></p></li>
+<li><p>Predict: <span class="math notranslate nohighlight">\(O(\text{nrclasses} \cdot p)\)</span></p></li>
 </ul>
 </li>
 <li><p>Nearest neighbors (naive)</p>
 <ul>
 <li><p>Fit: <span class="math notranslate nohighlight">\(0\)</span></p></li>
-<li><p>Memory: <span class="math notranslate nohighlight">\(O(n * p)\)</span></p></li>
-<li><p>Predict: <span class="math notranslate nohighlight">\(O(n * p)\)</span></p></li>
+<li><p>Memory: <span class="math notranslate nohighlight">\(O(n \cdot p)\)</span></p></li>
+<li><p>Predict: <span class="math notranslate nohighlight">\(O(n \cdot p)\)</span></p></li>
 </ul>
 </li>
 <li><p>Nearest neighbors (with KD trees)</p>
 <ul>
-<li><p>Fit: <span class="math notranslate nohighlight">\(O(p * n log n)\)</span></p></li>
-<li><p>Memory: <span class="math notranslate nohighlight">\(O(n * p)\)</span></p></li>
-<li><p>Predict: <span class="math notranslate nohighlight">\(O(k * log n)\)</span></p></li>
+<li><p>Fit: <span class="math notranslate nohighlight">\(O(p \cdot n \log n)\)</span></p></li>
+<li><p>Memory: <span class="math notranslate nohighlight">\(O(n \cdot p)\)</span></p></li>
+<li><p>Predict: <span class="math notranslate nohighlight">\(O(k \cdot \log n)\)</span></p></li>
 </ul>
 </li>
 </ul>

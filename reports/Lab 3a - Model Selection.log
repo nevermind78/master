@@ -17,24 +17,34 @@ Traceback (most recent call last):
     raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
 nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
 ------------------
-from sklearn.preprocessing import StandardScaler
-# Important here is to fit the scaler on the training data alone
-# Then, use it to scale both the training set and test set
-# This assumes that you named your training set X_train. Adapt if needed.
-scaler = StandardScaler().fit(X_train)
-Xs_train = scaler.transform(X_train)
-Xs_test = scaler.transform(X_test)
+# Download MAGIC Telescope data from OpenML. You can repeat this analysis with any other OpenML classification dataset.
+magic = oml.datasets.get_dataset(1120)
+X, y, _, _ = magic.get_data(target=magic.default_target_attribute, dataset_format='array'); 
+attribute_names = [f.name for i,f in magic.features.items()][:-1][1:]
 ------------------
 
 [0;31m---------------------------------------------------------------------------[0m
-[0;31mNameError[0m                                 Traceback (most recent call last)
-[0;32m/var/folders/0t/5d8ttqzd773fy0wq3h5db0xr0000gn/T/ipykernel_17418/1729114955.py[0m in [0;36m<module>[0;34m[0m
-[1;32m      3[0m [0;31m# Then, use it to scale both the training set and test set[0m[0;34m[0m[0;34m[0m[0m
-[1;32m      4[0m [0;31m# This assumes that you named your training set X_train. Adapt if needed.[0m[0;34m[0m[0;34m[0m[0m
-[0;32m----> 5[0;31m [0mscaler[0m [0;34m=[0m [0mStandardScaler[0m[0;34m([0m[0;34m)[0m[0;34m.[0m[0mfit[0m[0;34m([0m[0mX_train[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
-[0m[1;32m      6[0m [0mXs_train[0m [0;34m=[0m [0mscaler[0m[0;34m.[0m[0mtransform[0m[0;34m([0m[0mX_train[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
-[1;32m      7[0m [0mXs_test[0m [0;34m=[0m [0mscaler[0m[0;34m.[0m[0mtransform[0m[0;34m([0m[0mX_test[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0;31mAttributeError[0m                            Traceback (most recent call last)
+[0;32m/var/folders/0t/5d8ttqzd773fy0wq3h5db0xr0000gn/T/ipykernel_3471/2616928666.py[0m in [0;36m<module>[0;34m[0m
+[1;32m      1[0m [0;31m# Download MAGIC Telescope data from OpenML. You can repeat this analysis with any other OpenML classification dataset.[0m[0;34m[0m[0;34m[0m[0m
+[1;32m      2[0m [0mmagic[0m [0;34m=[0m [0moml[0m[0;34m.[0m[0mdatasets[0m[0;34m.[0m[0mget_dataset[0m[0;34m([0m[0;36m1120[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0;32m----> 3[0;31m [0mX[0m[0;34m,[0m [0my[0m[0;34m,[0m [0m_[0m[0;34m,[0m [0m_[0m [0;34m=[0m [0mmagic[0m[0;34m.[0m[0mget_data[0m[0;34m([0m[0mtarget[0m[0;34m=[0m[0mmagic[0m[0;34m.[0m[0mdefault_target_attribute[0m[0;34m,[0m [0mdataset_format[0m[0;34m=[0m[0;34m'array'[0m[0;34m)[0m[0;34m;[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m      4[0m [0mattribute_names[0m [0;34m=[0m [0;34m[[0m[0mf[0m[0;34m.[0m[0mname[0m [0;32mfor[0m [0mi[0m[0;34m,[0m[0mf[0m [0;32min[0m [0mmagic[0m[0;34m.[0m[0mfeatures[0m[0;34m.[0m[0mitems[0m[0;34m([0m[0;34m)[0m[0;34m][0m[0;34m[[0m[0;34m:[0m[0;34m-[0m[0;36m1[0m[0;34m][0m[0;34m[[0m[0;36m1[0m[0;34m:[0m[0;34m][0m[0;34m[0m[0;34m[0m[0m
 
-[0;31mNameError[0m: name 'X_train' is not defined
-NameError: name 'X_train' is not defined
+[0;32m~/miniforge3/lib/python3.9/site-packages/openml/datasets/dataset.py[0m in [0;36mget_data[0;34m(self, target, include_row_id, include_ignore_attribute, dataset_format)[0m
+[1;32m    696[0m             [0mList[0m [0mof[0m [0mattribute[0m [0mnames[0m[0;34m.[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    697[0m         """
+[0;32m--> 698[0;31m         [0mdata[0m[0;34m,[0m [0mcategorical[0m[0;34m,[0m [0mattribute_names[0m [0;34m=[0m [0mself[0m[0;34m.[0m[0m_load_data[0m[0;34m([0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    699[0m [0;34m[0m[0m
+[1;32m    700[0m         [0mto_exclude[0m [0;34m=[0m [0;34m[[0m[0;34m][0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/miniforge3/lib/python3.9/site-packages/openml/datasets/dataset.py[0m in [0;36m_load_data[0;34m(self)[0m
+[1;32m    542[0m             [0;32melse[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    543[0m                 [0;32mwith[0m [0mopen[0m[0;34m([0m[0mself[0m[0;34m.[0m[0mdata_pickle_file[0m[0;34m,[0m [0;34m"rb"[0m[0;34m)[0m [0;32mas[0m [0mfh[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 544[0;31m                     [0mdata[0m[0;34m,[0m [0mcategorical[0m[0;34m,[0m [0mattribute_names[0m [0;34m=[0m [0mpickle[0m[0;34m.[0m[0mload[0m[0;34m([0m[0mfh[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    545[0m         [0;32mexcept[0m [0mFileNotFoundError[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    546[0m             [0;32mraise[0m [0mValueError[0m[0;34m([0m[0;34mf"Cannot find file for dataset {self.name} at location '{fpath}'."[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+
+[0;31mAttributeError[0m: Can't get attribute '_unpickle_block' on <module 'pandas._libs.internals' from '/Users/jvanscho/miniforge3/lib/python3.9/site-packages/pandas/_libs/internals.cpython-39-darwin.so'>
+AttributeError: Can't get attribute '_unpickle_block' on <module 'pandas._libs.internals' from '/Users/jvanscho/miniforge3/lib/python3.9/site-packages/pandas/_libs/internals.cpython-39-darwin.so'>
 

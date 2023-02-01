@@ -1,0 +1,78 @@
+Traceback (most recent call last):
+  File "/Users/jvanscho/miniforge3/lib/python3.9/site-packages/jupyter_cache/executors/utils.py", line 51, in single_nb_execution
+    executenb(
+  File "/Users/jvanscho/miniforge3/lib/python3.9/site-packages/nbclient/client.py", line 1093, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+  File "/Users/jvanscho/miniforge3/lib/python3.9/site-packages/nbclient/util.py", line 84, in wrapped
+    return just_run(coro(*args, **kwargs))
+  File "/Users/jvanscho/miniforge3/lib/python3.9/site-packages/nbclient/util.py", line 62, in just_run
+    return loop.run_until_complete(coro)
+  File "/Users/jvanscho/miniforge3/lib/python3.9/asyncio/base_events.py", line 642, in run_until_complete
+    return future.result()
+  File "/Users/jvanscho/miniforge3/lib/python3.9/site-packages/nbclient/client.py", line 559, in async_execute
+    await self.async_execute_cell(
+  File "/Users/jvanscho/miniforge3/lib/python3.9/site-packages/nbclient/client.py", line 854, in async_execute_cell
+    self._check_raise_for_error(cell, exec_reply)
+  File "/Users/jvanscho/miniforge3/lib/python3.9/site-packages/nbclient/client.py", line 756, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+# Auto-setup when running on Google Colab
+import os
+if 'google.colab' in str(get_ipython()) and not os.path.exists('/content/master'):
+    !git clone -q https://github.com/ML-course/master.git /content/master
+    !pip --quiet install -r /content/master/requirements_colab.txt
+    %cd master/notebooks
+
+# Global imports and settings
+%matplotlib inline
+from preamble import *
+interactive = True # Set to True for interactive plots 
+if interactive:
+    fig_scale = 0.6
+    plt.rcParams.update(print_config)
+else: # For printing
+    fig_scale = 0.4
+    plt.rcParams.update(print_config)
+------------------
+
+[0;31m---------------------------------------------------------------------------[0m
+[0;31mTypeError[0m                                 Traceback (most recent call last)
+[0;32m/var/folders/0t/5d8ttqzd773fy0wq3h5db0xr0000gn/T/ipykernel_3659/1972421235.py[0m in [0;36m<module>[0;34m[0m
+[1;32m      8[0m [0;31m# Global imports and settings[0m[0;34m[0m[0;34m[0m[0m
+[1;32m      9[0m [0mget_ipython[0m[0;34m([0m[0;34m)[0m[0;34m.[0m[0mrun_line_magic[0m[0;34m([0m[0;34m'matplotlib'[0m[0;34m,[0m [0;34m'inline'[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0;32m---> 10[0;31m [0;32mfrom[0m [0mpreamble[0m [0;32mimport[0m [0;34m*[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m     11[0m [0minteractive[0m [0;34m=[0m [0;32mTrue[0m [0;31m# Set to True for interactive plots[0m[0;34m[0m[0;34m[0m[0m
+[1;32m     12[0m [0;32mif[0m [0minteractive[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/Documents/ml-course/master/notebooks/preamble.py[0m in [0;36m<module>[0;34m[0m
+[1;32m      5[0m [0;32mimport[0m [0mmatplotlib[0m[0;34m.[0m[0mpyplot[0m [0;32mas[0m [0mplt[0m[0;34m[0m[0;34m[0m[0m
+[1;32m      6[0m [0;32mimport[0m [0mopenml[0m [0;32mas[0m [0moml[0m[0;34m[0m[0;34m[0m[0m
+[0;32m----> 7[0;31m [0;32mimport[0m [0mmglearn[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m      8[0m [0;32mimport[0m [0mos[0m[0;34m[0m[0;34m[0m[0m
+[1;32m      9[0m [0;32mfrom[0m [0mcycler[0m [0;32mimport[0m [0mcycler[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/Documents/ml-course/master/notebooks/mglearn/__init__.py[0m in [0;36m<module>[0;34m[0m
+[0;32m----> 1[0;31m [0;32mfrom[0m [0;34m.[0m [0;32mimport[0m [0mplots[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m      2[0m [0;32mfrom[0m [0;34m.[0m [0;32mimport[0m [0mtools[0m[0;34m[0m[0;34m[0m[0m
+[1;32m      3[0m [0;32mfrom[0m [0;34m.[0m[0mplots[0m [0;32mimport[0m [0mcm3[0m[0;34m,[0m [0mcm2[0m[0;34m[0m[0;34m[0m[0m
+[1;32m      4[0m [0;32mfrom[0m [0;34m.[0m[0mtools[0m [0;32mimport[0m [0mdiscrete_scatter[0m[0;34m[0m[0;34m[0m[0m
+[1;32m      5[0m [0;32mfrom[0m [0;34m.[0m[0mplot_helpers[0m [0;32mimport[0m [0mReBl[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/Documents/ml-course/master/notebooks/mglearn/plots.py[0m in [0;36m<module>[0;34m[0m
+[1;32m     13[0m [0;32mfrom[0m [0;34m.[0m[0mplot_tree_nonmonotonous[0m [0;32mimport[0m [0mplot_tree_not_monotone[0m[0;34m[0m[0;34m[0m[0m
+[1;32m     14[0m [0;32mfrom[0m [0;34m.[0m[0mplot_scaling[0m [0;32mimport[0m [0mplot_scaling[0m[0;34m[0m[0;34m[0m[0m
+[0;32m---> 15[0;31m [0;32mfrom[0m [0;34m.[0m[0mplot_pca[0m [0;32mimport[0m [0mplot_pca_illustration[0m[0;34m,[0m [0mplot_pca_whitening[0m[0;34m,[0m [0mplot_pca_faces[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m     16[0m [0;32mfrom[0m [0;34m.[0m[0mplot_decomposition[0m [0;32mimport[0m [0mplot_decomposition[0m[0;34m[0m[0;34m[0m[0m
+[1;32m     17[0m [0;32mfrom[0m [0;34m.[0m[0mplot_nmf[0m [0;32mimport[0m [0mplot_nmf_illustration[0m[0;34m,[0m [0mplot_nmf_faces[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/Documents/ml-course/master/notebooks/mglearn/plot_pca.py[0m in [0;36m<module>[0;34m[0m
+[1;32m      5[0m [0;32mfrom[0m [0mjoblib[0m [0;32mimport[0m [0mMemory[0m[0;34m[0m[0;34m[0m[0m
+[1;32m      6[0m [0;34m[0m[0m
+[0;32m----> 7[0;31m [0mmemory[0m [0;34m=[0m [0mMemory[0m[0;34m([0m[0mcachedir[0m[0;34m=[0m[0;34m"cache"[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m      8[0m [0;34m[0m[0m
+[1;32m      9[0m [0;34m[0m[0m
+
+[0;31mTypeError[0m: __init__() got an unexpected keyword argument 'cachedir'
+TypeError: __init__() got an unexpected keyword argument 'cachedir'
+
