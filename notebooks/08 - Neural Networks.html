@@ -7,8 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Lecture 8. Neural Networks &#8212; ML Engineering</title>
     
-  <link href="../_static/css/theme.css" rel="stylesheet">
-  <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 
     
   <link rel="stylesheet"
@@ -18,20 +19,16 @@
   <link rel="preload" as="font" type="font/woff2" crossorigin
     href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
-    
-      
-
-    
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
     
-  <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
 
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
@@ -40,19 +37,17 @@
     <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
-    <script>
-        const thebe_selector = ".thebe"
-        const thebe_selector_input = "pre"
-        const thebe_selector_output = ".output"
-    </script>
-    <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="shortcut icon" href="../_static/favicon.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -65,7 +60,21 @@
     <!-- Google Analytics -->
     
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
     
     <div class="container-fluid" id="banner"></div>
 
@@ -74,9 +83,10 @@
     <div class="container-xl">
       <div class="row">
           
-<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
-    
-        <div class="navbar-brand-box">
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="../index.html">
       
         <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
@@ -94,14 +104,15 @@
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Welcome
+                </a>
+            </li>
+        </ul>
         <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../intro.html">
-   Welcome
-  </a>
- </li>
-</ul>
-<ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="../labs/Lab%200%20-%20Prerequisites.html">
    Prerequisites
@@ -286,108 +297,223 @@
 </ul>
 
     </div>
-</nav> <!-- To handle the deprecated key -->
-
-</div>
-
-
-          
-
-
-          
-<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
-    
-    <div class="topbar container-xl fixed-top">
-    <div class="topbar-contents row">
-        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
-        <div class="col pl-md-4 topbar-main">
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
             
-            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
-                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
-                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
-                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
-                <i class="fas fa-bars"></i>
-                <i class="fas fa-arrow-left"></i>
-                <i class="fas fa-arrow-up"></i>
-            </button>
-            
-            
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
-            class="fas fa-download"></i></button>
-
-    <div class="dropdown-buttons">
-        <!-- ipynb file if we had a myst markdown file -->
-        
-        <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/notebooks/08 - Neural Networks.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.ipynb</button></a>
-        <!-- Download PDF via print -->
-        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
-                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
-    </div>
-</div>
-
-            <!-- Source interaction buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
-    <div class="dropdown-buttons sourcebuttons">
-        <a class="repository-button"
-            href="https://github.com/ml-course/master"><button type="button" class="btn btn-secondary topbarbtn"
-                data-toggle="tooltip" data-placement="left" title="Source repository"><i
-                    class="fab fa-github"></i>repository</button></a>
-        <a class="issues-button"
-            href="https://github.com/ml-course/master/issues/new?title=Issue%20on%20page%20%2Fnotebooks/08 - Neural Networks.html&body=Your%20issue%20content%20here."><button
-                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
-                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
-        
-    </div>
-</div>
-
-            <!-- Full screen (wrap in <a> to have style consistency -->
-
-<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
-        title="Fullscreen mode"><i
-            class="fas fa-expand"></i></button></a>
-
-            <!-- Launch buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
-    <div class="dropdown-buttons">
-        
-        <a class="binder-button" href="https://mybinder.org/v2/gh/ml-course/master/master?urlpath=tree/notebooks/08 - Neural Networks.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
-                data-placement="left"><img class="binder-button-logo"
-                    src="../_static/images/logo_binder.svg"
-                    alt="Interact on binder">Binder</button></a>
-        
-        
-        
-        <a class="colab-button" href="https://colab.research.google.com/github/ml-course/master/blob/master/notebooks/08 - Neural Networks.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
-                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
-                    src="../_static/images/logo_colab.png"
-                    alt="Interact on Colab">Colab</button></a>
-        
-        
-    </div>
-</div>
-
         </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
 
-        <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
-            
-            <div class="tocsection onthispage pt-5 pb-3">
-                <i class="fas fa-list"></i> Contents
-            </div>
-            <nav id="bd-toc-nav" aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/ml-course/master/master?urlpath=tree/notebooks/08 - Neural Networks.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://colab.research.google.com/github/ml-course/master/blob/master/notebooks/08 - Neural Networks.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Colab"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../_static/images/logo_colab.png">
+  </span>
+<span class="headerbtn__text-container">Colab</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/ml-course/master"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/ml-course/master/issues/new?title=Issue%20on%20page%20%2Fnotebooks/08 - Neural Networks.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/notebooks/08 - Neural Networks.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#overview">
    Overview
@@ -646,12 +772,11 @@
  </li>
 </ul>
 
-            </nav>
-        </div>
-    </div>
+    </nav>
 </div>
-    <div id="main-content" class="row">
-        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
                 <h1>Lecture 8. Neural Networks</h1>
@@ -926,11 +1051,12 @@
                     </div>
                 </div>
             </div>
-            
+            <main id="main-content" role="main">
+                
               <div>
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="lecture-8-neural-networks">
-<h1>Lecture 8. Neural Networks<a class="headerlink" href="#lecture-8-neural-networks" title="Permalink to this headline">¶</a></h1>
+<h1>Lecture 8. Neural Networks<a class="headerlink" href="#lecture-8-neural-networks" title="Permalink to this headline">#</a></h1>
 <p><strong>How to train your neurons</strong></p>
 <p>Joaquin Vanschoren</p>
 <div class="cell tag_hide-input docutils container">
@@ -968,8 +1094,8 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">TypeError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="mi">0</span><span class="n">t</span><span class="o">/</span><span class="mi">5</span><span class="n">d8ttqzd773fy0wq3h5db0xr0000gn</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_3659</span><span class="o">/</span><span class="mf">1972421235.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="ne">ImportError</span><span class="g g-Whitespace">                               </span>Traceback (most recent call last)
+<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="mi">0</span><span class="n">t</span><span class="o">/</span><span class="mi">5</span><span class="n">d8ttqzd773fy0wq3h5db0xr0000gn</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_37063</span><span class="o">/</span><span class="mf">1972421235.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
 <span class="g g-Whitespace">      </span><span class="mi">8</span> <span class="c1"># Global imports and settings</span>
 <span class="g g-Whitespace">      </span><span class="mi">9</span> <span class="n">get_ipython</span><span class="p">()</span><span class="o">.</span><span class="n">run_line_magic</span><span class="p">(</span><span class="s1">&#39;matplotlib&#39;</span><span class="p">,</span> <span class="s1">&#39;inline&#39;</span><span class="p">)</span>
 <span class="ne">---&gt; </span><span class="mi">10</span> <span class="kn">from</span> <span class="nn">preamble</span> <span class="kn">import</span> <span class="o">*</span>
@@ -977,40 +1103,42 @@
 <span class="g g-Whitespace">     </span><span class="mi">12</span> <span class="k">if</span> <span class="n">interactive</span><span class="p">:</span>
 
 <span class="o">~/</span><span class="n">Documents</span><span class="o">/</span><span class="n">ml</span><span class="o">-</span><span class="n">course</span><span class="o">/</span><span class="n">master</span><span class="o">/</span><span class="n">notebooks</span><span class="o">/</span><span class="n">preamble</span><span class="o">.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">set_matplotlib_formats</span><span class="p">,</span> <span class="n">display</span><span class="p">,</span> <span class="n">HTML</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="kn">from</span> <span class="nn">IPython.core.interactiveshell</span> <span class="kn">import</span> <span class="n">InteractiveShell</span>
+<span class="ne">----&gt; </span><span class="mi">3</span> <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="kn">import</span> <span class="nn">openml</span> <span class="k">as</span> <span class="nn">oml</span>
-<span class="ne">----&gt; </span><span class="mi">7</span> <span class="kn">import</span> <span class="nn">mglearn</span>
-<span class="g g-Whitespace">      </span><span class="mi">8</span> <span class="kn">import</span> <span class="nn">os</span>
-<span class="g g-Whitespace">      </span><span class="mi">9</span> <span class="kn">from</span> <span class="nn">cycler</span> <span class="kn">import</span> <span class="n">cycler</span>
 
-<span class="o">~/</span><span class="n">Documents</span><span class="o">/</span><span class="n">ml</span><span class="o">-</span><span class="n">course</span><span class="o">/</span><span class="n">master</span><span class="o">/</span><span class="n">notebooks</span><span class="o">/</span><span class="n">mglearn</span><span class="o">/</span><span class="fm">__init__</span><span class="o">.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">plots</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">tools</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="kn">from</span> <span class="nn">.plots</span> <span class="kn">import</span> <span class="n">cm3</span><span class="p">,</span> <span class="n">cm2</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="kn">from</span> <span class="nn">.tools</span> <span class="kn">import</span> <span class="n">discrete_scatter</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="kn">from</span> <span class="nn">.plot_helpers</span> <span class="kn">import</span> <span class="n">ReBl</span>
+<span class="o">~/</span><span class="n">miniforge3</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.9</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">pandas</span><span class="o">/</span><span class="fm">__init__</span><span class="o">.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">     </span><span class="mi">20</span> 
+<span class="g g-Whitespace">     </span><span class="mi">21</span> <span class="c1"># numpy compat</span>
+<span class="ne">---&gt; </span><span class="mi">22</span> <span class="kn">from</span> <span class="nn">pandas.compat</span> <span class="kn">import</span> <span class="n">is_numpy_dev</span> <span class="k">as</span> <span class="n">_is_numpy_dev</span>  <span class="c1"># pyright: ignore # noqa:F401</span>
+<span class="g g-Whitespace">     </span><span class="mi">23</span> 
+<span class="g g-Whitespace">     </span><span class="mi">24</span> <span class="k">try</span><span class="p">:</span>
 
-<span class="o">~/</span><span class="n">Documents</span><span class="o">/</span><span class="n">ml</span><span class="o">-</span><span class="n">course</span><span class="o">/</span><span class="n">master</span><span class="o">/</span><span class="n">notebooks</span><span class="o">/</span><span class="n">mglearn</span><span class="o">/</span><span class="n">plots</span><span class="o">.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">     </span><span class="mi">13</span> <span class="kn">from</span> <span class="nn">.plot_tree_nonmonotonous</span> <span class="kn">import</span> <span class="n">plot_tree_not_monotone</span>
-<span class="g g-Whitespace">     </span><span class="mi">14</span> <span class="kn">from</span> <span class="nn">.plot_scaling</span> <span class="kn">import</span> <span class="n">plot_scaling</span>
-<span class="ne">---&gt; </span><span class="mi">15</span> <span class="kn">from</span> <span class="nn">.plot_pca</span> <span class="kn">import</span> <span class="n">plot_pca_illustration</span><span class="p">,</span> <span class="n">plot_pca_whitening</span><span class="p">,</span> <span class="n">plot_pca_faces</span>
-<span class="g g-Whitespace">     </span><span class="mi">16</span> <span class="kn">from</span> <span class="nn">.plot_decomposition</span> <span class="kn">import</span> <span class="n">plot_decomposition</span>
-<span class="g g-Whitespace">     </span><span class="mi">17</span> <span class="kn">from</span> <span class="nn">.plot_nmf</span> <span class="kn">import</span> <span class="n">plot_nmf_illustration</span><span class="p">,</span> <span class="n">plot_nmf_faces</span>
+<span class="o">~/</span><span class="n">miniforge3</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.9</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">pandas</span><span class="o">/</span><span class="n">compat</span><span class="o">/</span><span class="fm">__init__</span><span class="o">.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">     </span><span class="mi">16</span> 
+<span class="g g-Whitespace">     </span><span class="mi">17</span> <span class="kn">from</span> <span class="nn">pandas._typing</span> <span class="kn">import</span> <span class="n">F</span>
+<span class="ne">---&gt; </span><span class="mi">18</span> <span class="kn">from</span> <span class="nn">pandas.compat.numpy</span> <span class="kn">import</span> <span class="p">(</span>
+<span class="g g-Whitespace">     </span><span class="mi">19</span>     <span class="n">is_numpy_dev</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">20</span>     <span class="n">np_version_under1p21</span><span class="p">,</span>
 
-<span class="o">~/</span><span class="n">Documents</span><span class="o">/</span><span class="n">ml</span><span class="o">-</span><span class="n">course</span><span class="o">/</span><span class="n">master</span><span class="o">/</span><span class="n">notebooks</span><span class="o">/</span><span class="n">mglearn</span><span class="o">/</span><span class="n">plot_pca</span><span class="o">.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="kn">from</span> <span class="nn">joblib</span> <span class="kn">import</span> <span class="n">Memory</span>
-<span class="g g-Whitespace">      </span><span class="mi">6</span> 
-<span class="ne">----&gt; </span><span class="mi">7</span> <span class="n">memory</span> <span class="o">=</span> <span class="n">Memory</span><span class="p">(</span><span class="n">cachedir</span><span class="o">=</span><span class="s2">&quot;cache&quot;</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">8</span> 
-<span class="g g-Whitespace">      </span><span class="mi">9</span> 
+<span class="o">~/</span><span class="n">miniforge3</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.9</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">pandas</span><span class="o">/</span><span class="n">compat</span><span class="o">/</span><span class="n">numpy</span><span class="o">/</span><span class="fm">__init__</span><span class="o">.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">     </span><span class="mi">21</span> 
+<span class="g g-Whitespace">     </span><span class="mi">22</span> <span class="k">if</span> <span class="n">_nlv</span> <span class="o">&lt;</span> <span class="n">Version</span><span class="p">(</span><span class="n">_min_numpy_ver</span><span class="p">):</span>
+<span class="ne">---&gt; </span><span class="mi">23</span>     <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span>
+<span class="g g-Whitespace">     </span><span class="mi">24</span>         <span class="sa">f</span><span class="s2">&quot;this version of pandas is incompatible with numpy &lt; </span><span class="si">{</span><span class="n">_min_numpy_ver</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+<span class="g g-Whitespace">     </span><span class="mi">25</span>         <span class="sa">f</span><span class="s2">&quot;your numpy version is </span><span class="si">{</span><span class="n">_np_version</span><span class="si">}</span><span class="s2">.</span><span class="se">\n</span><span class="s2">&quot;</span>
 
-<span class="ne">TypeError</span>: __init__() got an unexpected keyword argument &#39;cachedir&#39;
+<span class="ne">ImportError</span>: this version of pandas is incompatible with numpy &lt; 1.20.3
+<span class="n">your</span> <span class="n">numpy</span> <span class="n">version</span> <span class="ow">is</span> <span class="mf">1.19.5</span><span class="o">.</span>
+<span class="n">Please</span> <span class="n">upgrade</span> <span class="n">numpy</span> <span class="n">to</span> <span class="o">&gt;=</span> <span class="mf">1.20.3</span> <span class="n">to</span> <span class="n">use</span> <span class="n">this</span> <span class="n">pandas</span> <span class="n">version</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="section" id="overview">
-<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Neural architectures</p></li>
 <li><p>Training neural nets</p>
@@ -1147,7 +1275,7 @@
 </div>
 </div>
 <div class="section" id="architecture">
-<h2>Architecture<a class="headerlink" href="#architecture" title="Permalink to this headline">¶</a></h2>
+<h2>Architecture<a class="headerlink" href="#architecture" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Logistic regression, drawn in a different, neuro-inspired, way</p>
 <ul>
@@ -1172,7 +1300,7 @@
 </div>
 </div>
 <div class="section" id="basic-architecture">
-<h3>Basic Architecture<a class="headerlink" href="#basic-architecture" title="Permalink to this headline">¶</a></h3>
+<h3>Basic Architecture<a class="headerlink" href="#basic-architecture" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Add one (or more) <em>hidden</em> layers <span class="math notranslate nohighlight">\(h\)</span> with <span class="math notranslate nohighlight">\(k\)</span> nodes (or units, cells, neurons)</p>
 <ul>
@@ -1202,7 +1330,7 @@ $<span class="math notranslate nohighlight">\(\color{blue}{h(\mathbf{x})} = \col
 </div>
 </div>
 <div class="section" id="more-layers">
-<h3>More layers<a class="headerlink" href="#more-layers" title="Permalink to this headline">¶</a></h3>
+<h3>More layers<a class="headerlink" href="#more-layers" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Add more layers, and more nodes per layer, to make the model more complex</p>
 <ul>
@@ -1242,7 +1370,7 @@ $<span class="math notranslate nohighlight">\(\color{blue}{h(\mathbf{x})} = \col
 </div>
 </div>
 <div class="section" id="why-layers">
-<h3>Why layers?<a class="headerlink" href="#why-layers" title="Permalink to this headline">¶</a></h3>
+<h3>Why layers?<a class="headerlink" href="#why-layers" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Each layer acts as a <em>filter</em> and learns a new <em>representation</em> of the data</p>
 <ul>
@@ -1260,7 +1388,7 @@ $<span class="math notranslate nohighlight">\(\color{blue}{h(\mathbf{x})} = \col
 </ul>
 <img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/00_layers2.png" alt="ml" style="width: 50%"/></div>
 <div class="section" id="other-architectures">
-<h3>Other architectures<a class="headerlink" href="#other-architectures" title="Permalink to this headline">¶</a></h3>
+<h3>Other architectures<a class="headerlink" href="#other-architectures" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>There exist MANY types of networks for many different tasks</p></li>
 <li><p>Convolutional nets for image data, Recurrent nets for sequential data,…</p></li>
@@ -1269,7 +1397,7 @@ $<span class="math notranslate nohighlight">\(\color{blue}{h(\mathbf{x})} = \col
 <img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/neural_zoo.png" alt="ml" style="width: 1200px;"/></div>
 </div>
 <div class="section" id="training-neural-nets">
-<h2>Training Neural Nets<a class="headerlink" href="#training-neural-nets" title="Permalink to this headline">¶</a></h2>
+<h2>Training Neural Nets<a class="headerlink" href="#training-neural-nets" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Design the architecture, choose activation functions (e.g. sigmoids)</p></li>
 <li><p>Choose a way to initialize the weights (e.g. random initialization)</p></li>
@@ -1277,7 +1405,7 @@ $<span class="math notranslate nohighlight">\(\color{blue}{h(\mathbf{x})} = \col
 <li><p>Choose an <em>optimizer</em> (typically an SGD variant) to update the weights</p></li>
 </ul>
 <img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/09_overview.png" alt="ml" style="width: 500px;"/><div class="section" id="mini-batch-stochastic-gradient-descent-recap">
-<h3>Mini-batch Stochastic Gradient Descent (recap)<a class="headerlink" href="#mini-batch-stochastic-gradient-descent-recap" title="Permalink to this headline">¶</a></h3>
+<h3>Mini-batch Stochastic Gradient Descent (recap)<a class="headerlink" href="#mini-batch-stochastic-gradient-descent-recap" title="Permalink to this headline">#</a></h3>
 <ol class="simple">
 <li><p>Draw a batch of <em>batch_size</em> training data <span class="math notranslate nohighlight">\(\mathbf{X}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{y}\)</span></p></li>
 <li><p><em>Forward pass</em> : pass <span class="math notranslate nohighlight">\(\mathbf{X}\)</span> though the network to yield predictions <span class="math notranslate nohighlight">\(\mathbf{\hat{y}}\)</span></p></li>
@@ -1316,7 +1444,7 @@ $<span class="math notranslate nohighlight">\(\color{blue}{h(\mathbf{x})} = \col
 </div>
 </div>
 <div class="section" id="forward-pass">
-<h3>Forward pass<a class="headerlink" href="#forward-pass" title="Permalink to this headline">¶</a></h3>
+<h3>Forward pass<a class="headerlink" href="#forward-pass" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>We can naturally represent the data as <em>tensors</em></p>
 <ul>
@@ -1330,7 +1458,7 @@ $<span class="math notranslate nohighlight">\(\color{blue}{h(\mathbf{x})} = \col
 </ul>
 <img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/08_timeseries.png" alt="ml" style="float: left; width: 30%;"/>
 <img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/08_images.png" alt="ml" style="float: left; width: 30%;"/><div class="section" id="tensor-operations">
-<h4>Tensor operations<a class="headerlink" href="#tensor-operations" title="Permalink to this headline">¶</a></h4>
+<h4>Tensor operations<a class="headerlink" href="#tensor-operations" title="Permalink to this headline">#</a></h4>
 <ul class="simple">
 <li><p>The operations that the network performs on the data can be reduced to a <em>series of tensor operations</em></p>
 <ul>
@@ -1347,7 +1475,7 @@ $<span class="math notranslate nohighlight">\(\color{blue}{h(\mathbf{x})} = \col
 </ul>
 <img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/08_dot.png" alt="ml" style="width: 400px;"/></div>
 <div class="section" id="element-wise-operations">
-<h4>Element-wise operations<a class="headerlink" href="#element-wise-operations" title="Permalink to this headline">¶</a></h4>
+<h4>Element-wise operations<a class="headerlink" href="#element-wise-operations" title="Permalink to this headline">#</a></h4>
 <ul class="simple">
 <li><p>Activation functions and addition are element-wise operations:</p></li>
 </ul>
@@ -1369,7 +1497,7 @@ $<span class="math notranslate nohighlight">\(\color{blue}{h(\mathbf{x})} = \col
 </div>
 </div>
 <div class="section" id="backward-pass-backpropagation">
-<h3>Backward pass (backpropagation)<a class="headerlink" href="#backward-pass-backpropagation" title="Permalink to this headline">¶</a></h3>
+<h3>Backward pass (backpropagation)<a class="headerlink" href="#backward-pass-backpropagation" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>For last layer, compute gradient of the loss function <span class="math notranslate nohighlight">\(\mathcal{L}\)</span> w.r.t all weights of layer <span class="math notranslate nohighlight">\(l\)</span></p></li>
 </ul>
@@ -1386,7 +1514,7 @@ $<span class="math notranslate nohighlight">\(\color{blue}{h(\mathbf{x})} = \col
 <li><p>Repeat for next layer, iterating backwards (most efficient, avoids redundant calculations)</p></li>
 </ul>
 <img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/01_gradient_descent.jpg" alt="ml" style="width: 500px;"/><div class="section" id="example">
-<h4>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h4>
+<h4>Example<a class="headerlink" href="#example" title="Permalink to this headline">#</a></h4>
 <ul class="simple">
 <li><p>Imagine feeding a single data point, output is <span class="math notranslate nohighlight">\(\hat{y} = g(z) = g(w_0 + w_1 * a_1 + w_2 * a_2 +... + w_p * a_p)\)</span></p></li>
 <li><p>Decrease loss by updating weights:</p>
@@ -1414,7 +1542,7 @@ $<span class="math notranslate nohighlight">\(\frac{\partial \mathcal{L}}{\parti
 </div>
 </div>
 <div class="section" id="backpropagation-2">
-<h4>Backpropagation (2)<a class="headerlink" href="#backpropagation-2" title="Permalink to this headline">¶</a></h4>
+<h4>Backpropagation (2)<a class="headerlink" href="#backpropagation-2" title="Permalink to this headline">#</a></h4>
 <ul class="simple">
 <li><p>Another way to decrease the loss <span class="math notranslate nohighlight">\(\mathcal{L}\)</span> is to update the activations <span class="math notranslate nohighlight">\(a_i\)</span></p>
 <ul>
@@ -1440,7 +1568,7 @@ $<span class="math notranslate nohighlight">\(\frac{\partial \mathcal{L}}{\parti
 </div>
 </div>
 <div class="section" id="backpropagation-3">
-<h4>Backpropagation (3)<a class="headerlink" href="#backpropagation-3" title="Permalink to this headline">¶</a></h4>
+<h4>Backpropagation (3)<a class="headerlink" href="#backpropagation-3" title="Permalink to this headline">#</a></h4>
 <ul class="simple">
 <li><p>With multiple output nodes, <span class="math notranslate nohighlight">\(\mathcal{L}\)</span> is the sum of all per-output (per-class) losses</p>
 <ul>
@@ -1471,7 +1599,7 @@ $<span class="math notranslate nohighlight">\(\frac{\partial \mathcal{L}}{\parti
 </div>
 </div>
 <div class="section" id="summary">
-<h4>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h4>
+<h4>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">#</a></h4>
 <ul class="simple">
 <li><p>The network output <span class="math notranslate nohighlight">\(a_o\)</span> is defined by the weights <span class="math notranslate nohighlight">\(W^{(o)}\)</span> and biases <span class="math notranslate nohighlight">\(\mathbf{b}^{(o)}\)</span> of the output layer, and</p></li>
 <li><p>The activations of a hidden layer <span class="math notranslate nohighlight">\(h_1\)</span> with activation function <span class="math notranslate nohighlight">\(a_{h_1}\)</span>, weights <span class="math notranslate nohighlight">\(W^{(1)}\)</span> and biases <span class="math notranslate nohighlight">\(\mathbf{b^{(1)}}\)</span>:</p></li>
@@ -1490,7 +1618,7 @@ $<span class="math notranslate nohighlight">\(\frac{\partial \mathcal{L}}{\parti
 </div>
 </div>
 <div class="section" id="activation-functions-for-hidden-layers">
-<h2>Activation functions for hidden layers<a class="headerlink" href="#activation-functions-for-hidden-layers" title="Permalink to this headline">¶</a></h2>
+<h2>Activation functions for hidden layers<a class="headerlink" href="#activation-functions-for-hidden-layers" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Sigmoid: <span class="math notranslate nohighlight">\(f(z) = \frac{1}{1+e^{-z}}\)</span></p></li>
 <li><p>Tanh: <span class="math notranslate nohighlight">\(f(z) = \frac{2}{1+e^{-2z}} - 1\)</span></p>
@@ -1578,7 +1706,7 @@ $<span class="math notranslate nohighlight">\(\frac{\partial \mathcal{L}}{\parti
 </div>
 </div>
 <div class="section" id="effect-of-activation-functions-on-the-gradient">
-<h3>Effect of activation functions on the gradient<a class="headerlink" href="#effect-of-activation-functions-on-the-gradient" title="Permalink to this headline">¶</a></h3>
+<h3>Effect of activation functions on the gradient<a class="headerlink" href="#effect-of-activation-functions-on-the-gradient" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>During gradient descent, the gradient depends on the activation function <span class="math notranslate nohighlight">\(a_{h}\)</span>: <span class="math notranslate nohighlight">\(\frac{\partial \mathcal{L}(a_o)}{\partial W^{(l)}} = \color{red}{\frac{\partial \mathcal{L}(a_o)}{\partial a_{h_l}}} \color{blue}{\frac{\partial a_{h_l}}{\partial z_{h_l}}} \color{green}{\frac{\partial z_{h_l}}{\partial W^{(l)}}}\)</span></p></li>
 <li><p>If derivative of the activation function <span class="math notranslate nohighlight">\(\color{blue}{\frac{\partial a_{h_l}}{\partial z_{h_l}}}\)</span> is 0, the weights <span class="math notranslate nohighlight">\(w_i\)</span> are not updated</p>
@@ -1625,7 +1753,7 @@ $<span class="math notranslate nohighlight">\(\frac{\partial \mathcal{L}}{\parti
 </div>
 </div>
 <div class="section" id="relu-vs-tanh">
-<h3>ReLU vs Tanh<a class="headerlink" href="#relu-vs-tanh" title="Permalink to this headline">¶</a></h3>
+<h3>ReLU vs Tanh<a class="headerlink" href="#relu-vs-tanh" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>What is the effect of using non-smooth activation functions?</p>
 <ul>
@@ -1689,7 +1817,7 @@ $<span class="math notranslate nohighlight">\(\frac{\partial \mathcal{L}}{\parti
 </div>
 </div>
 <div class="section" id="activation-functions-for-output-layer">
-<h3>Activation functions for output layer<a class="headerlink" href="#activation-functions-for-output-layer" title="Permalink to this headline">¶</a></h3>
+<h3>Activation functions for output layer<a class="headerlink" href="#activation-functions-for-output-layer" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p><em>sigmoid</em> converts output to probability in [0,1]</p>
 <ul>
@@ -1735,7 +1863,7 @@ $<span class="math notranslate nohighlight">\(\text{softmax}(\mathbf{x},i) = \fr
 </div>
 </div>
 <div class="section" id="weight-initialization">
-<h2>Weight initialization<a class="headerlink" href="#weight-initialization" title="Permalink to this headline">¶</a></h2>
+<h2>Weight initialization<a class="headerlink" href="#weight-initialization" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Initializing weights to 0 is bad: all gradients in layer will be identical (symmetry)</p></li>
 <li><p>Too small random weights shrink activations to 0 along the layers (vanishing gradient)</p></li>
@@ -1764,7 +1892,7 @@ $<span class="math notranslate nohighlight">\(\text{softmax}(\mathbf{x},i) = \fr
 </div>
 </div>
 <div class="section" id="weight-initialization-transfer-learning">
-<h3>Weight initialization: transfer learning<a class="headerlink" href="#weight-initialization-transfer-learning" title="Permalink to this headline">¶</a></h3>
+<h3>Weight initialization: transfer learning<a class="headerlink" href="#weight-initialization-transfer-learning" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Instead of starting from scratch, start from weights previously learned from similar tasks</p>
 <ul>
@@ -1919,9 +2047,9 @@ $<span class="math notranslate nohighlight">\(\text{softmax}(\mathbf{x},i) = \fr
 </div>
 </div>
 <div class="section" id="optimizers">
-<h2>Optimizers<a class="headerlink" href="#optimizers" title="Permalink to this headline">¶</a></h2>
+<h2>Optimizers<a class="headerlink" href="#optimizers" title="Permalink to this headline">#</a></h2>
 <div class="section" id="sgd-with-learning-rate-schedules">
-<h3>SGD with learning rate schedules<a class="headerlink" href="#sgd-with-learning-rate-schedules" title="Permalink to this headline">¶</a></h3>
+<h3>SGD with learning rate schedules<a class="headerlink" href="#sgd-with-learning-rate-schedules" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Using a constant learning <span class="math notranslate nohighlight">\(\eta\)</span> rate for weight updates <span class="math notranslate nohighlight">\(\mathbf{w}_{(s+1)} = \mathbf{w}_s-\eta\nabla \mathcal{L}(\mathbf{w}_s)\)</span> is not ideal</p></li>
 <li><p>Learning rate decay/annealing with decay rate <span class="math notranslate nohighlight">\(k\)</span></p>
@@ -1964,7 +2092,7 @@ $<span class="math notranslate nohighlight">\(\text{softmax}(\mathbf{x},i) = \fr
 </div>
 </div>
 <div class="section" id="momentum">
-<h3>Momentum<a class="headerlink" href="#momentum" title="Permalink to this headline">¶</a></h3>
+<h3>Momentum<a class="headerlink" href="#momentum" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Imagine a ball rolling downhill: accumulates momentum, doesn’t exactly follow steepest descent</p>
 <ul>
@@ -1994,7 +2122,7 @@ $<span class="math notranslate nohighlight">\(\color{blue}{\mathbf{v}_{(s)}} = \
 </div>
 </div>
 <div class="section" id="momentum-in-practice">
-<h4>Momentum in practice<a class="headerlink" href="#momentum-in-practice" title="Permalink to this headline">¶</a></h4>
+<h4>Momentum in practice<a class="headerlink" href="#momentum-in-practice" title="Permalink to this headline">#</a></h4>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nd">@interact</span>
@@ -2024,7 +2152,7 @@ $<span class="math notranslate nohighlight">\(\color{blue}{\mathbf{v}_{(s)}} = \
 </div>
 </div>
 <div class="section" id="adaptive-gradients">
-<h3>Adaptive gradients<a class="headerlink" href="#adaptive-gradients" title="Permalink to this headline">¶</a></h3>
+<h3>Adaptive gradients<a class="headerlink" href="#adaptive-gradients" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>‘Correct’ the learning rate for each <span class="math notranslate nohighlight">\(w_i\)</span> based on specific local conditions (layer depth, fan-in,…)</p></li>
 <li><p>Adagrad: scale <span class="math notranslate nohighlight">\(\eta\)</span> according to squared sum of previous gradients <span class="math notranslate nohighlight">\(G_{i,(s)} = \sum_{t=1}^s \mathcal{L}(w_{i,(t)})^2\)</span></p>
@@ -2068,7 +2196,7 @@ $<span class="math notranslate nohighlight">\(w_{i,(s+1)} = w_{i,(s)}- \frac{\et
 </div>
 </div>
 <div class="section" id="adam-adaptive-moment-estimation">
-<h3>Adam (Adaptive moment estimation)<a class="headerlink" href="#adam-adaptive-moment-estimation" title="Permalink to this headline">¶</a></h3>
+<h3>Adam (Adaptive moment estimation)<a class="headerlink" href="#adam-adaptive-moment-estimation" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Adam: RMSProp + momentum. Adds moving average for gradients as well (<span class="math notranslate nohighlight">\(\gamma_2\)</span> = momentum):</p>
 <ul>
@@ -2113,7 +2241,7 @@ $<span class="math notranslate nohighlight">\(w_{i,(s+1)} = w_{i,(s)}- \frac{\et
 </div>
 </div>
 <div class="section" id="sgd-optimizer-zoo">
-<h3>SGD Optimizer Zoo<a class="headerlink" href="#sgd-optimizer-zoo" title="Permalink to this headline">¶</a></h3>
+<h3>SGD Optimizer Zoo<a class="headerlink" href="#sgd-optimizer-zoo" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>RMSProp often works well, but do try alternatives. For even more optimizers, <a class="reference external" href="https://ruder.io/optimizing-gradient-descent">see here</a>.</p></li>
 </ul>
@@ -2162,7 +2290,7 @@ $<span class="math notranslate nohighlight">\(w_{i,(s+1)} = w_{i,(s)}- \frac{\et
 </div>
 </div>
 <div class="section" id="neural-networks-in-practice">
-<h2>Neural networks in practice<a class="headerlink" href="#neural-networks-in-practice" title="Permalink to this headline">¶</a></h2>
+<h2>Neural networks in practice<a class="headerlink" href="#neural-networks-in-practice" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>There are many practical courses on training neural nets. E.g.:</p>
 <ul>
@@ -2209,7 +2337,7 @@ $<span class="math notranslate nohighlight">\(w_{i,(s+1)} = w_{i,(s)}- \frac{\et
 </div>
 </div>
 <div class="section" id="building-the-network">
-<h3>Building the network<a class="headerlink" href="#building-the-network" title="Permalink to this headline">¶</a></h3>
+<h3>Building the network<a class="headerlink" href="#building-the-network" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>We first build a simple sequential model (no branches)</p></li>
 <li><p>Input layer (‘input_shape’): a flat vector of 28*28=784 nodes</p>
@@ -2243,7 +2371,7 @@ $<span class="math notranslate nohighlight">\(w_{i,(s+1)} = w_{i,(s)}- \frac{\et
 </div>
 </div>
 <div class="section" id="model-summary">
-<h4>Model summary<a class="headerlink" href="#model-summary" title="Permalink to this headline">¶</a></h4>
+<h4>Model summary<a class="headerlink" href="#model-summary" title="Permalink to this headline">#</a></h4>
 <ul class="simple">
 <li><p>Lots of parameters (weights and biases) to learn!</p>
 <ul>
@@ -2285,7 +2413,7 @@ _________________________________________________________________
 </div>
 </div>
 <div class="section" id="choosing-loss-optimizer-metrics">
-<h3>Choosing loss, optimizer, metrics<a class="headerlink" href="#choosing-loss-optimizer-metrics" title="Permalink to this headline">¶</a></h3>
+<h3>Choosing loss, optimizer, metrics<a class="headerlink" href="#choosing-loss-optimizer-metrics" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p><strong>Loss function</strong></p>
 <ul>
@@ -2326,7 +2454,7 @@ _________________________________________________________________
 </div>
 </div>
 <div class="section" id="preprocessing-normalization-reshaping-encoding">
-<h3>Preprocessing: Normalization, Reshaping, Encoding<a class="headerlink" href="#preprocessing-normalization-reshaping-encoding" title="Permalink to this headline">¶</a></h3>
+<h3>Preprocessing: Normalization, Reshaping, Encoding<a class="headerlink" href="#preprocessing-normalization-reshaping-encoding" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Always normalize (standardize or min-max) the inputs. Mean should be close to 0.</p>
 <ul>
@@ -2376,7 +2504,7 @@ _________________________________________________________________
 </div>
 </div>
 <div class="section" id="choosing-training-hyperparameters">
-<h3>Choosing training hyperparameters<a class="headerlink" href="#choosing-training-hyperparameters" title="Permalink to this headline">¶</a></h3>
+<h3>Choosing training hyperparameters<a class="headerlink" href="#choosing-training-hyperparameters" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Number of epochs: enough to allow convergence</p>
 <ul>
@@ -2418,7 +2546,7 @@ _________________________________________________________________
 </div>
 </div>
 <div class="section" id="predictions-and-evaluations">
-<h3>Predictions and evaluations<a class="headerlink" href="#predictions-and-evaluations" title="Permalink to this headline">¶</a></h3>
+<h3>Predictions and evaluations<a class="headerlink" href="#predictions-and-evaluations" title="Permalink to this headline">#</a></h3>
 <p>We can now call <code class="docutils literal notranslate"><span class="pre">predict</span></code> to generate predictions, and evaluate the trained model on the entire test set</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">network</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
 <span class="n">test_loss</span><span class="p">,</span> <span class="n">test_acc</span> <span class="o">=</span> <span class="n">network</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
@@ -2467,7 +2595,7 @@ _________________________________________________________________
 </div>
 </div>
 <div class="section" id="model-selection">
-<h2>Model selection<a class="headerlink" href="#model-selection" title="Permalink to this headline">¶</a></h2>
+<h2>Model selection<a class="headerlink" href="#model-selection" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>How many epochs do we need for training?</p></li>
 <li><p>Train the neural net and track the loss after every iteration on a validation set</p>
@@ -2551,7 +2679,7 @@ _________________________________________________________________
 </div>
 </div>
 <div class="section" id="early-stopping">
-<h3>Early stopping<a class="headerlink" href="#early-stopping" title="Permalink to this headline">¶</a></h3>
+<h3>Early stopping<a class="headerlink" href="#early-stopping" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Stop training when the validation loss (or validation accuracy) no longer improves</p></li>
 <li><p>Loss can be bumpy: use a moving average or wait for <span class="math notranslate nohighlight">\(k\)</span> steps without improvement</p></li>
@@ -2583,7 +2711,7 @@ _________________________________________________________________
 </div>
 </div>
 <div class="section" id="regularization-and-memorization-capacity">
-<h3>Regularization and memorization capacity<a class="headerlink" href="#regularization-and-memorization-capacity" title="Permalink to this headline">¶</a></h3>
+<h3>Regularization and memorization capacity<a class="headerlink" href="#regularization-and-memorization-capacity" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>The number of learnable parameters is called the model <em>capacity</em></p></li>
 <li><p>A model with more parameters has a higher <em>memorization capacity</em></p>
@@ -2618,7 +2746,7 @@ _________________________________________________________________
 </div>
 </div>
 <div class="section" id="information-bottleneck">
-<h4>Information bottleneck<a class="headerlink" href="#information-bottleneck" title="Permalink to this headline">¶</a></h4>
+<h4>Information bottleneck<a class="headerlink" href="#information-bottleneck" title="Permalink to this headline">#</a></h4>
 <ul class="simple">
 <li><p>If a layer is too narrow, it will lose information that can never be recovered by subsequent layers</p></li>
 <li><p><em>Information bottleneck</em> theory defines a bound on the capacity of the network</p></li>
@@ -2649,7 +2777,7 @@ _________________________________________________________________
 </div>
 </div>
 <div class="section" id="weight-regularization-weight-decay">
-<h4>Weight regularization (weight decay)<a class="headerlink" href="#weight-regularization-weight-decay" title="Permalink to this headline">¶</a></h4>
+<h4>Weight regularization (weight decay)<a class="headerlink" href="#weight-regularization-weight-decay" title="Permalink to this headline">#</a></h4>
 <ul class="simple">
 <li><p>As we did many times before, we can also add weight regularization to our loss function</p></li>
 </ul>
@@ -2685,7 +2813,7 @@ _________________________________________________________________
 </div>
 </div>
 <div class="section" id="dropout">
-<h3>Dropout<a class="headerlink" href="#dropout" title="Permalink to this headline">¶</a></h3>
+<h3>Dropout<a class="headerlink" href="#dropout" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Every iteration, randomly set a number of activations <span class="math notranslate nohighlight">\(a_i\)</span> to 0</p></li>
 <li><p><em>Dropout rate</em> : fraction of the outputs that are zeroed-out (e.g. 0.1 - 0.5)</p></li>
@@ -2710,7 +2838,7 @@ _________________________________________________________________
 </div>
 </div>
 <div class="section" id="dropout-layers">
-<h4>Dropout layers<a class="headerlink" href="#dropout-layers" title="Permalink to this headline">¶</a></h4>
+<h4>Dropout layers<a class="headerlink" href="#dropout-layers" title="Permalink to this headline">#</a></h4>
 <ul class="simple">
 <li><p>Dropout is usually implemented as a special layer</p></li>
 </ul>
@@ -2743,7 +2871,7 @@ _________________________________________________________________
 </div>
 </div>
 <div class="section" id="batch-normalization">
-<h4>Batch Normalization<a class="headerlink" href="#batch-normalization" title="Permalink to this headline">¶</a></h4>
+<h4>Batch Normalization<a class="headerlink" href="#batch-normalization" title="Permalink to this headline">#</a></h4>
 <ul class="simple">
 <li><p>We’ve seen that scaling the input is important, but what if layer activations become very large?</p>
 <ul>
@@ -2806,7 +2934,7 @@ _________________________________________________________________
 </div>
 </div>
 <div class="section" id="tuning-multiple-hyperparameters">
-<h3>Tuning multiple hyperparameters<a class="headerlink" href="#tuning-multiple-hyperparameters" title="Permalink to this headline">¶</a></h3>
+<h3>Tuning multiple hyperparameters<a class="headerlink" href="#tuning-multiple-hyperparameters" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>You can wrap Keras models as scikit-learn models and use any tuning technique</p></li>
 <li><p>Keras also has built-in RandomSearch (and HyperBand and BayesianOptimization - see later)</p></li>
@@ -2828,7 +2956,7 @@ _________________________________________________________________
 </div>
 </div>
 <div class="section" id="id1">
-<h2>Summary<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<h2>Summary<a class="headerlink" href="#id1" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Neural architectures</p></li>
 <li><p>Training neural nets</p>
@@ -2870,7 +2998,7 @@ _________________________________________________________________
             mode: "python"
         },
         kernelOptions: {
-            kernelName: "python3",
+            name: "python3",
             path: "./notebooks"
         },
         predefinedOutput: true
@@ -2880,9 +3008,11 @@ _________________________________________________________________
 
               </div>
               
-            
-                <!-- Previous / next buttons -->
-<div class='prev-next-area'> 
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
     <a class='left-prev' id="prev-link" href="07%20-%20Bayesian%20Learning.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
@@ -2898,24 +3028,28 @@ _________________________________________________________________
     <i class="fas fa-angle-right"></i>
     </a>
 </div>
-            
+            </footer>
         </div>
     </div>
-    <footer class="footer">
-  <p>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Joaquin Vanschoren<br/>
+  
+      &copy; Copyright 2021. CC0 Licensed - Use as you like.<br/>
+</p>
+        </footer>
+    </div>
     
-      By Joaquin Vanschoren<br/>
-    
-        &copy; Copyright 2021. CC0 Licensed - Use as you like.<br/>
-  </p>
-</footer>
-</main>
+</div>
 
 
       </div>
     </div>
   
-  <script src="../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
 
   </body>
 </html>

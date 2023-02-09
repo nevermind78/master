@@ -7,8 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Python for scientific computing &#8212; ML Engineering</title>
     
-  <link href="../_static/css/theme.css" rel="stylesheet">
-  <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 
     
   <link rel="stylesheet"
@@ -18,20 +19,16 @@
   <link rel="preload" as="font" type="font/woff2" crossorigin
     href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
-    
-      
-
-    
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
     
-  <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
 
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
@@ -40,16 +37,14 @@
     <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
-    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
-    <script>
-        const thebe_selector = ".thebe"
-        const thebe_selector_input = "pre"
-        const thebe_selector_output = ".output"
-    </script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="shortcut icon" href="../_static/favicon.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -63,7 +58,21 @@
     <!-- Google Analytics -->
     
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
     
     <div class="container-fluid" id="banner"></div>
 
@@ -72,9 +81,10 @@
     <div class="container-xl">
       <div class="row">
           
-<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
-    
-        <div class="navbar-brand-box">
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="../index.html">
       
         <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
@@ -92,14 +102,15 @@
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Welcome
+                </a>
+            </li>
+        </ul>
         <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../intro.html">
-   Welcome
-  </a>
- </li>
-</ul>
-<ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="../labs/Lab%200%20-%20Prerequisites.html">
    Prerequisites
@@ -284,108 +295,223 @@
 </ul>
 
     </div>
-</nav> <!-- To handle the deprecated key -->
-
-</div>
-
-
-          
-
-
-          
-<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
-    
-    <div class="topbar container-xl fixed-top">
-    <div class="topbar-contents row">
-        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
-        <div class="col pl-md-4 topbar-main">
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
             
-            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
-                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
-                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
-                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
-                <i class="fas fa-bars"></i>
-                <i class="fas fa-arrow-left"></i>
-                <i class="fas fa-arrow-up"></i>
-            </button>
-            
-            
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
-            class="fas fa-download"></i></button>
-
-    <div class="dropdown-buttons">
-        <!-- ipynb file if we had a myst markdown file -->
-        
-        <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/notebooks/Tutorial 2 - Python for Data Analysis.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.ipynb</button></a>
-        <!-- Download PDF via print -->
-        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
-                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
-    </div>
-</div>
-
-            <!-- Source interaction buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
-    <div class="dropdown-buttons sourcebuttons">
-        <a class="repository-button"
-            href="https://github.com/ml-course/master"><button type="button" class="btn btn-secondary topbarbtn"
-                data-toggle="tooltip" data-placement="left" title="Source repository"><i
-                    class="fab fa-github"></i>repository</button></a>
-        <a class="issues-button"
-            href="https://github.com/ml-course/master/issues/new?title=Issue%20on%20page%20%2Fnotebooks/Tutorial 2 - Python for Data Analysis.html&body=Your%20issue%20content%20here."><button
-                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
-                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
-        
-    </div>
-</div>
-
-            <!-- Full screen (wrap in <a> to have style consistency -->
-
-<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
-        title="Fullscreen mode"><i
-            class="fas fa-expand"></i></button></a>
-
-            <!-- Launch buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
-    <div class="dropdown-buttons">
-        
-        <a class="binder-button" href="https://mybinder.org/v2/gh/ml-course/master/master?urlpath=tree/notebooks/Tutorial 2 - Python for Data Analysis.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
-                data-placement="left"><img class="binder-button-logo"
-                    src="../_static/images/logo_binder.svg"
-                    alt="Interact on binder">Binder</button></a>
-        
-        
-        
-        <a class="colab-button" href="https://colab.research.google.com/github/ml-course/master/blob/master/notebooks/Tutorial 2 - Python for Data Analysis.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
-                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
-                    src="../_static/images/logo_colab.png"
-                    alt="Interact on Colab">Colab</button></a>
-        
-        
-    </div>
-</div>
-
         </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
 
-        <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
-            
-            <div class="tocsection onthispage pt-5 pb-3">
-                <i class="fas fa-list"></i> Contents
-            </div>
-            <nav id="bd-toc-nav" aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/ml-course/master/master?urlpath=tree/notebooks/Tutorial 2 - Python for Data Analysis.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://colab.research.google.com/github/ml-course/master/blob/master/notebooks/Tutorial 2 - Python for Data Analysis.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Colab"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../_static/images/logo_colab.png">
+  </span>
+<span class="headerbtn__text-container">Colab</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/ml-course/master"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/ml-course/master/issues/new?title=Issue%20on%20page%20%2Fnotebooks/Tutorial 2 - Python for Data Analysis.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/notebooks/Tutorial 2 - Python for Data Analysis.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#numpy">
    NumPy
@@ -521,12 +647,11 @@
  </li>
 </ul>
 
-            </nav>
-        </div>
-    </div>
+    </nav>
 </div>
-    <div id="main-content" class="row">
-        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
                 <h1>Python for scientific computing</h1>
@@ -678,11 +803,12 @@
                     </div>
                 </div>
             </div>
-            
+            <main id="main-content" role="main">
+                
               <div>
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="python-for-scientific-computing">
-<h1>Python for scientific computing<a class="headerlink" href="#python-for-scientific-computing" title="Permalink to this headline">¶</a></h1>
+<h1>Python for scientific computing<a class="headerlink" href="#python-for-scientific-computing" title="Permalink to this headline">#</a></h1>
 <p>Python has extensive packages to help with data analysis:</p>
 <ul class="simple">
 <li><p>numpy: matrices, linear algebra, Fourier transform, pseudorandom number generators</p></li>
@@ -700,9 +826,45 @@
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ImportError</span><span class="g g-Whitespace">                               </span>Traceback (most recent call last)
+<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="mi">0</span><span class="n">t</span><span class="o">/</span><span class="mi">5</span><span class="n">d8ttqzd773fy0wq3h5db0xr0000gn</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_37075</span><span class="o">/</span><span class="mf">1226428666.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">get_ipython</span><span class="p">()</span><span class="o">.</span><span class="n">run_line_magic</span><span class="p">(</span><span class="s1">&#39;matplotlib&#39;</span><span class="p">,</span> <span class="s1">&#39;inline&#39;</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="ne">----&gt; </span><span class="mi">4</span> <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="o">~/</span><span class="n">miniforge3</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.9</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">pandas</span><span class="o">/</span><span class="fm">__init__</span><span class="o">.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">     </span><span class="mi">20</span> 
+<span class="g g-Whitespace">     </span><span class="mi">21</span> <span class="c1"># numpy compat</span>
+<span class="ne">---&gt; </span><span class="mi">22</span> <span class="kn">from</span> <span class="nn">pandas.compat</span> <span class="kn">import</span> <span class="n">is_numpy_dev</span> <span class="k">as</span> <span class="n">_is_numpy_dev</span>  <span class="c1"># pyright: ignore # noqa:F401</span>
+<span class="g g-Whitespace">     </span><span class="mi">23</span> 
+<span class="g g-Whitespace">     </span><span class="mi">24</span> <span class="k">try</span><span class="p">:</span>
+
+<span class="o">~/</span><span class="n">miniforge3</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.9</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">pandas</span><span class="o">/</span><span class="n">compat</span><span class="o">/</span><span class="fm">__init__</span><span class="o">.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">     </span><span class="mi">16</span> 
+<span class="g g-Whitespace">     </span><span class="mi">17</span> <span class="kn">from</span> <span class="nn">pandas._typing</span> <span class="kn">import</span> <span class="n">F</span>
+<span class="ne">---&gt; </span><span class="mi">18</span> <span class="kn">from</span> <span class="nn">pandas.compat.numpy</span> <span class="kn">import</span> <span class="p">(</span>
+<span class="g g-Whitespace">     </span><span class="mi">19</span>     <span class="n">is_numpy_dev</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">20</span>     <span class="n">np_version_under1p21</span><span class="p">,</span>
+
+<span class="o">~/</span><span class="n">miniforge3</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.9</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">pandas</span><span class="o">/</span><span class="n">compat</span><span class="o">/</span><span class="n">numpy</span><span class="o">/</span><span class="fm">__init__</span><span class="o">.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">     </span><span class="mi">21</span> 
+<span class="g g-Whitespace">     </span><span class="mi">22</span> <span class="k">if</span> <span class="n">_nlv</span> <span class="o">&lt;</span> <span class="n">Version</span><span class="p">(</span><span class="n">_min_numpy_ver</span><span class="p">):</span>
+<span class="ne">---&gt; </span><span class="mi">23</span>     <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span>
+<span class="g g-Whitespace">     </span><span class="mi">24</span>         <span class="sa">f</span><span class="s2">&quot;this version of pandas is incompatible with numpy &lt; </span><span class="si">{</span><span class="n">_min_numpy_ver</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+<span class="g g-Whitespace">     </span><span class="mi">25</span>         <span class="sa">f</span><span class="s2">&quot;your numpy version is </span><span class="si">{</span><span class="n">_np_version</span><span class="si">}</span><span class="s2">.</span><span class="se">\n</span><span class="s2">&quot;</span>
+
+<span class="ne">ImportError</span>: this version of pandas is incompatible with numpy &lt; 1.20.3
+<span class="n">your</span> <span class="n">numpy</span> <span class="n">version</span> <span class="ow">is</span> <span class="mf">1.19.5</span><span class="o">.</span>
+<span class="n">Please</span> <span class="n">upgrade</span> <span class="n">numpy</span> <span class="n">to</span> <span class="o">&gt;=</span> <span class="mf">1.20.3</span> <span class="n">to</span> <span class="n">use</span> <span class="n">this</span> <span class="n">pandas</span> <span class="n">version</span>
+</pre></div>
+</div>
+</div>
 </div>
 <div class="section" id="numpy">
-<h2>NumPy<a class="headerlink" href="#numpy" title="Permalink to this headline">¶</a></h2>
+<h2>NumPy<a class="headerlink" href="#numpy" title="Permalink to this headline">#</a></h2>
 <p>NumPy is the fundamental package required for high performance scientific computing in Python. It provides:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">ndarray</span></code>: fast and space-efficient n-dimensional numeric array with vectorized arithmetic operations</p></li>
@@ -712,7 +874,7 @@
 </ul>
 <p><code class="docutils literal notranslate"><span class="pre">pandas</span></code> provides a richer, simpler interface to many operations. We’ll focus on using <code class="docutils literal notranslate"><span class="pre">ndarrays</span></code> here because they are heavily used in scikit-learn.</p>
 <div class="section" id="ndarrays">
-<h3>ndarrays<a class="headerlink" href="#ndarrays" title="Permalink to this headline">¶</a></h3>
+<h3>ndarrays<a class="headerlink" href="#ndarrays" title="Permalink to this headline">#</a></h3>
 <p>There are several ways to create numpy arrays.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -786,8 +948,8 @@ It is cheaper to create an array with placeholders than extending it later.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0, 4, 4, 2],
-       [2, 4, 2, 4]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[4, 3, 2, 3],
+       [0, 3, 4, 4]])
 </pre></div>
 </div>
 </div>
@@ -813,7 +975,7 @@ It is cheaper to create an array with placeholders than extending it later.</p>
 </div>
 </div>
 <div class="section" id="basic-operations">
-<h3>Basic Operations<a class="headerlink" href="#basic-operations" title="Permalink to this headline">¶</a></h3>
+<h3>Basic Operations<a class="headerlink" href="#basic-operations" title="Permalink to this headline">#</a></h3>
 <p>Arithmetic operators on arrays apply elementwise. A new array is created and filled with the result. Some operations, such as += and *=, act in place to modify an existing array rather than create a new one.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -878,7 +1040,7 @@ The matrix product can be performed using dot()</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(2.758236610874325, 0.16774932717096946, 0.7699756913316933)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(0.9572624389610684, 0.06832338227931944, 0.2641917094515025)
 </pre></div>
 </div>
 </div>
@@ -902,7 +1064,7 @@ The matrix product can be performed using dot()</p>
 </div>
 </div>
 <div class="section" id="universal-functions">
-<h3>Universal Functions<a class="headerlink" href="#universal-functions" title="Permalink to this headline">¶</a></h3>
+<h3>Universal Functions<a class="headerlink" href="#universal-functions" title="Permalink to this headline">#</a></h3>
 <p>NumPy provides familiar mathematical functions such as sin, cos, exp, sqrt, floor,… In NumPy, these are called “universal functions” (ufunc), and operate elementwise on an array, producing an array as output.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -919,7 +1081,7 @@ The matrix product can be performed using dot()</p>
 </div>
 </div>
 <div class="section" id="shape-manipulation">
-<h3>Shape Manipulation<a class="headerlink" href="#shape-manipulation" title="Permalink to this headline">¶</a></h3>
+<h3>Shape Manipulation<a class="headerlink" href="#shape-manipulation" title="Permalink to this headline">#</a></h3>
 <p>Transpose, flatten, reshape,…</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -933,9 +1095,9 @@ The matrix product can be performed using dot()</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[3., 2., 9., 8.],
-       [1., 5., 4., 5.],
-       [9., 2., 8., 4.]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0., 4., 2., 4.],
+       [4., 5., 4., 6.],
+       [1., 5., 3., 9.]])
 </pre></div>
 </div>
 </div>
@@ -953,15 +1115,15 @@ The matrix product can be performed using dot()</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[6., 6., 9., 8., 5., 6.],
-       [5., 4., 9., 0., 0., 0.]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0., 0., 5., 1., 7., 6.],
+       [0., 2., 2., 2., 2., 8.]])
 </pre></div>
 </div>
 </div>
 </div>
 </div>
 <div class="section" id="indexing-and-slicing">
-<h3>Indexing and Slicing<a class="headerlink" href="#indexing-and-slicing" title="Permalink to this headline">¶</a></h3>
+<h3>Indexing and Slicing<a class="headerlink" href="#indexing-and-slicing" title="Permalink to this headline">#</a></h3>
 <p>Arrays can be indexed and sliced using [start:stop:stepsize]. Defaults are [0:ndim:1]</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1135,7 +1297,7 @@ The matrix product can be performed using dot()</p>
 </div>
 </div>
 <div class="section" id="iterating">
-<h3>Iterating<a class="headerlink" href="#iterating" title="Permalink to this headline">¶</a></h3>
+<h3>Iterating<a class="headerlink" href="#iterating" title="Permalink to this headline">#</a></h3>
 <p>Iterating is done with respect to the first axis:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1179,7 +1341,7 @@ True
 </div>
 </div>
 <div class="section" id="copies-and-views-or-how-to-shoot-yourself-in-a-foot">
-<h3>Copies and Views (or: how to shoot yourself in a foot)<a class="headerlink" href="#copies-and-views-or-how-to-shoot-yourself-in-a-foot" title="Permalink to this headline">¶</a></h3>
+<h3>Copies and Views (or: how to shoot yourself in a foot)<a class="headerlink" href="#copies-and-views-or-how-to-shoot-yourself-in-a-foot" title="Permalink to this headline">#</a></h3>
 <p>Assigning an array to another variable does NOT create a copy</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1301,7 +1463,7 @@ True
 </div>
 </div>
 <div class="section" id="numpy-further-reading">
-<h3>Numpy: further reading<a class="headerlink" href="#numpy-further-reading" title="Permalink to this headline">¶</a></h3>
+<h3>Numpy: further reading<a class="headerlink" href="#numpy-further-reading" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Numpy Tutorial: <a class="reference external" href="http://wiki.scipy.org/Tentative_NumPy_Tutorial">http://wiki.scipy.org/Tentative_NumPy_Tutorial</a></p></li>
 <li><p>“Python for Data Analysis” by Wes McKinney (O’Reilly)</p></li>
@@ -1309,7 +1471,7 @@ True
 </div>
 </div>
 <div class="section" id="scipy">
-<h2>SciPy<a class="headerlink" href="#scipy" title="Permalink to this headline">¶</a></h2>
+<h2>SciPy<a class="headerlink" href="#scipy" title="Permalink to this headline">#</a></h2>
 <p>SciPy is a collection of packages for scientific computing, among others:</p>
 <ul class="simple">
 <li><p>scipy.integrate: numerical integration and differential equation solvers</p></li>
@@ -1320,7 +1482,7 @@ True
 <li><p>scipy.stats: probability distributions, statistical tests, descriptive statistics</p></li>
 </ul>
 <div class="section" id="sparse-matrices">
-<h3>Sparse matrices<a class="headerlink" href="#sparse-matrices" title="Permalink to this headline">¶</a></h3>
+<h3>Sparse matrices<a class="headerlink" href="#sparse-matrices" title="Permalink to this headline">#</a></h3>
 <p>Sparse matrices are used in scikit-learn for (large) arrays that contain mostly zeros. You can convert a dense (numpy) matrix to a sparse matrix.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1364,12 +1526,12 @@ True
 </div>
 </div>
 <div class="section" id="further-reading">
-<h3>Further reading<a class="headerlink" href="#further-reading" title="Permalink to this headline">¶</a></h3>
+<h3>Further reading<a class="headerlink" href="#further-reading" title="Permalink to this headline">#</a></h3>
 <p>Check the <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/">SciPy reference guide</a> for tutorials and examples of all SciPy capabilities.</p>
 </div>
 </div>
 <div class="section" id="pandas">
-<h2>pandas<a class="headerlink" href="#pandas" title="Permalink to this headline">¶</a></h2>
+<h2>pandas<a class="headerlink" href="#pandas" title="Permalink to this headline">#</a></h2>
 <p>pandas is a Python library for data wrangling and analysis. It provides:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>: a table, similar to an R DataFrame that holds any structured data</p>
@@ -1381,7 +1543,7 @@ True
 <li><p>Imports data from a wide range of data formats (CSV, Excel) and databases (e.g. SQL)</p></li>
 </ul>
 <div class="section" id="series">
-<h3>Series<a class="headerlink" href="#series" title="Permalink to this headline">¶</a></h3>
+<h3>Series<a class="headerlink" href="#series" title="Permalink to this headline">#</a></h3>
 <p>A one-dimensional array of data (of any numpy type), with indexed values. It can be created by passing a Python list or dict, a numpy array, a csv file,…</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1460,7 +1622,7 @@ dtype: float64
 </div>
 </div>
 <div class="section" id="dataframe">
-<h3>DataFrame<a class="headerlink" href="#dataframe" title="Permalink to this headline">¶</a></h3>
+<h3>DataFrame<a class="headerlink" href="#dataframe" title="Permalink to this headline">#</a></h3>
 <p>A DataFrame is a tabular data structure with both a row and a column index. It can be created by passing a dict of arrays, a csv file,…</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1566,31 +1728,31 @@ dtype: float64
   <tbody>
     <tr>
       <th>2013-01-01</th>
-      <td>-0.318650</td>
-      <td>0.592168</td>
-      <td>-0.611032</td>
-      <td>-1.280998</td>
+      <td>-0.279229</td>
+      <td>0.014442</td>
+      <td>1.206311</td>
+      <td>0.444963</td>
     </tr>
     <tr>
       <th>2013-01-02</th>
-      <td>-1.048456</td>
-      <td>-0.368834</td>
-      <td>-1.078546</td>
-      <td>1.135009</td>
+      <td>-0.836939</td>
+      <td>-1.328902</td>
+      <td>0.361891</td>
+      <td>-0.621461</td>
     </tr>
     <tr>
       <th>2013-01-03</th>
-      <td>-1.872193</td>
-      <td>0.487276</td>
-      <td>-0.252808</td>
-      <td>0.114479</td>
+      <td>-0.647378</td>
+      <td>-2.271949</td>
+      <td>0.122788</td>
+      <td>-0.726806</td>
     </tr>
     <tr>
       <th>2013-01-04</th>
-      <td>-1.301766</td>
-      <td>0.987662</td>
-      <td>0.565099</td>
-      <td>-1.429087</td>
+      <td>0.569523</td>
+      <td>-0.378494</td>
+      <td>0.881282</td>
+      <td>-1.589848</td>
     </tr>
   </tbody>
 </table>
@@ -1605,10 +1767,10 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[-0.31864966,  0.59216788, -0.6110323 , -1.28099786],
-       [-1.04845645, -0.36883354, -1.07854557,  1.1350094 ],
-       [-1.8721926 ,  0.48727593, -0.25280783,  0.11447944],
-       [-1.30176638,  0.98766151,  0.56509902, -1.42908679]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[-0.27922882,  0.01444176,  1.20631052,  0.44496293],
+       [-0.83693931, -1.32890157,  0.36189055, -0.62146103],
+       [-0.64737828, -2.2719488 ,  0.12278808, -0.72680583],
+       [ 0.56952335, -0.37849357,  0.88128234, -1.58984755]])
 </pre></div>
 </div>
 </div>
@@ -1632,7 +1794,7 @@ dtype: float64
 </div>
 </div>
 <div class="section" id="simple-operations">
-<h3>Simple operations<a class="headerlink" href="#simple-operations" title="Permalink to this headline">¶</a></h3>
+<h3>Simple operations<a class="headerlink" href="#simple-operations" title="Permalink to this headline">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span> <span class="c1"># First 5 rows</span>
@@ -1668,31 +1830,31 @@ dtype: float64
   <tbody>
     <tr>
       <th>2013-01-01</th>
-      <td>-0.318650</td>
-      <td>0.592168</td>
-      <td>-0.611032</td>
-      <td>-1.280998</td>
+      <td>-0.279229</td>
+      <td>0.014442</td>
+      <td>1.206311</td>
+      <td>0.444963</td>
     </tr>
     <tr>
       <th>2013-01-02</th>
-      <td>-1.048456</td>
-      <td>-0.368834</td>
-      <td>-1.078546</td>
-      <td>1.135009</td>
+      <td>-0.836939</td>
+      <td>-1.328902</td>
+      <td>0.361891</td>
+      <td>-0.621461</td>
     </tr>
     <tr>
       <th>2013-01-03</th>
-      <td>-1.872193</td>
-      <td>0.487276</td>
-      <td>-0.252808</td>
-      <td>0.114479</td>
+      <td>-0.647378</td>
+      <td>-2.271949</td>
+      <td>0.122788</td>
+      <td>-0.726806</td>
     </tr>
     <tr>
       <th>2013-01-04</th>
-      <td>-1.301766</td>
-      <td>0.987662</td>
-      <td>0.565099</td>
-      <td>-1.429087</td>
+      <td>0.569523</td>
+      <td>-0.378494</td>
+      <td>0.881282</td>
+      <td>-1.589848</td>
     </tr>
   </tbody>
 </table>
@@ -1740,52 +1902,52 @@ dtype: float64
     </tr>
     <tr>
       <th>mean</th>
-      <td>-1.135266</td>
-      <td>0.424568</td>
-      <td>-0.344322</td>
-      <td>-0.365149</td>
+      <td>-0.298506</td>
+      <td>-0.991226</td>
+      <td>0.643068</td>
+      <td>-0.623288</td>
     </tr>
     <tr>
       <th>std</th>
-      <td>0.644252</td>
-      <td>0.571134</td>
-      <td>0.694176</td>
-      <td>1.218094</td>
+      <td>0.623289</td>
+      <td>1.023244</td>
+      <td>0.491169</td>
+      <td>0.833890</td>
     </tr>
     <tr>
       <th>min</th>
-      <td>-1.872193</td>
-      <td>-0.368834</td>
-      <td>-1.078546</td>
-      <td>-1.429087</td>
+      <td>-0.836939</td>
+      <td>-2.271949</td>
+      <td>0.122788</td>
+      <td>-1.589848</td>
     </tr>
     <tr>
       <th>25%</th>
-      <td>-1.444373</td>
-      <td>0.273249</td>
-      <td>-0.727911</td>
-      <td>-1.318020</td>
+      <td>-0.694769</td>
+      <td>-1.564663</td>
+      <td>0.302115</td>
+      <td>-0.942566</td>
     </tr>
     <tr>
       <th>50%</th>
-      <td>-1.175111</td>
-      <td>0.539722</td>
-      <td>-0.431920</td>
-      <td>-0.583259</td>
+      <td>-0.463304</td>
+      <td>-0.853698</td>
+      <td>0.621586</td>
+      <td>-0.674133</td>
     </tr>
     <tr>
       <th>75%</th>
-      <td>-0.866005</td>
-      <td>0.691041</td>
-      <td>-0.048331</td>
-      <td>0.369612</td>
+      <td>-0.067041</td>
+      <td>-0.280260</td>
+      <td>0.962539</td>
+      <td>-0.354855</td>
     </tr>
     <tr>
       <th>max</th>
-      <td>-0.318650</td>
-      <td>0.987662</td>
-      <td>0.565099</td>
-      <td>1.135009</td>
+      <td>0.569523</td>
+      <td>0.014442</td>
+      <td>1.206311</td>
+      <td>0.444963</td>
     </tr>
   </tbody>
 </table>
@@ -1826,31 +1988,31 @@ dtype: float64
   <tbody>
     <tr>
       <th>A</th>
-      <td>-0.318650</td>
-      <td>-1.048456</td>
-      <td>-1.872193</td>
-      <td>-1.301766</td>
+      <td>-0.279229</td>
+      <td>-0.836939</td>
+      <td>-0.647378</td>
+      <td>0.569523</td>
     </tr>
     <tr>
       <th>B</th>
-      <td>0.592168</td>
-      <td>-0.368834</td>
-      <td>0.487276</td>
-      <td>0.987662</td>
+      <td>0.014442</td>
+      <td>-1.328902</td>
+      <td>-2.271949</td>
+      <td>-0.378494</td>
     </tr>
     <tr>
       <th>C</th>
-      <td>-0.611032</td>
-      <td>-1.078546</td>
-      <td>-0.252808</td>
-      <td>0.565099</td>
+      <td>1.206311</td>
+      <td>0.361891</td>
+      <td>0.122788</td>
+      <td>0.881282</td>
     </tr>
     <tr>
       <th>D</th>
-      <td>-1.280998</td>
-      <td>1.135009</td>
-      <td>0.114479</td>
-      <td>-1.429087</td>
+      <td>0.444963</td>
+      <td>-0.621461</td>
+      <td>-0.726806</td>
+      <td>-1.589848</td>
     </tr>
   </tbody>
 </table>
@@ -1891,32 +2053,32 @@ dtype: float64
   </thead>
   <tbody>
     <tr>
-      <th>2013-01-02</th>
-      <td>-1.048456</td>
-      <td>-0.368834</td>
-      <td>-1.078546</td>
-      <td>1.135009</td>
-    </tr>
-    <tr>
       <th>2013-01-03</th>
-      <td>-1.872193</td>
-      <td>0.487276</td>
-      <td>-0.252808</td>
-      <td>0.114479</td>
+      <td>-0.647378</td>
+      <td>-2.271949</td>
+      <td>0.122788</td>
+      <td>-0.726806</td>
     </tr>
     <tr>
-      <th>2013-01-01</th>
-      <td>-0.318650</td>
-      <td>0.592168</td>
-      <td>-0.611032</td>
-      <td>-1.280998</td>
+      <th>2013-01-02</th>
+      <td>-0.836939</td>
+      <td>-1.328902</td>
+      <td>0.361891</td>
+      <td>-0.621461</td>
     </tr>
     <tr>
       <th>2013-01-04</th>
-      <td>-1.301766</td>
-      <td>0.987662</td>
-      <td>0.565099</td>
-      <td>-1.429087</td>
+      <td>0.569523</td>
+      <td>-0.378494</td>
+      <td>0.881282</td>
+      <td>-1.589848</td>
+    </tr>
+    <tr>
+      <th>2013-01-01</th>
+      <td>-0.279229</td>
+      <td>0.014442</td>
+      <td>1.206311</td>
+      <td>0.444963</td>
     </tr>
   </tbody>
 </table>
@@ -1924,7 +2086,7 @@ dtype: float64
 </div>
 </div>
 <div class="section" id="selecting-and-slicing">
-<h3>Selecting and slicing<a class="headerlink" href="#selecting-and-slicing" title="Permalink to this headline">¶</a></h3>
+<h3>Selecting and slicing<a class="headerlink" href="#selecting-and-slicing" title="Permalink to this headline">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">]</span> <span class="c1"># Get single column by label</span>
@@ -1933,10 +2095,10 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2013-01-01   -0.318650
-2013-01-02   -1.048456
-2013-01-03   -1.872193
-2013-01-04   -1.301766
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2013-01-01   -0.279229
+2013-01-02   -0.836939
+2013-01-03   -0.647378
+2013-01-04    0.569523
 Freq: D, Name: A, dtype: float64
 </pre></div>
 </div>
@@ -1977,18 +2139,18 @@ Freq: D, Name: A, dtype: float64
   <tbody>
     <tr>
       <th>2013-01-01</th>
-      <td>-0.318650</td>
-      <td>0.592168</td>
+      <td>-0.279229</td>
+      <td>0.014442</td>
     </tr>
     <tr>
       <th>2013-01-02</th>
-      <td>-1.048456</td>
-      <td>-0.368834</td>
+      <td>-0.836939</td>
+      <td>-1.328902</td>
     </tr>
     <tr>
       <th>2013-01-03</th>
-      <td>-1.872193</td>
-      <td>0.487276</td>
+      <td>-0.647378</td>
+      <td>-2.271949</td>
     </tr>
   </tbody>
 </table>
@@ -2029,6 +2191,27 @@ Freq: D, Name: A, dtype: float64
     </tr>
   </thead>
   <tbody>
+    <tr>
+      <th>2013-01-02</th>
+      <td>-0.836939</td>
+      <td>-1.328902</td>
+      <td>0.361891</td>
+      <td>-0.621461</td>
+    </tr>
+    <tr>
+      <th>2013-01-03</th>
+      <td>-0.647378</td>
+      <td>-2.271949</td>
+      <td>0.122788</td>
+      <td>-0.726806</td>
+    </tr>
+    <tr>
+      <th>2013-01-04</th>
+      <td>0.569523</td>
+      <td>-0.378494</td>
+      <td>0.881282</td>
+      <td>-1.589848</td>
+    </tr>
   </tbody>
 </table>
 </div></div></div>
@@ -2036,7 +2219,7 @@ Freq: D, Name: A, dtype: float64
 <p>Note: similar to NumPy, indexing and slicing returns a <em>view</em> on the data. Use copy() to make a deep copy.</p>
 </div>
 <div class="section" id="operations">
-<h3>Operations<a class="headerlink" href="#operations" title="Permalink to this headline">¶</a></h3>
+<h3>Operations<a class="headerlink" href="#operations" title="Permalink to this headline">#</a></h3>
 <p>DataFrames offer a <a class="reference external" href="http://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.html">wide range of operations</a>: max, mean, min, sum, std,…</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2046,10 +2229,10 @@ Freq: D, Name: A, dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2013-01-01   -0.404628
-2013-01-02   -0.340207
-2013-01-03   -0.380811
-2013-01-04   -0.294523
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2013-01-01    0.346622
+2013-01-02   -0.606353
+2013-01-03   -0.880836
+2013-01-04   -0.129384
 Freq: D, dtype: float64
 </pre></div>
 </div>
@@ -2090,31 +2273,31 @@ Freq: D, dtype: float64
   <tbody>
     <tr>
       <th>2013-01-01</th>
-      <td>0.318650</td>
-      <td>0.592168</td>
-      <td>0.611032</td>
-      <td>1.280998</td>
+      <td>0.279229</td>
+      <td>0.014442</td>
+      <td>1.206311</td>
+      <td>0.444963</td>
     </tr>
     <tr>
       <th>2013-01-02</th>
-      <td>1.048456</td>
-      <td>0.368834</td>
-      <td>1.078546</td>
-      <td>1.135009</td>
+      <td>0.836939</td>
+      <td>1.328902</td>
+      <td>0.361891</td>
+      <td>0.621461</td>
     </tr>
     <tr>
       <th>2013-01-03</th>
-      <td>1.872193</td>
-      <td>0.487276</td>
-      <td>0.252808</td>
-      <td>0.114479</td>
+      <td>0.647378</td>
+      <td>2.271949</td>
+      <td>0.122788</td>
+      <td>0.726806</td>
     </tr>
     <tr>
       <th>2013-01-04</th>
-      <td>1.301766</td>
-      <td>0.987662</td>
-      <td>0.565099</td>
-      <td>1.429087</td>
+      <td>0.569523</td>
+      <td>0.378494</td>
+      <td>0.881282</td>
+      <td>1.589848</td>
     </tr>
   </tbody>
 </table>
@@ -2130,10 +2313,10 @@ Freq: D, dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>A    1.553543
-B    1.356495
-C    1.643645
-D    2.564096
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>A    1.406463
+B    2.286391
+C    1.083522
+D    2.034810
 dtype: float64
 </pre></div>
 </div>
@@ -2184,24 +2367,24 @@ dtype: float64
     <tr>
       <th rowspan="2" valign="top">bar</th>
       <th>one</th>
-      <td>-1.099731</td>
-      <td>0.951070</td>
+      <td>1.616006</td>
+      <td>-1.040805</td>
     </tr>
     <tr>
       <th>three</th>
-      <td>0.436271</td>
-      <td>1.355603</td>
+      <td>0.959403</td>
+      <td>-0.993623</td>
     </tr>
     <tr>
       <th rowspan="2" valign="top">foo</th>
       <th>one</th>
-      <td>-0.282204</td>
-      <td>-1.251165</td>
+      <td>1.202516</td>
+      <td>-1.039395</td>
     </tr>
     <tr>
       <th>two</th>
-      <td>0.451704</td>
-      <td>-0.563359</td>
+      <td>-1.832403</td>
+      <td>-1.605941</td>
     </tr>
   </tbody>
 </table>
@@ -2209,7 +2392,7 @@ dtype: float64
 </div>
 </div>
 <div class="section" id="data-wrangling-some-examples">
-<h3>Data wrangling (some examples)<a class="headerlink" href="#data-wrangling-some-examples" title="Permalink to this headline">¶</a></h3>
+<h3>Data wrangling (some examples)<a class="headerlink" href="#data-wrangling-some-examples" title="Permalink to this headline">#</a></h3>
 <p>Merge: combine two dataframes based on common keys</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2397,7 +2580,7 @@ dtype: int64
 </div>
 </div>
 <div class="section" id="id1">
-<h3>Further reading<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<h3>Further reading<a class="headerlink" href="#id1" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Pandas docs: <a class="reference external" href="http://pandas.pydata.org/pandas-docs/stable/">http://pandas.pydata.org/pandas-docs/stable/</a></p></li>
 <li><p><a class="reference external" href="https://bitbucket.org/hrojas/learn-pandas">https://bitbucket.org/hrojas/learn-pandas</a></p></li>
@@ -2406,7 +2589,7 @@ dtype: int64
 </div>
 </div>
 <div class="section" id="matplotlib">
-<h2>matplotlib<a class="headerlink" href="#matplotlib" title="Permalink to this headline">¶</a></h2>
+<h2>matplotlib<a class="headerlink" href="#matplotlib" title="Permalink to this headline">#</a></h2>
 <p><a class="reference external" href="http://matplotlib.sourceforge.net">matplotlib</a> is the primary scientific plotting library in Python. It provides:</p>
 <ul class="simple">
 <li><p>Publication-quality <a class="reference external" href="http://matplotlib.org/gallery.html">visualizations</a> such as line charts, histograms, and scatter plots.</p></li>
@@ -2420,7 +2603,7 @@ dtype: int64
 <li><p>Ecosystem of libraries for more advanced plotting, e.g. <a class="reference external" href="http://seaborn.pydata.org/">Seaborn</a></p></li>
 </ul>
 <div class="section" id="low-level-usage">
-<h3>Low-level usage<a class="headerlink" href="#low-level-usage" title="Permalink to this headline">¶</a></h3>
+<h3>Low-level usage<a class="headerlink" href="#low-level-usage" title="Permalink to this headline">#</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">plot()</span></code> is the <a class="reference external" href="http://matplotlib.org/api/pyplot_api.html#matplotlib.pyplot.plot">main function</a> to generate a plot (but many more exist):</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>        <span class="n">Plot</span> <span class="n">x</span> <span class="n">vs</span> <span class="n">y</span><span class="p">,</span> <span class="n">default</span> <span class="n">settings</span>
 <span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s1">&#39;bo&#39;</span><span class="p">)</span>  <span class="n">Plot</span> <span class="n">x</span> <span class="n">vs</span> <span class="n">y</span><span class="p">,</span> <span class="n">blue</span> <span class="n">circle</span> <span class="n">markers</span>
@@ -2442,7 +2625,7 @@ dtype: int64
 </div>
 </div>
 <div class="section" id="pandas-matplotlib">
-<h3>pandas + matplotlib<a class="headerlink" href="#pandas-matplotlib" title="Permalink to this headline">¶</a></h3>
+<h3>pandas + matplotlib<a class="headerlink" href="#pandas-matplotlib" title="Permalink to this headline">#</a></h3>
 <p>pandas DataFrames offer an easier, higher-level interface for matplotlib functions</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2485,21 +2668,17 @@ dtype: int64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/jvanscho/miniforge3/lib/python3.9/site-packages/matplotlib/collections.py:982: RuntimeWarning: invalid value encountered in sqrt
-  scale = np.sqrt(self._sizes) * dpi / 72.0 * self._factor
-</pre></div>
-</div>
-<img alt="../_images/Tutorial 2 - Python for Data Analysis_123_1.png" src="../_images/Tutorial 2 - Python for Data Analysis_123_1.png" />
+<img alt="../_images/Tutorial 2 - Python for Data Analysis_123_0.png" src="../_images/Tutorial 2 - Python for Data Analysis_123_0.png" />
 </div>
 </div>
 </div>
 <div class="section" id="advanced-plotting-libraries">
-<h3>Advanced plotting libraries<a class="headerlink" href="#advanced-plotting-libraries" title="Permalink to this headline">¶</a></h3>
+<h3>Advanced plotting libraries<a class="headerlink" href="#advanced-plotting-libraries" title="Permalink to this headline">#</a></h3>
 <p>Several libraries, such as <a class="reference external" href="http://seaborn.pydata.org/examples/index.html">Seaborn</a> offer more advanced plots and easier interfaces.
 <img alt="Seaborn Examples" src="http://ksopyla.com/wp-content/uploads/2016/11/seaborn_examples.jpg" /></p>
 </div>
 <div class="section" id="further-reading-links">
-<h3>Further reading links<a class="headerlink" href="#further-reading-links" title="Permalink to this headline">¶</a></h3>
+<h3>Further reading links<a class="headerlink" href="#further-reading-links" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p><a class="reference external" href="http://matplotlib.org/gallery.html">Matplotlib examples</a></p></li>
 <li><p><a class="reference external" href="http://pandas.pydata.org/pandas-docs/version/0.18.1/visualization.html">Plotting with pandas</a></p></li>
@@ -2521,7 +2700,7 @@ dtype: int64
             mode: "python"
         },
         kernelOptions: {
-            kernelName: "python3",
+            name: "python3",
             path: "./notebooks"
         },
         predefinedOutput: true
@@ -2531,9 +2710,11 @@ dtype: int64
 
               </div>
               
-            
-                <!-- Previous / next buttons -->
-<div class='prev-next-area'> 
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
     <a class='left-prev' id="prev-link" href="Tutorial%201%20-%20Python.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
@@ -2549,24 +2730,28 @@ dtype: int64
     <i class="fas fa-angle-right"></i>
     </a>
 </div>
-            
+            </footer>
         </div>
     </div>
-    <footer class="footer">
-  <p>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Joaquin Vanschoren<br/>
+  
+      &copy; Copyright 2021. CC0 Licensed - Use as you like.<br/>
+</p>
+        </footer>
+    </div>
     
-      By Joaquin Vanschoren<br/>
-    
-        &copy; Copyright 2021. CC0 Licensed - Use as you like.<br/>
-  </p>
-</footer>
-</main>
+</div>
 
 
       </div>
     </div>
   
-  <script src="../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
 
   </body>
 </html>

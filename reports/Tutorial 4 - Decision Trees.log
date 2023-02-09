@@ -33,8 +33,8 @@ if interactive:
 ------------------
 
 [0;31m---------------------------------------------------------------------------[0m
-[0;31mTypeError[0m                                 Traceback (most recent call last)
-[0;32m/var/folders/0t/5d8ttqzd773fy0wq3h5db0xr0000gn/T/ipykernel_3702/659089216.py[0m in [0;36m<module>[0;34m[0m
+[0;31mImportError[0m                               Traceback (most recent call last)
+[0;32m/var/folders/0t/5d8ttqzd773fy0wq3h5db0xr0000gn/T/ipykernel_37087/659089216.py[0m in [0;36m<module>[0;34m[0m
 [1;32m      8[0m [0;31m# Global imports and settings[0m[0;34m[0m[0;34m[0m[0m
 [1;32m      9[0m [0mget_ipython[0m[0;34m([0m[0;34m)[0m[0;34m.[0m[0mrun_line_magic[0m[0;34m([0m[0;34m'matplotlib'[0m[0;34m,[0m [0;34m'inline'[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
 [0;32m---> 10[0;31m [0;32mfrom[0m [0mpreamble[0m [0;32mimport[0m [0;34m*[0m[0;34m[0m[0;34m[0m[0m
@@ -42,33 +42,37 @@ if interactive:
 [1;32m     12[0m [0;32mif[0m [0minteractive[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
 
 [0;32m~/Documents/ml-course/master/notebooks/preamble.py[0m in [0;36m<module>[0;34m[0m
+[1;32m      1[0m [0;32mfrom[0m [0mIPython[0m[0;34m.[0m[0mdisplay[0m [0;32mimport[0m [0mset_matplotlib_formats[0m[0;34m,[0m [0mdisplay[0m[0;34m,[0m [0mHTML[0m[0;34m[0m[0;34m[0m[0m
+[1;32m      2[0m [0;32mfrom[0m [0mIPython[0m[0;34m.[0m[0mcore[0m[0;34m.[0m[0minteractiveshell[0m [0;32mimport[0m [0mInteractiveShell[0m[0;34m[0m[0;34m[0m[0m
+[0;32m----> 3[0;31m [0;32mimport[0m [0mpandas[0m [0;32mas[0m [0mpd[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m      4[0m [0;32mimport[0m [0mnumpy[0m [0;32mas[0m [0mnp[0m[0;34m[0m[0;34m[0m[0m
 [1;32m      5[0m [0;32mimport[0m [0mmatplotlib[0m[0;34m.[0m[0mpyplot[0m [0;32mas[0m [0mplt[0m[0;34m[0m[0;34m[0m[0m
-[1;32m      6[0m [0;32mimport[0m [0mopenml[0m [0;32mas[0m [0moml[0m[0;34m[0m[0;34m[0m[0m
-[0;32m----> 7[0;31m [0;32mimport[0m [0mmglearn[0m[0;34m[0m[0;34m[0m[0m
-[0m[1;32m      8[0m [0;32mimport[0m [0mos[0m[0;34m[0m[0;34m[0m[0m
-[1;32m      9[0m [0;32mfrom[0m [0mcycler[0m [0;32mimport[0m [0mcycler[0m[0;34m[0m[0;34m[0m[0m
 
-[0;32m~/Documents/ml-course/master/notebooks/mglearn/__init__.py[0m in [0;36m<module>[0;34m[0m
-[0;32m----> 1[0;31m [0;32mfrom[0m [0;34m.[0m [0;32mimport[0m [0mplots[0m[0;34m[0m[0;34m[0m[0m
-[0m[1;32m      2[0m [0;32mfrom[0m [0;34m.[0m [0;32mimport[0m [0mtools[0m[0;34m[0m[0;34m[0m[0m
-[1;32m      3[0m [0;32mfrom[0m [0;34m.[0m[0mplots[0m [0;32mimport[0m [0mcm3[0m[0;34m,[0m [0mcm2[0m[0;34m[0m[0;34m[0m[0m
-[1;32m      4[0m [0;32mfrom[0m [0;34m.[0m[0mtools[0m [0;32mimport[0m [0mdiscrete_scatter[0m[0;34m[0m[0;34m[0m[0m
-[1;32m      5[0m [0;32mfrom[0m [0;34m.[0m[0mplot_helpers[0m [0;32mimport[0m [0mReBl[0m[0;34m[0m[0;34m[0m[0m
+[0;32m~/miniforge3/lib/python3.9/site-packages/pandas/__init__.py[0m in [0;36m<module>[0;34m[0m
+[1;32m     20[0m [0;34m[0m[0m
+[1;32m     21[0m [0;31m# numpy compat[0m[0;34m[0m[0;34m[0m[0m
+[0;32m---> 22[0;31m [0;32mfrom[0m [0mpandas[0m[0;34m.[0m[0mcompat[0m [0;32mimport[0m [0mis_numpy_dev[0m [0;32mas[0m [0m_is_numpy_dev[0m  [0;31m# pyright: ignore # noqa:F401[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m     23[0m [0;34m[0m[0m
+[1;32m     24[0m [0;32mtry[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
 
-[0;32m~/Documents/ml-course/master/notebooks/mglearn/plots.py[0m in [0;36m<module>[0;34m[0m
-[1;32m     13[0m [0;32mfrom[0m [0;34m.[0m[0mplot_tree_nonmonotonous[0m [0;32mimport[0m [0mplot_tree_not_monotone[0m[0;34m[0m[0;34m[0m[0m
-[1;32m     14[0m [0;32mfrom[0m [0;34m.[0m[0mplot_scaling[0m [0;32mimport[0m [0mplot_scaling[0m[0;34m[0m[0;34m[0m[0m
-[0;32m---> 15[0;31m [0;32mfrom[0m [0;34m.[0m[0mplot_pca[0m [0;32mimport[0m [0mplot_pca_illustration[0m[0;34m,[0m [0mplot_pca_whitening[0m[0;34m,[0m [0mplot_pca_faces[0m[0;34m[0m[0;34m[0m[0m
-[0m[1;32m     16[0m [0;32mfrom[0m [0;34m.[0m[0mplot_decomposition[0m [0;32mimport[0m [0mplot_decomposition[0m[0;34m[0m[0;34m[0m[0m
-[1;32m     17[0m [0;32mfrom[0m [0;34m.[0m[0mplot_nmf[0m [0;32mimport[0m [0mplot_nmf_illustration[0m[0;34m,[0m [0mplot_nmf_faces[0m[0;34m[0m[0;34m[0m[0m
+[0;32m~/miniforge3/lib/python3.9/site-packages/pandas/compat/__init__.py[0m in [0;36m<module>[0;34m[0m
+[1;32m     16[0m [0;34m[0m[0m
+[1;32m     17[0m [0;32mfrom[0m [0mpandas[0m[0;34m.[0m[0m_typing[0m [0;32mimport[0m [0mF[0m[0;34m[0m[0;34m[0m[0m
+[0;32m---> 18[0;31m from pandas.compat.numpy import (
+[0m[1;32m     19[0m     [0mis_numpy_dev[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
+[1;32m     20[0m     [0mnp_version_under1p21[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
 
-[0;32m~/Documents/ml-course/master/notebooks/mglearn/plot_pca.py[0m in [0;36m<module>[0;34m[0m
-[1;32m      5[0m [0;32mfrom[0m [0mjoblib[0m [0;32mimport[0m [0mMemory[0m[0;34m[0m[0;34m[0m[0m
-[1;32m      6[0m [0;34m[0m[0m
-[0;32m----> 7[0;31m [0mmemory[0m [0;34m=[0m [0mMemory[0m[0;34m([0m[0mcachedir[0m[0;34m=[0m[0;34m"cache"[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
-[0m[1;32m      8[0m [0;34m[0m[0m
-[1;32m      9[0m [0;34m[0m[0m
+[0;32m~/miniforge3/lib/python3.9/site-packages/pandas/compat/numpy/__init__.py[0m in [0;36m<module>[0;34m[0m
+[1;32m     21[0m [0;34m[0m[0m
+[1;32m     22[0m [0;32mif[0m [0m_nlv[0m [0;34m<[0m [0mVersion[0m[0;34m([0m[0m_min_numpy_ver[0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0;32m---> 23[0;31m     raise ImportError(
+[0m[1;32m     24[0m         [0;34mf"this version of pandas is incompatible with numpy < {_min_numpy_ver}\n"[0m[0;34m[0m[0;34m[0m[0m
+[1;32m     25[0m         [0;34mf"your numpy version is {_np_version}.\n"[0m[0;34m[0m[0;34m[0m[0m
 
-[0;31mTypeError[0m: __init__() got an unexpected keyword argument 'cachedir'
-TypeError: __init__() got an unexpected keyword argument 'cachedir'
+[0;31mImportError[0m: this version of pandas is incompatible with numpy < 1.20.3
+your numpy version is 1.19.5.
+Please upgrade numpy to >= 1.20.3 to use this pandas version
+ImportError: this version of pandas is incompatible with numpy < 1.20.3
+your numpy version is 1.19.5.
+Please upgrade numpy to >= 1.20.3 to use this pandas version
 

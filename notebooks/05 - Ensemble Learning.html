@@ -7,8 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Lecture 5. Ensemble Learning &#8212; ML Engineering</title>
     
-  <link href="../_static/css/theme.css" rel="stylesheet">
-  <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 
     
   <link rel="stylesheet"
@@ -18,20 +19,16 @@
   <link rel="preload" as="font" type="font/woff2" crossorigin
     href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
-    
-      
-
-    
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
     
-  <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
 
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
@@ -40,19 +37,17 @@
     <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
-    <script>
-        const thebe_selector = ".thebe"
-        const thebe_selector_input = "pre"
-        const thebe_selector_output = ".output"
-    </script>
-    <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="shortcut icon" href="../_static/favicon.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -65,7 +60,21 @@
     <!-- Google Analytics -->
     
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
     
     <div class="container-fluid" id="banner"></div>
 
@@ -74,9 +83,10 @@
     <div class="container-xl">
       <div class="row">
           
-<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
-    
-        <div class="navbar-brand-box">
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="../index.html">
       
         <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
@@ -94,14 +104,15 @@
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Welcome
+                </a>
+            </li>
+        </ul>
         <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../intro.html">
-   Welcome
-  </a>
- </li>
-</ul>
-<ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="../labs/Lab%200%20-%20Prerequisites.html">
    Prerequisites
@@ -286,108 +297,223 @@
 </ul>
 
     </div>
-</nav> <!-- To handle the deprecated key -->
-
-</div>
-
-
-          
-
-
-          
-<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
-    
-    <div class="topbar container-xl fixed-top">
-    <div class="topbar-contents row">
-        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
-        <div class="col pl-md-4 topbar-main">
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
             
-            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
-                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
-                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
-                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
-                <i class="fas fa-bars"></i>
-                <i class="fas fa-arrow-left"></i>
-                <i class="fas fa-arrow-up"></i>
-            </button>
-            
-            
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
-            class="fas fa-download"></i></button>
-
-    <div class="dropdown-buttons">
-        <!-- ipynb file if we had a myst markdown file -->
-        
-        <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/notebooks/05 - Ensemble Learning.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.ipynb</button></a>
-        <!-- Download PDF via print -->
-        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
-                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
-    </div>
-</div>
-
-            <!-- Source interaction buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
-    <div class="dropdown-buttons sourcebuttons">
-        <a class="repository-button"
-            href="https://github.com/ml-course/master"><button type="button" class="btn btn-secondary topbarbtn"
-                data-toggle="tooltip" data-placement="left" title="Source repository"><i
-                    class="fab fa-github"></i>repository</button></a>
-        <a class="issues-button"
-            href="https://github.com/ml-course/master/issues/new?title=Issue%20on%20page%20%2Fnotebooks/05 - Ensemble Learning.html&body=Your%20issue%20content%20here."><button
-                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
-                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
-        
-    </div>
-</div>
-
-            <!-- Full screen (wrap in <a> to have style consistency -->
-
-<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
-        title="Fullscreen mode"><i
-            class="fas fa-expand"></i></button></a>
-
-            <!-- Launch buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
-    <div class="dropdown-buttons">
-        
-        <a class="binder-button" href="https://mybinder.org/v2/gh/ml-course/master/master?urlpath=tree/notebooks/05 - Ensemble Learning.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
-                data-placement="left"><img class="binder-button-logo"
-                    src="../_static/images/logo_binder.svg"
-                    alt="Interact on binder">Binder</button></a>
-        
-        
-        
-        <a class="colab-button" href="https://colab.research.google.com/github/ml-course/master/blob/master/notebooks/05 - Ensemble Learning.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
-                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
-                    src="../_static/images/logo_colab.png"
-                    alt="Interact on Colab">Colab</button></a>
-        
-        
-    </div>
-</div>
-
         </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
 
-        <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
-            
-            <div class="tocsection onthispage pt-5 pb-3">
-                <i class="fas fa-list"></i> Contents
-            </div>
-            <nav id="bd-toc-nav" aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/ml-course/master/master?urlpath=tree/notebooks/05 - Ensemble Learning.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://colab.research.google.com/github/ml-course/master/blob/master/notebooks/05 - Ensemble Learning.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Colab"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../_static/images/logo_colab.png">
+  </span>
+<span class="headerbtn__text-container">Colab</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/ml-course/master"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/ml-course/master/issues/new?title=Issue%20on%20page%20%2Fnotebooks/05 - Ensemble Learning.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/notebooks/05 - Ensemble Learning.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#ensemble-learning">
    Ensemble learning
@@ -593,12 +719,11 @@
  </li>
 </ul>
 
-            </nav>
-        </div>
-    </div>
+    </nav>
 </div>
-    <div id="main-content" class="row">
-        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
                 <h1>Lecture 5. Ensemble Learning</h1>
@@ -820,11 +945,12 @@
                     </div>
                 </div>
             </div>
-            
+            <main id="main-content" role="main">
+                
               <div>
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="lecture-5-ensemble-learning">
-<h1>Lecture 5. Ensemble Learning<a class="headerlink" href="#lecture-5-ensemble-learning" title="Permalink to this headline">¶</a></h1>
+<h1>Lecture 5. Ensemble Learning<a class="headerlink" href="#lecture-5-ensemble-learning" title="Permalink to this headline">#</a></h1>
 <p><strong>Crowd intelligence</strong></p>
 <p>Joaquin Vanschoren</p>
 <div class="cell tag_hide-input docutils container">
@@ -851,8 +977,8 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">TypeError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="mi">0</span><span class="n">t</span><span class="o">/</span><span class="mi">5</span><span class="n">d8ttqzd773fy0wq3h5db0xr0000gn</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_3614</span><span class="o">/</span><span class="mf">457119730.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="ne">ImportError</span><span class="g g-Whitespace">                               </span>Traceback (most recent call last)
+<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="mi">0</span><span class="n">t</span><span class="o">/</span><span class="mi">5</span><span class="n">d8ttqzd773fy0wq3h5db0xr0000gn</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_37038</span><span class="o">/</span><span class="mf">457119730.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
 <span class="g g-Whitespace">      </span><span class="mi">8</span> <span class="c1"># Global imports and settings</span>
 <span class="g g-Whitespace">      </span><span class="mi">9</span> <span class="n">get_ipython</span><span class="p">()</span><span class="o">.</span><span class="n">run_line_magic</span><span class="p">(</span><span class="s1">&#39;matplotlib&#39;</span><span class="p">,</span> <span class="s1">&#39;inline&#39;</span><span class="p">)</span>
 <span class="ne">---&gt; </span><span class="mi">10</span> <span class="kn">from</span> <span class="nn">preamble</span> <span class="kn">import</span> <span class="o">*</span>
@@ -860,40 +986,42 @@
 <span class="g g-Whitespace">     </span><span class="mi">12</span> <span class="k">if</span> <span class="n">interactive</span><span class="p">:</span>
 
 <span class="o">~/</span><span class="n">Documents</span><span class="o">/</span><span class="n">ml</span><span class="o">-</span><span class="n">course</span><span class="o">/</span><span class="n">master</span><span class="o">/</span><span class="n">notebooks</span><span class="o">/</span><span class="n">preamble</span><span class="o">.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">set_matplotlib_formats</span><span class="p">,</span> <span class="n">display</span><span class="p">,</span> <span class="n">HTML</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="kn">from</span> <span class="nn">IPython.core.interactiveshell</span> <span class="kn">import</span> <span class="n">InteractiveShell</span>
+<span class="ne">----&gt; </span><span class="mi">3</span> <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="kn">import</span> <span class="nn">openml</span> <span class="k">as</span> <span class="nn">oml</span>
-<span class="ne">----&gt; </span><span class="mi">7</span> <span class="kn">import</span> <span class="nn">mglearn</span>
-<span class="g g-Whitespace">      </span><span class="mi">8</span> <span class="kn">import</span> <span class="nn">os</span>
-<span class="g g-Whitespace">      </span><span class="mi">9</span> <span class="kn">from</span> <span class="nn">cycler</span> <span class="kn">import</span> <span class="n">cycler</span>
 
-<span class="o">~/</span><span class="n">Documents</span><span class="o">/</span><span class="n">ml</span><span class="o">-</span><span class="n">course</span><span class="o">/</span><span class="n">master</span><span class="o">/</span><span class="n">notebooks</span><span class="o">/</span><span class="n">mglearn</span><span class="o">/</span><span class="fm">__init__</span><span class="o">.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">plots</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">tools</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="kn">from</span> <span class="nn">.plots</span> <span class="kn">import</span> <span class="n">cm3</span><span class="p">,</span> <span class="n">cm2</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="kn">from</span> <span class="nn">.tools</span> <span class="kn">import</span> <span class="n">discrete_scatter</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="kn">from</span> <span class="nn">.plot_helpers</span> <span class="kn">import</span> <span class="n">ReBl</span>
+<span class="o">~/</span><span class="n">miniforge3</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.9</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">pandas</span><span class="o">/</span><span class="fm">__init__</span><span class="o">.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">     </span><span class="mi">20</span> 
+<span class="g g-Whitespace">     </span><span class="mi">21</span> <span class="c1"># numpy compat</span>
+<span class="ne">---&gt; </span><span class="mi">22</span> <span class="kn">from</span> <span class="nn">pandas.compat</span> <span class="kn">import</span> <span class="n">is_numpy_dev</span> <span class="k">as</span> <span class="n">_is_numpy_dev</span>  <span class="c1"># pyright: ignore # noqa:F401</span>
+<span class="g g-Whitespace">     </span><span class="mi">23</span> 
+<span class="g g-Whitespace">     </span><span class="mi">24</span> <span class="k">try</span><span class="p">:</span>
 
-<span class="o">~/</span><span class="n">Documents</span><span class="o">/</span><span class="n">ml</span><span class="o">-</span><span class="n">course</span><span class="o">/</span><span class="n">master</span><span class="o">/</span><span class="n">notebooks</span><span class="o">/</span><span class="n">mglearn</span><span class="o">/</span><span class="n">plots</span><span class="o">.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">     </span><span class="mi">13</span> <span class="kn">from</span> <span class="nn">.plot_tree_nonmonotonous</span> <span class="kn">import</span> <span class="n">plot_tree_not_monotone</span>
-<span class="g g-Whitespace">     </span><span class="mi">14</span> <span class="kn">from</span> <span class="nn">.plot_scaling</span> <span class="kn">import</span> <span class="n">plot_scaling</span>
-<span class="ne">---&gt; </span><span class="mi">15</span> <span class="kn">from</span> <span class="nn">.plot_pca</span> <span class="kn">import</span> <span class="n">plot_pca_illustration</span><span class="p">,</span> <span class="n">plot_pca_whitening</span><span class="p">,</span> <span class="n">plot_pca_faces</span>
-<span class="g g-Whitespace">     </span><span class="mi">16</span> <span class="kn">from</span> <span class="nn">.plot_decomposition</span> <span class="kn">import</span> <span class="n">plot_decomposition</span>
-<span class="g g-Whitespace">     </span><span class="mi">17</span> <span class="kn">from</span> <span class="nn">.plot_nmf</span> <span class="kn">import</span> <span class="n">plot_nmf_illustration</span><span class="p">,</span> <span class="n">plot_nmf_faces</span>
+<span class="o">~/</span><span class="n">miniforge3</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.9</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">pandas</span><span class="o">/</span><span class="n">compat</span><span class="o">/</span><span class="fm">__init__</span><span class="o">.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">     </span><span class="mi">16</span> 
+<span class="g g-Whitespace">     </span><span class="mi">17</span> <span class="kn">from</span> <span class="nn">pandas._typing</span> <span class="kn">import</span> <span class="n">F</span>
+<span class="ne">---&gt; </span><span class="mi">18</span> <span class="kn">from</span> <span class="nn">pandas.compat.numpy</span> <span class="kn">import</span> <span class="p">(</span>
+<span class="g g-Whitespace">     </span><span class="mi">19</span>     <span class="n">is_numpy_dev</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">20</span>     <span class="n">np_version_under1p21</span><span class="p">,</span>
 
-<span class="o">~/</span><span class="n">Documents</span><span class="o">/</span><span class="n">ml</span><span class="o">-</span><span class="n">course</span><span class="o">/</span><span class="n">master</span><span class="o">/</span><span class="n">notebooks</span><span class="o">/</span><span class="n">mglearn</span><span class="o">/</span><span class="n">plot_pca</span><span class="o">.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="kn">from</span> <span class="nn">joblib</span> <span class="kn">import</span> <span class="n">Memory</span>
-<span class="g g-Whitespace">      </span><span class="mi">6</span> 
-<span class="ne">----&gt; </span><span class="mi">7</span> <span class="n">memory</span> <span class="o">=</span> <span class="n">Memory</span><span class="p">(</span><span class="n">cachedir</span><span class="o">=</span><span class="s2">&quot;cache&quot;</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">8</span> 
-<span class="g g-Whitespace">      </span><span class="mi">9</span> 
+<span class="o">~/</span><span class="n">miniforge3</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.9</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">pandas</span><span class="o">/</span><span class="n">compat</span><span class="o">/</span><span class="n">numpy</span><span class="o">/</span><span class="fm">__init__</span><span class="o">.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">     </span><span class="mi">21</span> 
+<span class="g g-Whitespace">     </span><span class="mi">22</span> <span class="k">if</span> <span class="n">_nlv</span> <span class="o">&lt;</span> <span class="n">Version</span><span class="p">(</span><span class="n">_min_numpy_ver</span><span class="p">):</span>
+<span class="ne">---&gt; </span><span class="mi">23</span>     <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span>
+<span class="g g-Whitespace">     </span><span class="mi">24</span>         <span class="sa">f</span><span class="s2">&quot;this version of pandas is incompatible with numpy &lt; </span><span class="si">{</span><span class="n">_min_numpy_ver</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+<span class="g g-Whitespace">     </span><span class="mi">25</span>         <span class="sa">f</span><span class="s2">&quot;your numpy version is </span><span class="si">{</span><span class="n">_np_version</span><span class="si">}</span><span class="s2">.</span><span class="se">\n</span><span class="s2">&quot;</span>
 
-<span class="ne">TypeError</span>: __init__() got an unexpected keyword argument &#39;cachedir&#39;
+<span class="ne">ImportError</span>: this version of pandas is incompatible with numpy &lt; 1.20.3
+<span class="n">your</span> <span class="n">numpy</span> <span class="n">version</span> <span class="ow">is</span> <span class="mf">1.19.5</span><span class="o">.</span>
+<span class="n">Please</span> <span class="n">upgrade</span> <span class="n">numpy</span> <span class="n">to</span> <span class="o">&gt;=</span> <span class="mf">1.20.3</span> <span class="n">to</span> <span class="n">use</span> <span class="n">this</span> <span class="n">pandas</span> <span class="n">version</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="section" id="ensemble-learning">
-<h2>Ensemble learning<a class="headerlink" href="#ensemble-learning" title="Permalink to this headline">¶</a></h2>
+<h2>Ensemble learning<a class="headerlink" href="#ensemble-learning" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>If different models make different mistakes, can we simply average the predictions?</p></li>
 <li><p>Voting Classifier: gives every model a <em>vote</em> on the class label</p>
@@ -992,7 +1120,7 @@
 </ul>
 </div>
 <div class="section" id="decision-trees-recap">
-<h2>Decision trees (recap)<a class="headerlink" href="#decision-trees-recap" title="Permalink to this headline">¶</a></h2>
+<h2>Decision trees (recap)<a class="headerlink" href="#decision-trees-recap" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Representation: Tree that splits data points into leaves based on tests</p></li>
 <li><p>Evaluation (loss): Heuristic for purity of leaves (Gini index, entropy,…)</p></li>
@@ -1033,7 +1161,7 @@
 </div>
 </div>
 <div class="section" id="evaluation-loss-function-for-classification">
-<h3>Evaluation (loss function for classification)<a class="headerlink" href="#evaluation-loss-function-for-classification" title="Permalink to this headline">¶</a></h3>
+<h3>Evaluation (loss function for classification)<a class="headerlink" href="#evaluation-loss-function-for-classification" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Every leaf predicts a class probability <span class="math notranslate nohighlight">\(\hat{p}_c\)</span> = the relative frequency of class <span class="math notranslate nohighlight">\(c\)</span></p></li>
 <li><p>Leaf impurity measures (splitting criteria) for <span class="math notranslate nohighlight">\(L\)</span> leafs, leaf <span class="math notranslate nohighlight">\(l\)</span> has data <span class="math notranslate nohighlight">\(X_l\)</span>:</p>
@@ -1090,7 +1218,7 @@
 </div>
 </div>
 <div class="section" id="regression-trees">
-<h3>Regression trees<a class="headerlink" href="#regression-trees" title="Permalink to this headline">¶</a></h3>
+<h3>Regression trees<a class="headerlink" href="#regression-trees" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Every leaf predicts the <em>mean</em> target value <span class="math notranslate nohighlight">\(\mu\)</span> of all points in that leaf</p></li>
 <li><p>Choose the split that minimizes squared error of the leaves: <span class="math notranslate nohighlight">\(\sum_{x_{i} \in L} (y_i - \mu)^2\)</span></p></li>
@@ -1142,7 +1270,7 @@
 </div>
 </div>
 <div class="section" id="impurity-entropy-based-feature-importance">
-<h3>Impurity/Entropy-based feature importance<a class="headerlink" href="#impurity-entropy-based-feature-importance" title="Permalink to this headline">¶</a></h3>
+<h3>Impurity/Entropy-based feature importance<a class="headerlink" href="#impurity-entropy-based-feature-importance" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>We can measure the importance of features (to the model) based on</p>
 <ul>
@@ -1176,7 +1304,7 @@
 </div>
 </div>
 <div class="section" id="under-and-overfitting">
-<h3>Under- and overfitting<a class="headerlink" href="#under-and-overfitting" title="Permalink to this headline">¶</a></h3>
+<h3>Under- and overfitting<a class="headerlink" href="#under-and-overfitting" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>We can easily control the (maximum) depth of the trees as a hyperparameter</p></li>
 <li><p>Bias-variance analysis:</p>
@@ -1258,7 +1386,7 @@
 </div>
 </div>
 <div class="section" id="bagging-bootstrap-aggregating">
-<h2>Bagging (Bootstrap Aggregating)<a class="headerlink" href="#bagging-bootstrap-aggregating" title="Permalink to this headline">¶</a></h2>
+<h2>Bagging (Bootstrap Aggregating)<a class="headerlink" href="#bagging-bootstrap-aggregating" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Obtain different models by training the <em>same</em> model on <em>different training samples</em></p>
 <ul>
@@ -1289,7 +1417,7 @@
 </li>
 </ul>
 <div class="section" id="random-forests">
-<h3>Random Forests<a class="headerlink" href="#random-forests" title="Permalink to this headline">¶</a></h3>
+<h3>Random Forests<a class="headerlink" href="#random-forests" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Uses <em>randomized trees</em> to make models even less correlated (more unstable)</p>
 <ul>
@@ -1338,7 +1466,7 @@
 </div>
 </div>
 <div class="section" id="effect-on-bias-and-variance">
-<h3>Effect on bias and variance<a class="headerlink" href="#effect-on-bias-and-variance" title="Permalink to this headline">¶</a></h3>
+<h3>Effect on bias and variance<a class="headerlink" href="#effect-on-bias-and-variance" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Increasing the number of models (trees) decreases variance (less overfitting)</p></li>
 <li><p>Bias is mostly unaffected, but will increase if the forest becomes too large (oversmoothing)</p></li>
@@ -1420,7 +1548,7 @@
 </div>
 </div>
 <div class="section" id="in-practice">
-<h4>In practice<a class="headerlink" href="#in-practice" title="Permalink to this headline">¶</a></h4>
+<h4>In practice<a class="headerlink" href="#in-practice" title="Permalink to this headline">#</a></h4>
 <ul class="simple">
 <li><p>Different implementations can be used. E.g. in scikit-learn:</p>
 <ul>
@@ -1455,7 +1583,7 @@
 </div>
 </div>
 <div class="section" id="out-of-bag-error">
-<h3>Out-of-bag error<a class="headerlink" href="#out-of-bag-error" title="Permalink to this headline">¶</a></h3>
+<h3>Out-of-bag error<a class="headerlink" href="#out-of-bag-error" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>RandomForests don’t need cross-validation: you can use the out-of-bag (OOB) error</p></li>
 <li><p>For each tree grown, about 33% of samples are out-of-bag (OOB)</p>
@@ -1537,7 +1665,7 @@
 </div>
 </div>
 <div class="section" id="feature-importance">
-<h3>Feature importance<a class="headerlink" href="#feature-importance" title="Permalink to this headline">¶</a></h3>
+<h3>Feature importance<a class="headerlink" href="#feature-importance" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>RandomForests provide more reliable feature importances, based on many alternative hypotheses (trees)</p></li>
 </ul>
@@ -1555,7 +1683,7 @@
 </div>
 </div>
 <div class="section" id="other-tips">
-<h3>Other tips<a class="headerlink" href="#other-tips" title="Permalink to this headline">¶</a></h3>
+<h3>Other tips<a class="headerlink" href="#other-tips" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Model calibration</p>
 <ul>
@@ -1578,7 +1706,7 @@
 </ul>
 </div>
 <div class="section" id="strength-and-weaknesses">
-<h3>Strength and weaknesses<a class="headerlink" href="#strength-and-weaknesses" title="Permalink to this headline">¶</a></h3>
+<h3>Strength and weaknesses<a class="headerlink" href="#strength-and-weaknesses" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>RandomForest are among most widely used algorithms:</p>
 <ul>
@@ -1598,7 +1726,7 @@
 </div>
 </div>
 <div class="section" id="adaptive-boosting-adaboost">
-<h2>Adaptive Boosting (AdaBoost)<a class="headerlink" href="#adaptive-boosting-adaboost" title="Permalink to this headline">¶</a></h2>
+<h2>Adaptive Boosting (AdaBoost)<a class="headerlink" href="#adaptive-boosting-adaboost" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Obtain different models by <em>reweighting</em> the training data every iteration</p>
 <ul>
@@ -1623,7 +1751,7 @@ $<span class="math notranslate nohighlight">\(\mathcal{L}_{Exp} = \sum_{n=1}^N e
 <li><p>By deriving <span class="math notranslate nohighlight">\(\frac{\partial \mathcal{L}}{\partial w_i}\)</span> you can find that optimal <span class="math notranslate nohighlight">\(w_{i} =  \frac{1}{2}\log(\frac{1-\varepsilon}{\varepsilon})\)</span></p></li>
 </ul>
 <div class="section" id="adaboost-algorithm">
-<h3>AdaBoost algorithm<a class="headerlink" href="#adaboost-algorithm" title="Permalink to this headline">¶</a></h3>
+<h3>AdaBoost algorithm<a class="headerlink" href="#adaboost-algorithm" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Initialize sample weights: <span class="math notranslate nohighlight">\(s_{n,0} = \frac{1}{N}\)</span></p></li>
 <li><p>Build a model (e.g. decision stumps) using these sample weights</p></li>
@@ -1652,7 +1780,7 @@ $<span class="math notranslate nohighlight">\(w_{i} =  \lambda\log(\frac{1-\vare
 </ul>
 </div>
 <div class="section" id="adaboost-variants">
-<h3>AdaBoost variants<a class="headerlink" href="#adaboost-variants" title="Permalink to this headline">¶</a></h3>
+<h3>AdaBoost variants<a class="headerlink" href="#adaboost-variants" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Discrete Adaboost: error rate <span class="math notranslate nohighlight">\(\varepsilon\)</span> is simply the error rate (1-Accuracy)</p></li>
 <li><p>Real Adaboost: <span class="math notranslate nohighlight">\(\varepsilon\)</span> is based on predicted class probabilities <span class="math notranslate nohighlight">\(\hat{p}_c\)</span> (better)</p></li>
@@ -1663,7 +1791,7 @@ $<span class="math notranslate nohighlight">\(\mathcal{L}_{Logistic} = \sum_{n=1
 </ul>
 </div>
 <div class="section" id="adaboost-in-action">
-<h3>Adaboost in action<a class="headerlink" href="#adaboost-in-action" title="Permalink to this headline">¶</a></h3>
+<h3>Adaboost in action<a class="headerlink" href="#adaboost-in-action" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Size of the samples represents sample weight</p></li>
 <li><p>Background shows the latest tree’s predictions</p></li>
@@ -1803,7 +1931,7 @@ $<span class="math notranslate nohighlight">\(\mathcal{L}_{Logistic} = \sum_{n=1
 </div>
 </div>
 <div class="section" id="examples">
-<h3>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h3>
+<h3>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">#</a></h3>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">AdaBoostClassifier</span>
@@ -1825,7 +1953,7 @@ $<span class="math notranslate nohighlight">\(\mathcal{L}_{Logistic} = \sum_{n=1
 </div>
 </div>
 <div class="section" id="bias-variance-analysis">
-<h3>Bias-Variance analysis<a class="headerlink" href="#bias-variance-analysis" title="Permalink to this headline">¶</a></h3>
+<h3>Bias-Variance analysis<a class="headerlink" href="#bias-variance-analysis" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>AdaBoost reduces bias (and a little variance)</p>
 <ul>
@@ -1849,7 +1977,7 @@ $<span class="math notranslate nohighlight">\(\mathcal{L}_{Logistic} = \sum_{n=1
 </div>
 </div>
 <div class="section" id="gradient-boosting">
-<h2>Gradient Boosting<a class="headerlink" href="#gradient-boosting" title="Permalink to this headline">¶</a></h2>
+<h2>Gradient Boosting<a class="headerlink" href="#gradient-boosting" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Ensemble of models, each fixing the remaining mistakes of the previous ones</p>
 <ul>
@@ -1876,7 +2004,7 @@ $<span class="math notranslate nohighlight">\(g_i(\mathbf{x}) \approx r_{i} = - 
 </li>
 </ul>
 <div class="section" id="gradient-boosting-trees-regression">
-<h3>Gradient Boosting Trees (Regression)<a class="headerlink" href="#gradient-boosting-trees-regression" title="Permalink to this headline">¶</a></h3>
+<h3>Gradient Boosting Trees (Regression)<a class="headerlink" href="#gradient-boosting-trees-regression" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Base models are regression trees, loss function is square loss: <span class="math notranslate nohighlight">\(\mathcal{L} = \frac{1}{2}(y_i - \hat{y}_i)^2\)</span></p></li>
 <li><p>The pseudo-residuals are simply the prediction errors for every sample:
@@ -1896,7 +2024,7 @@ $<span class="math notranslate nohighlight">\(r_i = -\frac{\partial \mathcal{L}}
 <li><p>Early stopping (optional): stop when performance on validation set does not improve for <span class="math notranslate nohighlight">\(nr\)</span> iterations</p></li>
 </ul>
 <div class="section" id="gradient-boosting-regression-in-action">
-<h4>Gradient Boosting Regression in action<a class="headerlink" href="#gradient-boosting-regression-in-action" title="Permalink to this headline">¶</a></h4>
+<h4>Gradient Boosting Regression in action<a class="headerlink" href="#gradient-boosting-regression-in-action" title="Permalink to this headline">#</a></h4>
 <ul class="simple">
 <li><p>Residuals quickly drop to (near) zero</p></li>
 </ul>
@@ -1964,7 +2092,7 @@ $<span class="math notranslate nohighlight">\(r_i = -\frac{\partial \mathcal{L}}
 </div>
 </div>
 <div class="section" id="gradientboosting-algorithm-classification">
-<h3>GradientBoosting Algorithm (Classification)<a class="headerlink" href="#gradientboosting-algorithm-classification" title="Permalink to this headline">¶</a></h3>
+<h3>GradientBoosting Algorithm (Classification)<a class="headerlink" href="#gradientboosting-algorithm-classification" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Base models are <em>regression</em> trees, predict probability of positive class <span class="math notranslate nohighlight">\(p\)</span></p>
 <ul>
@@ -1989,7 +2117,7 @@ $<span class="math notranslate nohighlight">\(\frac{\partial \mathcal{L}}{\parti
 <li><p>Early stopping (optional): stop when performance on validation set does not improve for <span class="math notranslate nohighlight">\(nr\)</span> iterations</p></li>
 </ul>
 <div class="section" id="gradient-boosting-classification-in-action">
-<h4>Gradient Boosting Classification in action<a class="headerlink" href="#gradient-boosting-classification-in-action" title="Permalink to this headline">¶</a></h4>
+<h4>Gradient Boosting Classification in action<a class="headerlink" href="#gradient-boosting-classification-in-action" title="Permalink to this headline">#</a></h4>
 <ul class="simple">
 <li><p>Size of the samples represents the residual weights: most quickly drop to (near) zero</p></li>
 </ul>
@@ -2055,7 +2183,7 @@ $<span class="math notranslate nohighlight">\(\frac{\partial \mathcal{L}}{\parti
 </div>
 </div>
 <div class="section" id="id1">
-<h4>Examples<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h4>
+<h4>Examples<a class="headerlink" href="#id1" title="Permalink to this headline">#</a></h4>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;GradientBoosting 1 tree&quot;</span><span class="p">,</span> <span class="s2">&quot;GradientBoosting 3 trees&quot;</span><span class="p">,</span> <span class="s2">&quot;GradientBoosting 100 trees&quot;</span><span class="p">]</span>
@@ -2076,7 +2204,7 @@ $<span class="math notranslate nohighlight">\(\frac{\partial \mathcal{L}}{\parti
 </div>
 </div>
 <div class="section" id="id2">
-<h4>Bias-variance analysis<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h4>
+<h4>Bias-variance analysis<a class="headerlink" href="#id2" title="Permalink to this headline">#</a></h4>
 <ul class="simple">
 <li><p>Gradient Boosting is very effective at reducing bias error</p></li>
 <li><p>Boosting too much will eventually increase variance</p></li>
@@ -2099,7 +2227,7 @@ $<span class="math notranslate nohighlight">\(\frac{\partial \mathcal{L}}{\parti
 </div>
 </div>
 <div class="section" id="id3">
-<h4>Feature importance<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h4>
+<h4>Feature importance<a class="headerlink" href="#id3" title="Permalink to this headline">#</a></h4>
 <ul class="simple">
 <li><p>Gradient Boosting also provide feature importances, based on many trees</p></li>
 <li><p>Compared to RandomForests, the trees are smaller, hence more features have zero importance</p></li>
@@ -2118,7 +2246,7 @@ $<span class="math notranslate nohighlight">\(\frac{\partial \mathcal{L}}{\parti
 </div>
 </div>
 <div class="section" id="gradient-boosting-strengths-and-weaknesses">
-<h4>Gradient Boosting: strengths and weaknesses<a class="headerlink" href="#gradient-boosting-strengths-and-weaknesses" title="Permalink to this headline">¶</a></h4>
+<h4>Gradient Boosting: strengths and weaknesses<a class="headerlink" href="#gradient-boosting-strengths-and-weaknesses" title="Permalink to this headline">#</a></h4>
 <ul class="simple">
 <li><p>Among the most powerful and widely used models</p></li>
 <li><p>Work well on heterogeneous features and different scales</p></li>
@@ -2141,7 +2269,7 @@ $<span class="math notranslate nohighlight">\(\frac{\partial \mathcal{L}}{\parti
 </div>
 </div>
 <div class="section" id="extreme-gradient-boosting-xgboost">
-<h3>Extreme Gradient Boosting (XGBoost)<a class="headerlink" href="#extreme-gradient-boosting-xgboost" title="Permalink to this headline">¶</a></h3>
+<h3>Extreme Gradient Boosting (XGBoost)<a class="headerlink" href="#extreme-gradient-boosting-xgboost" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Faster version of gradient boosting: allows more iterations on larger datasets</p></li>
 <li><p>Normal regression trees: split to minimize squared loss of leaf predictions</p>
@@ -2166,7 +2294,7 @@ $<span class="math notranslate nohighlight">\(\frac{\partial \mathcal{L}}{\parti
 <li><p>Support for out-of-core computation (data compression in RAM, sharding,…)</p></li>
 </ul>
 <div class="section" id="xgboost-in-practice">
-<h4>XGBoost in practice<a class="headerlink" href="#xgboost-in-practice" title="Permalink to this headline">¶</a></h4>
+<h4>XGBoost in practice<a class="headerlink" href="#xgboost-in-practice" title="Permalink to this headline">#</a></h4>
 <ul class="simple">
 <li><p>Not part of scikit-learn, but <code class="docutils literal notranslate"><span class="pre">HistGradientBoostingClassifier</span></code> is similar</p>
 <ul>
@@ -2190,7 +2318,7 @@ $<span class="math notranslate nohighlight">\(\frac{\partial \mathcal{L}}{\parti
 </div>
 </div>
 <div class="section" id="lightgbm">
-<h3>LightGBM<a class="headerlink" href="#lightgbm" title="Permalink to this headline">¶</a></h3>
+<h3>LightGBM<a class="headerlink" href="#lightgbm" title="Permalink to this headline">#</a></h3>
 <p>Another fast boosting technique</p>
 <ul class="simple">
 <li><p>Uses <em>gradient-based sampling</em></p>
@@ -2205,7 +2333,7 @@ $<span class="math notranslate nohighlight">\(\frac{\partial \mathcal{L}}{\parti
 </ul>
 </div>
 <div class="section" id="catboost">
-<h3>CatBoost<a class="headerlink" href="#catboost" title="Permalink to this headline">¶</a></h3>
+<h3>CatBoost<a class="headerlink" href="#catboost" title="Permalink to this headline">#</a></h3>
 <p>Another fast boosting technique</p>
 <ul class="simple">
 <li><p>Optimized for categorical variables</p>
@@ -2228,7 +2356,7 @@ $<span class="math notranslate nohighlight">\(\frac{\partial \mathcal{L}}{\parti
 </div>
 </div>
 <div class="section" id="stacking">
-<h2>Stacking<a class="headerlink" href="#stacking" title="Permalink to this headline">¶</a></h2>
+<h2>Stacking<a class="headerlink" href="#stacking" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Choose <span class="math notranslate nohighlight">\(M\)</span> different base-models, generate predictions</p></li>
 <li><p>Stacker (meta-model) learns mapping between predictions and correct label</p>
@@ -2243,7 +2371,7 @@ $<span class="math notranslate nohighlight">\(\frac{\partial \mathcal{L}}{\parti
 </ul>
 <img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/stacking.png" alt="ml" style="width: 500px;"/></div>
 <div class="section" id="other-ensembling-techniques">
-<h2>Other ensembling techniques<a class="headerlink" href="#other-ensembling-techniques" title="Permalink to this headline">¶</a></h2>
+<h2>Other ensembling techniques<a class="headerlink" href="#other-ensembling-techniques" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Hyper-ensembles: same basic model but with different hyperparameter settings</p>
 <ul>
@@ -2280,7 +2408,7 @@ th {font-size: 20px}
 </div></div>
 </div>
 <div class="section" id="algorithm-overview">
-<h3>Algorithm overview<a class="headerlink" href="#algorithm-overview" title="Permalink to this headline">¶</a></h3>
+<h3>Algorithm overview<a class="headerlink" href="#algorithm-overview" title="Permalink to this headline">#</a></h3>
 <table class="colwidths-auto table">
 <thead>
 <tr class="row-odd"><th class="head"><p>Name</p></th>
@@ -2343,7 +2471,7 @@ th {font-size: 20px}
 </table>
 </div>
 <div class="section" id="summary">
-<h3>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h3>
+<h3>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Ensembles of voting classifiers improve performance</p>
 <ul>
@@ -2407,7 +2535,7 @@ th {font-size: 20px}
             mode: "python"
         },
         kernelOptions: {
-            kernelName: "python3",
+            name: "python3",
             path: "./notebooks"
         },
         predefinedOutput: true
@@ -2417,9 +2545,11 @@ th {font-size: 20px}
 
               </div>
               
-            
-                <!-- Previous / next buttons -->
-<div class='prev-next-area'> 
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
     <a class='left-prev' id="prev-link" href="04%20-%20Model%20Selection.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
@@ -2435,24 +2565,28 @@ th {font-size: 20px}
     <i class="fas fa-angle-right"></i>
     </a>
 </div>
-            
+            </footer>
         </div>
     </div>
-    <footer class="footer">
-  <p>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Joaquin Vanschoren<br/>
+  
+      &copy; Copyright 2021. CC0 Licensed - Use as you like.<br/>
+</p>
+        </footer>
+    </div>
     
-      By Joaquin Vanschoren<br/>
-    
-        &copy; Copyright 2021. CC0 Licensed - Use as you like.<br/>
-  </p>
-</footer>
-</main>
+</div>
 
 
       </div>
     </div>
   
-  <script src="../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
 
   </body>
 </html>
