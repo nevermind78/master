@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Lab 6 Tutorial: Deep Learning with TensorFlow &#8212; ML Engineering</title>
     
   <!-- Loaded before other Sphinx assets -->
@@ -34,10 +35,13 @@
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
     <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
@@ -193,17 +197,17 @@ const thebe_selector_output = ".output, .cell_output"
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="Lab%202%20-%20Kernelization.html">
-   Lab 2: Kernelization
+  <a class="reference internal" href="Lab%202a%20-%20Kernelization.html">
+   Lab 2a: Kernelization
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="Lab%203a%20-%20Model%20Selection.html">
-   Lab 3a: Model selection
+  <a class="reference internal" href="Lab%202b%20-%20Model%20Selection.html">
+   Lab 2b: Model selection
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="Lab%203b%20-%20Ensembles.html">
+  <a class="reference internal" href="Lab%203%20-%20Ensembles.html">
    Lab 3b: Ensembles
   </a>
  </li>
@@ -272,11 +276,6 @@ const thebe_selector_output = ".output, .cell_output"
  <li class="toctree-l1">
   <a class="reference internal" href="Lab%201%20-%20Tutorial.html">
    Lab 1: Machine Learning with Python
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Lab%203%20-%20Tutorial.html">
-   Lab 3 Tutorial: Model Selection in scikit-learn
   </a>
  </li>
  <li class="toctree-l1">
@@ -811,14 +810,14 @@ title="Print to PDF"
                 
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="lab-6-tutorial-deep-learning-with-tensorflow">
+  <section class="tex2jax_ignore mathjax_ignore" id="lab-6-tutorial-deep-learning-with-tensorflow">
 <h1>Lab 6 Tutorial: Deep Learning with TensorFlow<a class="headerlink" href="#lab-6-tutorial-deep-learning-with-tensorflow" title="Permalink to this headline">#</a></h1>
 <p><strong>Using the Keras API</strong></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Auto-setup when running on Google Colab</span>
 <span class="k">if</span> <span class="s1">&#39;google.colab&#39;</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">get_ipython</span><span class="p">()):</span>
-    <span class="o">!</span>pip install openml
+    <span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>openml
 
 <span class="c1"># General imports</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
@@ -830,45 +829,8 @@ title="Print to PDF"
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">ImportError</span><span class="g g-Whitespace">                               </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="mi">0</span><span class="n">t</span><span class="o">/</span><span class="mi">5</span><span class="n">d8ttqzd773fy0wq3h5db0xr0000gn</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_36956</span><span class="o">/</span><span class="mf">3465371922.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="n">get_ipython</span><span class="p">()</span><span class="o">.</span><span class="n">run_line_magic</span><span class="p">(</span><span class="s1">&#39;matplotlib&#39;</span><span class="p">,</span> <span class="s1">&#39;inline&#39;</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">7</span> <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="ne">----&gt; </span><span class="mi">8</span> <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="g g-Whitespace">      </span><span class="mi">9</span> <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="g g-Whitespace">     </span><span class="mi">10</span> <span class="kn">import</span> <span class="nn">openml</span> <span class="k">as</span> <span class="nn">oml</span>
-
-<span class="o">~/</span><span class="n">miniforge3</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.9</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">pandas</span><span class="o">/</span><span class="fm">__init__</span><span class="o">.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">     </span><span class="mi">20</span> 
-<span class="g g-Whitespace">     </span><span class="mi">21</span> <span class="c1"># numpy compat</span>
-<span class="ne">---&gt; </span><span class="mi">22</span> <span class="kn">from</span> <span class="nn">pandas.compat</span> <span class="kn">import</span> <span class="n">is_numpy_dev</span> <span class="k">as</span> <span class="n">_is_numpy_dev</span>  <span class="c1"># pyright: ignore # noqa:F401</span>
-<span class="g g-Whitespace">     </span><span class="mi">23</span> 
-<span class="g g-Whitespace">     </span><span class="mi">24</span> <span class="k">try</span><span class="p">:</span>
-
-<span class="o">~/</span><span class="n">miniforge3</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.9</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">pandas</span><span class="o">/</span><span class="n">compat</span><span class="o">/</span><span class="fm">__init__</span><span class="o">.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">     </span><span class="mi">16</span> 
-<span class="g g-Whitespace">     </span><span class="mi">17</span> <span class="kn">from</span> <span class="nn">pandas._typing</span> <span class="kn">import</span> <span class="n">F</span>
-<span class="ne">---&gt; </span><span class="mi">18</span> <span class="kn">from</span> <span class="nn">pandas.compat.numpy</span> <span class="kn">import</span> <span class="p">(</span>
-<span class="g g-Whitespace">     </span><span class="mi">19</span>     <span class="n">is_numpy_dev</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">20</span>     <span class="n">np_version_under1p21</span><span class="p">,</span>
-
-<span class="o">~/</span><span class="n">miniforge3</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.9</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">pandas</span><span class="o">/</span><span class="n">compat</span><span class="o">/</span><span class="n">numpy</span><span class="o">/</span><span class="fm">__init__</span><span class="o">.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">     </span><span class="mi">21</span> 
-<span class="g g-Whitespace">     </span><span class="mi">22</span> <span class="k">if</span> <span class="n">_nlv</span> <span class="o">&lt;</span> <span class="n">Version</span><span class="p">(</span><span class="n">_min_numpy_ver</span><span class="p">):</span>
-<span class="ne">---&gt; </span><span class="mi">23</span>     <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span>
-<span class="g g-Whitespace">     </span><span class="mi">24</span>         <span class="sa">f</span><span class="s2">&quot;this version of pandas is incompatible with numpy &lt; </span><span class="si">{</span><span class="n">_min_numpy_ver</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
-<span class="g g-Whitespace">     </span><span class="mi">25</span>         <span class="sa">f</span><span class="s2">&quot;your numpy version is </span><span class="si">{</span><span class="n">_np_version</span><span class="si">}</span><span class="s2">.</span><span class="se">\n</span><span class="s2">&quot;</span>
-
-<span class="ne">ImportError</span>: this version of pandas is incompatible with numpy &lt; 1.20.3
-<span class="n">your</span> <span class="n">numpy</span> <span class="n">version</span> <span class="ow">is</span> <span class="mf">1.19.5</span><span class="o">.</span>
-<span class="n">Please</span> <span class="n">upgrade</span> <span class="n">numpy</span> <span class="n">to</span> <span class="o">&gt;=</span> <span class="mf">1.20.3</span> <span class="n">to</span> <span class="n">use</span> <span class="n">this</span> <span class="n">pandas</span> <span class="n">version</span>
-</pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="running-example">
+<section id="running-example">
 <h2>Running example<a class="headerlink" href="#running-example" title="Permalink to this headline">#</a></h2>
 <p>We use the Fashion-MNIST dataset, which consists of 28x28 pixel images of 10 classes of fashion items.</p>
 <div class="cell docutils container">
@@ -909,9 +871,9 @@ title="Print to PDF"
 </div>
 </div>
 </div>
-<div class="section" id="preprocessing">
+<section id="preprocessing">
 <h3>Preprocessing<a class="headerlink" href="#preprocessing" title="Permalink to this headline">#</a></h3>
-<div class="section" id="reshaping">
+<section id="reshaping">
 <h4>Reshaping<a class="headerlink" href="#reshaping" title="Permalink to this headline">#</a></h4>
 <p>To be able to feed this data through the network, the shape of the data must match the shape of the input layer.
 For normal dense layers, this will be a ‘flattened’ array. You can use:</p>
@@ -930,8 +892,8 @@ For normal dense layers, this will be a ‘flattened’ array. You can use:</p>
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="rescaling">
+</section>
+<section id="rescaling">
 <h4>Rescaling<a class="headerlink" href="#rescaling" title="Permalink to this headline">#</a></h4>
 <p>Rescaling the data will help training a lot, and lead to faster convergence.
 You can use min-max scaling to [0,1] or standardization (mean 0, standard deviation 1).
@@ -943,8 +905,8 @@ Note: We’re using a simple division by the maximum possible value. This won’
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="label-formatting">
+</section>
+<section id="label-formatting">
 <h4>Label formatting<a class="headerlink" href="#label-formatting" title="Permalink to this headline">#</a></h4>
 <p>For multi-class classification, our output layer will usually have one output node per class. Therefore, we need to on-hot-encode the labels. E.g. class ‘4’ becomes [0,0,0,0,1,0,…]</p>
 <ul class="simple">
@@ -970,9 +932,9 @@ Note: We’re using a simple division by the maximum possible value. This won’
 </div>
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="train-test-splits">
+</section>
+</section>
+<section id="train-test-splits">
 <h3>Train-test splits<a class="headerlink" href="#train-test-splits" title="Permalink to this headline">#</a></h3>
 <p>Usually, simple hold-outs are used. This is valid if the datasets are large enough, and you take into account the usual concerns, such as stratification and grouping. For smaller datasets, you can use cross-validation as well, but you may get high variance in the per-fold results as neural networks may not always converge.</p>
 <div class="cell docutils container">
@@ -992,8 +954,8 @@ Note: We’re using a simple division by the maximum possible value. This won’
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="building-sequential-networks">
+</section>
+<section id="building-sequential-networks">
 <h3>Building Sequential networks<a class="headerlink" href="#building-sequential-networks" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p><a class="reference external" href="https://www.tensorflow.org/api_docs/python/tf/keras/Sequential">Sequential</a> models are the simplest kind of neural nets. They consist of a series of layers, one after the other.</p></li>
@@ -1042,7 +1004,7 @@ Note: We’re using a simple division by the maximum possible value. This won’
 </div>
 </div>
 </div>
-<div class="section" id="the-input-layer">
+<section id="the-input-layer">
 <h4>The input layer<a class="headerlink" href="#the-input-layer" title="Permalink to this headline">#</a></h4>
 <p>Note that the input layer can be defined by ‘input_shape’. Alternatively, you could also add an explicit input layer.
 In this case, the data is a flattened array of 28*28 inputs.</p>
@@ -1056,8 +1018,8 @@ In this case, the data is a flattened array of 28*28 inputs.</p>
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="activation-layers">
+</section>
+<section id="activation-layers">
 <h4>Activation layers<a class="headerlink" href="#activation-layers" title="Permalink to this headline">#</a></h4>
 <p>You can specify most activation functions, initializers, and regularizers as keyword strings.
 If you need more control, you can specify the activation as an activation layer. The Dense layer will then use a linear activation, and the next layers applied your preferred activation.</p>
@@ -1072,8 +1034,8 @@ If you need more control, you can specify the activation as an activation layer.
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="model-summary">
+</section>
+<section id="model-summary">
 <h4>Model summary<a class="headerlink" href="#model-summary" title="Permalink to this headline">#</a></h4>
 <ul class="simple">
 <li><p>‘model.summary()’ prints a layer-wise summary of the model</p>
@@ -1121,9 +1083,9 @@ _________________________________________________________________
 </div>
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="choosing-loss-optimizer-metrics">
+</section>
+</section>
+<section id="choosing-loss-optimizer-metrics">
 <h3>Choosing loss, optimizer, metrics<a class="headerlink" href="#choosing-loss-optimizer-metrics" title="Permalink to this headline">#</a></h3>
 <p>‘model.compile()’ specifies how the model should be trained, i.e. which loss function and optimizer to use and which evaluation metrics to report.</p>
 <ul class="simple">
@@ -1169,8 +1131,8 @@ _________________________________________________________________
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="training-fitting">
+</section>
+<section id="training-fitting">
 <h3>Training (fitting)<a class="headerlink" href="#training-fitting" title="Permalink to this headline">#</a></h3>
 <p>The ‘fit’ function trains the network and returns a history of the training and validation loss and all metrics per epoch.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">network</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">64</span><span class="p">)</span>
@@ -1195,7 +1157,7 @@ _________________________________________________________________
 </ul>
 </li>
 </ul>
-<div class="section" id="repeated-fitting">
+<section id="repeated-fitting">
 <h4>Repeated fitting<a class="headerlink" href="#repeated-fitting" title="Permalink to this headline">#</a></h4>
 <p>Calling ‘model.fit’ multiple times does not recreate the model from scratch (like scikit-learn does), it just continues training with the stored weights. To train from scratch, e.g. with different hyperparameters, you need to recreate the model, e.g. by wrapping it as a create_model function.</p>
 <div class="cell docutils container">
@@ -1211,8 +1173,8 @@ _________________________________________________________________
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="tracking-progress">
+</section>
+<section id="tracking-progress">
 <h4>Tracking progress<a class="headerlink" href="#tracking-progress" title="Permalink to this headline">#</a></h4>
 <p>Calling ‘fit’ will print out the progress for every epoch, and returns a ‘history’ object which all losses and evaluation metrics.</p>
 <div class="cell docutils container">
@@ -1284,9 +1246,9 @@ Epoch 3/3
 </div>
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="predictions-and-evaluations">
+</section>
+</section>
+<section id="predictions-and-evaluations">
 <h3>Predictions and evaluations<a class="headerlink" href="#predictions-and-evaluations" title="Permalink to this headline">#</a></h3>
 <p>We can now call <code class="docutils literal notranslate"><span class="pre">predict</span></code> to generate predictions, and <code class="docutils literal notranslate"><span class="pre">evaluate</span></code> the trained model on the entire test set</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">network</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
@@ -1339,9 +1301,9 @@ Test accuracy: 0.8653000593185425
 </div>
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="checking-the-learning-curve">
+</section>
+</section>
+<section id="checking-the-learning-curve">
 <h2>Checking the learning curve<a class="headerlink" href="#checking-the-learning-curve" title="Permalink to this headline">#</a></h2>
 <p>There are several ways to check the learning curve</p>
 <ul class="simple">
@@ -1419,7 +1381,7 @@ Test accuracy: 0.8653000593185425
 <img alt="../_images/Lab 6 - Tutorial_47_0.png" src="../_images/Lab 6 - Tutorial_47_0.png" />
 </div>
 </div>
-<div class="section" id="early-stopping">
+<section id="early-stopping">
 <h3>Early stopping<a class="headerlink" href="#early-stopping" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Stop training when the validation loss (or validation accuracy) no longer improves</p></li>
@@ -1444,9 +1406,9 @@ Test accuracy: 0.8653000593185425
 <img alt="../_images/Lab 6 - Tutorial_49_0.png" src="../_images/Lab 6 - Tutorial_49_0.png" />
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="regularization">
+</section>
+</section>
+<section id="regularization">
 <h2>Regularization<a class="headerlink" href="#regularization" title="Permalink to this headline">#</a></h2>
 <p>There are several ways that we can regularize our models it they are overfitting:</p>
 <ul class="simple">
@@ -1456,7 +1418,7 @@ Test accuracy: 0.8653000593185425
 <li><p>Dropout</p></li>
 <li><p>Batch normalization also has a regularization effect</p></li>
 </ul>
-<div class="section" id="weight-regularization-weight-decay">
+<section id="weight-regularization-weight-decay">
 <h3>Weight regularization (weight decay)<a class="headerlink" href="#weight-regularization-weight-decay" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Weight regularization can be applied to layers using a <a class="reference external" href="https://www.tensorflow.org/api_docs/python/tf/keras/regularizers">kernel regularizer</a></p></li>
@@ -1480,8 +1442,8 @@ Test accuracy: 0.8653000593185425
 <img alt="../_images/Lab 6 - Tutorial_51_0.png" src="../_images/Lab 6 - Tutorial_51_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="dropout">
+</section>
+<section id="dropout">
 <h3>Dropout<a class="headerlink" href="#dropout" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Dropout randomly sets a number of layer activations to 0. This avoids that non-significant patterns are ‘memorized’ by the model.</p></li>
@@ -1508,8 +1470,8 @@ Test accuracy: 0.8653000593185425
 <img alt="../_images/Lab 6 - Tutorial_53_0.png" src="../_images/Lab 6 - Tutorial_53_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="batch-normalization">
+</section>
+<section id="batch-normalization">
 <h3>Batch Normalization<a class="headerlink" href="#batch-normalization" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Batch normalization normalizes the activations of the previous layer within each batch</p>
@@ -1547,7 +1509,7 @@ Test accuracy: 0.8653000593185425
 <img alt="../_images/Lab 6 - Tutorial_56_0.png" src="../_images/Lab 6 - Tutorial_56_0.png" />
 </div>
 </div>
-<div class="section" id="combining-multiple-regularizers">
+<section id="combining-multiple-regularizers">
 <h4>Combining multiple regularizers<a class="headerlink" href="#combining-multiple-regularizers" title="Permalink to this headline">#</a></h4>
 <p>There is some debate about whether it makes sense to combine multiple regularizers, and in which order. What works (or not) depends on the structure and size of the network and the dataset at hand.</p>
 <p>For instance, since Batch Normalization already does some regularization, Dropout may not be needed. However, in this case (see below), the combination does help. Sometimes it helps do use Dropout after Batch Normalization only in the deepest layers.</p>
@@ -1577,9 +1539,9 @@ Test accuracy: 0.8653000593185425
 <img alt="../_images/Lab 6 - Tutorial_58_0.png" src="../_images/Lab 6 - Tutorial_58_0.png" />
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="tuning-multiple-hyperparameters">
+</section>
+</section>
+<section id="tuning-multiple-hyperparameters">
 <h3>Tuning multiple hyperparameters<a class="headerlink" href="#tuning-multiple-hyperparameters" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Keras has an associated tuning library, <a class="reference external" href="https://www.tensorflow.org/tutorials/keras/keras_tuner">keras-tuner</a>, with several tuning techniques:</p></li>
@@ -1595,7 +1557,7 @@ Test accuracy: 0.8653000593185425
 You will need to remove the folder or change the project name to run it again.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>pip install -q -U keras-tuner
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>-q<span class="w"> </span>-U<span class="w"> </span>keras-tuner
 </pre></div>
 </div>
 </div>
@@ -1656,7 +1618,7 @@ INFO:tensorflow:Reloading Tuner from ./lab7/tuner0.json
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tensorflow.keras.wrappers.scikit_learn</span> <span class="kn">import</span> <span class="n">KerasClassifier</span>
 
 <span class="k">def</span> <span class="nf">build_model</span><span class="p">(</span><span class="n">var_activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">,</span><span class="n">var_optimizer</span><span class="o">=</span><span class="s1">&#39;adam&#39;</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot; Uses arguments to build Keras model. &quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; Uses arguments to build Keras model. &quot;&quot;&quot;</span>
     <span class="n">model</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">Sequential</span><span class="p">()</span>
     <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span><span class="n">activation</span><span class="o">=</span><span class="n">var_activation</span><span class="p">,</span> <span class="n">input_shape</span><span class="o">=</span><span class="p">(</span><span class="mi">28</span> <span class="o">*</span> <span class="mi">28</span><span class="p">,)))</span>
     <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span><span class="n">activation</span><span class="o">=</span><span class="n">var_activation</span><span class="p">))</span>
@@ -1705,15 +1667,15 @@ INFO:tensorflow:Reloading Tuner from ./lab7/tuner0.json
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="further-reading">
+</section>
+<section id="further-reading">
 <h3>Further reading<a class="headerlink" href="#further-reading" title="Permalink to this headline">#</a></h3>
 <p><a class="reference external" href="https://www.tensorflow.org/learn">https://www.tensorflow.org/learn</a></p>
 <p><a class="reference external" href="http://playground.tensorflow.org">http://playground.tensorflow.org</a></p>
 <p><a class="reference external" href="https://www.tensorflow.org/tensorboard">https://www.tensorflow.org/tensorboard</a></p>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -1727,7 +1689,7 @@ INFO:tensorflow:Reloading Tuner from ./lab7/tuner0.json
             mode: "python"
         },
         kernelOptions: {
-            name: "python3",
+            kernelName: "python3",
             path: "./labs"
         },
         predefinedOutput: true
@@ -1765,7 +1727,7 @@ INFO:tensorflow:Reloading Tuner from ./lab7/tuner0.json
   
     By Joaquin Vanschoren<br/>
   
-      &copy; Copyright 2021. CC0 Licensed - Use as you like.<br/>
+      &copy; Copyright 2023. CC0 Licensed - Use as you like.<br/>
 </p>
         </footer>
     </div>

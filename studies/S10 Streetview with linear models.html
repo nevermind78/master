@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Streetview with linear models &#8212; ML Engineering</title>
     
   <!-- Loaded before other Sphinx assets -->
@@ -34,10 +35,13 @@
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
     <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
@@ -189,17 +193,17 @@ const thebe_selector_output = ".output, .cell_output"
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%202%20-%20Kernelization.html">
-   Lab 2: Kernelization
+  <a class="reference internal" href="../labs/Lab%202a%20-%20Kernelization.html">
+   Lab 2a: Kernelization
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%203a%20-%20Model%20Selection.html">
-   Lab 3a: Model selection
+  <a class="reference internal" href="../labs/Lab%202b%20-%20Model%20Selection.html">
+   Lab 2b: Model selection
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%203b%20-%20Ensembles.html">
+  <a class="reference internal" href="../labs/Lab%203%20-%20Ensembles.html">
    Lab 3b: Ensembles
   </a>
  </li>
@@ -268,11 +272,6 @@ const thebe_selector_output = ".output, .cell_output"
  <li class="toctree-l1">
   <a class="reference internal" href="../labs/Lab%201%20-%20Tutorial.html">
    Lab 1: Machine Learning with Python
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%203%20-%20Tutorial.html">
-   Lab 3 Tutorial: Model Selection in scikit-learn
   </a>
  </li>
  <li class="toctree-l1">
@@ -613,7 +612,7 @@ title="Print to PDF"
                 
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="streetview-with-linear-models">
+  <section class="tex2jax_ignore mathjax_ignore" id="streetview-with-linear-models">
 <h1>Streetview with linear models<a class="headerlink" href="#streetview-with-linear-models" title="Permalink to this headline">#</a></h1>
 <p>The <a class="reference external" href="https://www.openml.org/d/41081">Street View House Numbers Dataset</a> contains 32-by-32 RGB images centered around a single digit of a house number appearing in Google Street View. Many of the images do contain some distractors at the sides. Your goal is to build a model that recognizes the correct digit. Here’s, we’ll use quite simple models and learn why they are not sufficient for this task.</p>
 <p>We first download the data from OpenML. Then, we select a few images, and show them together with their correct classification</p>
@@ -669,7 +668,7 @@ title="Print to PDF"
 <img alt="../_images/S10 Streetview with linear models_3_0.png" src="../_images/S10 Streetview with linear models_3_0.png" />
 </div>
 </div>
-<div class="section" id="quick-benchmark">
+<section id="quick-benchmark">
 <h2>Quick benchmark<a class="headerlink" href="#quick-benchmark" title="Permalink to this headline">#</a></h2>
 <p>First, we’ll try the default Logistic Regression and Linear SVMs. We’ll also throw in k-Nearest Neighbors as a point of reference. To see whether or models are overfitting, we also evaluate the training set error. This can be done using <code class="docutils literal notranslate"><span class="pre">cross_validate</span></code> instead of  <code class="docutils literal notranslate"><span class="pre">cross_val_scores</span></code></p>
 <div class="cell docutils container">
@@ -727,8 +726,8 @@ title="Print to PDF"
 <p>k-NN has by far the best cross-validated test set performance. It still seems to be overfitting since the training score is quite a bit higher than the test score. The second is Logistic regression, but this is clearly overfitting a lot as well. The linear SVM performs worst. It also seems to be overfitting, although less than logistic regression.</p>
 <p>Neither of the models does a very good job. Given that this is a 10-class classification problem, the default performance would be 10%, and the best performance is currently 34%, which is not very useful in practice.</p>
 <p>The main thing to address right now is the overfitting issue. We can try to add more data or tune the hyperparameters. We can first check the learning curves to see if simply adding more data will help.</p>
-</div>
-<div class="section" id="learning-curves">
+</section>
+<section id="learning-curves">
 <h2>Learning curves<a class="headerlink" href="#learning-curves" title="Permalink to this headline">#</a></h2>
 <p>We draw a learning curve by increasingly adding 1% of data to the training set. We put in a time limit to stop the learning curve when the algorithm becomes too slow.</p>
 <div class="cell docutils container">
@@ -825,8 +824,8 @@ title="Print to PDF"
 <img alt="../_images/S10 Streetview with linear models_11_2.png" src="../_images/S10 Streetview with linear models_11_2.png" />
 </div>
 </div>
-</div>
-<div class="section" id="data-representation">
+</section>
+<section id="data-representation">
 <h2>Data representation<a class="headerlink" href="#data-representation" title="Permalink to this headline">#</a></h2>
 <p>The data is very high-dimensional, which slows down the algorithms. However, we probably don’t really
 need the color information. In addition, especially for kNN we may get better results if we standardize
@@ -961,8 +960,8 @@ Maybe we should reduce the number of features further. This can be done with dim
 </div>
 <p>PCA significant increases the performance of Logistic Regression,
 and there is a clear optimum for the number of components. The effect on Linear SVM models is mixed, but for certain sets of components the improvement can be significant. Also kNN can be improved slightly. In all cases the optimum is around 90 (around 200 for LinearSVC), significantly less than the original 1024.</p>
-</div>
-<div class="section" id="regularization">
+</section>
+<section id="regularization">
 <h2>Regularization<a class="headerlink" href="#regularization" title="Permalink to this headline">#</a></h2>
 <p>Another way to avoid overfitting is to tune the amount of regulization during model training.</p>
 <div class="cell docutils container">
@@ -1125,8 +1124,8 @@ the linear kernel with a non-linear RBF kernel.</p>
 </div>
 </div>
 <p>The RBF SVM performs a lot better than the linear SVM, and even better than the kNN.</p>
-</div>
-<div class="section" id="misclassifications">
+</section>
+<section id="misclassifications">
 <h2>Misclassifications<a class="headerlink" href="#misclassifications" title="Permalink to this headline">#</a></h2>
 <p>It’s always good to study the misclassifications of a model. Let’s see if the different models misclassify the same or different types of images.</p>
 <div class="cell docutils container">
@@ -1205,8 +1204,8 @@ the linear kernel with a non-linear RBF kernel.</p>
 oftentimes a number is misclassified as a 1. This could be because 1’s are more prevalent in the dataset.
 This imbalance can cause the models to be biased towards predicting ‘1’ more often. Other numbers that are often
 confused are 3-5, 2-3, and 5-6.</p>
-</div>
-<div class="section" id="interpreting-models">
+</section>
+<section id="interpreting-models">
 <h2>Interpreting models<a class="headerlink" href="#interpreting-models" title="Permalink to this headline">#</a></h2>
 <p>A useful property of linear models is that we can interpret what the model has leaerned by looking at which coefficients get higher weights. In this case the coefficients are the weights for each pixel, so we can plot them as pixels to see what the model is paying attention to. Since linear models are binary and trained in a one-vs-all manner, we get coefficients for every class.</p>
 <p>Let’s start by training the linear regression with the optimized hyperparameters on all the data and plotting the coefficients.</p>
@@ -1304,7 +1303,7 @@ confused are 3-5, 2-3, and 5-6.</p>
 <img alt="../_images/S10 Streetview with linear models_46_9.png" src="../_images/S10 Streetview with linear models_46_9.png" />
 </div>
 </div>
-<div class="section" id="final-notes">
+<section id="final-notes">
 <h3>Final notes<a class="headerlink" href="#final-notes" title="Permalink to this headline">#</a></h3>
 <p>None of the linear models does a particularly good job classifying the images. There are several problems with the representation used:</p>
 <ul class="simple">
@@ -1321,9 +1320,9 @@ confused are 3-5, 2-3, and 5-6.</p>
 </ul>
 </li>
 </ul>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -1337,7 +1336,7 @@ confused are 3-5, 2-3, and 5-6.</p>
             mode: "python"
         },
         kernelOptions: {
-            name: "python3",
+            kernelName: "python3",
             path: "./studies"
         },
         predefinedOutput: true
@@ -1361,7 +1360,7 @@ confused are 3-5, 2-3, and 5-6.</p>
   
     By Joaquin Vanschoren<br/>
   
-      &copy; Copyright 2021. CC0 Licensed - Use as you like.<br/>
+      &copy; Copyright 2023. CC0 Licensed - Use as you like.<br/>
 </p>
         </footer>
     </div>

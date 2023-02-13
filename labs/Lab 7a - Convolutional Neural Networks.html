@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Lab 7a: Convolutional neural nets &#8212; ML Engineering</title>
     
   <!-- Loaded before other Sphinx assets -->
@@ -34,10 +35,13 @@
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
     <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
@@ -191,17 +195,17 @@ const thebe_selector_output = ".output, .cell_output"
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="Lab%202%20-%20Kernelization.html">
-   Lab 2: Kernelization
+  <a class="reference internal" href="Lab%202a%20-%20Kernelization.html">
+   Lab 2a: Kernelization
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="Lab%203a%20-%20Model%20Selection.html">
-   Lab 3a: Model selection
+  <a class="reference internal" href="Lab%202b%20-%20Model%20Selection.html">
+   Lab 2b: Model selection
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="Lab%203b%20-%20Ensembles.html">
+  <a class="reference internal" href="Lab%203%20-%20Ensembles.html">
    Lab 3b: Ensembles
   </a>
  </li>
@@ -270,11 +274,6 @@ const thebe_selector_output = ".output, .cell_output"
  <li class="toctree-l1">
   <a class="reference internal" href="Lab%201%20-%20Tutorial.html">
    Lab 1: Machine Learning with Python
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Lab%203%20-%20Tutorial.html">
-   Lab 3 Tutorial: Model Selection in scikit-learn
   </a>
  </li>
  <li class="toctree-l1">
@@ -611,7 +610,7 @@ title="Print to PDF"
                 
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="lab-7a-convolutional-neural-nets">
+  <section class="tex2jax_ignore mathjax_ignore" id="lab-7a-convolutional-neural-nets">
 <h1>Lab 7a: Convolutional neural nets<a class="headerlink" href="#lab-7a-convolutional-neural-nets" title="Permalink to this headline">#</a></h1>
 <p>In this lab we consider the <a class="reference external" href="https://www.openml.org/d/40926">CIFAR dataset</a>, but model it using convolutional neural networks instead of linear models.
 There is no separate tutorial, but you can find lots of examples in the lecture notebook on convolutional neural networks. If you are very confident, you can also try to solve these exercises using PyTorch instead of TensorFlow.</p>
@@ -620,7 +619,7 @@ There is no separate tutorial, but you can find lots of examples in the lecture 
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Auto-setup when running on Google Colab</span>
 <span class="k">if</span> <span class="s1">&#39;google.colab&#39;</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">get_ipython</span><span class="p">()):</span>
-    <span class="o">!</span>pip install openml
+    <span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>openml
 
 <span class="c1"># General imports</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
@@ -629,43 +628,6 @@ There is no separate tutorial, but you can find lots of examples in the lecture 
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">openml</span> <span class="k">as</span> <span class="nn">oml</span>
 <span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">ImportError</span><span class="g g-Whitespace">                               </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="mi">0</span><span class="n">t</span><span class="o">/</span><span class="mi">5</span><span class="n">d8ttqzd773fy0wq3h5db0xr0000gn</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_36969</span><span class="o">/</span><span class="mf">422140896.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="n">get_ipython</span><span class="p">()</span><span class="o">.</span><span class="n">run_line_magic</span><span class="p">(</span><span class="s1">&#39;matplotlib&#39;</span><span class="p">,</span> <span class="s1">&#39;inline&#39;</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">7</span> <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="ne">----&gt; </span><span class="mi">8</span> <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="g g-Whitespace">      </span><span class="mi">9</span> <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="g g-Whitespace">     </span><span class="mi">10</span> <span class="kn">import</span> <span class="nn">openml</span> <span class="k">as</span> <span class="nn">oml</span>
-
-<span class="o">~/</span><span class="n">miniforge3</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.9</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">pandas</span><span class="o">/</span><span class="fm">__init__</span><span class="o">.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">     </span><span class="mi">20</span> 
-<span class="g g-Whitespace">     </span><span class="mi">21</span> <span class="c1"># numpy compat</span>
-<span class="ne">---&gt; </span><span class="mi">22</span> <span class="kn">from</span> <span class="nn">pandas.compat</span> <span class="kn">import</span> <span class="n">is_numpy_dev</span> <span class="k">as</span> <span class="n">_is_numpy_dev</span>  <span class="c1"># pyright: ignore # noqa:F401</span>
-<span class="g g-Whitespace">     </span><span class="mi">23</span> 
-<span class="g g-Whitespace">     </span><span class="mi">24</span> <span class="k">try</span><span class="p">:</span>
-
-<span class="o">~/</span><span class="n">miniforge3</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.9</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">pandas</span><span class="o">/</span><span class="n">compat</span><span class="o">/</span><span class="fm">__init__</span><span class="o">.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">     </span><span class="mi">16</span> 
-<span class="g g-Whitespace">     </span><span class="mi">17</span> <span class="kn">from</span> <span class="nn">pandas._typing</span> <span class="kn">import</span> <span class="n">F</span>
-<span class="ne">---&gt; </span><span class="mi">18</span> <span class="kn">from</span> <span class="nn">pandas.compat.numpy</span> <span class="kn">import</span> <span class="p">(</span>
-<span class="g g-Whitespace">     </span><span class="mi">19</span>     <span class="n">is_numpy_dev</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">20</span>     <span class="n">np_version_under1p21</span><span class="p">,</span>
-
-<span class="o">~/</span><span class="n">miniforge3</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.9</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">pandas</span><span class="o">/</span><span class="n">compat</span><span class="o">/</span><span class="n">numpy</span><span class="o">/</span><span class="fm">__init__</span><span class="o">.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">     </span><span class="mi">21</span> 
-<span class="g g-Whitespace">     </span><span class="mi">22</span> <span class="k">if</span> <span class="n">_nlv</span> <span class="o">&lt;</span> <span class="n">Version</span><span class="p">(</span><span class="n">_min_numpy_ver</span><span class="p">):</span>
-<span class="ne">---&gt; </span><span class="mi">23</span>     <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span>
-<span class="g g-Whitespace">     </span><span class="mi">24</span>         <span class="sa">f</span><span class="s2">&quot;this version of pandas is incompatible with numpy &lt; </span><span class="si">{</span><span class="n">_min_numpy_ver</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
-<span class="g g-Whitespace">     </span><span class="mi">25</span>         <span class="sa">f</span><span class="s2">&quot;your numpy version is </span><span class="si">{</span><span class="n">_np_version</span><span class="si">}</span><span class="s2">.</span><span class="se">\n</span><span class="s2">&quot;</span>
-
-<span class="ne">ImportError</span>: this version of pandas is incompatible with numpy &lt; 1.20.3
-<span class="n">your</span> <span class="n">numpy</span> <span class="n">version</span> <span class="ow">is</span> <span class="mf">1.19.5</span><span class="o">.</span>
-<span class="n">Please</span> <span class="n">upgrade</span> <span class="n">numpy</span> <span class="n">to</span> <span class="o">&gt;=</span> <span class="mf">1.20.3</span> <span class="n">to</span> <span class="n">use</span> <span class="n">this</span> <span class="n">pandas</span> <span class="n">version</span>
 </pre></div>
 </div>
 </div>
@@ -727,7 +689,7 @@ There is no separate tutorial, but you can find lots of examples in the lecture 
 <img alt="../_images/Lab 7a - Convolutional Neural Networks_7_0.png" src="../_images/Lab 7a - Convolutional Neural Networks_7_0.png" />
 </div>
 </div>
-<div class="section" id="exercise-1-a-simple-model">
+<section id="exercise-1-a-simple-model">
 <h2>Exercise 1: A simple model<a class="headerlink" href="#exercise-1-a-simple-model" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Split the data into 80% training and 20% validation sets</p></li>
@@ -742,8 +704,8 @@ There is no separate tutorial, but you can find lots of examples in the lecture 
 <li><p>For training, you can try batch sizes of 64, and 20-50 epochs, but feel free to explore this as well</p></li>
 <li><p>Plot and interpret the learning curves. Is the model overfitting? How could you improve it further?</p></li>
 </ul>
-</div>
-<div class="section" id="exercise-2-vgg-like-model">
+</section>
+<section id="exercise-2-vgg-like-model">
 <h2>Exercise 2: VGG-like model<a class="headerlink" href="#exercise-2-vgg-like-model" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Implement a simplified VGG model by building 3 ‘blocks’ of 2 convolutional layers each</p></li>
@@ -755,8 +717,8 @@ There is no separate tutorial, but you can find lots of examples in the lecture 
 <li><p>You can use ReLU activations everywhere (where it makes sense)</p></li>
 <li><p>Plot and interpret the learning curves</p></li>
 </ul>
-</div>
-<div class="section" id="exercise-3-regularization">
+</section>
+<section id="exercise-3-regularization">
 <h2>Exercise 3: Regularization<a class="headerlink" href="#exercise-3-regularization" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Explore different ways to regularize your VGG-like model</p>
@@ -775,16 +737,16 @@ There is no separate tutorial, but you can find lots of examples in the lecture 
 </li>
 <li><p>Plot and interpret the learning curves</p></li>
 </ul>
-</div>
-<div class="section" id="exercise-4-data-augmentation">
+</section>
+<section id="exercise-4-data-augmentation">
 <h2>Exercise 4: Data Augmentation<a class="headerlink" href="#exercise-4-data-augmentation" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Perform image augmentation (rotation, shift, shear, zoom, flip,…). You can use the ImageDataGenerator for this.</p></li>
 <li><p>What is the effect? What is the effect with and without Dropout?</p></li>
 <li><p>Plot and interpret the learning curves</p></li>
 </ul>
-</div>
-<div class="section" id="exercise-5-interpret-the-misclassifications">
+</section>
+<section id="exercise-5-interpret-the-misclassifications">
 <h2>Exercise 5: Interpret the misclassifications<a class="headerlink" href="#exercise-5-interpret-the-misclassifications" title="Permalink to this headline">#</a></h2>
 <p>Chances are that even your best model is not yet perfect. It is important to understand what kind of errors it still makes.</p>
 <ul class="simple">
@@ -792,19 +754,19 @@ There is no separate tutorial, but you can find lots of examples in the lecture 
 <li><p>Interpret some of the misclassifications. Are these misclassifications to be expected?</p></li>
 <li><p>Compute the confusion matrix. Which classes are often confused?</p></li>
 </ul>
-</div>
-<div class="section" id="exercise-6-interpret-the-model">
+</section>
+<section id="exercise-6-interpret-the-model">
 <h2>Exercise 6: Interpret the model<a class="headerlink" href="#exercise-6-interpret-the-model" title="Permalink to this headline">#</a></h2>
 <p>Retrain your best model on all the data. Next, retrieve and visualize the activations (feature maps) for every filter for every convolutional layer, or at least for a few filters for every layer. Tip: see the course notebooks for examples on how to do this.</p>
 <p>Interpret the results. Is your model indeed learning something useful?</p>
-</div>
-<div class="section" id="optional-take-it-a-step-further">
+</section>
+<section id="optional-take-it-a-step-further">
 <h2>Optional: Take it a step further<a class="headerlink" href="#optional-take-it-a-step-further" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Repeat the exercises, but now use a <a class="reference external" href="https://www.openml.org/d/40926">higher-resolution version of the CIFAR dataset</a> (with OpenML ID 41103), or another <a class="reference external" href="https://www.openml.org/d/41983">version with 100 classes</a> (with OpenML ID 41983). Good luck!</p></li>
 </ul>
-</div>
-</div>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -818,7 +780,7 @@ There is no separate tutorial, but you can find lots of examples in the lecture 
             mode: "python"
         },
         kernelOptions: {
-            name: "python3",
+            kernelName: "python3",
             path: "./labs"
         },
         predefinedOutput: true
@@ -856,7 +818,7 @@ There is no separate tutorial, but you can find lots of examples in the lecture 
   
     By Joaquin Vanschoren<br/>
   
-      &copy; Copyright 2021. CC0 Licensed - Use as you like.<br/>
+      &copy; Copyright 2023. CC0 Licensed - Use as you like.<br/>
 </p>
         </footer>
     </div>

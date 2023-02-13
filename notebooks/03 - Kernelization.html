@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Lecture 3: Kernelization &#8212; ML Engineering</title>
     
   <!-- Loaded before other Sphinx assets -->
@@ -34,10 +35,13 @@
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
     <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
@@ -193,17 +197,17 @@ const thebe_selector_output = ".output, .cell_output"
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%202%20-%20Kernelization.html">
-   Lab 2: Kernelization
+  <a class="reference internal" href="../labs/Lab%202a%20-%20Kernelization.html">
+   Lab 2a: Kernelization
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%203a%20-%20Model%20Selection.html">
-   Lab 3a: Model selection
+  <a class="reference internal" href="../labs/Lab%202b%20-%20Model%20Selection.html">
+   Lab 2b: Model selection
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%203b%20-%20Ensembles.html">
+  <a class="reference internal" href="../labs/Lab%203%20-%20Ensembles.html">
    Lab 3b: Ensembles
   </a>
  </li>
@@ -272,11 +276,6 @@ const thebe_selector_output = ".output, .cell_output"
  <li class="toctree-l1">
   <a class="reference internal" href="../labs/Lab%201%20-%20Tutorial.html">
    Lab 1: Machine Learning with Python
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%203%20-%20Tutorial.html">
-   Lab 3 Tutorial: Model Selection in scikit-learn
   </a>
  </li>
  <li class="toctree-l1">
@@ -773,7 +772,7 @@ title="Print to PDF"
                 
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="lecture-3-kernelization">
+  <section class="tex2jax_ignore mathjax_ignore" id="lecture-3-kernelization">
 <h1>Lecture 3: Kernelization<a class="headerlink" href="#lecture-3-kernelization" title="Permalink to this headline">#</a></h1>
 <p><strong>Making linear models non-linear</strong></p>
 <p>Joaquin Vanschoren</p>
@@ -782,8 +781,8 @@ title="Print to PDF"
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Auto-setup when running on Google Colab</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="k">if</span> <span class="s1">&#39;google.colab&#39;</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">get_ipython</span><span class="p">())</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s1">&#39;/content/master&#39;</span><span class="p">):</span>
-    <span class="o">!</span>git clone -q https://github.com/ML-course/master.git /content/master
-    <span class="o">!</span>pip --quiet install -r /content/master/requirements_colab.txt
+    <span class="o">!</span>git<span class="w"> </span>clone<span class="w"> </span>-q<span class="w"> </span>https://github.com/ML-course/master.git<span class="w"> </span>/content/master
+    <span class="o">!</span>pip<span class="w"> </span>--quiet<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>/content/master/requirements_colab.txt
     <span class="o">%</span><span class="k">cd</span> master/notebooks
 
 <span class="c1"># Global imports and settings</span>
@@ -799,52 +798,8 @@ title="Print to PDF"
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">ImportError</span><span class="g g-Whitespace">                               </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="mi">0</span><span class="n">t</span><span class="o">/</span><span class="mi">5</span><span class="n">d8ttqzd773fy0wq3h5db0xr0000gn</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_37007</span><span class="o">/</span><span class="mf">770856620.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">      </span><span class="mi">8</span> <span class="c1"># Global imports and settings</span>
-<span class="g g-Whitespace">      </span><span class="mi">9</span> <span class="n">get_ipython</span><span class="p">()</span><span class="o">.</span><span class="n">run_line_magic</span><span class="p">(</span><span class="s1">&#39;matplotlib&#39;</span><span class="p">,</span> <span class="s1">&#39;inline&#39;</span><span class="p">)</span>
-<span class="ne">---&gt; </span><span class="mi">10</span> <span class="kn">from</span> <span class="nn">preamble</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="g g-Whitespace">     </span><span class="mi">11</span> <span class="n">interactive</span> <span class="o">=</span> <span class="kc">True</span> <span class="c1"># Set to True for interactive plots</span>
-<span class="g g-Whitespace">     </span><span class="mi">12</span> <span class="k">if</span> <span class="n">interactive</span><span class="p">:</span>
-
-<span class="o">~/</span><span class="n">Documents</span><span class="o">/</span><span class="n">ml</span><span class="o">-</span><span class="n">course</span><span class="o">/</span><span class="n">master</span><span class="o">/</span><span class="n">notebooks</span><span class="o">/</span><span class="n">preamble</span><span class="o">.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">set_matplotlib_formats</span><span class="p">,</span> <span class="n">display</span><span class="p">,</span> <span class="n">HTML</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="kn">from</span> <span class="nn">IPython.core.interactiveshell</span> <span class="kn">import</span> <span class="n">InteractiveShell</span>
-<span class="ne">----&gt; </span><span class="mi">3</span> <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-
-<span class="o">~/</span><span class="n">miniforge3</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.9</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">pandas</span><span class="o">/</span><span class="fm">__init__</span><span class="o">.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">     </span><span class="mi">20</span> 
-<span class="g g-Whitespace">     </span><span class="mi">21</span> <span class="c1"># numpy compat</span>
-<span class="ne">---&gt; </span><span class="mi">22</span> <span class="kn">from</span> <span class="nn">pandas.compat</span> <span class="kn">import</span> <span class="n">is_numpy_dev</span> <span class="k">as</span> <span class="n">_is_numpy_dev</span>  <span class="c1"># pyright: ignore # noqa:F401</span>
-<span class="g g-Whitespace">     </span><span class="mi">23</span> 
-<span class="g g-Whitespace">     </span><span class="mi">24</span> <span class="k">try</span><span class="p">:</span>
-
-<span class="o">~/</span><span class="n">miniforge3</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.9</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">pandas</span><span class="o">/</span><span class="n">compat</span><span class="o">/</span><span class="fm">__init__</span><span class="o">.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">     </span><span class="mi">16</span> 
-<span class="g g-Whitespace">     </span><span class="mi">17</span> <span class="kn">from</span> <span class="nn">pandas._typing</span> <span class="kn">import</span> <span class="n">F</span>
-<span class="ne">---&gt; </span><span class="mi">18</span> <span class="kn">from</span> <span class="nn">pandas.compat.numpy</span> <span class="kn">import</span> <span class="p">(</span>
-<span class="g g-Whitespace">     </span><span class="mi">19</span>     <span class="n">is_numpy_dev</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">20</span>     <span class="n">np_version_under1p21</span><span class="p">,</span>
-
-<span class="o">~/</span><span class="n">miniforge3</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.9</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">pandas</span><span class="o">/</span><span class="n">compat</span><span class="o">/</span><span class="n">numpy</span><span class="o">/</span><span class="fm">__init__</span><span class="o">.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">     </span><span class="mi">21</span> 
-<span class="g g-Whitespace">     </span><span class="mi">22</span> <span class="k">if</span> <span class="n">_nlv</span> <span class="o">&lt;</span> <span class="n">Version</span><span class="p">(</span><span class="n">_min_numpy_ver</span><span class="p">):</span>
-<span class="ne">---&gt; </span><span class="mi">23</span>     <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span>
-<span class="g g-Whitespace">     </span><span class="mi">24</span>         <span class="sa">f</span><span class="s2">&quot;this version of pandas is incompatible with numpy &lt; </span><span class="si">{</span><span class="n">_min_numpy_ver</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
-<span class="g g-Whitespace">     </span><span class="mi">25</span>         <span class="sa">f</span><span class="s2">&quot;your numpy version is </span><span class="si">{</span><span class="n">_np_version</span><span class="si">}</span><span class="s2">.</span><span class="se">\n</span><span class="s2">&quot;</span>
-
-<span class="ne">ImportError</span>: this version of pandas is incompatible with numpy &lt; 1.20.3
-<span class="n">your</span> <span class="n">numpy</span> <span class="n">version</span> <span class="ow">is</span> <span class="mf">1.19.5</span><span class="o">.</span>
-<span class="n">Please</span> <span class="n">upgrade</span> <span class="n">numpy</span> <span class="n">to</span> <span class="o">&gt;=</span> <span class="mf">1.20.3</span> <span class="n">to</span> <span class="n">use</span> <span class="n">this</span> <span class="n">pandas</span> <span class="n">version</span>
-</pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="feature-maps">
+<section id="feature-maps">
 <h2>Feature Maps<a class="headerlink" href="#feature-maps" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Linear models: <span class="math notranslate nohighlight">\(\hat{y} = \mathbf{w}\mathbf{x} + w_0 = \sum_{i=1}^{p} w_i x_i + w_0 = w_0 + w_1 x_1 + ... + w_p x_p \)</span></p></li>
@@ -863,7 +818,7 @@ title="Print to PDF"
 </ul>
 <div class="math notranslate nohighlight">
 \[y=w_0 + w_1 x_1 \xrightarrow{\phi} y=w_0 + w_1 x_1 + w_2 x_1^2 + w_3 x_1^3\]</div>
-<div class="section" id="ridge-regression-example">
+<section id="ridge-regression-example">
 <h3>Ridge regression example<a class="headerlink" href="#ridge-regression-example" title="Permalink to this headline">#</a></h3>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
@@ -907,100 +862,100 @@ title="Print to PDF"
 <span class="n">poly</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
 <span class="n">X_poly</span> <span class="o">=</span> <span class="n">poly</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
 <span class="n">styles</span> <span class="o">=</span> <span class="p">[</span><span class="nb">dict</span><span class="p">(</span><span class="n">selector</span><span class="o">=</span><span class="s2">&quot;td&quot;</span><span class="p">,</span> <span class="n">props</span><span class="o">=</span><span class="p">[(</span><span class="s2">&quot;font-size&quot;</span><span class="p">,</span> <span class="s2">&quot;150%&quot;</span><span class="p">)]),</span><span class="nb">dict</span><span class="p">(</span><span class="n">selector</span><span class="o">=</span><span class="s2">&quot;th&quot;</span><span class="p">,</span> <span class="n">props</span><span class="o">=</span><span class="p">[(</span><span class="s2">&quot;font-size&quot;</span><span class="p">,</span> <span class="s2">&quot;150%&quot;</span><span class="p">)])]</span>
-<span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">X_poly</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">poly</span><span class="o">.</span><span class="n">get_feature_names</span><span class="p">())</span><span class="o">.</span><span class="n">head</span><span class="p">()</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">set_table_styles</span><span class="p">(</span><span class="n">styles</span><span class="p">)</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">X_poly</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">poly</span><span class="o">.</span><span class="n">get_feature_names_out</span><span class="p">())</span><span class="o">.</span><span class="n">head</span><span class="p">()</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">set_table_styles</span><span class="p">(</span><span class="n">styles</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html"><style type="text/css">
-#T_16e91 td {
+#T_61f28 td {
   font-size: 150%;
 }
-#T_16e91 th {
+#T_61f28 th {
   font-size: 150%;
 }
 </style>
-<table id="T_16e91">
+<table id="T_61f28">
   <thead>
     <tr>
       <th class="blank level0" >&nbsp;</th>
-      <th id="T_16e91_level0_col0" class="col_heading level0 col0" >x0</th>
-      <th id="T_16e91_level0_col1" class="col_heading level0 col1" >x0^2</th>
-      <th id="T_16e91_level0_col2" class="col_heading level0 col2" >x0^3</th>
-      <th id="T_16e91_level0_col3" class="col_heading level0 col3" >x0^4</th>
-      <th id="T_16e91_level0_col4" class="col_heading level0 col4" >x0^5</th>
-      <th id="T_16e91_level0_col5" class="col_heading level0 col5" >x0^6</th>
-      <th id="T_16e91_level0_col6" class="col_heading level0 col6" >x0^7</th>
-      <th id="T_16e91_level0_col7" class="col_heading level0 col7" >x0^8</th>
-      <th id="T_16e91_level0_col8" class="col_heading level0 col8" >x0^9</th>
-      <th id="T_16e91_level0_col9" class="col_heading level0 col9" >x0^10</th>
+      <th id="T_61f28_level0_col0" class="col_heading level0 col0" >x0</th>
+      <th id="T_61f28_level0_col1" class="col_heading level0 col1" >x0^2</th>
+      <th id="T_61f28_level0_col2" class="col_heading level0 col2" >x0^3</th>
+      <th id="T_61f28_level0_col3" class="col_heading level0 col3" >x0^4</th>
+      <th id="T_61f28_level0_col4" class="col_heading level0 col4" >x0^5</th>
+      <th id="T_61f28_level0_col5" class="col_heading level0 col5" >x0^6</th>
+      <th id="T_61f28_level0_col6" class="col_heading level0 col6" >x0^7</th>
+      <th id="T_61f28_level0_col7" class="col_heading level0 col7" >x0^8</th>
+      <th id="T_61f28_level0_col8" class="col_heading level0 col8" >x0^9</th>
+      <th id="T_61f28_level0_col9" class="col_heading level0 col9" >x0^10</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th id="T_16e91_level0_row0" class="row_heading level0 row0" >0</th>
-      <td id="T_16e91_row0_col0" class="data row0 col0" >-0.752759</td>
-      <td id="T_16e91_row0_col1" class="data row0 col1" >0.566647</td>
-      <td id="T_16e91_row0_col2" class="data row0 col2" >-0.426548</td>
-      <td id="T_16e91_row0_col3" class="data row0 col3" >0.321088</td>
-      <td id="T_16e91_row0_col4" class="data row0 col4" >-0.241702</td>
-      <td id="T_16e91_row0_col5" class="data row0 col5" >0.181944</td>
-      <td id="T_16e91_row0_col6" class="data row0 col6" >-0.136960</td>
-      <td id="T_16e91_row0_col7" class="data row0 col7" >0.103098</td>
-      <td id="T_16e91_row0_col8" class="data row0 col8" >-0.077608</td>
-      <td id="T_16e91_row0_col9" class="data row0 col9" >0.058420</td>
+      <th id="T_61f28_level0_row0" class="row_heading level0 row0" >0</th>
+      <td id="T_61f28_row0_col0" class="data row0 col0" >-0.752759</td>
+      <td id="T_61f28_row0_col1" class="data row0 col1" >0.566647</td>
+      <td id="T_61f28_row0_col2" class="data row0 col2" >-0.426548</td>
+      <td id="T_61f28_row0_col3" class="data row0 col3" >0.321088</td>
+      <td id="T_61f28_row0_col4" class="data row0 col4" >-0.241702</td>
+      <td id="T_61f28_row0_col5" class="data row0 col5" >0.181944</td>
+      <td id="T_61f28_row0_col6" class="data row0 col6" >-0.136960</td>
+      <td id="T_61f28_row0_col7" class="data row0 col7" >0.103098</td>
+      <td id="T_61f28_row0_col8" class="data row0 col8" >-0.077608</td>
+      <td id="T_61f28_row0_col9" class="data row0 col9" >0.058420</td>
     </tr>
     <tr>
-      <th id="T_16e91_level0_row1" class="row_heading level0 row1" >1</th>
-      <td id="T_16e91_row1_col0" class="data row1 col0" >2.704286</td>
-      <td id="T_16e91_row1_col1" class="data row1 col1" >7.313162</td>
-      <td id="T_16e91_row1_col2" class="data row1 col2" >19.776880</td>
-      <td id="T_16e91_row1_col3" class="data row1 col3" >53.482337</td>
-      <td id="T_16e91_row1_col4" class="data row1 col4" >144.631526</td>
-      <td id="T_16e91_row1_col5" class="data row1 col5" >391.124988</td>
-      <td id="T_16e91_row1_col6" class="data row1 col6" >1057.713767</td>
-      <td id="T_16e91_row1_col7" class="data row1 col7" >2860.360362</td>
-      <td id="T_16e91_row1_col8" class="data row1 col8" >7735.232021</td>
-      <td id="T_16e91_row1_col9" class="data row1 col9" >20918.278410</td>
+      <th id="T_61f28_level0_row1" class="row_heading level0 row1" >1</th>
+      <td id="T_61f28_row1_col0" class="data row1 col0" >2.704286</td>
+      <td id="T_61f28_row1_col1" class="data row1 col1" >7.313162</td>
+      <td id="T_61f28_row1_col2" class="data row1 col2" >19.776880</td>
+      <td id="T_61f28_row1_col3" class="data row1 col3" >53.482337</td>
+      <td id="T_61f28_row1_col4" class="data row1 col4" >144.631526</td>
+      <td id="T_61f28_row1_col5" class="data row1 col5" >391.124988</td>
+      <td id="T_61f28_row1_col6" class="data row1 col6" >1057.713767</td>
+      <td id="T_61f28_row1_col7" class="data row1 col7" >2860.360362</td>
+      <td id="T_61f28_row1_col8" class="data row1 col8" >7735.232021</td>
+      <td id="T_61f28_row1_col9" class="data row1 col9" >20918.278410</td>
     </tr>
     <tr>
-      <th id="T_16e91_level0_row2" class="row_heading level0 row2" >2</th>
-      <td id="T_16e91_row2_col0" class="data row2 col0" >1.391964</td>
-      <td id="T_16e91_row2_col1" class="data row2 col1" >1.937563</td>
-      <td id="T_16e91_row2_col2" class="data row2 col2" >2.697017</td>
-      <td id="T_16e91_row2_col3" class="data row2 col3" >3.754150</td>
-      <td id="T_16e91_row2_col4" class="data row2 col4" >5.225640</td>
-      <td id="T_16e91_row2_col5" class="data row2 col5" >7.273901</td>
-      <td id="T_16e91_row2_col6" class="data row2 col6" >10.125005</td>
-      <td id="T_16e91_row2_col7" class="data row2 col7" >14.093639</td>
-      <td id="T_16e91_row2_col8" class="data row2 col8" >19.617834</td>
-      <td id="T_16e91_row2_col9" class="data row2 col9" >27.307312</td>
+      <th id="T_61f28_level0_row2" class="row_heading level0 row2" >2</th>
+      <td id="T_61f28_row2_col0" class="data row2 col0" >1.391964</td>
+      <td id="T_61f28_row2_col1" class="data row2 col1" >1.937563</td>
+      <td id="T_61f28_row2_col2" class="data row2 col2" >2.697017</td>
+      <td id="T_61f28_row2_col3" class="data row2 col3" >3.754150</td>
+      <td id="T_61f28_row2_col4" class="data row2 col4" >5.225640</td>
+      <td id="T_61f28_row2_col5" class="data row2 col5" >7.273901</td>
+      <td id="T_61f28_row2_col6" class="data row2 col6" >10.125005</td>
+      <td id="T_61f28_row2_col7" class="data row2 col7" >14.093639</td>
+      <td id="T_61f28_row2_col8" class="data row2 col8" >19.617834</td>
+      <td id="T_61f28_row2_col9" class="data row2 col9" >27.307312</td>
     </tr>
     <tr>
-      <th id="T_16e91_level0_row3" class="row_heading level0 row3" >3</th>
-      <td id="T_16e91_row3_col0" class="data row3 col0" >0.591951</td>
-      <td id="T_16e91_row3_col1" class="data row3 col1" >0.350406</td>
-      <td id="T_16e91_row3_col2" class="data row3 col2" >0.207423</td>
-      <td id="T_16e91_row3_col3" class="data row3 col3" >0.122784</td>
-      <td id="T_16e91_row3_col4" class="data row3 col4" >0.072682</td>
-      <td id="T_16e91_row3_col5" class="data row3 col5" >0.043024</td>
-      <td id="T_16e91_row3_col6" class="data row3 col6" >0.025468</td>
-      <td id="T_16e91_row3_col7" class="data row3 col7" >0.015076</td>
-      <td id="T_16e91_row3_col8" class="data row3 col8" >0.008924</td>
-      <td id="T_16e91_row3_col9" class="data row3 col9" >0.005283</td>
+      <th id="T_61f28_level0_row3" class="row_heading level0 row3" >3</th>
+      <td id="T_61f28_row3_col0" class="data row3 col0" >0.591951</td>
+      <td id="T_61f28_row3_col1" class="data row3 col1" >0.350406</td>
+      <td id="T_61f28_row3_col2" class="data row3 col2" >0.207423</td>
+      <td id="T_61f28_row3_col3" class="data row3 col3" >0.122784</td>
+      <td id="T_61f28_row3_col4" class="data row3 col4" >0.072682</td>
+      <td id="T_61f28_row3_col5" class="data row3 col5" >0.043024</td>
+      <td id="T_61f28_row3_col6" class="data row3 col6" >0.025468</td>
+      <td id="T_61f28_row3_col7" class="data row3 col7" >0.015076</td>
+      <td id="T_61f28_row3_col8" class="data row3 col8" >0.008924</td>
+      <td id="T_61f28_row3_col9" class="data row3 col9" >0.005283</td>
     </tr>
     <tr>
-      <th id="T_16e91_level0_row4" class="row_heading level0 row4" >4</th>
-      <td id="T_16e91_row4_col0" class="data row4 col0" >-2.063888</td>
-      <td id="T_16e91_row4_col1" class="data row4 col1" >4.259634</td>
-      <td id="T_16e91_row4_col2" class="data row4 col2" >-8.791409</td>
-      <td id="T_16e91_row4_col3" class="data row4 col3" >18.144485</td>
-      <td id="T_16e91_row4_col4" class="data row4 col4" >-37.448187</td>
-      <td id="T_16e91_row4_col5" class="data row4 col5" >77.288869</td>
-      <td id="T_16e91_row4_col6" class="data row4 col6" >-159.515582</td>
-      <td id="T_16e91_row4_col7" class="data row4 col7" >329.222321</td>
-      <td id="T_16e91_row4_col8" class="data row4 col8" >-679.478050</td>
-      <td id="T_16e91_row4_col9" class="data row4 col9" >1402.366700</td>
+      <th id="T_61f28_level0_row4" class="row_heading level0 row4" >4</th>
+      <td id="T_61f28_row4_col0" class="data row4 col0" >-2.063888</td>
+      <td id="T_61f28_row4_col1" class="data row4 col1" >4.259634</td>
+      <td id="T_61f28_row4_col2" class="data row4 col2" >-8.791409</td>
+      <td id="T_61f28_row4_col3" class="data row4 col3" >18.144485</td>
+      <td id="T_61f28_row4_col4" class="data row4 col4" >-37.448187</td>
+      <td id="T_61f28_row4_col5" class="data row4 col5" >77.288869</td>
+      <td id="T_61f28_row4_col6" class="data row4 col6" >-159.515582</td>
+      <td id="T_61f28_row4_col7" class="data row4 col7" >329.222321</td>
+      <td id="T_61f28_row4_col8" class="data row4 col8" >-679.478050</td>
+      <td id="T_61f28_row4_col9" class="data row4 col9" >1402.366700</td>
     </tr>
   </tbody>
 </table>
@@ -1028,7 +983,7 @@ title="Print to PDF"
 <img alt="../_images/03 - Kernelization_7_1.png" src="../_images/03 - Kernelization_7_1.png" />
 </div>
 </div>
-<div class="section" id="how-expensive-is-this">
+<section id="how-expensive-is-this">
 <h4>How expensive is this?<a class="headerlink" href="#how-expensive-is-this" title="Permalink to this headline">#</a></h4>
 <ul class="simple">
 <li><p>You may need MANY dimensions to fit the data</p>
@@ -1045,9 +1000,9 @@ $<span class="math notranslate nohighlight">\(w^{*} = (X^{T}X + \alpha I)^{-1} X
 $<span class="math notranslate nohighlight">\(w^{*} = (\Phi(X)^{T}\Phi(X) + \alpha I)^{-1} \Phi(X)^T Y\)</span>$</p></li>
 <li><p>Since <span class="math notranslate nohighlight">\(\Phi\)</span> increases <span class="math notranslate nohighlight">\(d\)</span> a lot, <span class="math notranslate nohighlight">\(\Phi(X)^{T}\Phi(X)\)</span> becomes <em>huge</em></p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="linear-svm-example-classification">
+</section>
+</section>
+<section id="linear-svm-example-classification">
 <h3>Linear SVM example (classification)<a class="headerlink" href="#linear-svm-example-classification" title="Permalink to this headline">#</a></h3>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
@@ -1093,7 +1048,9 @@ $<span class="math notranslate nohighlight">\(w^{*} = (\Phi(X)^{T}\Phi(X) + \alp
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/03 - Kernelization_12_0.png" src="../_images/03 - Kernelization_12_0.png" />
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Figure size 1200x600 with 0 Axes&gt;
+</pre></div>
+</div>
 </div>
 </div>
 <p>Now we can fit a linear model</p>
@@ -1124,7 +1081,9 @@ $<span class="math notranslate nohighlight">\(w^{*} = (\Phi(X)^{T}\Phi(X) + \alp
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/03 - Kernelization_14_0.png" src="../_images/03 - Kernelization_14_0.png" />
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Figure size 1200x600 with 0 Axes&gt;
+</pre></div>
+</div>
 </div>
 </div>
 <p>As a function of the original features, the decision boundary is now a polynomial as well
@@ -1146,9 +1105,9 @@ $<span class="math notranslate nohighlight">\(y = w_0 + w_1 x_1 + w_2 x_2 + w_3 
 <img alt="../_images/03 - Kernelization_16_0.png" src="../_images/03 - Kernelization_16_0.png" />
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="the-kernel-trick">
+</section>
+</section>
+<section id="the-kernel-trick">
 <h2>The kernel trick<a class="headerlink" href="#the-kernel-trick" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Computations in explicit, high-dimensional feature maps are <em>expensive</em></p></li>
@@ -1169,8 +1128,8 @@ $<span class="math notranslate nohighlight">\(y = w_0 + w_1 x_1 + w_2 x_2 + w_3 
 <ul class="simple">
 <li><p>Skip computation of <span class="math notranslate nohighlight">\(\Phi(x_i)\)</span> and <span class="math notranslate nohighlight">\(\Phi(x_j)\)</span> and compute <span class="math notranslate nohighlight">\(k(x_i,x_j)\)</span> directly</p></li>
 </ul>
-</div>
-<div class="section" id="kernelization">
+</section>
+<section id="kernelization">
 <h2>Kernelization<a class="headerlink" href="#kernelization" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Kernel <span class="math notranslate nohighlight">\(k\)</span> corresponding to a feature map <span class="math notranslate nohighlight">\(\Phi\)</span>: <span class="math notranslate nohighlight">\( k(\mathbf{x_i},\mathbf{x_j}) = \Phi(\mathbf{x_i}) \cdot \Phi(\mathbf{x_j})\)</span></p></li>
@@ -1191,7 +1150,7 @@ $<span class="math notranslate nohighlight">\(y = w_0 + w_1 x_1 + w_2 x_2 + w_3 
 </ul>
 </li>
 </ul>
-<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/RKHS.png" alt="ml" style="margin: 0 auto; width: 900px;"/><div class="section" id="example-svms">
+<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/RKHS.png" alt="ml" style="margin: 0 auto; width: 900px;"/><section id="example-svms">
 <h3>Example: SVMs<a class="headerlink" href="#example-svms" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Linear SVMs (dual form, for <span class="math notranslate nohighlight">\(l\)</span> support vectors with dual coefficients <span class="math notranslate nohighlight">\(a_i\)</span> and classes <span class="math notranslate nohighlight">\(y_i\)</span>):
@@ -1293,8 +1252,8 @@ $<span class="math notranslate nohighlight">\(\mathcal{L}_{Dual} (a_i, k) = \sum
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="which-kernels-exist">
+</section>
+<section id="which-kernels-exist">
 <h3>Which kernels exist?<a class="headerlink" href="#which-kernels-exist" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>A (Mercer) kernel is any function <span class="math notranslate nohighlight">\(k: X \times X \rightarrow \mathbb{R}\)</span> with these properties:</p>
@@ -1320,8 +1279,8 @@ $<span class="math notranslate nohighlight">\(\mathcal{L}_{Dual} (a_i, k) = \sum
 <li><p>Once computed (<span class="math notranslate nohighlight">\(\mathcal{O}(n^2)\)</span>), simply lookup <span class="math notranslate nohighlight">\(k(\mathbf{x_1}, \mathbf{x_2})\)</span> for any two points</p></li>
 <li><p>In practice, you can either supply a kernel function or precompute the kernel matrix</p></li>
 </ul>
-</div>
-<div class="section" id="linear-kernel">
+</section>
+<section id="linear-kernel">
 <h3>Linear kernel<a class="headerlink" href="#linear-kernel" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Input space is same as output space: <span class="math notranslate nohighlight">\(X = \mathcal{H} = \mathbb{R}^d\)</span></p></li>
@@ -1364,8 +1323,8 @@ $<span class="math notranslate nohighlight">\(\mathcal{L}_{Dual} (a_i, k) = \sum
 <img alt="../_images/03 - Kernelization_25_0.png" src="../_images/03 - Kernelization_25_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="polynomial-kernel">
+</section>
+<section id="polynomial-kernel">
 <h3>Polynomial kernel<a class="headerlink" href="#polynomial-kernel" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>If <span class="math notranslate nohighlight">\(k_1\)</span>, <span class="math notranslate nohighlight">\(k_2\)</span> are kernels, then <span class="math notranslate nohighlight">\(\lambda . k_1\)</span> (<span class="math notranslate nohighlight">\(\lambda \geq 0\)</span>), <span class="math notranslate nohighlight">\(k_1 + k_2\)</span>, and <span class="math notranslate nohighlight">\(k_1 . k_2\)</span> are also kernels</p></li>
@@ -1400,7 +1359,7 @@ $<span class="math notranslate nohighlight">\(k_{poly}(\mathbf{x_1},\mathbf{x_2}
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "6cc04560d5f648f7a0fa283bb8438dbc", "version_major": 2, "version_minor": 0}
+{"model_id": "9f2b5c9f78e6466eb72b830ab6e0334f", "version_major": 2, "version_minor": 0}
 </script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
@@ -1411,8 +1370,8 @@ $<span class="math notranslate nohighlight">\(k_{poly}(\mathbf{x_1},\mathbf{x_2}
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="rbf-gaussian-kernel">
+</section>
+<section id="rbf-gaussian-kernel">
 <h3>RBF (Gaussian) kernel<a class="headerlink" href="#rbf-gaussian-kernel" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>The <em>Radial Basis Function</em> (RBF) feature map builds the Taylor series expansion of <span class="math notranslate nohighlight">\(e^x\)</span>
@@ -1445,7 +1404,7 @@ $<span class="math notranslate nohighlight">\(k_{RBF}(\mathbf{x_1},\mathbf{x_2})
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "3fe640e0bc4c4935b27187b7bcaf839a", "version_major": 2, "version_minor": 0}
+{"model_id": "d51958e07e114b1d8801d50b4d69d943", "version_major": 2, "version_minor": 0}
 </script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
@@ -1496,7 +1455,7 @@ $<span class="math notranslate nohighlight">\(k_{RBF}(\mathbf{x_1},\mathbf{x_2})
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "f1f4b0634a814baeb5d1c8e78ef5e6dd", "version_major": 2, "version_minor": 0}
+{"model_id": "fa5b462f2fc6417bb5754efc2142414b", "version_major": 2, "version_minor": 0}
 </script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
@@ -1507,9 +1466,9 @@ $<span class="math notranslate nohighlight">\(k_{RBF}(\mathbf{x_1},\mathbf{x_2})
 </div>
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="kernelized-svms-in-practice">
+</section>
+</section>
+<section id="kernelized-svms-in-practice">
 <h2>Kernelized SVMs in practice<a class="headerlink" href="#kernelized-svms-in-practice" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>You can use SVMs with any kernel to learn non-linear decision boundaries</p></li>
@@ -1524,7 +1483,7 @@ $<span class="math notranslate nohighlight">\(k_{RBF}(\mathbf{x_1},\mathbf{x_2})
 <img alt="../_images/03 - Kernelization_36_0.png" src="../_images/03 - Kernelization_36_0.png" />
 </div>
 </div>
-<div class="section" id="svm-with-rbf-kernel">
+<section id="svm-with-rbf-kernel">
 <h3>SVM with RBF kernel<a class="headerlink" href="#svm-with-rbf-kernel" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Every support vector <em>locally</em> influences predictions, according to kernel width (<span class="math notranslate nohighlight">\(\gamma\)</span>)</p></li>
@@ -1544,7 +1503,7 @@ $<span class="math notranslate nohighlight">\(k_{RBF}(\mathbf{x_1},\mathbf{x_2})
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "4717fea351064580a7803eb26b5bb854", "version_major": 2, "version_minor": 0}
+{"model_id": "d9c6cc21f32843298c2ee9179450c283", "version_major": 2, "version_minor": 0}
 </script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
@@ -1555,8 +1514,8 @@ $<span class="math notranslate nohighlight">\(k_{RBF}(\mathbf{x_1},\mathbf{x_2})
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="tuning-rbf-svms">
+</section>
+<section id="tuning-rbf-svms">
 <h3>Tuning RBF SVMs<a class="headerlink" href="#tuning-rbf-svms" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>gamma (kernel width)</p>
@@ -1575,10 +1534,10 @@ $<span class="math notranslate nohighlight">\(k_{RBF}(\mathbf{x_1},\mathbf{x_2})
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%HTML</span>
-<span class="p">&lt;</span><span class="nt">style</span><span class="p">&gt;</span><span class="w"></span>
-<span class="p">.</span><span class="nc">reveal</span><span class="w"> </span><span class="nt">img</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">margin-top</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="kt">px</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="p">&lt;</span><span class="nt">style</span><span class="p">&gt;</span>
+<span class="p">.</span><span class="nc">reveal</span><span class="w"> </span><span class="nt">img</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">margin-top</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="kt">px</span><span class="p">;</span>
+<span class="p">}</span>
 <span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
 </pre></div>
 </div>
@@ -1623,8 +1582,8 @@ $<span class="math notranslate nohighlight">\(k_{RBF}(\mathbf{x_1},\mathbf{x_2})
 <img alt="../_images/03 - Kernelization_44_0.png" src="../_images/03 - Kernelization_44_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="svms-in-practice">
+</section>
+<section id="svms-in-practice">
 <h3>SVMs in practice<a class="headerlink" href="#svms-in-practice" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>C and gamma <em>always</em> need to be tuned</p>
@@ -1650,8 +1609,8 @@ $<span class="math notranslate nohighlight">\(k_{RBF}(\mathbf{x_1},\mathbf{x_2})
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="other-kernels">
+</section>
+<section id="other-kernels">
 <h3>Other kernels<a class="headerlink" href="#other-kernels" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>There are many more possible kernels</p></li>
@@ -1677,9 +1636,9 @@ $<span class="math notranslate nohighlight">\(k_{RBF}(\mathbf{x_1},\mathbf{x_2})
 <li><p>Graph kernels: Same idea (e.g. find common subgraphs to measure similarity)</p></li>
 <li><p>These days, deep learning embeddings are more frequently used</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="the-representer-theorem">
+</section>
+</section>
+<section id="the-representer-theorem">
 <h2>The Representer Theorem<a class="headerlink" href="#the-representer-theorem" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>We can kernelize many other loss functions as well</p></li>
@@ -1695,8 +1654,8 @@ $<span class="math notranslate nohighlight">\(\mathbf{w} = \sum_{i=1}^{n} a_i y_
 <li><p>Note that this is exactly what we found for SVMs: <span class="math notranslate nohighlight">\( \mathbf{w} = \sum_{i=1}^{l} a_i y_i \mathbf{\mathbf{x_i}} \)</span></p></li>
 <li><p>Hence, we can also kernelize Ridge regression, Logistic regression, Perceptrons, Support Vector Regression, …</p></li>
 </ul>
-</div>
-<div class="section" id="kernelized-ridge-regression">
+</section>
+<section id="kernelized-ridge-regression">
 <h2>Kernelized Ridge regression<a class="headerlink" href="#kernelized-ridge-regression" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>The linear Ridge regression loss (with <span class="math notranslate nohighlight">\(\mathbf{x_0}=1\)</span>):
@@ -1706,7 +1665,7 @@ $<span class="math notranslate nohighlight">\(\mathcal{L}_{Ridge}(\mathbf{w}) = 
 <li><p>Generalize <span class="math notranslate nohighlight">\(\mathbf{x_i}\cdot\mathbf{x_j}\)</span> to <span class="math notranslate nohighlight">\(k(\mathbf{x_i},\mathbf{x_j})\)</span>
 $<span class="math notranslate nohighlight">\(\mathcal{L}_{KernelRidge}(\mathbf{\alpha},k) = \sum_{i=1}^{n} (y_i-\sum_{j=1}^{n} \alpha_j y_j k(\mathbf{x_i},\mathbf{x_n}))^2 + \lambda \sum_{i=1}^{n} \sum_{j=1}^{n} \alpha_i \alpha_j y_i y_j k(\mathbf{x_i},\mathbf{x_j})\)</span>$</p></li>
 </ul>
-<div class="section" id="example-of-kernelized-ridge">
+<section id="example-of-kernelized-ridge">
 <h3>Example of kernelized Ridge<a class="headerlink" href="#example-of-kernelized-ridge" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Prediction (red) is now a linear combination of kernels (blue): <span class="math notranslate nohighlight">\(y = \sum_{j=1}^{n} \alpha_j y_j k(\mathbf{x},\mathbf{x_j})\)</span></p></li>
@@ -1737,7 +1696,7 @@ $<span class="math notranslate nohighlight">\(\mathcal{L}_{KernelRidge}(\mathbf{
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "640dc3a2a36c4ff58de503a5f720a64b", "version_major": 2, "version_minor": 0}
+{"model_id": "fb978da6df244b5eb0fd5799e5cc4a15", "version_major": 2, "version_minor": 0}
 </script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
@@ -1773,7 +1732,7 @@ $<span class="math notranslate nohighlight">\(\mathcal{L}_{KernelRidge}(\mathbf{
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "293cfceb4adf4ac19c1e0971afe8e472", "version_major": 2, "version_minor": 0}
+{"model_id": "b5446d331c9d41baae0771dde108c0b7", "version_major": 2, "version_minor": 0}
 </script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
@@ -1784,8 +1743,8 @@ $<span class="math notranslate nohighlight">\(\mathcal{L}_{KernelRidge}(\mathbf{
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="other-kernelized-methods">
+</section>
+<section id="other-kernelized-methods">
 <h3>Other kernelized methods<a class="headerlink" href="#other-kernelized-methods" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Same procedure can be done for logistic regression</p></li>
@@ -1817,7 +1776,7 @@ $<span class="math notranslate nohighlight">\(\mathcal{L}_{DualPerceptron}(x_i,k
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "7c0bd33385a14ee7810794f15a2f528d", "version_major": 2, "version_minor": 0}
+{"model_id": "473f74518fe347a99aea53e9096e0e5d", "version_major": 2, "version_minor": 0}
 </script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
@@ -1828,9 +1787,9 @@ $<span class="math notranslate nohighlight">\(\mathcal{L}_{DualPerceptron}(x_i,k
 </div>
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="summary">
+</section>
+</section>
+<section id="summary">
 <h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Feature maps <span class="math notranslate nohighlight">\(\Phi(x)\)</span> transform features to create a higher-dimensional space</p>
@@ -1862,8 +1821,8 @@ $<span class="math notranslate nohighlight">\(\mathcal{L}_{DualPerceptron}(x_i,k
 </ul>
 </li>
 </ul>
-</div>
-</div>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -1877,7 +1836,7 @@ $<span class="math notranslate nohighlight">\(\mathcal{L}_{DualPerceptron}(x_i,k
             mode: "python"
         },
         kernelOptions: {
-            name: "python3",
+            kernelName: "python3",
             path: "./notebooks"
         },
         predefinedOutput: true
@@ -1915,7 +1874,7 @@ $<span class="math notranslate nohighlight">\(\mathcal{L}_{DualPerceptron}(x_i,k
   
     By Joaquin Vanschoren<br/>
   
-      &copy; Copyright 2021. CC0 Licensed - Use as you like.<br/>
+      &copy; Copyright 2023. CC0 Licensed - Use as you like.<br/>
 </p>
         </footer>
     </div>

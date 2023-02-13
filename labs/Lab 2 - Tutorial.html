@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Lab 3 Tutorial: Model Selection in scikit-learn &#8212; ML Engineering</title>
     
   <!-- Loaded before other Sphinx assets -->
@@ -34,10 +35,13 @@
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
     <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
@@ -726,7 +730,7 @@ title="Print to PDF"
                 
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="lab-3-tutorial-model-selection-in-scikit-learn">
+  <section class="tex2jax_ignore mathjax_ignore" id="lab-3-tutorial-model-selection-in-scikit-learn">
 <h1>Lab 3 Tutorial: Model Selection in scikit-learn<a class="headerlink" href="#lab-3-tutorial-model-selection-in-scikit-learn" title="Permalink to this headline">#</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -744,47 +748,10 @@ title="Print to PDF"
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">ImportError</span><span class="g g-Whitespace">                               </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="mi">0</span><span class="n">t</span><span class="o">/</span><span class="mi">5</span><span class="n">d8ttqzd773fy0wq3h5db0xr0000gn</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_37541</span><span class="o">/</span><span class="mf">1362079321.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">get_ipython</span><span class="p">()</span><span class="o">.</span><span class="n">run_line_magic</span><span class="p">(</span><span class="s1">&#39;matplotlib&#39;</span><span class="p">,</span> <span class="s1">&#39;inline&#39;</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="ne">----&gt; </span><span class="mi">4</span> <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="kn">import</span> <span class="nn">openml</span> <span class="k">as</span> <span class="nn">oml</span>
-
-<span class="o">~/</span><span class="n">miniforge3</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.9</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">pandas</span><span class="o">/</span><span class="fm">__init__</span><span class="o">.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">     </span><span class="mi">20</span> 
-<span class="g g-Whitespace">     </span><span class="mi">21</span> <span class="c1"># numpy compat</span>
-<span class="ne">---&gt; </span><span class="mi">22</span> <span class="kn">from</span> <span class="nn">pandas.compat</span> <span class="kn">import</span> <span class="n">is_numpy_dev</span> <span class="k">as</span> <span class="n">_is_numpy_dev</span>  <span class="c1"># pyright: ignore # noqa:F401</span>
-<span class="g g-Whitespace">     </span><span class="mi">23</span> 
-<span class="g g-Whitespace">     </span><span class="mi">24</span> <span class="k">try</span><span class="p">:</span>
-
-<span class="o">~/</span><span class="n">miniforge3</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.9</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">pandas</span><span class="o">/</span><span class="n">compat</span><span class="o">/</span><span class="fm">__init__</span><span class="o">.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">     </span><span class="mi">16</span> 
-<span class="g g-Whitespace">     </span><span class="mi">17</span> <span class="kn">from</span> <span class="nn">pandas._typing</span> <span class="kn">import</span> <span class="n">F</span>
-<span class="ne">---&gt; </span><span class="mi">18</span> <span class="kn">from</span> <span class="nn">pandas.compat.numpy</span> <span class="kn">import</span> <span class="p">(</span>
-<span class="g g-Whitespace">     </span><span class="mi">19</span>     <span class="n">is_numpy_dev</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">20</span>     <span class="n">np_version_under1p21</span><span class="p">,</span>
-
-<span class="o">~/</span><span class="n">miniforge3</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.9</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">pandas</span><span class="o">/</span><span class="n">compat</span><span class="o">/</span><span class="n">numpy</span><span class="o">/</span><span class="fm">__init__</span><span class="o">.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">     </span><span class="mi">21</span> 
-<span class="g g-Whitespace">     </span><span class="mi">22</span> <span class="k">if</span> <span class="n">_nlv</span> <span class="o">&lt;</span> <span class="n">Version</span><span class="p">(</span><span class="n">_min_numpy_ver</span><span class="p">):</span>
-<span class="ne">---&gt; </span><span class="mi">23</span>     <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span>
-<span class="g g-Whitespace">     </span><span class="mi">24</span>         <span class="sa">f</span><span class="s2">&quot;this version of pandas is incompatible with numpy &lt; </span><span class="si">{</span><span class="n">_min_numpy_ver</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
-<span class="g g-Whitespace">     </span><span class="mi">25</span>         <span class="sa">f</span><span class="s2">&quot;your numpy version is </span><span class="si">{</span><span class="n">_np_version</span><span class="si">}</span><span class="s2">.</span><span class="se">\n</span><span class="s2">&quot;</span>
-
-<span class="ne">ImportError</span>: this version of pandas is incompatible with numpy &lt; 1.20.3
-<span class="n">your</span> <span class="n">numpy</span> <span class="n">version</span> <span class="ow">is</span> <span class="mf">1.19.5</span><span class="o">.</span>
-<span class="n">Please</span> <span class="n">upgrade</span> <span class="n">numpy</span> <span class="n">to</span> <span class="o">&gt;=</span> <span class="mf">1.20.3</span> <span class="n">to</span> <span class="n">use</span> <span class="n">this</span> <span class="n">pandas</span> <span class="n">version</span>
-</pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="evaluation-procedures">
+<section id="evaluation-procedures">
 <h2>Evaluation procedures<a class="headerlink" href="#evaluation-procedures" title="Permalink to this headline">#</a></h2>
-<div class="section" id="holdout">
+<section id="holdout">
 <h3>Holdout<a class="headerlink" href="#holdout" title="Permalink to this headline">#</a></h3>
 <p>The simplest procedure is <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.html">train_test_split</a>, which splits arrays or matrices into random train and test subsets.</p>
 <div class="cell docutils container">
@@ -810,8 +777,8 @@ title="Print to PDF"
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="cross-validation">
+</section>
+<section id="cross-validation">
 <h3>Cross-validation<a class="headerlink" href="#cross-validation" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p><a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.cross_val_score.html?highlight=cross%20val%20score#sklearn.model_selection.cross_val_score">cross_val_score</a></p>
@@ -851,8 +818,8 @@ Variance in cross-validation score: 0.0006
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="custom-cv-splits">
+</section>
+<section id="custom-cv-splits">
 <h3>Custom CV splits<a class="headerlink" href="#custom-cv-splits" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>You can build folds manually with <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.KFold.html?highlight=kfold#sklearn.model_selection.KFold">KFold</a> or <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.StratifiedKFold.html#sklearn.model_selection.StratifiedKFold">StratifiedKFold</a></p>
@@ -900,8 +867,8 @@ Mean accuracy: 0.97
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="shuffle-split">
+</section>
+<section id="shuffle-split">
 <h3>Shuffle-split<a class="headerlink" href="#shuffle-split" title="Permalink to this headline">#</a></h3>
 <p>These shuffle the data before splitting it.</p>
 <ul class="simple">
@@ -925,8 +892,8 @@ Mean accuracy: 0.97
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="grouped-cross-validation">
+</section>
+<section id="grouped-cross-validation">
 <h3>Grouped cross-validation<a class="headerlink" href="#grouped-cross-validation" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Add an array with group membership to <code class="docutils literal notranslate"><span class="pre">cross_val_scores</span></code></p></li>
@@ -951,11 +918,11 @@ Mean accuracy: 0.97
 </div>
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="evaluation-metrics">
+</section>
+</section>
+<section id="evaluation-metrics">
 <h2>Evaluation Metrics<a class="headerlink" href="#evaluation-metrics" title="Permalink to this headline">#</a></h2>
-<div class="section" id="binary-classification">
+<section id="binary-classification">
 <h3>Binary classification<a class="headerlink" href="#binary-classification" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p><a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.confusion_matrix.html?highlight=confusion%20matrix#sklearn.metrics.confusion_matrix">confusion_matrix</a> returns a matrix counting how many test examples are predicted correctly or ‘confused’ with other metrics.</p></li>
@@ -1033,8 +1000,8 @@ Macro average f1 score: 0.925
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="probabilistic-predictions">
+</section>
+<section id="probabilistic-predictions">
 <h3>Probabilistic predictions<a class="headerlink" href="#probabilistic-predictions" title="Permalink to this headline">#</a></h3>
 <p>To retrieve the uncertainty in the prediction, scikit-learn offers 2 functions. Often, both are available for every learner, but not always.</p>
 <ul class="simple">
@@ -1064,8 +1031,8 @@ weighted avg       0.94      0.94      0.94       143
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="uncertainty-in-multi-class-classification">
+</section>
+<section id="uncertainty-in-multi-class-classification">
 <h3>Uncertainty in multi-class classification<a class="headerlink" href="#uncertainty-in-multi-class-classification" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">decision_function</span></code> and <code class="docutils literal notranslate"><span class="pre">predict_proba</span></code> also work in the multiclass setting</p></li>
@@ -1108,8 +1075,8 @@ Predicted probabilities:
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="precision-recall-and-roc-curves">
+</section>
+<section id="precision-recall-and-roc-curves">
 <h3>Precision-Recall and ROC curves<a class="headerlink" href="#precision-recall-and-roc-curves" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p><a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.precision_recall_curve.html?highlight=precision_recall_curve">precision_recall_curve</a> returns all precision and recall values for all possible thresholds</p></li>
@@ -1163,8 +1130,8 @@ AUC for SVC: 0.991
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="multi-class-prediction">
+</section>
+<section id="multi-class-prediction">
 <h3>Multi-class prediction<a class="headerlink" href="#multi-class-prediction" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Build C models, one for every class vs all others</p></li>
@@ -1186,9 +1153,9 @@ Macro average f1 score: 0.925
 </div>
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="using-evaluation-metrics-in-model-selection">
+</section>
+</section>
+<section id="using-evaluation-metrics-in-model-selection">
 <h2>Using evaluation metrics in model selection<a class="headerlink" href="#using-evaluation-metrics-in-model-selection" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>You typically want to use AUC or other relevant measures in <code class="docutils literal notranslate"><span class="pre">cross_val_score</span></code> and <code class="docutils literal notranslate"><span class="pre">GridSearchCV</span></code> instead of the default accuracy.</p></li>
@@ -1243,11 +1210,11 @@ AUC scoring: [0.99717078 0.99854252 1.         0.999828   0.98400413]
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="hyperparameter-tuning">
+</section>
+<section id="hyperparameter-tuning">
 <h2>Hyperparameter tuning<a class="headerlink" href="#hyperparameter-tuning" title="Permalink to this headline">#</a></h2>
 <p>Now that we know how to evaluate models, we can improve them by tuning their hyperparameters</p>
-<div class="section" id="grid-search">
+<section id="grid-search">
 <h3>Grid search<a class="headerlink" href="#grid-search" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Create a parameter grid as a dictionary</p>
@@ -1359,8 +1326,8 @@ SVC(C=10, gamma=0.1)
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="nested-cross-validation">
+</section>
+<section id="nested-cross-validation">
 <h3>Nested cross-validation<a class="headerlink" href="#nested-cross-validation" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Nested cross-validation:</p>
@@ -1392,8 +1359,8 @@ Mean cross-validation score:  0.9666666666666668
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="parallelizing-cross-validation-and-grid-search">
+</section>
+<section id="parallelizing-cross-validation-and-grid-search">
 <h3>Parallelizing cross-validation and grid-search<a class="headerlink" href="#parallelizing-cross-validation-and-grid-search" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>On a practical note, it is easy to parallellize CV and grid search</p></li>
@@ -1403,8 +1370,8 @@ Mean cross-validation score:  0.9666666666666668
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="random-search">
+</section>
+<section id="random-search">
 <h3>Random Search<a class="headerlink" href="#random-search" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">RandomizedSearchCV</span></code> works like <code class="docutils literal notranslate"><span class="pre">GridSearchCV</span></code></p></li>
@@ -1434,9 +1401,9 @@ Mean cross-validation score:  0.9666666666666668
 </div>
 </div>
 </div>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -1450,7 +1417,7 @@ Mean cross-validation score:  0.9666666666666668
             mode: "python"
         },
         kernelOptions: {
-            name: "python3",
+            kernelName: "python3",
             path: "./labs"
         },
         predefinedOutput: true
@@ -1474,7 +1441,7 @@ Mean cross-validation score:  0.9666666666666668
   
     By Joaquin Vanschoren<br/>
   
-      &copy; Copyright 2021. CC0 Licensed - Use as you like.<br/>
+      &copy; Copyright 2023. CC0 Licensed - Use as you like.<br/>
 </p>
         </footer>
     </div>

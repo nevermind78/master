@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Lecture 2: Linear models &#8212; ML Engineering</title>
     
   <!-- Loaded before other Sphinx assets -->
@@ -34,10 +35,13 @@
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
     <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
@@ -193,17 +197,17 @@ const thebe_selector_output = ".output, .cell_output"
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%202%20-%20Kernelization.html">
-   Lab 2: Kernelization
+  <a class="reference internal" href="../labs/Lab%202a%20-%20Kernelization.html">
+   Lab 2a: Kernelization
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%203a%20-%20Model%20Selection.html">
-   Lab 3a: Model selection
+  <a class="reference internal" href="../labs/Lab%202b%20-%20Model%20Selection.html">
+   Lab 2b: Model selection
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%203b%20-%20Ensembles.html">
+  <a class="reference internal" href="../labs/Lab%203%20-%20Ensembles.html">
    Lab 3b: Ensembles
   </a>
  </li>
@@ -272,11 +276,6 @@ const thebe_selector_output = ".output, .cell_output"
  <li class="toctree-l1">
   <a class="reference internal" href="../labs/Lab%201%20-%20Tutorial.html">
    Lab 1: Machine Learning with Python
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%203%20-%20Tutorial.html">
-   Lab 3 Tutorial: Model Selection in scikit-learn
   </a>
  </li>
  <li class="toctree-l1">
@@ -1045,7 +1044,7 @@ title="Print to PDF"
                 
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="lecture-2-linear-models">
+  <section class="tex2jax_ignore mathjax_ignore" id="lecture-2-linear-models">
 <h1>Lecture 2: Linear models<a class="headerlink" href="#lecture-2-linear-models" title="Permalink to this headline">#</a></h1>
 <p><strong>Basics of modeling, optimization, and regularization</strong></p>
 <p>Joaquin Vanschoren</p>
@@ -1054,14 +1053,14 @@ title="Print to PDF"
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Auto-setup when running on Google Colab</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="k">if</span> <span class="s1">&#39;google.colab&#39;</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">get_ipython</span><span class="p">())</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s1">&#39;/content/master&#39;</span><span class="p">):</span>
-    <span class="o">!</span>git clone -q https://github.com/ML-course/master.git /content/master
-    <span class="o">!</span>pip --quiet install -r /content/master/requirements_colab.txt
+    <span class="o">!</span>git<span class="w"> </span>clone<span class="w"> </span>-q<span class="w"> </span>https://github.com/ML-course/master.git<span class="w"> </span>/content/master
+    <span class="o">!</span>pip<span class="w"> </span>--quiet<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>/content/master/requirements_colab.txt
     <span class="o">%</span><span class="k">cd</span> master/notebooks
 
 <span class="c1"># Global imports and settings</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
 <span class="kn">from</span> <span class="nn">preamble</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="n">interactive</span> <span class="o">=</span> <span class="kc">True</span> <span class="c1"># Set to True for interactive plots</span>
+<span class="n">interactive</span> <span class="o">=</span> <span class="kc">False</span> <span class="c1"># Set to True for interactive plots</span>
 <span class="k">if</span> <span class="n">interactive</span><span class="p">:</span>
     <span class="n">fig_scale</span> <span class="o">=</span> <span class="mf">0.5</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">print_config</span><span class="p">)</span>
@@ -1071,52 +1070,8 @@ title="Print to PDF"
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">ImportError</span><span class="g g-Whitespace">                               </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="mi">0</span><span class="n">t</span><span class="o">/</span><span class="mi">5</span><span class="n">d8ttqzd773fy0wq3h5db0xr0000gn</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_36998</span><span class="o">/</span><span class="mf">1890358502.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">      </span><span class="mi">8</span> <span class="c1"># Global imports and settings</span>
-<span class="g g-Whitespace">      </span><span class="mi">9</span> <span class="n">get_ipython</span><span class="p">()</span><span class="o">.</span><span class="n">run_line_magic</span><span class="p">(</span><span class="s1">&#39;matplotlib&#39;</span><span class="p">,</span> <span class="s1">&#39;inline&#39;</span><span class="p">)</span>
-<span class="ne">---&gt; </span><span class="mi">10</span> <span class="kn">from</span> <span class="nn">preamble</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="g g-Whitespace">     </span><span class="mi">11</span> <span class="n">interactive</span> <span class="o">=</span> <span class="kc">True</span> <span class="c1"># Set to True for interactive plots</span>
-<span class="g g-Whitespace">     </span><span class="mi">12</span> <span class="k">if</span> <span class="n">interactive</span><span class="p">:</span>
-
-<span class="o">~/</span><span class="n">Documents</span><span class="o">/</span><span class="n">ml</span><span class="o">-</span><span class="n">course</span><span class="o">/</span><span class="n">master</span><span class="o">/</span><span class="n">notebooks</span><span class="o">/</span><span class="n">preamble</span><span class="o">.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">set_matplotlib_formats</span><span class="p">,</span> <span class="n">display</span><span class="p">,</span> <span class="n">HTML</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="kn">from</span> <span class="nn">IPython.core.interactiveshell</span> <span class="kn">import</span> <span class="n">InteractiveShell</span>
-<span class="ne">----&gt; </span><span class="mi">3</span> <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-
-<span class="o">~/</span><span class="n">miniforge3</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.9</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">pandas</span><span class="o">/</span><span class="fm">__init__</span><span class="o">.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">     </span><span class="mi">20</span> 
-<span class="g g-Whitespace">     </span><span class="mi">21</span> <span class="c1"># numpy compat</span>
-<span class="ne">---&gt; </span><span class="mi">22</span> <span class="kn">from</span> <span class="nn">pandas.compat</span> <span class="kn">import</span> <span class="n">is_numpy_dev</span> <span class="k">as</span> <span class="n">_is_numpy_dev</span>  <span class="c1"># pyright: ignore # noqa:F401</span>
-<span class="g g-Whitespace">     </span><span class="mi">23</span> 
-<span class="g g-Whitespace">     </span><span class="mi">24</span> <span class="k">try</span><span class="p">:</span>
-
-<span class="o">~/</span><span class="n">miniforge3</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.9</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">pandas</span><span class="o">/</span><span class="n">compat</span><span class="o">/</span><span class="fm">__init__</span><span class="o">.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">     </span><span class="mi">16</span> 
-<span class="g g-Whitespace">     </span><span class="mi">17</span> <span class="kn">from</span> <span class="nn">pandas._typing</span> <span class="kn">import</span> <span class="n">F</span>
-<span class="ne">---&gt; </span><span class="mi">18</span> <span class="kn">from</span> <span class="nn">pandas.compat.numpy</span> <span class="kn">import</span> <span class="p">(</span>
-<span class="g g-Whitespace">     </span><span class="mi">19</span>     <span class="n">is_numpy_dev</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">20</span>     <span class="n">np_version_under1p21</span><span class="p">,</span>
-
-<span class="o">~/</span><span class="n">miniforge3</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.9</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">pandas</span><span class="o">/</span><span class="n">compat</span><span class="o">/</span><span class="n">numpy</span><span class="o">/</span><span class="fm">__init__</span><span class="o">.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">     </span><span class="mi">21</span> 
-<span class="g g-Whitespace">     </span><span class="mi">22</span> <span class="k">if</span> <span class="n">_nlv</span> <span class="o">&lt;</span> <span class="n">Version</span><span class="p">(</span><span class="n">_min_numpy_ver</span><span class="p">):</span>
-<span class="ne">---&gt; </span><span class="mi">23</span>     <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span>
-<span class="g g-Whitespace">     </span><span class="mi">24</span>         <span class="sa">f</span><span class="s2">&quot;this version of pandas is incompatible with numpy &lt; </span><span class="si">{</span><span class="n">_min_numpy_ver</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
-<span class="g g-Whitespace">     </span><span class="mi">25</span>         <span class="sa">f</span><span class="s2">&quot;your numpy version is </span><span class="si">{</span><span class="n">_np_version</span><span class="si">}</span><span class="s2">.</span><span class="se">\n</span><span class="s2">&quot;</span>
-
-<span class="ne">ImportError</span>: this version of pandas is incompatible with numpy &lt; 1.20.3
-<span class="n">your</span> <span class="n">numpy</span> <span class="n">version</span> <span class="ow">is</span> <span class="mf">1.19.5</span><span class="o">.</span>
-<span class="n">Please</span> <span class="n">upgrade</span> <span class="n">numpy</span> <span class="n">to</span> <span class="o">&gt;=</span> <span class="mf">1.20.3</span> <span class="n">to</span> <span class="n">use</span> <span class="n">this</span> <span class="n">pandas</span> <span class="n">version</span>
-</pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="notation-and-definitions">
+<section id="notation-and-definitions">
 <h2>Notation and Definitions<a class="headerlink" href="#notation-and-definitions" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>A <em>scalar</em> is a simple numeric value, denoted by an italic letter: <span class="math notranslate nohighlight">\(x=3.24\)</span></p></li>
@@ -1182,7 +1137,7 @@ title="Print to PDF"
 </ul>
 </li>
 </ul>
-<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/08_images.png" alt="ml" style="width: 40%;"/><div class="section" id="basic-operations">
+<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/08_images.png" alt="ml" style="width: 40%;"/><section id="basic-operations">
 <h3>Basic operations<a class="headerlink" href="#basic-operations" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Sums and products are denoted by capital Sigma and capital Pi:</p></li>
@@ -1206,8 +1161,8 @@ title="Print to PDF"
 <li><p><span class="math notranslate nohighlight">\(\underset{x\in X}{\operatorname{max}}f(x)\)</span> returns the largest value f(x) for any x</p></li>
 <li><p><span class="math notranslate nohighlight">\(\underset{x\in X}{\operatorname{argmax}}f(x)\)</span> returns the element x that maximizes f(x)</p></li>
 </ul>
-</div>
-<div class="section" id="gradients">
+</section>
+<section id="gradients">
 <h3>Gradients<a class="headerlink" href="#gradients" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>A <em>derivative</em> <span class="math notranslate nohighlight">\(f'\)</span> of a function <span class="math notranslate nohighlight">\(f\)</span> describes how fast <span class="math notranslate nohighlight">\(f\)</span> grows or decreases</p></li>
@@ -1301,7 +1256,7 @@ title="Print to PDF"
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "27bbaf424c6f4a1688c3cbb1ef378bda", "version_major": 2, "version_minor": 0}
+{"model_id": "1ab6105ffa1947dd815746abfa95f909", "version_major": 2, "version_minor": 0}
 </script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
@@ -1311,9 +1266,12 @@ title="Print to PDF"
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="../_images/02 - Linear Models_10_0.png" src="../_images/02 - Linear Models_10_0.png" />
 </div>
 </div>
-<div class="section" id="distributions-and-probabilities">
+</section>
+<section id="distributions-and-probabilities">
 <h3>Distributions and Probabilities<a class="headerlink" href="#distributions-and-probabilities" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>The normal (Gaussian) distribution with mean <span class="math notranslate nohighlight">\(\mu\)</span> and standard deviation <span class="math notranslate nohighlight">\(\sigma\)</span> is noted as <span class="math notranslate nohighlight">\(N(\mu,\sigma)\)</span></p></li>
@@ -1329,10 +1287,10 @@ title="Print to PDF"
 </ul>
 </li>
 </ul>
-<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/02_pdf.png" alt="ml" style="width: 70%;"/></div>
-</div>
-</div>
-<div class="tex2jax_ignore mathjax_ignore section" id="linear-models">
+<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/02_pdf.png" alt="ml" style="width: 70%;"/></section>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="linear-models">
 <h1>Linear models<a class="headerlink" href="#linear-models" title="Permalink to this headline">#</a></h1>
 <p>Linear models make a prediction using a linear function of the input features <span class="math notranslate nohighlight">\(X\)</span></p>
 <div class="math notranslate nohighlight">
@@ -1351,7 +1309,7 @@ title="Print to PDF"
 </ul>
 </li>
 </ul>
-<div class="section" id="linear-models-for-regression">
+<section id="linear-models-for-regression">
 <h2>Linear models for regression<a class="headerlink" href="#linear-models-for-regression" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Prediction formula for input features x:</p>
@@ -1397,14 +1355,14 @@ title="Print to PDF"
 <img alt="../_images/02 - Linear Models_14_1.png" src="../_images/02 - Linear Models_14_1.png" />
 </div>
 </div>
-<div class="section" id="linear-regression-aka-ordinary-least-squares">
+<section id="linear-regression-aka-ordinary-least-squares">
 <h3>Linear Regression (aka Ordinary Least Squares)<a class="headerlink" href="#linear-regression-aka-ordinary-least-squares" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Loss function is the <em>sum of squared errors</em> (SSE) (or residuals) between predictions <span class="math notranslate nohighlight">\(\hat{y}_i\)</span> (red) and the true regression targets <span class="math notranslate nohighlight">\(y_i\)</span> (blue) on the training set.</p></li>
 </ul>
 <div class="math notranslate nohighlight">
 \[\mathcal{L}_{SSE} = \sum_{n=1}^{N} (y_n-\hat{y}_n)^2 = \sum_{n=1}^{N} (y_n-(\mathbf{w}\mathbf{x_n} + w_0))^2\]</div>
-<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/02_least_squares.png" alt="ml" style="margin: 0 auto; width: 750px;"/><div class="section" id="solving-ordinary-least-squares">
+<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/02_least_squares.png" alt="ml" style="margin: 0 auto; width: 750px;"/><section id="solving-ordinary-least-squares">
 <h4>Solving ordinary least squares<a class="headerlink" href="#solving-ordinary-least-squares" title="Permalink to this headline">#</a></h4>
 <ul>
 <li><p>Convex optimization problem with unique closed-form solution:</p>
@@ -1435,8 +1393,8 @@ title="Print to PDF"
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="gradient-descent">
+</section>
+<section id="gradient-descent">
 <h4>Gradient Descent<a class="headerlink" href="#gradient-descent" title="Permalink to this headline">#</a></h4>
 <ul>
 <li><p>Start with an initial, random set of weights: <span class="math notranslate nohighlight">\(\mathbf{w}^0\)</span></p></li>
@@ -1517,7 +1475,7 @@ title="Print to PDF"
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "9d7e23dc13be4d428e172ad20da9db69", "version_major": 2, "version_minor": 0}
+{"model_id": "01fef24d0ebb4417abf7cdb3d2e4068b", "version_major": 2, "version_minor": 0}
 </script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
@@ -1527,11 +1485,13 @@ title="Print to PDF"
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="../_images/02 - Linear Models_20_0.png" src="../_images/02 - Linear Models_20_0.png" />
+</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">matplotlib.colors</span> <span class="kn">import</span> <span class="n">LogNorm</span>
-<span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
 <span class="kn">import</span> <span class="nn">tensorflow_addons</span> <span class="k">as</span> <span class="nn">tfa</span>
 
 <span class="c1"># Toy surface</span>
@@ -1551,10 +1511,67 @@ title="Print to PDF"
 <span class="c1"># Training</span>
 <span class="n">all_paths</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="k">for</span> <span class="n">opt</span><span class="p">,</span> <span class="n">name</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">optimizers</span><span class="p">,</span> <span class="n">opt_names</span><span class="p">):</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="mf">0.8</span><span class="p">)</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="mf">1.6</span><span class="p">)</span>
+
+    <span class="n">x_history</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">y_history</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">loss_prev</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="n">max_steps</span> <span class="o">=</span> <span class="mi">100</span>
+    <span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_steps</span><span class="p">):</span>
+        <span class="k">with</span> <span class="n">tf</span><span class="o">.</span><span class="n">GradientTape</span><span class="p">()</span> <span class="k">as</span> <span class="n">g</span><span class="p">:</span>
+            <span class="n">loss</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+            <span class="n">x_history</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">numpy</span><span class="p">())</span>
+            <span class="n">y_history</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">numpy</span><span class="p">())</span>
+            <span class="n">grads</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">loss</span><span class="p">,</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">])</span>
+            <span class="n">opt</span><span class="o">.</span><span class="n">apply_gradients</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">grads</span><span class="p">,</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">]))</span>
+
+    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">loss_prev</span> <span class="o">-</span> <span class="n">loss</span><span class="o">.</span><span class="n">numpy</span><span class="p">())</span> <span class="o">&lt;</span> <span class="mf">1e-6</span><span class="p">:</span>
+        <span class="k">break</span>
+    <span class="n">loss_prev</span> <span class="o">=</span> <span class="n">loss</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+    <span class="n">x_history</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">x_history</span><span class="p">)</span>
+    <span class="n">y_history</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">y_history</span><span class="p">)</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">x_history</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">y_history</span><span class="p">,</span> <span class="mi">1</span><span class="p">)),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+    <span class="n">all_paths</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Metal device set to: Apple M1 Pro
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2023-02-12 15:21:01.291433: I tensorflow/core/common_runtime/pluggable_device/pluggable_device_factory.cc:306] Could not identify NUMA node of platform GPU ID 0, defaulting to 0. Your kernel may not have been built with NUMA support.
+2023-02-12 15:21:01.291566: I tensorflow/core/common_runtime/pluggable_device/pluggable_device_factory.cc:272] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 0 MB memory) -&gt; physical PluggableDevice (device: 0, name: METAL, pci bus id: &lt;undefined&gt;)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">matplotlib.colors</span> <span class="kn">import</span> <span class="n">LogNorm</span>
+<span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+
+<span class="c1"># Toy surface</span>
+<span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">(</span><span class="mf">1.5</span> <span class="o">-</span> <span class="n">x</span> <span class="o">+</span> <span class="n">x</span><span class="o">*</span><span class="n">y</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="mf">2.25</span> <span class="o">-</span> <span class="n">x</span> <span class="o">+</span> <span class="n">x</span><span class="o">*</span><span class="n">y</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="mf">2.625</span> <span class="o">-</span> <span class="n">x</span> <span class="o">+</span> <span class="n">x</span><span class="o">*</span><span class="n">y</span><span class="o">**</span><span class="mi">3</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
+
+<span class="c1"># Tensorflow optimizers</span>
+<span class="n">sgd</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">optimizers</span><span class="o">.</span><span class="n">SGD</span><span class="p">(</span><span class="mf">0.01</span><span class="p">)</span>
+<span class="n">lr_schedule</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">optimizers</span><span class="o">.</span><span class="n">schedules</span><span class="o">.</span><span class="n">ExponentialDecay</span><span class="p">(</span><span class="mf">0.02</span><span class="p">,</span><span class="n">decay_steps</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span><span class="n">decay_rate</span><span class="o">=</span><span class="mf">0.96</span><span class="p">)</span>
+<span class="n">sgd_decay</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">optimizers</span><span class="o">.</span><span class="n">SGD</span><span class="p">(</span><span class="n">learning_rate</span><span class="o">=</span><span class="n">lr_schedule</span><span class="p">)</span>
+
+<span class="n">optimizers</span> <span class="o">=</span> <span class="p">[</span><span class="n">sgd</span><span class="p">,</span> <span class="n">sgd_decay</span><span class="p">]</span>
+<span class="n">opt_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;sgd&#39;</span><span class="p">,</span> <span class="s1">&#39;sgd_decay&#39;</span><span class="p">]</span>
+<span class="n">cmap</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="s1">&#39;tab10&#39;</span><span class="p">)</span>
+<span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="n">cmap</span><span class="p">(</span><span class="n">x</span><span class="o">/</span><span class="mi">10</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)]</span>
+
+<span class="c1"># Training</span>
+<span class="n">all_paths</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">opt</span><span class="p">,</span> <span class="n">name</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">optimizers</span><span class="p">,</span> <span class="n">opt_names</span><span class="p">):</span>
     <span class="n">x_init</span> <span class="o">=</span> <span class="mf">0.8</span>
-    <span class="n">x</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">compat</span><span class="o">.</span><span class="n">v1</span><span class="o">.</span><span class="n">get_variable</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span> <span class="n">initializer</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">constant</span><span class="p">(</span><span class="n">x_init</span><span class="p">))</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="n">x_init</span><span class="p">)</span>
     <span class="n">y_init</span> <span class="o">=</span> <span class="mf">1.6</span>
-    <span class="n">y</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">compat</span><span class="o">.</span><span class="n">v1</span><span class="o">.</span><span class="n">get_variable</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span> <span class="n">initializer</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">constant</span><span class="p">(</span><span class="n">y_init</span><span class="p">))</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="n">y_init</span><span class="p">)</span>
 
     <span class="n">x_history</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">y_history</span> <span class="o">=</span> <span class="p">[]</span>
@@ -1606,15 +1623,6 @@ title="Print to PDF"
     <span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">([])</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">([])</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Metal device set to: Apple M1 Pro
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2023-02-09 12:18:53.960066: I tensorflow/core/common_runtime/pluggable_device/pluggable_device_factory.cc:305] Could not identify NUMA node of platform GPU ID 0, defaulting to 0. Your kernel may not have been built with NUMA support.
-2023-02-09 12:18:53.960179: I tensorflow/core/common_runtime/pluggable_device/pluggable_device_factory.cc:271] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 0 MB memory) -&gt; physical PluggableDevice (device: 0, name: METAL, pci bus id: &lt;undefined&gt;)
 </pre></div>
 </div>
 </div>
@@ -1697,14 +1705,15 @@ title="Print to PDF"
     <span class="n">plot_learning_rate_optimizers</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span><span class="n">iterations</span><span class="p">,</span><span class="n">learning_rate</span><span class="p">)</span>
     
 <span class="k">if</span> <span class="ow">not</span> <span class="n">interactive</span><span class="p">:</span>
-    <span class="n">plot_lr</span><span class="p">(</span><span class="n">iterations</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+    <span class="n">plot_lr</span><span class="p">(</span><span class="n">iterations</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.02</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "1e797b44866f473e893c57470275ff3e", "version_major": 2, "version_minor": 0}
-</script></div>
+{"model_id": "da02c3bccf0344178f6c77ba25e9cc78", "version_major": 2, "version_minor": 0}
+</script><img alt="../_images/02 - Linear Models_25_1.png" src="../_images/02 - Linear Models_25_1.png" />
+</div>
 </div>
 <p><strong>Effect of learning rate decay</strong></p>
 <div class="cell docutils container">
@@ -1715,14 +1724,15 @@ title="Print to PDF"
     <span class="n">plot_optimizers</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span><span class="n">iterations</span><span class="p">,[</span><span class="n">optimizer1</span><span class="p">,</span><span class="n">optimizer2</span><span class="p">])</span>
     
 <span class="k">if</span> <span class="ow">not</span> <span class="n">interactive</span><span class="p">:</span>
-    <span class="n">compare_optimizers</span><span class="p">(</span><span class="n">iterations</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">optimizer1</span><span class="o">=</span><span class="s2">&quot;momentum&quot;</span><span class="p">,</span> <span class="n">optimizer2</span><span class="o">=</span><span class="s2">&quot;adam&quot;</span><span class="p">)</span>
+    <span class="n">compare_optimizers</span><span class="p">(</span><span class="n">iterations</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">optimizer1</span><span class="o">=</span><span class="s2">&quot;sgd&quot;</span><span class="p">,</span> <span class="n">optimizer2</span><span class="o">=</span><span class="s2">&quot;sgd_decay&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "0f5c7c9f18214b29a99b4567780be4f6", "version_major": 2, "version_minor": 0}
-</script></div>
+{"model_id": "b7718f5f34364405acb449eb77b0dfc0", "version_major": 2, "version_minor": 0}
+</script><img alt="../_images/02 - Linear Models_27_1.png" src="../_images/02 - Linear Models_27_1.png" />
+</div>
 </div>
 <p>In two dimensions:
 <img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/01_gradient_descent_2D.png" alt="ml" style="width: 900px;"/></p>
@@ -1740,8 +1750,8 @@ title="Print to PDF"
 </ul>
 <img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/01_gradient_descent_hill.png" alt="ml" style="width: 1200px;"/>
 <p>(Image by A. Karpathy)</p>
-</div>
-<div class="section" id="stochastic-gradient-descent-sgd">
+</section>
+<section id="stochastic-gradient-descent-sgd">
 <h4>Stochastic Gradient Descent (SGD)<a class="headerlink" href="#stochastic-gradient-descent-sgd" title="Permalink to this headline">#</a></h4>
 <ul class="simple">
 <li><p>Compute gradients not on the entire dataset, but on a single data point <span class="math notranslate nohighlight">\(i\)</span> at a time</p>
@@ -1761,8 +1771,8 @@ title="Print to PDF"
 </ul>
 </li>
 </ul>
-<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/08_SGD.png" alt="ml" style="float: left; width: 600px;"/></div>
-<div class="section" id="in-practice">
+<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/08_SGD.png" alt="ml" style="float: left; width: 600px;"/></section>
+<section id="in-practice">
 <h4>In practice<a class="headerlink" href="#in-practice" title="Permalink to this headline">#</a></h4>
 <ul class="simple">
 <li><p>Linear regression can be found in <code class="docutils literal notranslate"><span class="pre">sklearn.linear_model</span></code>. We’ll evaluate it on the Boston Housing dataset.</p>
@@ -1804,7 +1814,7 @@ title="Print to PDF"
   1278.121 -2239.869   222.825    -2.182    42.996   -13.398   -19.389
     -2.575   -81.013     9.66      4.914    -0.812    -7.647    33.784
    -11.446    68.508   -17.375    42.813     1.14 ]
-Bias (intercept): 30.93456367364179
+Bias (intercept): 30.934563673643297
 </pre></div>
 </div>
 </div>
@@ -1823,9 +1833,9 @@ Test set score (R^2): 0.61
 </div>
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="ridge-regression">
+</section>
+</section>
+<section id="ridge-regression">
 <h3>Ridge regression<a class="headerlink" href="#ridge-regression" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Adds a penalty term to the least squares loss function:</p></li>
@@ -1861,7 +1871,7 @@ Test set score (R^2): 0.61
 </ul>
 </li>
 </ul>
-<div class="section" id="id1">
+<section id="id1">
 <h4>In practice<a class="headerlink" href="#id1" title="Permalink to this headline">#</a></h4>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">Ridge</span>
 <span class="n">lr</span> <span class="o">=</span> <span class="n">Ridge</span><span class="p">()</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
@@ -1883,7 +1893,7 @@ Test set score (R^2): 0.61
  -1.584  1.051 -4.012  0.334  0.004 -0.849  0.745 -1.431 -1.63  -1.405
  -0.045 -1.746 -1.467 -1.332 -1.692 -0.506  2.622 -2.092  0.195 -0.275
   5.113 -1.671 -0.098  0.634 -0.61   0.04  -1.277 -2.913  3.395  0.792]
-Bias (intercept): 21.39052595861006
+Bias (intercept): 21.390525958610134
 Training set score: 0.89
 Test set score: 0.75
 </pre></div>
@@ -1918,7 +1928,7 @@ Test set score: 0.75
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "68a0768ed79e449bb9b31c5133e7b5ae", "version_major": 2, "version_minor": 0}
+{"model_id": "d4bd82f7edb548c8aefc7d01baf2c974", "version_major": 2, "version_minor": 0}
 </script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
@@ -1928,6 +1938,10 @@ Test set score: 0.75
         <span class="n">plot_ridge</span><span class="p">(</span><span class="n">alpha</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/02 - Linear Models_41_0.png" src="../_images/02 - Linear Models_41_0.png" />
+<img alt="../_images/02 - Linear Models_41_1.png" src="../_images/02 - Linear Models_41_1.png" />
 </div>
 </div>
 <ul class="simple">
@@ -1960,12 +1974,12 @@ Test set score: 0.75
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/02 - Linear Models_42_0.png" src="../_images/02 - Linear Models_42_0.png" />
+<img alt="../_images/02 - Linear Models_43_0.png" src="../_images/02 - Linear Models_43_0.png" />
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="other-ways-to-reduce-overfitting">
+</section>
+</section>
+<section id="other-ways-to-reduce-overfitting">
 <h3>Other ways to reduce overfitting<a class="headerlink" href="#other-ways-to-reduce-overfitting" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Add more training data: with enough training data, regularization becomes less important</p>
@@ -1988,11 +2002,11 @@ Test set score: 0.75
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/02 - Linear Models_44_0.png" src="../_images/02 - Linear Models_44_0.png" />
+<img alt="../_images/02 - Linear Models_45_0.png" src="../_images/02 - Linear Models_45_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="lasso-least-absolute-shrinkage-and-selection-operator">
+</section>
+<section id="lasso-least-absolute-shrinkage-and-selection-operator">
 <h3>Lasso (Least Absolute Shrinkage and Selection Operator)<a class="headerlink" href="#lasso-least-absolute-shrinkage-and-selection-operator" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Adds a different penalty term to the least squares sum:</p></li>
@@ -2043,7 +2057,7 @@ Test set score: 0.75
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "156548dc7e724844af10f39e183c70dd", "version_major": 2, "version_minor": 0}
+{"model_id": "4b3bb483fe564f55ba12a635e327751f", "version_major": 2, "version_minor": 0}
 </script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
@@ -2054,8 +2068,12 @@ Test set score: 0.75
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="../_images/02 - Linear Models_49_0.png" src="../_images/02 - Linear Models_49_0.png" />
+<img alt="../_images/02 - Linear Models_49_1.png" src="../_images/02 - Linear Models_49_1.png" />
 </div>
-<div class="section" id="coordinate-descent">
+</div>
+<section id="coordinate-descent">
 <h4>Coordinate descent<a class="headerlink" href="#coordinate-descent" title="Permalink to this headline">#</a></h4>
 <ul class="simple">
 <li><p>Alternative for gradient descent, supports non-differentiable convex loss functions (e.g. <span class="math notranslate nohighlight">\(\mathcal{L}_{Lasso}\)</span>)</p></li>
@@ -2067,8 +2085,8 @@ Test set score: 0.75
 <li><p>Faster iterations. No need to choose a step size (learning rate).</p></li>
 <li><p>May converge more slowly. Can’t be parallellized.</p></li>
 </ul>
-<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/02_cd.png" alt="ml" style="width: 700px;"/></div>
-<div class="section" id="coordinate-descent-with-lasso">
+<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/02_cd.png" alt="ml" style="width: 700px;"/></section>
+<section id="coordinate-descent-with-lasso">
 <h4>Coordinate descent with Lasso<a class="headerlink" href="#coordinate-descent-with-lasso" title="Permalink to this headline">#</a></h4>
 <ul>
 <li><p>Remember that <span class="math notranslate nohighlight">\(\mathcal{L}_{Lasso} = \mathcal{L}_{SSE} + \alpha \sum_{i=1}^{p} |w_i|\)</span></p></li>
@@ -2120,7 +2138,7 @@ Test set score: 0.75
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "a58aa5ebada1454c86d93670634d214d", "version_major": 2, "version_minor": 0}
+{"model_id": "b8fb5f4bac9642e1a372f6a2a62495ea", "version_major": 2, "version_minor": 0}
 </script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
@@ -2130,10 +2148,13 @@ Test set score: 0.75
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="../_images/02 - Linear Models_54_0.png" src="../_images/02 - Linear Models_54_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="interpreting-l1-and-l2-loss">
+</section>
+</section>
+<section id="interpreting-l1-and-l2-loss">
 <h3>Interpreting L1 and L2 loss<a class="headerlink" href="#interpreting-l1-and-l2-loss" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>L1 and L2 in function of the weights</p></li>
@@ -2190,7 +2211,7 @@ Test set score: 0.75
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "7897a887e42046e59e2c48140256f932", "version_major": 2, "version_minor": 0}
+{"model_id": "f60c125545144267b06303a25aaf278a", "version_major": 2, "version_minor": 0}
 </script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
@@ -2199,6 +2220,9 @@ Test set score: 0.75
     <span class="n">plot_losses</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/02 - Linear Models_58_0.png" src="../_images/02 - Linear Models_58_0.png" />
 </div>
 </div>
 <ul class="simple">
@@ -2260,11 +2284,11 @@ Test set score: 0.75
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/02 - Linear Models_59_0.png" src="../_images/02 - Linear Models_59_0.png" />
+<img alt="../_images/02 - Linear Models_60_0.png" src="../_images/02 - Linear Models_60_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="elastic-net">
+</section>
+<section id="elastic-net">
 <h3>Elastic-Net<a class="headerlink" href="#elastic-net" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Adds both L1 and L2 regularization:</p></li>
@@ -2286,8 +2310,8 @@ Test set score: 0.75
 </li>
 <li><p>Weights can be optimized using coordinate descent (similar to Lasso)</p></li>
 </ul>
-</div>
-<div class="section" id="other-loss-functions-for-regression">
+</section>
+<section id="other-loss-functions-for-regression">
 <h3>Other loss functions for regression<a class="headerlink" href="#other-loss-functions-for-regression" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Huber loss: switches from squared loss to linear loss past a value <span class="math notranslate nohighlight">\(\epsilon\)</span></p>
@@ -2308,9 +2332,9 @@ Test set score: 0.75
 </ul>
 </li>
 </ul>
-<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/huber.png" alt="ml" style="width: 500px;"/></div>
-</div>
-<div class="section" id="linear-models-for-classification">
+<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/huber.png" alt="ml" style="width: 500px;"/></section>
+</section>
+<section id="linear-models-for-classification">
 <h2>Linear models for Classification<a class="headerlink" href="#linear-models-for-classification" title="Permalink to this headline">#</a></h2>
 <p>Aims to find a hyperplane that separates the examples of each class.<br />
 For binary classification (2 classes), we aim to fit the following function:</p>
@@ -2334,7 +2358,7 @@ For binary classification (2 classes), we aim to fit the following function:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/02 - Linear Models_63_0.png" src="../_images/02 - Linear Models_63_0.png" />
+<img alt="../_images/02 - Linear Models_64_0.png" src="../_images/02 - Linear Models_64_0.png" />
 </div>
 </div>
 <ul class="simple">
@@ -2365,7 +2389,7 @@ For binary classification (2 classes), we aim to fit the following function:</p>
 </ul>
 </li>
 </ul>
-<div class="section" id="logistic-regression">
+<section id="logistic-regression">
 <h3>Logistic regression<a class="headerlink" href="#logistic-regression" title="Permalink to this headline">#</a></h3>
 <ul>
 <li><p>Aims to predict the <em>probability</em> that a point belongs to the positive class</p></li>
@@ -2406,7 +2430,7 @@ For binary classification (2 classes), we aim to fit the following function:</p>
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "81acf67435df4786b2c905963c8cecda", "version_major": 2, "version_minor": 0}
+{"model_id": "1d246b43d97044e1837de7c4ee6b4468", "version_major": 2, "version_minor": 0}
 </script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
@@ -2419,6 +2443,9 @@ For binary classification (2 classes), we aim to fit the following function:</p>
     <span class="n">plot_logreg</span><span class="p">(</span><span class="n">w0</span><span class="o">=</span><span class="n">w0</span><span class="p">,</span><span class="n">w1</span><span class="o">=</span><span class="n">w1</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/02 - Linear Models_68_0.png" src="../_images/02 - Linear Models_68_0.png" />
 </div>
 </div>
 <ul class="simple">
@@ -2476,7 +2503,7 @@ For binary classification (2 classes), we aim to fit the following function:</p>
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "b1c5da980c9e48c390b84f5be08c1d13", "version_major": 2, "version_minor": 0}
+{"model_id": "8f07519020a4445d86b70612d87fb906", "version_major": 2, "version_minor": 0}
 </script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
@@ -2486,8 +2513,11 @@ For binary classification (2 classes), we aim to fit the following function:</p>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="../_images/02 - Linear Models_71_0.png" src="../_images/02 - Linear Models_71_0.png" />
 </div>
-<div class="section" id="loss-function-cross-entropy">
+</div>
+<section id="loss-function-cross-entropy">
 <h4>Loss function: Cross-entropy<a class="headerlink" href="#loss-function-cross-entropy" title="Permalink to this headline">#</a></h4>
 <ul>
 <li><p>Models that return class probabilities can use <em>cross-entropy loss</em></p>
@@ -2526,11 +2556,11 @@ For binary classification (2 classes), we aim to fit the following function:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/02 - Linear Models_72_0.png" src="../_images/02 - Linear Models_72_0.png" />
+<img alt="../_images/02 - Linear Models_73_0.png" src="../_images/02 - Linear Models_73_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="optimization-methods-solvers-for-cross-entropy-loss">
+</section>
+<section id="optimization-methods-solvers-for-cross-entropy-loss">
 <h4>Optimization methods (solvers) for cross-entropy loss<a class="headerlink" href="#optimization-methods-solvers-for-cross-entropy-loss" title="Permalink to this headline">#</a></h4>
 <ul class="simple">
 <li><p>Gradient descent (only supports L2 regularization)</p>
@@ -2567,8 +2597,8 @@ For binary classification (2 classes), we aim to fit the following function:</p>
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="id2">
+</section>
+<section id="id2">
 <h4>In practice<a class="headerlink" href="#id2" title="Permalink to this headline">#</a></h4>
 <ul class="simple">
 <li><p>Logistic regression can also be found in <code class="docutils literal notranslate"><span class="pre">sklearn.linear_model</span></code>.</p>
@@ -2607,7 +2637,7 @@ For binary classification (2 classes), we aim to fit the following function:</p>
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "b95c28924c3848dc87bc9358c47fa79e", "version_major": 2, "version_minor": 0}
+{"model_id": "c5b216ca6e7a43a69aa35b1b5e5dc4ee", "version_major": 2, "version_minor": 0}
 </script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
@@ -2616,6 +2646,9 @@ For binary classification (2 classes), we aim to fit the following function:</p>
     <span class="n">plot_lr</span><span class="p">(</span><span class="n">C_log</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/02 - Linear Models_77_0.png" src="../_images/02 - Linear Models_77_0.png" />
 </div>
 </div>
 <ul class="simple">
@@ -2628,12 +2661,13 @@ For binary classification (2 classes), we aim to fit the following function:</p>
 </ul>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_breast_cancer</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">fetch_openml</span>
 <span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">cross_validate</span>
-<span class="n">cancer</span> <span class="o">=</span> <span class="n">load_breast_cancer</span><span class="p">()</span>
-<span class="n">X_C</span><span class="p">,</span> <span class="n">y_C</span> <span class="o">=</span> <span class="n">cancer</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">cancer</span><span class="o">.</span><span class="n">target</span>
 
-<span class="n">C</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">logspace</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="n">num</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">spam_data</span> <span class="o">=</span> <span class="n">fetch_openml</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;banknote-authentication&quot;</span><span class="p">,</span> <span class="n">as_frame</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">X_C</span><span class="p">,</span> <span class="n">y_C</span> <span class="o">=</span> <span class="n">spam_data</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">spam_data</span><span class="o">.</span><span class="n">target</span>
+
+<span class="n">C</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">logspace</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="n">num</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
 <span class="n">test_score</span><span class="o">=</span><span class="p">[]</span>
 <span class="n">train_score</span><span class="o">=</span><span class="p">[]</span>
 <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">C</span><span class="p">:</span>
@@ -2653,7 +2687,7 @@ For binary classification (2 classes), we aim to fit the following function:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/02 - Linear Models_78_0.png" src="../_images/02 - Linear Models_78_0.png" />
+<img alt="../_images/02 - Linear Models_79_0.png" src="../_images/02 - Linear Models_79_0.png" />
 </div>
 </div>
 <ul class="simple">
@@ -2682,7 +2716,7 @@ For binary classification (2 classes), we aim to fit the following function:</p>
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "b568e0a8931244069e3f3e22ef06a4b9", "version_major": 2, "version_minor": 0}
+{"model_id": "612f24446ce44404b80534e27c2eb55c", "version_major": 2, "version_minor": 0}
 </script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
@@ -2694,10 +2728,15 @@ For binary classification (2 classes), we aim to fit the following function:</p>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="../_images/02 - Linear Models_82_0.png" src="../_images/02 - Linear Models_82_0.png" />
+<img alt="../_images/02 - Linear Models_82_1.png" src="../_images/02 - Linear Models_82_1.png" />
+<img alt="../_images/02 - Linear Models_82_2.png" src="../_images/02 - Linear Models_82_2.png" />
 </div>
 </div>
-</div>
-<div class="section" id="ridge-classification">
+</section>
+</section>
+<section id="ridge-classification">
 <h3>Ridge Classification<a class="headerlink" href="#ridge-classification" title="Permalink to this headline">#</a></h3>
 <ul>
 <li><p>Instead of log loss, we can also use ridge loss:</p>
@@ -2717,8 +2756,8 @@ For binary classification (2 classes), we aim to fit the following function:</p>
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="support-vector-machines">
+</section>
+<section id="support-vector-machines">
 <h3>Support vector machines<a class="headerlink" href="#support-vector-machines" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Decision boundaries close to training points may generalize badly</p>
@@ -2732,7 +2771,7 @@ For binary classification (2 classes), we aim to fit the following function:</p>
 <li><p>Hence, our objective is to <em>maximize the margin</em>
 <img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/05_margin.png" alt="ml" style="width: 1250px;"/></p></li>
 </ul>
-<div class="section" id="solving-svms-with-lagrange-multipliers">
+<section id="solving-svms-with-lagrange-multipliers">
 <h4>Solving SVMs with Lagrange Multipliers<a class="headerlink" href="#solving-svms-with-lagrange-multipliers" title="Permalink to this headline">#</a></h4>
 <ul class="simple">
 <li><p>Imagine a hyperplane (green) <span class="math notranslate nohighlight">\(y= \sum_1^p \mathbf{w}_i * \mathbf{x}_i + w_0\)</span> that has slope <span class="math notranslate nohighlight">\(\mathbf{w}\)</span>, value ‘+1’ for the positive (red) support vectors, and ‘-1’ for the negative (blue) ones</p>
@@ -2801,7 +2840,7 @@ For binary classification (2 classes), we aim to fit the following function:</p>
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "4d555358833241928af81b60e7abf06b", "version_major": 2, "version_minor": 0}
+{"model_id": "78bfa6b961df492abe154a8ae3202247", "version_major": 2, "version_minor": 0}
 </script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
@@ -2811,8 +2850,11 @@ For binary classification (2 classes), we aim to fit the following function:</p>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="../_images/02 - Linear Models_87_0.png" src="../_images/02 - Linear Models_87_0.png" />
 </div>
-<div class="section" id="geometric-interpretation">
+</div>
+<section id="geometric-interpretation">
 <h5>Geometric interpretation<a class="headerlink" href="#geometric-interpretation" title="Permalink to this headline">#</a></h5>
 <ul class="simple">
 <li><p>We want to maximize <span class="math notranslate nohighlight">\(f = \frac{1}{||w||^2}\)</span> (blue contours)</p></li>
@@ -2820,8 +2862,8 @@ For binary classification (2 classes), we aim to fit the following function:</p>
 <span class="math notranslate nohighlight">\(g(\mathbf{w}) = \mathbf{w} \mathbf{x_i} + w_0 &gt; 1 \,\,\, \forall{i}, y(i)=1\)</span></p></li>
 <li><p>Find the weights <span class="math notranslate nohighlight">\(\mathbf{w}\)</span> that satify <span class="math notranslate nohighlight">\(g\)</span> but maximize <span class="math notranslate nohighlight">\(f\)</span></p></li>
 </ul>
-<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/LagrangeMultipliers3D.png" alt="ml" style="width: 950px;"/></div>
-<div class="section" id="solution">
+<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/LagrangeMultipliers3D.png" alt="ml" style="width: 950px;"/></section>
+<section id="solution">
 <h5>Solution<a class="headerlink" href="#solution" title="Permalink to this headline">#</a></h5>
 <ul class="simple">
 <li><p>A quadratic loss function with linear constraints can be solved with <em>Lagrangian multipliers</em></p></li>
@@ -2913,12 +2955,12 @@ For binary classification (2 classes), we aim to fit the following function:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/02 - Linear Models_91_0.png" src="../_images/02 - Linear Models_91_0.png" />
+<img alt="../_images/02 - Linear Models_92_0.png" src="../_images/02 - Linear Models_92_0.png" />
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="making-predictions">
+</section>
+</section>
+<section id="making-predictions">
 <h4>Making predictions<a class="headerlink" href="#making-predictions" title="Permalink to this headline">#</a></h4>
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\(a_i\)</span> will be <em>0</em> if the training point lies on the right side of the decision boundary and outside the margin</p></li>
@@ -2931,7 +2973,7 @@ For binary classification (2 classes), we aim to fit the following function:</p>
 <ul class="simple">
 <li><p>Hence, we can classify a new sample <span class="math notranslate nohighlight">\(\mathbf{u}\)</span> by looking at the sign of <span class="math notranslate nohighlight">\(\mathbf{w}\mathbf{u}+w_0\)</span></p></li>
 </ul>
-<div class="section" id="svms-and-knn">
+<section id="svms-and-knn">
 <h5>SVMs and kNN<a class="headerlink" href="#svms-and-knn" title="Permalink to this headline">#</a></h5>
 <ul class="simple">
 <li><p>Remember, we will classify a new point <span class="math notranslate nohighlight">\(\mathbf{u}\)</span> by looking at the sign of:</p></li>
@@ -2955,9 +2997,9 @@ For binary classification (2 classes), we aim to fit the following function:</p>
 </ul>
 </li>
 </ul>
-</div>
-</div>
-<div class="section" id="regularized-soft-margin-svms">
+</section>
+</section>
+<section id="regularized-soft-margin-svms">
 <h4>Regularized (soft margin) SVMs<a class="headerlink" href="#regularized-soft-margin-svms" title="Permalink to this headline">#</a></h4>
 <ul class="simple">
 <li><p>If the data is not linearly separable, (hard) margin maximization becomes meaningless</p></li>
@@ -2996,11 +3038,11 @@ For binary classification (2 classes), we aim to fit the following function:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/02 - Linear Models_95_0.png" src="../_images/02 - Linear Models_95_0.png" />
+<img alt="../_images/02 - Linear Models_96_0.png" src="../_images/02 - Linear Models_96_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="least-squares-svms">
+</section>
+<section id="least-squares-svms">
 <h4>Least Squares SVMs<a class="headerlink" href="#least-squares-svms" title="Permalink to this headline">#</a></h4>
 <ul class="simple">
 <li><p>We can also use the <em>squares</em> of all the errors, or squared hinge loss: <span class="math notranslate nohighlight">\(\sum_i^n \xi_{i}^2\)</span></p></li>
@@ -3031,11 +3073,11 @@ For binary classification (2 classes), we aim to fit the following function:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/02 - Linear Models_97_0.png" src="../_images/02 - Linear Models_97_0.png" />
+<img alt="../_images/02 - Linear Models_98_0.png" src="../_images/02 - Linear Models_98_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="effect-of-regularization-on-margin-and-support-vectors">
+</section>
+<section id="effect-of-regularization-on-margin-and-support-vectors">
 <h4>Effect of regularization on margin and support vectors<a class="headerlink" href="#effect-of-regularization-on-margin-and-support-vectors" title="Permalink to this headline">#</a></h4>
 <ul class="simple">
 <li><p>SVM’s Hinge loss acts like L1 regularization, yields sparse models</p></li>
@@ -3056,7 +3098,7 @@ For binary classification (2 classes), we aim to fit the following function:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/02 - Linear Models_99_0.png" src="../_images/02 - Linear Models_99_0.png" />
+<img alt="../_images/02 - Linear Models_100_0.png" src="../_images/02 - Linear Models_100_0.png" />
 </div>
 </div>
 <p>Same for non-linearly separable data</p>
@@ -3070,7 +3112,7 @@ For binary classification (2 classes), we aim to fit the following function:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/02 - Linear Models_101_0.png" src="../_images/02 - Linear Models_101_0.png" />
+<img alt="../_images/02 - Linear Models_102_0.png" src="../_images/02 - Linear Models_102_0.png" />
 </div>
 </div>
 <p>Large C values can lead to overfitting (e.g. fitting noise), small values can lead to underfitting</p>
@@ -3081,11 +3123,11 @@ For binary classification (2 classes), we aim to fit the following function:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/02 - Linear Models_103_0.png" src="../_images/02 - Linear Models_103_0.png" />
+<img alt="../_images/02 - Linear Models_104_0.png" src="../_images/02 - Linear Models_104_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="svms-in-scikit-learn">
+</section>
+<section id="svms-in-scikit-learn">
 <h4>SVMs in scikit-learn<a class="headerlink" href="#svms-in-scikit-learn" title="Permalink to this headline">#</a></h4>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">svm.LinearSVC</span></code>: faster for large datasets</p>
@@ -3140,8 +3182,8 @@ Coefficients:
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="solving-svms-with-gradient-descent">
+</section>
+<section id="solving-svms-with-gradient-descent">
 <h4>Solving SVMs with Gradient Descent<a class="headerlink" href="#solving-svms-with-gradient-descent" title="Permalink to this headline">#</a></h4>
 <ul class="simple">
 <li><p>Soft-margin SVMs can, alternatively, be solved using gradient decent</p>
@@ -3174,11 +3216,11 @@ Coefficients:
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/02 - Linear Models_107_0.png" src="../_images/02 - Linear Models_107_0.png" />
+<img alt="../_images/02 - Linear Models_108_0.png" src="../_images/02 - Linear Models_108_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="generalized-svms">
+</section>
+<section id="generalized-svms">
 <h4>Generalized SVMs<a class="headerlink" href="#generalized-svms" title="Permalink to this headline">#</a></h4>
 <ul class="simple">
 <li><p>Because the derivative of hinge loss is undefined at y=1, smoothed versions are often used:</p>
@@ -3229,12 +3271,12 @@ Coefficients:
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/02 - Linear Models_109_0.png" src="../_images/02 - Linear Models_109_0.png" />
+<img alt="../_images/02 - Linear Models_110_0.png" src="../_images/02 - Linear Models_110_0.png" />
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="perceptron">
+</section>
+</section>
+<section id="perceptron">
 <h3>Perceptron<a class="headerlink" href="#perceptron" title="Permalink to this headline">#</a></h3>
 <ul>
 <li><p>Represents a single neuron (node) with inputs <span class="math notranslate nohighlight">\(x_i\)</span>, a bias <span class="math notranslate nohighlight">\(w_0\)</span>, and output <span class="math notranslate nohighlight">\(y\)</span></p></li>
@@ -3250,11 +3292,11 @@ Coefficients:
 \[\begin{split}\frac{\partial \mathcal{L_{Perceptron}}}{\partial w_i} =  \begin{cases}-y_i x_i &amp; y_i (\mathbf{w}\mathbf{x_i} + w_0) &lt; 0\\ 0 &amp; \text{otherwise} \\ \end{cases}\end{split}\]</div>
 </li>
 </ul>
-<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/perceptron.png" alt="ml" style="margin: 0 auto; width: 1500px;"/></div>
-</div>
-<div class="section" id="linear-models-for-multiclass-classification">
+<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/perceptron.png" alt="ml" style="margin: 0 auto; width: 1500px;"/></section>
+</section>
+<section id="linear-models-for-multiclass-classification">
 <h2>Linear Models for multiclass classification<a class="headerlink" href="#linear-models-for-multiclass-classification" title="Permalink to this headline">#</a></h2>
-<div class="section" id="one-vs-rest-aka-one-vs-all">
+<section id="one-vs-rest-aka-one-vs-all">
 <h3>one-vs-rest (aka one-vs-all)<a class="headerlink" href="#one-vs-rest-aka-one-vs-all" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Learn a binary model for each class vs. all other classes</p></li>
@@ -3283,7 +3325,7 @@ Coefficients:
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/02 - Linear Models_112_0.png" src="../_images/02 - Linear Models_112_0.png" />
+<img alt="../_images/02 - Linear Models_113_0.png" src="../_images/02 - Linear Models_113_0.png" />
 </div>
 </div>
 <ul class="simple">
@@ -3305,11 +3347,11 @@ Coefficients:
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/02 - Linear Models_114_0.png" src="../_images/02 - Linear Models_114_0.png" />
+<img alt="../_images/02 - Linear Models_115_0.png" src="../_images/02 - Linear Models_115_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="one-vs-one">
+</section>
+<section id="one-vs-one">
 <h3>one-vs-one<a class="headerlink" href="#one-vs-one" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>An alternative is to learn a binary model for every <em>combination</em> of two classes</p>
@@ -3333,12 +3375,12 @@ Coefficients:
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%HTML</span>
-<span class="p">&lt;</span><span class="nt">style</span><span class="p">&gt;</span><span class="w"></span>
-<span class="nt">td</span><span class="w"> </span><span class="p">{</span><span class="k">font-size</span><span class="p">:</span><span class="w"> </span><span class="mi">16</span><span class="kt">px</span><span class="p">}</span><span class="w"></span>
-<span class="nt">th</span><span class="w"> </span><span class="p">{</span><span class="k">font-size</span><span class="p">:</span><span class="w"> </span><span class="mi">16</span><span class="kt">px</span><span class="p">}</span><span class="w"></span>
-<span class="p">.</span><span class="nc">rendered_html</span><span class="w"> </span><span class="nt">table</span><span class="o">,</span><span class="w"> </span><span class="p">.</span><span class="nc">rendered_html</span><span class="w"> </span><span class="nt">td</span><span class="o">,</span><span class="w"> </span><span class="p">.</span><span class="nc">rendered_html</span><span class="w"> </span><span class="nt">th</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">font-size</span><span class="p">:</span><span class="w"> </span><span class="mi">16</span><span class="kt">px</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="p">&lt;</span><span class="nt">style</span><span class="p">&gt;</span>
+<span class="nt">td</span><span class="w"> </span><span class="p">{</span><span class="k">font-size</span><span class="p">:</span><span class="w"> </span><span class="mi">16</span><span class="kt">px</span><span class="p">}</span>
+<span class="nt">th</span><span class="w"> </span><span class="p">{</span><span class="k">font-size</span><span class="p">:</span><span class="w"> </span><span class="mi">16</span><span class="kt">px</span><span class="p">}</span>
+<span class="p">.</span><span class="nc">rendered_html</span><span class="w"> </span><span class="nt">table</span><span class="o">,</span><span class="w"> </span><span class="p">.</span><span class="nc">rendered_html</span><span class="w"> </span><span class="nt">td</span><span class="o">,</span><span class="w"> </span><span class="p">.</span><span class="nc">rendered_html</span><span class="w"> </span><span class="nt">th</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">font-size</span><span class="p">:</span><span class="w"> </span><span class="mi">16</span><span class="kt">px</span><span class="p">;</span>
+<span class="p">}</span>
 <span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
 </pre></div>
 </div>
@@ -3353,9 +3395,9 @@ th {font-size: 16px}
 </style>
 </div></div>
 </div>
-</div>
-</div>
-<div class="section" id="linear-models-overview">
+</section>
+</section>
+<section id="linear-models-overview">
 <h2>Linear models overview<a class="headerlink" href="#linear-models-overview" title="Permalink to this headline">#</a></h2>
 <table class="colwidths-auto table">
 <thead>
@@ -3441,8 +3483,8 @@ th {font-size: 16px}
 <li><p>SGD: (Stochastic) Gradient Descent and variants</p></li>
 <li><p>(R)egression, (C)lassification</p></li>
 </ul>
-</div>
-<div class="section" id="summary">
+</section>
+<section id="summary">
 <h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Linear models</p>
@@ -3472,8 +3514,8 @@ th {font-size: 16px}
 </li>
 <li><p>Multi-class classification can be done using a one-vs-all approach</p></li>
 </ul>
-</div>
-</div>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -3487,7 +3529,7 @@ th {font-size: 16px}
             mode: "python"
         },
         kernelOptions: {
-            name: "python3",
+            kernelName: "python3",
             path: "./notebooks"
         },
         predefinedOutput: true
@@ -3525,7 +3567,7 @@ th {font-size: 16px}
   
     By Joaquin Vanschoren<br/>
   
-      &copy; Copyright 2021. CC0 Licensed - Use as you like.<br/>
+      &copy; Copyright 2023. CC0 Licensed - Use as you like.<br/>
 </p>
         </footer>
     </div>

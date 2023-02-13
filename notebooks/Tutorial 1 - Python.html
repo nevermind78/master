@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Python for data analysis &#8212; ML Engineering</title>
     
   <!-- Loaded before other Sphinx assets -->
@@ -34,10 +35,13 @@
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
     <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
@@ -191,17 +195,17 @@ const thebe_selector_output = ".output, .cell_output"
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%202%20-%20Kernelization.html">
-   Lab 2: Kernelization
+  <a class="reference internal" href="../labs/Lab%202a%20-%20Kernelization.html">
+   Lab 2a: Kernelization
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%203a%20-%20Model%20Selection.html">
-   Lab 3a: Model selection
+  <a class="reference internal" href="../labs/Lab%202b%20-%20Model%20Selection.html">
+   Lab 2b: Model selection
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%203b%20-%20Ensembles.html">
+  <a class="reference internal" href="../labs/Lab%203%20-%20Ensembles.html">
    Lab 3b: Ensembles
   </a>
  </li>
@@ -270,11 +274,6 @@ const thebe_selector_output = ".output, .cell_output"
  <li class="toctree-l1">
   <a class="reference internal" href="../labs/Lab%201%20-%20Tutorial.html">
    Lab 1: Machine Learning with Python
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%203%20-%20Tutorial.html">
-   Lab 3 Tutorial: Model Selection in scikit-learn
   </a>
  </li>
  <li class="toctree-l1">
@@ -635,14 +634,14 @@ title="Print to PDF"
                 
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="python-for-data-analysis">
+  <section class="tex2jax_ignore mathjax_ignore" id="python-for-data-analysis">
 <h1>Python for data analysis<a class="headerlink" href="#python-for-data-analysis" title="Permalink to this headline">#</a></h1>
 <p>For those who are new to using Python for scientific work, we first provide a short introduction to Python and the most useful packages for data analysis.</p>
-<div class="section" id="python">
+<section id="python">
 <h2>Python<a class="headerlink" href="#python" title="Permalink to this headline">#</a></h2>
 <p>Disclaimer: We can only cover some of the basics here. If you are completely new to Python, we recommend to take an introductory online course, such as the <a class="reference external" href="https://www.programiz.com/python-programming">Definite Guide to Python</a>, or the <a class="reference external" href="https://github.com/jakevdp/WhirlwindTourOfPython">Whirlwind Tour of Python</a>. If you like a step-by-step approach, try the <a class="reference external" href="https://www.datacamp.com/courses/intro-to-python-for-data-science">DataCamp Intro to Python for Data Science</a>.</p>
 <p>To practice your skills, try the <a class="reference external" href="https://www.hackerrank.com/domains/python">Hackerrank challenges</a>.</p>
-<div class="section" id="hello-world">
+<section id="hello-world">
 <h3>Hello world<a class="headerlink" href="#hello-world" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Printing is done with the print() function.</p></li>
@@ -669,8 +668,8 @@ title="Print to PDF"
 </div>
 </div>
 <p><em>Note: In these notebooks we’ll use Python interactively to avoid having to type print() every time.</em></p>
-</div>
-<div class="section" id="basic-data-types">
+</section>
+<section id="basic-data-types">
 <h3>Basic data types<a class="headerlink" href="#basic-data-types" title="Permalink to this headline">#</a></h3>
 <p>Python has all the <a class="reference external" href="https://docs.python.org/3/library/stdtypes.htm">basic data types and operations</a>: int, float, str, bool, None.<br />
 Variables are <strong>dynamically typed</strong>: you need to give them a value upon creation, and they will have the data type of that value. If you redeclare the same variable, if will have the data type of the new value.<br />
@@ -707,8 +706,8 @@ Exception: Arithmetic operations will convert to the <em>most general</em> type.
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="complex-types">
+</section>
+<section id="complex-types">
 <h3>Complex types<a class="headerlink" href="#complex-types" title="Permalink to this headline">#</a></h3>
 <p>The main complex data types are lists, tuples, sets, and dictionaries (dicts).</p>
 <div class="cell docutils container">
@@ -786,8 +785,8 @@ Exception: Arithmetic operations will convert to the <em>most general</em> type.
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="strings">
+</section>
+<section id="strings">
 <h3>Strings<a class="headerlink" href="#strings" title="Permalink to this headline">#</a></h3>
 <p>Strings are <a class="reference external" href="https://www.tutorialspoint.com/python/python_strings.htm">quite powerful</a>.<br />
 They can be used as lists, e.g. retrieve a character by index.<br />
@@ -825,8 +824,8 @@ They can be formatted with the format operator (%), e.g. %s for strings, %d for 
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="for-loops-if-statements">
+</section>
+<section id="for-loops-if-statements">
 <h3>For loops, If statements<a class="headerlink" href="#for-loops-if-statements" title="Permalink to this headline">#</a></h3>
 <p>For-loops and if-then-else statements are written like this.<br />
 Indentation defines the scope, not brackets.</p>
@@ -859,8 +858,8 @@ Short list
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="functions">
+</section>
+<section id="functions">
 <h3>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">#</a></h3>
 <p>Functions are defined and called like this:</p>
 <div class="cell docutils container">
@@ -982,8 +981,8 @@ func kwarg: {&#39;a&#39;: 4, &#39;b&#39;: 5}
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="classes">
+</section>
+<section id="classes">
 <h3>Classes<a class="headerlink" href="#classes" title="Permalink to this headline">#</a></h3>
 <p>Classes are defined like this</p>
 <div class="cell docutils container">
@@ -1037,8 +1036,8 @@ func kwarg: {&#39;a&#39;: 4, &#39;b&#39;: 5}
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="functional-python">
+</section>
+<section id="functional-python">
 <h3>Functional Python<a class="headerlink" href="#functional-python" title="Permalink to this headline">#</a></h3>
 <p>You can write complex procedures in a few elegant lines of code using <a class="reference external" href="https://docs.python.org/2/library/functions.html#map">built-in functions</a> and libraries such as functools, itertools, operator.</p>
 <div class="cell docutils container">
@@ -1153,9 +1152,9 @@ func kwarg: {&#39;a&#39;: 4, &#39;b&#39;: 5}
 </div>
 </div>
 </div>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -1169,7 +1168,7 @@ func kwarg: {&#39;a&#39;: 4, &#39;b&#39;: 5}
             mode: "python"
         },
         kernelOptions: {
-            name: "python3",
+            kernelName: "python3",
             path: "./notebooks"
         },
         predefinedOutput: true
@@ -1207,7 +1206,7 @@ func kwarg: {&#39;a&#39;: 4, &#39;b&#39;: 5}
   
     By Joaquin Vanschoren<br/>
   
-      &copy; Copyright 2021. CC0 Licensed - Use as you like.<br/>
+      &copy; Copyright 2023. CC0 Licensed - Use as you like.<br/>
 </p>
         </footer>
     </div>

@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Linear regression models for predicting pollution &#8212; ML Engineering</title>
     
   <!-- Loaded before other Sphinx assets -->
@@ -34,10 +35,13 @@
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
     <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
@@ -191,17 +195,17 @@ const thebe_selector_output = ".output, .cell_output"
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%202%20-%20Kernelization.html">
-   Lab 2: Kernelization
+  <a class="reference internal" href="../labs/Lab%202a%20-%20Kernelization.html">
+   Lab 2a: Kernelization
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%203a%20-%20Model%20Selection.html">
-   Lab 3a: Model selection
+  <a class="reference internal" href="../labs/Lab%202b%20-%20Model%20Selection.html">
+   Lab 2b: Model selection
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%203b%20-%20Ensembles.html">
+  <a class="reference internal" href="../labs/Lab%203%20-%20Ensembles.html">
    Lab 3b: Ensembles
   </a>
  </li>
@@ -270,11 +274,6 @@ const thebe_selector_output = ".output, .cell_output"
  <li class="toctree-l1">
   <a class="reference internal" href="../labs/Lab%201%20-%20Tutorial.html">
    Lab 1: Machine Learning with Python
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%203%20-%20Tutorial.html">
-   Lab 3 Tutorial: Model Selection in scikit-learn
   </a>
  </li>
  <li class="toctree-l1">
@@ -591,7 +590,7 @@ title="Print to PDF"
                 
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="linear-regression-models-for-predicting-pollution">
+  <section class="tex2jax_ignore mathjax_ignore" id="linear-regression-models-for-predicting-pollution">
 <h1>Linear regression models for predicting pollution<a class="headerlink" href="#linear-regression-models-for-predicting-pollution" title="Permalink to this headline">#</a></h1>
 <p>The <a class="reference external" href="https://www.openml.org/d/547">NO2 dataset</a> contains 500 measurement of pollution caused by cars. The goal is to predict the concentration of <span class="math notranslate nohighlight">\(NO_2\)</span> from data about traffic and atmospheric conditions. The predictive variables include the number of cars per hour, temperature, wind, and time of day.</p>
 <div class="cell docutils container">
@@ -616,7 +615,7 @@ title="Print to PDF"
 </div>
 </div>
 </div>
-<div class="section" id="quick-visualization">
+<section id="quick-visualization">
 <h2>Quick visualization<a class="headerlink" href="#quick-visualization" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -651,8 +650,8 @@ title="Print to PDF"
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="feature-distributions-and-dependencies">
+</section>
+<section id="feature-distributions-and-dependencies">
 <h2>Feature distributions and dependencies<a class="headerlink" href="#feature-distributions-and-dependencies" title="Permalink to this headline">#</a></h2>
 <p>Next, we’ll look at the distribution of each feature and its interaction with the target feature</p>
 <div class="cell docutils container">
@@ -688,8 +687,8 @@ title="Print to PDF"
 <img alt="../_images/S8 Linear models for predicting pollution_14_0.png" src="../_images/S8 Linear models for predicting pollution_14_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="model-benchmark">
+</section>
+<section id="model-benchmark">
 <h2>Model benchmark<a class="headerlink" href="#model-benchmark" title="Permalink to this headline">#</a></h2>
 <p>It is clear that <span class="math notranslate nohighlight">\(NO2\)</span> concentrations depend on a combination of these features, so we will now try to learn this complex relationship. We first evaluate a range of linear regression problems, i.e. Linear Regression, Ridge, Lasso and ElasticNet, as well as kNN. Since we observed that somf features have very different scales, we’ll also build pipelines of all these measures with an additional scaling step. For now, we’ll stick to the default hyperparameter settings.</p>
 <div class="cell docutils container">
@@ -735,8 +734,8 @@ title="Print to PDF"
 </div>
 </div>
 <p>Linear regression and ridge regression don’t surpass 0.5 <span class="math notranslate nohighlight">\(R^2\)</span>, yet don’t seem to drastically overfit. Scaling doesn’t seem to have any effect on them. Indeed, linear models can adjust their coefficients to be smaller on features with larger values, so often do not need scaling. This is very different for kNN, which performs poorly without scaling, but with scaling it is almost on par with linear regression and ridge regression. Lasso and ElasticNet are catastrophically bad in their default settings, and adding scaling actually seems to hurt performance.</p>
-</div>
-<div class="section" id="regularization">
+</section>
+<section id="regularization">
 <h2>Regularization<a class="headerlink" href="#regularization" title="Permalink to this headline">#</a></h2>
 <p>We will now tune these algorithm’s main regularization hyperparameter: the misclassification cost in SVMs (C), the regularization parameter in logistic regression (C), and the number of neighbors (n_neighbors) in kNN. We expect the optimum for the C parameters to lie in <span class="math notranslate nohighlight">\([10^{-12},10^{12}]\)</span> and for n_neighbors between 1 and 50. We run a grid search over these ranges, using 3-fold cross-valdation, and plot both the training and test error.</p>
 <div class="cell docutils container">
@@ -758,7 +757,7 @@ title="Print to PDF"
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Generic plot for 1D grid search</span>
 <span class="k">def</span> <span class="nf">plot_tuning</span><span class="p">(</span><span class="n">grid_search</span><span class="p">,</span> <span class="n">param_name</span><span class="p">,</span> <span class="n">ax</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    grid_search: the result of the GridSearchCV</span>
 <span class="sd">    param_name: the name of the parameter that is being varied</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -775,7 +774,7 @@ title="Print to PDF"
 <span class="c1"># Generic heatmap</span>
 <span class="k">def</span> <span class="nf">heatmap</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">xlabel</span><span class="p">,</span> <span class="n">ylabel</span><span class="p">,</span> <span class="n">xticklabels</span><span class="p">,</span> <span class="n">yticklabels</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
             <span class="n">vmin</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%0.2f</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">printvalues</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Plots a heatmap for the performance of a model for every combination of two hyperparameter values</span>
 <span class="sd">    </span>
 <span class="sd">    values: nxn array with all evaluation results, varying the first hyperparameter first</span>
@@ -863,8 +862,8 @@ title="Print to PDF"
 </div>
 </div>
 <p>Another approach is to handle this problem as a time series prediction problem. Then we could leverage the values of the preceding points to make a prediction for the next points. We’ll save that for another time.</p>
-</div>
-<div class="section" id="visualizing-coefficients">
+</section>
+<section id="visualizing-coefficients">
 <h2>Visualizing coefficients<a class="headerlink" href="#visualizing-coefficients" title="Permalink to this headline">#</a></h2>
 <p>Finally, let’s verify whether the different optimized linear models also find the same coefficients. We use alpha=0.001 since that appears to be (close to) optimal for all mdoels.</p>
 <p>Indeed, they find almost <em>exactly</em> the same coefficients (the markers overlap). cars_per_hour is the most influential, followed by temperature_diff_2m_25m and wind_speed. The others are nearly zero.</p>
@@ -886,8 +885,8 @@ title="Print to PDF"
 <img alt="../_images/S8 Linear models for predicting pollution_29_0.png" src="../_images/S8 Linear models for predicting pollution_29_0.png" />
 </div>
 </div>
-</div>
-</div>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -901,7 +900,7 @@ title="Print to PDF"
             mode: "python"
         },
         kernelOptions: {
-            name: "python3",
+            kernelName: "python3",
             path: "./studies"
         },
         predefinedOutput: true
@@ -925,7 +924,7 @@ title="Print to PDF"
   
     By Joaquin Vanschoren<br/>
   
-      &copy; Copyright 2021. CC0 Licensed - Use as you like.<br/>
+      &copy; Copyright 2023. CC0 Licensed - Use as you like.<br/>
 </p>
         </footer>
     </div>

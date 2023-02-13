@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Multi-fidelity optimization for self-tuning robots &#8212; ML Engineering</title>
     
   <!-- Loaded before other Sphinx assets -->
@@ -34,10 +35,13 @@
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
     <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
@@ -576,7 +580,7 @@ title="Print to PDF"
                 
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="multi-fidelity-optimization-for-self-tuning-robots">
+  <section class="tex2jax_ignore mathjax_ignore" id="multi-fidelity-optimization-for-self-tuning-robots">
 <h1>Multi-fidelity optimization for self-tuning robots<a class="headerlink" href="#multi-fidelity-optimization-for-self-tuning-robots" title="Permalink to this headline">#</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -588,12 +592,12 @@ title="Print to PDF"
 </div>
 </div>
 </div>
-<div class="section" id="robot-navigation">
+<section id="robot-navigation">
 <h2>Robot Navigation<a class="headerlink" href="#robot-navigation" title="Permalink to this headline">#</a></h2>
 <p>The <a class="reference external" href="https://www.openml.org/d/1497">Wall robot navigation</a> contains training data for a robot equiped with ultrasound sensors. Based on 24 sensor readings, the robot has to figure out how to move though an office space without hitting walls or other obstacles. In this assignment, the robot uses an SVM to learn how to do this.</p>
 <p>However, instead of building a static model, we want to robot to tune the hyperparameters of its SVM model regularly. This will make it more robust to changes, for instance a breaking sensor. Since the robot is very busy, this regular re-training should take as little time as possible. We need to implement a fast tuning algorithm that optimizes the hyperparameter configurations faster and better than a random search or grid search?</p>
-</div>
-<div class="section" id="the-data">
+</section>
+<section id="the-data">
 <h2>The data<a class="headerlink" href="#the-data" title="Permalink to this headline">#</a></h2>
 <p>The data is visualized below. It contains traces of training runs of the robot. In the figure below, we plot the first two sensor readings, color-coded by the correct action to take (move forward, left or right). You can handle these data points as independently sampled, i.e. you never need to look at the ‘previous’ data point.</p>
 <div class="cell docutils container">
@@ -632,7 +636,7 @@ title="Print to PDF"
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Helper code</span>
 <span class="k">def</span> <span class="nf">heatmap</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">xlabel</span><span class="p">,</span> <span class="n">ylabel</span><span class="p">,</span> <span class="n">xticklabels</span><span class="p">,</span> <span class="n">yticklabels</span><span class="p">,</span> <span class="n">samples</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
             <span class="n">vmin</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%0.2f</span><span class="s2">&quot;</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Plots a heatmap for the performance of a model for every combination of two hyperparameter values,</span>
 <span class="sd">    as well as a set of selected samples of these</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -660,8 +664,8 @@ title="Print to PDF"
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="landscape-analysis">
+</section>
+<section id="landscape-analysis">
 <h2>Landscape analysis<a class="headerlink" href="#landscape-analysis" title="Permalink to this headline">#</a></h2>
 <p>First, let’s take a look at what the hyperparameter-performance landscape looks like. Since our model is an SVM with RBF kernel, we are only dealing with two main hyperparameters, <span class="math notranslate nohighlight">\(C\)</span> and <span class="math notranslate nohighlight">\(\gamma\)</span>, so this is easy to visualize. We notice that there is no single optimum, but more like a ridge that trades off C and <span class="math notranslate nohighlight">\(\gamma\)</span>. This happens because both hyperparameters control the regularization of the model: the higher <span class="math notranslate nohighlight">\(C\)</span> and <span class="math notranslate nohighlight">\(\gamma\)</span>, the more we let the model overfit. If we lower them, we regularize the model. So, if we increase <span class="math notranslate nohighlight">\(C\)</span>, we have to decrease <span class="math notranslate nohighlight">\(\gamma\)</span> to get the same level of regularization. The surface is relatively smooth, but we still must search the space with some care to `find’ the optimum.</p>
 <div class="cell docutils container">
@@ -692,8 +696,8 @@ title="Print to PDF"
 <img alt="../_images/S9 Multi-fidelity optimization_9_0.png" src="../_images/S9 Multi-fidelity optimization_9_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="multi-fidelity-optimization">
+</section>
+<section id="multi-fidelity-optimization">
 <h2>Multi-fidelity optimization<a class="headerlink" href="#multi-fidelity-optimization" title="Permalink to this headline">#</a></h2>
 <p>We will implement a fast optimization technique generally known as <em>multi-fidelity optimization</em>. Instead of training the model on all the training data for every hyperparameter configuration, we use the following procedure:</p>
 <p>Successive Halving (only look at the top left image):</p>
@@ -753,8 +757,8 @@ title="Print to PDF"
 <li><p>Discuss the results. Is this faster/better than successive halving? Do you still get an improvement in the later runs?</p></li>
 <li><p>Provide a critical discussion on when this method is useful and when it is not.</p></li>
 </ul>
-</div>
-</div>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -768,7 +772,7 @@ title="Print to PDF"
             mode: "python"
         },
         kernelOptions: {
-            name: "python3",
+            kernelName: "python3",
             path: "./studies"
         },
         predefinedOutput: true
@@ -792,7 +796,7 @@ title="Print to PDF"
   
     By Joaquin Vanschoren<br/>
   
-      &copy; Copyright 2021. CC0 Licensed - Use as you like.<br/>
+      &copy; Copyright 2023. CC0 Licensed - Use as you like.<br/>
 </p>
         </footer>
     </div>

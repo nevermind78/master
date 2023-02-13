@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Kernels and Extrapolation &#8212; ML Engineering</title>
     
   <!-- Loaded before other Sphinx assets -->
@@ -34,10 +35,13 @@
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
     <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
@@ -191,17 +195,17 @@ const thebe_selector_output = ".output, .cell_output"
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%202%20-%20Kernelization.html">
-   Lab 2: Kernelization
+  <a class="reference internal" href="../labs/Lab%202a%20-%20Kernelization.html">
+   Lab 2a: Kernelization
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%203a%20-%20Model%20Selection.html">
-   Lab 3a: Model selection
+  <a class="reference internal" href="../labs/Lab%202b%20-%20Model%20Selection.html">
+   Lab 2b: Model selection
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%203b%20-%20Ensembles.html">
+  <a class="reference internal" href="../labs/Lab%203%20-%20Ensembles.html">
    Lab 3b: Ensembles
   </a>
  </li>
@@ -270,11 +274,6 @@ const thebe_selector_output = ".output, .cell_output"
  <li class="toctree-l1">
   <a class="reference internal" href="../labs/Lab%201%20-%20Tutorial.html">
    Lab 1: Machine Learning with Python
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%203%20-%20Tutorial.html">
-   Lab 3 Tutorial: Model Selection in scikit-learn
   </a>
  </li>
  <li class="toctree-l1">
@@ -591,10 +590,10 @@ title="Print to PDF"
                 
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="kernels-and-extrapolation">
+  <section class="tex2jax_ignore mathjax_ignore" id="kernels-and-extrapolation">
 <h1>Kernels and Extrapolation<a class="headerlink" href="#kernels-and-extrapolation" title="Permalink to this headline">#</a></h1>
 <p>Proper kernel design is very important if you want to fit the data well using Support Vector Machines or Gaussian Processes. Here, we are going to build some artificial regression datasets and try to find or build good kernels. We’ll also look at how well these kernels can extrapolate to ‘future’ data.</p>
-<div class="section" id="a-simple-wave">
+<section id="a-simple-wave">
 <h2>A simple wave<a class="headerlink" href="#a-simple-wave" title="Permalink to this headline">#</a></h2>
 <p>The first artificial dataset is shown below. It is a sine wave with added noise.</p>
 <div class="cell docutils container">
@@ -709,8 +708,8 @@ ExpSine (Exponential Sine Squared) kernel (length scale \)</span>\Gamma<span cla
 <li><p><strong>RBF Kernel</strong>: Works very nicely, but doesn’t extrapolate well as the data points lose their influence rather quickly.</p></li>
 <li><p><strong>ExpSine Kernel</strong>: Works very nicely, capturing the periodicity perfectly. Indeed, this is exactly what this type of kernel is meant for.</p></li>
 </ul>
-</div>
-<div class="section" id="kernel-tuning">
+</section>
+<section id="kernel-tuning">
 <h2>Kernel tuning<a class="headerlink" href="#kernel-tuning" title="Permalink to this headline">#</a></h2>
 <p>For ExpSine, we came up with good kernel parameters: length_scale=0.4, periodicity=25 rather magically (read: trial-and-error). We should tune these instead. We can do this by generating lots of kernels (with a closure) and then doing a grid search over the list.</p>
 <div class="cell docutils container">
@@ -784,8 +783,8 @@ ExpSine (Exponential Sine Squared) kernel (length scale \)</span>\Gamma<span cla
 <img alt="../_images/S5 Building Kernels_10_0.png" src="../_images/S5 Building Kernels_10_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="a-more-complex-wave">
+</section>
+<section id="a-more-complex-wave">
 <h2>A more complex wave<a class="headerlink" href="#a-more-complex-wave" title="Permalink to this headline">#</a></h2>
 <p>We now make the problem a bit more challenging by adding an upward trend, and seeing whether our ExpSine kernel still works.</p>
 <div class="cell docutils container">
@@ -844,8 +843,8 @@ ExpSine (Exponential Sine Squared) kernel (length scale \)</span>\Gamma<span cla
 </div>
 </div>
 <p>The SVR with periodic kernel fails now, because it can’t adapt to the upward trend. The oscillation is kept, but it fails to fit the slower upward trend.</p>
-</div>
-<div class="section" id="gaussian-processes">
+</section>
+<section id="gaussian-processes">
 <h2>Gaussian Processes<a class="headerlink" href="#gaussian-processes" title="Permalink to this headline">#</a></h2>
 <p>We can also use a Gaussian Process (GP) with the ExpSine kernel. When using a Gaussian Process, the kernel we pass (and its hyperparameters) defines the shape of the <em>prior</em>. The GP will optimize the kernel hyperparameters to fit the data (yielding the <em>posterior</em>), i.e. to optimize the <em>log-marginal likelihood</em> of the GP’s predictions given the data. Still, it is important to give a good starting point for the first iteration. Also, because the optimizer may get stuck in local minima, we can tell the GP to do a number of restarts with randomized initial hyperparameters.</p>
 <p>Let’s compare the SVM with the GP without doing anything fancy.</p>
@@ -888,8 +887,8 @@ ExpSine (Exponential Sine Squared) kernel (length scale \)</span>\Gamma<span cla
 <ul class="simple">
 <li><p>The GP with the ExpSine kernel does a lot better than the SVR with the same kernel. It especially extrapolates a lot better, yet ultimately reverts to its prior (i.e. the average target value) when too far away from the last training points.</p></li>
 </ul>
-</div>
-<div class="section" id="combining-kernels">
+</section>
+<section id="combining-kernels">
 <h2>Combining kernels<a class="headerlink" href="#combining-kernels" title="Permalink to this headline">#</a></h2>
 <p>It is clear that the ExpSine kernel isn’t sufficient to fit the data. We can, however, combine different kernels which each ‘explain’ part of the data:</p>
 <ul class="simple">
@@ -962,8 +961,8 @@ ExpSine (Exponential Sine Squared) kernel (length scale \)</span>\Gamma<span cla
 <img alt="../_images/S5 Building Kernels_20_0.png" src="../_images/S5 Building Kernels_20_0.png" />
 </div>
 </div>
-</div>
-</div>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -977,7 +976,7 @@ ExpSine (Exponential Sine Squared) kernel (length scale \)</span>\Gamma<span cla
             mode: "python"
         },
         kernelOptions: {
-            name: "python3",
+            kernelName: "python3",
             path: "./studies"
         },
         predefinedOutput: true
@@ -1001,7 +1000,7 @@ ExpSine (Exponential Sine Squared) kernel (length scale \)</span>\Gamma<span cla
   
     By Joaquin Vanschoren<br/>
   
-      &copy; Copyright 2021. CC0 Licensed - Use as you like.<br/>
+      &copy; Copyright 2023. CC0 Licensed - Use as you like.<br/>
 </p>
         </footer>
     </div>

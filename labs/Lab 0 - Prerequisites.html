@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Prerequisites &#8212; ML Engineering</title>
     
   <!-- Loaded before other Sphinx assets -->
@@ -34,10 +35,13 @@
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
     <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
@@ -191,17 +195,17 @@ const thebe_selector_output = ".output, .cell_output"
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="Lab%202%20-%20Kernelization.html">
-   Lab 2: Kernelization
+  <a class="reference internal" href="Lab%202a%20-%20Kernelization.html">
+   Lab 2a: Kernelization
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="Lab%203a%20-%20Model%20Selection.html">
-   Lab 3a: Model selection
+  <a class="reference internal" href="Lab%202b%20-%20Model%20Selection.html">
+   Lab 2b: Model selection
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="Lab%203b%20-%20Ensembles.html">
+  <a class="reference internal" href="Lab%203%20-%20Ensembles.html">
    Lab 3b: Ensembles
   </a>
  </li>
@@ -270,11 +274,6 @@ const thebe_selector_output = ".output, .cell_output"
  <li class="toctree-l1">
   <a class="reference internal" href="Lab%201%20-%20Tutorial.html">
    Lab 1: Machine Learning with Python
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Lab%203%20-%20Tutorial.html">
-   Lab 3 Tutorial: Model Selection in scikit-learn
   </a>
  </li>
  <li class="toctree-l1">
@@ -523,8 +522,8 @@ title="Print to PDF"
     </a>
     <ul class="nav section-nav flex-column">
      <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#apple-silicon-m1">
-       Apple silicon (M1)
+      <a class="reference internal nav-link" href="#apple-silicon-m1-m2">
+       Apple silicon (M1/M2)
       </a>
      </li>
     </ul>
@@ -605,8 +604,8 @@ title="Print to PDF"
     </a>
     <ul class="nav section-nav flex-column">
      <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#apple-silicon-m1">
-       Apple silicon (M1)
+      <a class="reference internal nav-link" href="#apple-silicon-m1-m2">
+       Apple silicon (M1/M2)
       </a>
      </li>
     </ul>
@@ -667,36 +666,45 @@ title="Print to PDF"
                 
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="prerequisites">
+  <section class="tex2jax_ignore mathjax_ignore" id="prerequisites">
 <h1>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this headline">#</a></h1>
 <p>This is a guide to set up a local development environment for this course.</p>
-<div class="section" id="python">
+<section id="python">
 <h2>Python<a class="headerlink" href="#python" title="Permalink to this headline">#</a></h2>
-<p>You first need to set up a Python environment (if you do not have done so already). The easiest way to do this is by installing <a class="reference external" href="https://www.anaconda.com/distribution/#download-section">Anaconda</a> or <a class="reference external" href="https://github.com/conda-forge/miniforge">MiniForge</a>, which will install Python as well as a set of commonly used packages. We will be using Python 3, so be sure to install the right version. Always install a 64-bit installer (if your machine supports it), and we recommend using Python 3.9 or later.</p>
+<p>You first need to set up a Python environment (if you do not have done so already). The easiest way to do this is by installing <a class="reference external" href="https://docs.conda.io/en/latest/miniconda.html">Miniconda</a>, which will install Python as well as a set of commonly used packages. We will be using Python 3, so be sure to install the right version. Always install a 64-bit installer (if your machine supports it), and we recommend using Python 3.10 or later.</p>
 <p>If you are completely new to Python, we recommend reading the <a class="reference external" href="https://github.com/jakevdp/PythonDataScienceHandbook">Python Data Science Handbook</a> or taking an introductory online course, such as the <a class="reference external" href="https://www.programiz.com/python-programming">Definite Guide to Python</a>, the <a class="reference external" href="https://github.com/jakevdp/WhirlwindTourOfPython">Whirlwind Tour of Python</a>, or <a class="reference external" href="https://www.python-course.eu/">this Python Course</a>. If you like a step-by-step approach, try the <a class="reference external" href="https://www.datacamp.com/courses/intro-to-python-for-data-science">DataCamp Intro to Python for Data Science</a>.</p>
 <p>To practice your skills, try some <a class="reference external" href="https://www.hackerrank.com/domains/python">Hackerrank challenges</a>.</p>
-<div class="section" id="os-specific-notes">
+<section id="os-specific-notes">
 <h3>OS specific notes<a class="headerlink" href="#os-specific-notes" title="Permalink to this headline">#</a></h3>
 <p><strong>Windows users</strong>: If you are new to Anaconda, read the <a class="reference external" href="https://docs.anaconda.com/anaconda/user-guide/getting-started/">starting guide</a>. You’ll probably use the Anaconda Prompt to run any commands or to start Jupyter Lab.</p>
 <p><strong>Mac users</strong>: You’ll probably use your terminal to run any commands or to start Jupyter Lab. Make sure that you have Command Line tools installed. If not, run <code class="docutils literal notranslate"><span class="pre">xcode-select</span> <span class="pre">--install</span></code>. You won’t need a full XCode installation.</p>
-<div class="section" id="apple-silicon-m1">
-<h4>Apple silicon (M1)<a class="headerlink" href="#apple-silicon-m1" title="Permalink to this headline">#</a></h4>
-<p>For those who have a laptop with Apple Silicon (M1), <a class="reference external" href="https://betterdatascience.com/install-tensorflow-2-7-on-macbook-pro-m1-pro/">this guide may be useful</a> to install a TensorFlow version that will effectively use the GPUs.</p>
-<p>Also run this (<a class="reference external" href="https://github.com/cvxpy/cvxpy/issues/1604">more info</a>): <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">install</span> <span class="pre">-c</span> <span class="pre">conda-forge</span> <span class="pre">cvxpy</span></code></p>
+<p><strong>All</strong>: Install the correct version of <a class="reference external" href="https://graphviz.org/download/">graphviz</a> according to your OS.</p>
+<section id="apple-silicon-m1-m2">
+<h4>Apple silicon (M1/M2)<a class="headerlink" href="#apple-silicon-m1-m2" title="Permalink to this headline">#</a></h4>
+<p>For those who have a laptop with Apple Silicon (M1), <a class="reference external" href="https://medium.com/mlearning-ai/install-tensorflow-on-mac-m1-m2-with-gpu-support-c404c6cfb580">this guide may be useful</a> to install a TensorFlow version that will effectively use the GPUs. However, installing the latest version of tensorflow-macos doesn’t always work reliably and you may have to downgrade to an older version.</p>
+<p>This procedure has been known to work using Miniconda3 and Python 3.10 on M1 chips:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">to</span> <span class="n">your</span> <span class="n">miniconda</span> <span class="n">directory</span>
+<span class="n">conda</span> <span class="n">install</span> <span class="o">-</span><span class="n">c</span> <span class="n">apple</span> <span class="n">tensorflow</span><span class="o">-</span><span class="n">deps</span>
+<span class="n">conda</span> <span class="n">install</span> <span class="o">-</span><span class="n">c</span> <span class="n">conda</span><span class="o">-</span><span class="n">forge</span> <span class="n">cvxpy</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="s2">&quot;tensorflow-macos==2.10&quot;</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="s2">&quot;tensorflow-metal==0.6&quot;</span>
+</pre></div>
 </div>
-</div>
-<div class="section" id="virtual-environments">
+<p>The conda install of <code class="docutils literal notranslate"><span class="pre">cvxpy</span></code> is to resolve issues with libraries with poor M1 support (e.g. <code class="docutils literal notranslate"><span class="pre">fancyimpute</span></code>)</p>
+</section>
+</section>
+<section id="virtual-environments">
 <h3>Virtual environments<a class="headerlink" href="#virtual-environments" title="Permalink to this headline">#</a></h3>
 <p>If you already have a custom Python environment set up, possibly using a different Python version, we highly recommend to set up a virtual environment to avoid interference with other projects and classes. This is not strictly needed if you use a fresh Anaconda install, since that will automatically create a new environment on installation.</p>
-<div class="section" id="using-conda">
+<section id="using-conda">
 <h4>Using conda<a class="headerlink" href="#using-conda" title="Permalink to this headline">#</a></h4>
 <p>To create a new conda environment called ‘mlcourse’ (or whatever you like), run</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">create</span> <span class="o">-</span><span class="n">n</span> <span class="n">mlcourse</span> <span class="n">python</span><span class="o">=</span><span class="mf">3.9</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">create</span> <span class="o">-</span><span class="n">n</span> <span class="n">mlcourse</span> <span class="n">python</span><span class="o">=</span><span class="mf">3.10</span>
 </pre></div>
 </div>
 <p>You activate the environment with <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">activate</span> <span class="pre">mlcourse</span></code> and deacticate it with <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">deactivate</span></code>.</p>
-</div>
-<div class="section" id="using-virtualenv">
+</section>
+<section id="using-virtualenv">
 <h4>Using virtualenv<a class="headerlink" href="#using-virtualenv" title="Permalink to this headline">#</a></h4>
 <p>To can also use <a class="reference external" href="http://docs.python-guide.org/en/latest/dev/virtualenvs/">venv</a> if you prefer:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">virtualenv</span>
@@ -704,14 +712,14 @@ title="Print to PDF"
 </pre></div>
 </div>
 <p>Activate the environment with <code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">mlcourse/bin/activate</span></code> or <code class="docutils literal notranslate"><span class="pre">mlcourse\Scripts\activate</span></code> on Windows. To deactivate the virtual environment, type <code class="docutils literal notranslate"><span class="pre">deactivate</span></code>.</p>
-</div>
-</div>
-<div class="section" id="installing-tensorflow">
+</section>
+</section>
+<section id="installing-tensorflow">
 <h3>Installing TensorFlow<a class="headerlink" href="#installing-tensorflow" title="Permalink to this headline">#</a></h3>
-<p>To install <em>TensorFlow 2</em> (if you haven’t already), follow <a class="reference external" href="https://www.tensorflow.org/install/">these instructions</a> for your OS (Windows, Mac, Ubuntu). While installation with <code class="docutils literal notranslate"><span class="pre">conda</span></code> is possible, they recommend to install with <code class="docutils literal notranslate"><span class="pre">pip</span></code>, even with an Anaconda setup. We recommend using TensorFlow 2.7 or later.</p>
-</div>
-</div>
-<div class="section" id="course-materials-on-github">
+<p>To install <em>TensorFlow 2</em> (if you haven’t already), follow <a class="reference external" href="https://www.tensorflow.org/install/">these instructions</a> for your OS (Windows, Mac, Ubuntu). For Apple M1 machines, see the procedure above under ‘OS specific notes’. While installation with <code class="docutils literal notranslate"><span class="pre">conda</span></code> is possible, they recommend to install with <code class="docutils literal notranslate"><span class="pre">pip</span></code>, even with an Anaconda setup. We recommend using TensorFlow 2.7 or later.</p>
+</section>
+</section>
+<section id="course-materials-on-github">
 <h2>Course materials on GitHub<a class="headerlink" href="#course-materials-on-github" title="Permalink to this headline">#</a></h2>
 <p>The course materials are available on GitHub, so that you can easily <code class="docutils literal notranslate"><span class="pre">pull</span></code> (download) the latest updates. We recommend <a class="reference external" href="https://git-scm.com/book/en/v1/Getting-Started-Installing-Git">installing git</a> (if you haven’t already), and then ‘clone’ the repository from the command line (you can also use a <a class="reference external" href="https://desktop.github.com/">GUI</a>)</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/ML-course/master.git
@@ -720,8 +728,8 @@ title="Print to PDF"
 <p>To download updates, run <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">pull</span></code></p>
 <p>For more details on using git, see the <a class="reference external" href="https://guides.github.com/activities/hello-world/">GitHub 10-minute tutorial</a> and <a class="reference external" href="https://www.youtube.com/watch?v=1ffBJ4sVUb4">Git for Ages 4 and up</a>. We’ll use git extensively in the course (e.g., to submit assignments).</p>
 <p>Alternatively, you can download the course <a class="reference external" href="https://github.com/ML-course/master.git">as a .zip file</a>. Click ‘Code’ and then ‘Download ZIP’. Or, download individual files with right-click -&gt; Save Link As…</p>
-</div>
-<div class="section" id="installing-required-packages">
+</section>
+<section id="installing-required-packages">
 <h2>Installing required packages<a class="headerlink" href="#installing-required-packages" title="Permalink to this headline">#</a></h2>
 <p>Next, you’ll need to install several packages that we’ll be using extensively in this course, using pip (the Python Package index).<br />
 Run the following from the folder where you cloned (or downloaded) the course, or adjust the path to the <code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code> file:</p>
@@ -730,8 +738,8 @@ pip install -U -r requirements.txt
 </pre></div>
 </div>
 <p>Note: the -U option updates all packages, should you have older versions already installed.</p>
-</div>
-<div class="section" id="running-the-course-notebooks">
+</section>
+<section id="running-the-course-notebooks">
 <h2>Running the course notebooks<a class="headerlink" href="#running-the-course-notebooks" title="Permalink to this headline">#</a></h2>
 <p>As our coding environment, we’ll be using Jupyter notebooks. They interleave documentation (in markdown) with executable Python code, and they run in your browser. That means that you can easily edit and re-run all the code in this course. If you are new to notebooks, <a class="reference external" href="https://try.jupyter.org/">take this quick tutorial</a>, or <a class="reference external" href="http://nbviewer.jupyter.org/github/jupyter/notebook/tree/master/docs/source/examples/Notebook/">this more detailed one</a>. Optionally, for a more in-depth coverage, <a class="reference external" href="https://www.datacamp.com/community/tutorials/tutorial-jupyter-notebook#gs.wlHChdo">try the DataCamp tutorial</a>.</p>
 <p>Run jupyter lab from the folder where you have downloaded (or cloned) the course materials, using the Python environment you created above.</p>
@@ -739,13 +747,13 @@ pip install -U -r requirements.txt
 </pre></div>
 </div>
 <p>A browser window should open with all course materials. Open one of the chapters and check if you can execute all code by clicking Cell &gt; Run all.  You can shut down the notebook by typing CTRL-C in your terminal.</p>
-<div class="section" id="an-alternative-google-colab">
+<section id="an-alternative-google-colab">
 <h3>An alternative: Google Colab<a class="headerlink" href="#an-alternative-google-colab" title="Permalink to this headline">#</a></h3>
 <p><a class="reference external" href="https://colab.research.google.com/">Google Colab</a> allows you to run notebooks in your browser without any local installation. It also provides (limited) GPU resources. It is a useful alternative in case you encounter issues with your local installation or don’t have it available, or to easily use GPUs.</p>
 <p>The <a class="reference external" href="https://ml-course.github.io/master/">course overview page</a> has buttons to launch all materials in Colab (or Binder), or you can upload the notebooks to Colab yourself.</p>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -759,7 +767,7 @@ pip install -U -r requirements.txt
             mode: "python"
         },
         kernelOptions: {
-            name: "python3",
+            kernelName: "python3",
             path: "./labs"
         },
         predefinedOutput: true
@@ -797,7 +805,7 @@ pip install -U -r requirements.txt
   
     By Joaquin Vanschoren<br/>
   
-      &copy; Copyright 2021. CC0 Licensed - Use as you like.<br/>
+      &copy; Copyright 2023. CC0 Licensed - Use as you like.<br/>
 </p>
         </footer>
     </div>

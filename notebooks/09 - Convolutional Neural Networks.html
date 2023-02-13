@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Lecture 9: Convolutional Neural Networks &#8212; ML Engineering</title>
     
   <!-- Loaded before other Sphinx assets -->
@@ -34,10 +35,13 @@
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
     <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
@@ -193,17 +197,17 @@ const thebe_selector_output = ".output, .cell_output"
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%202%20-%20Kernelization.html">
-   Lab 2: Kernelization
+  <a class="reference internal" href="../labs/Lab%202a%20-%20Kernelization.html">
+   Lab 2a: Kernelization
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%203a%20-%20Model%20Selection.html">
-   Lab 3a: Model selection
+  <a class="reference internal" href="../labs/Lab%202b%20-%20Model%20Selection.html">
+   Lab 2b: Model selection
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%203b%20-%20Ensembles.html">
+  <a class="reference internal" href="../labs/Lab%203%20-%20Ensembles.html">
    Lab 3b: Ensembles
   </a>
  </li>
@@ -272,11 +276,6 @@ const thebe_selector_output = ".output, .cell_output"
  <li class="toctree-l1">
   <a class="reference internal" href="../labs/Lab%201%20-%20Tutorial.html">
    Lab 1: Machine Learning with Python
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%203%20-%20Tutorial.html">
-   Lab 3 Tutorial: Model Selection in scikit-learn
   </a>
  </li>
  <li class="toctree-l1">
@@ -823,11 +822,11 @@ title="Print to PDF"
                 
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="lecture-9-convolutional-neural-networks">
+  <section class="tex2jax_ignore mathjax_ignore" id="lecture-9-convolutional-neural-networks">
 <h1>Lecture 9: Convolutional Neural Networks<a class="headerlink" href="#lecture-9-convolutional-neural-networks" title="Permalink to this headline">#</a></h1>
 <p><strong>Handling image data</strong></p>
 <p>Joaquin Vanschoren, Eindhoven University of Technology</p>
-<div class="section" id="overview">
+<section id="overview">
 <h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Image convolution</p></li>
@@ -842,8 +841,8 @@ title="Print to PDF"
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
 <span class="k">if</span> <span class="s1">&#39;google.colab&#39;</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">get_ipython</span><span class="p">())</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s1">&#39;/content/master&#39;</span><span class="p">):</span>
-    <span class="o">!</span>git clone -q https://github.com/ML-course/master.git /content/master
-    <span class="o">!</span>pip --quiet install -r /content/master/requirements_colab.txt
+    <span class="o">!</span>git<span class="w"> </span>clone<span class="w"> </span>-q<span class="w"> </span>https://github.com/ML-course/master.git<span class="w"> </span>/content/master
+    <span class="o">!</span>pip<span class="w"> </span>--quiet<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>/content/master/requirements_colab.txt
     <span class="o">%</span><span class="k">cd</span> master/notebooks
 
 <span class="c1"># Global imports and settings</span>
@@ -899,8 +898,8 @@ title="Print to PDF"
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="convolutions">
+</section>
+<section id="convolutions">
 <h2>Convolutions<a class="headerlink" href="#convolutions" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Operation that transforms an image by sliding a smaller image (called a <em>filter</em> or <em>kernel</em> ) over the image and multiplying the pixel values</p>
@@ -924,7 +923,7 @@ title="Print to PDF"
 
 <span class="c1"># Visualize convolution. See https://tonysyu.github.io/</span>
 <span class="k">def</span> <span class="nf">iter_pixels</span><span class="p">(</span><span class="n">image</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot; Yield pixel position (row, column) and pixel intensity. &quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; Yield pixel position (row, column) and pixel intensity. &quot;&quot;&quot;</span>
     <span class="n">height</span><span class="p">,</span> <span class="n">width</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">height</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">width</span><span class="p">):</span>
@@ -949,7 +948,7 @@ title="Print to PDF"
         
 <span class="c1"># Zero-padding</span>
 <span class="k">def</span> <span class="nf">padding_for_kernel</span><span class="p">(</span><span class="n">kernel</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot; Return the amount of padding needed for each side of an image.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; Return the amount of padding needed for each side of an image.</span>
 
 <span class="sd">    For example, if the returned result is [1, 2], then this means an</span>
 <span class="sd">    image should be padded with 1 extra row on top and bottom, and 2</span>
@@ -1133,7 +1132,7 @@ title="Print to PDF"
 </div>
 </div>
 </div>
-<div class="section" id="demonstration-on-google-streetview-data">
+<section id="demonstration-on-google-streetview-data">
 <h3>Demonstration on Google streetview data<a class="headerlink" href="#demonstration-on-google-streetview-data" title="Permalink to this headline">#</a></h3>
 <p>House numbers photographed from Google streetview imagery, cropped and centered around digits, but with neighboring numbers or other edge artifacts.</p>
 <div class="cell docutils container">
@@ -1218,8 +1217,8 @@ title="Print to PDF"
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="image-convolution-in-practice">
+</section>
+<section id="image-convolution-in-practice">
 <h3>Image convolution in practice<a class="headerlink" href="#image-convolution-in-practice" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>How do we know which filters are best for a given image?</p></li>
@@ -1322,8 +1321,8 @@ title="Print to PDF"
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="filter-banks">
+</section>
+<section id="filter-banks">
 <h3>Filter banks<a class="headerlink" href="#filter-banks" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Different filters detect different edges, shapes,…</p></li>
@@ -1486,9 +1485,9 @@ title="Print to PDF"
 <img alt="../_images/09 - Convolutional Neural Networks_36_0.png" src="../_images/09 - Convolutional Neural Networks_36_0.png" />
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="convolutional-neural-nets">
+</section>
+</section>
+<section id="convolutional-neural-nets">
 <h2>Convolutional neural nets<a class="headerlink" href="#convolutional-neural-nets" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Finding relationships between individual pixels and the correct class is hard</p></li>
@@ -1496,7 +1495,7 @@ title="Print to PDF"
 <li><p>Representing such local patterns as features makes it easier to learn from them</p></li>
 <li><p>We could use convolutions, but how to choose the filters?</p></li>
 </ul>
-<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/10_patches.png?raw=1" alt="ml" style="width: 300px;  margin-left: auto; margin-right: auto;"/><div class="section" id="convolutional-neural-networks-convnets">
+<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/10_patches.png?raw=1" alt="ml" style="width: 300px;  margin-left: auto; margin-right: auto;"/><section id="convolutional-neural-networks-convnets">
 <h3>Convolutional Neural Networks (ConvNets)<a class="headerlink" href="#convolutional-neural-networks-convnets" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Instead of manually designing the filters, we can also <em>learn</em> them based on data</p>
@@ -1509,8 +1508,8 @@ title="Print to PDF"
 <li><p>Illustration for 1 filter:</p></li>
 </ul>
 <img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/cnn.png?raw=1" alt="ml" style="width: 500px;  margin-left: auto; margin-right: auto;"/>
-</div>
-<div class="section" id="convolutional-layers-feature-maps">
+</section>
+<section id="convolutional-layers-feature-maps">
 <h3>Convolutional layers: Feature maps<a class="headerlink" href="#convolutional-layers-feature-maps" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>One filter is not sufficient to detect all relevant patterns in an image</p></li>
@@ -1518,16 +1517,16 @@ title="Print to PDF"
 <li><p>Slide <span class="math notranslate nohighlight">\(d\)</span> filters across the input image (in parallel) -&gt; a (1x1xd) output per patch</p></li>
 <li><p>Reassemble into a <em>feature map</em> with <span class="math notranslate nohighlight">\(d\)</span> ‘channels’, a (width x height x d) tensor.</p></li>
 </ul>
-<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/10_convolution.png?raw=1" alt="ml" style="width: 400px;  margin-left: auto; margin-right: auto;"/></div>
-<div class="section" id="border-effects-zero-padding">
+<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/10_convolution.png?raw=1" alt="ml" style="width: 400px;  margin-left: auto; margin-right: auto;"/></section>
+<section id="border-effects-zero-padding">
 <h3>Border effects (zero padding)<a class="headerlink" href="#border-effects-zero-padding" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Consider a 5x5 image and a 3x3 filter: there are only 9 possible locations, hence the output is a 3x3 feature map</p></li>
 <li><p>If we want to maintain the image size, we use <em>zero-padding</em>, adding 0’s all around the input tensor.</p></li>
 </ul>
 <img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/10_padding.png?raw=1" alt="ml" style="float: left; width: 45%;"/>
-<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/10_padding_2.png?raw=1" alt="ml" style="float: left; width: 45%;"/></div>
-<div class="section" id="undersampling-striding">
+<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/10_padding_2.png?raw=1" alt="ml" style="float: left; width: 45%;"/></section>
+<section id="undersampling-striding">
 <h3>Undersampling (striding)<a class="headerlink" href="#undersampling-striding" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Sometimes, we want to <em>downsample</em> a high-resolution image</p>
@@ -1542,8 +1541,8 @@ title="Print to PDF"
 </li>
 <li><p>Example with stride length 2 (without padding):</p></li>
 </ul>
-<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/10_strides.png?raw=1" alt="ml" style="width: 500px;  margin-left: auto; margin-right: auto;"/></div>
-<div class="section" id="max-pooling">
+<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/10_strides.png?raw=1" alt="ml" style="width: 500px;  margin-left: auto; margin-right: auto;"/></section>
+<section id="max-pooling">
 <h3>Max-pooling<a class="headerlink" href="#max-pooling" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Another approach to shrink the input tensors is <em>max-pooling</em> :</p>
@@ -1565,9 +1564,9 @@ title="Print to PDF"
 </li>
 <li><p>Increases <em>translation invariance</em> : patterns can affect the predictions no matter where they occur in the image</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="convolutional-nets-in-practice">
+</section>
+</section>
+<section id="convolutional-nets-in-practice">
 <h2>Convolutional nets in practice<a class="headerlink" href="#convolutional-nets-in-practice" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>ConvNets usually use multiple convolutional layers to learn patterns at different levels of abstraction</p>
@@ -1584,7 +1583,7 @@ title="Print to PDF"
 </ul>
 </li>
 </ul>
-<div class="section" id="example-with-keras">
+<section id="example-with-keras">
 <h3>Example with Keras<a class="headerlink" href="#example-with-keras" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">Conv2D</span></code> for 2D convolutional layers</p>
@@ -1902,8 +1901,8 @@ _________________________________________________________________
     <span class="n">shutil</span><span class="o">.</span><span class="n">copyfile</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">dst</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="data-generators">
+</section>
+<section id="data-generators">
 <h3>Data generators<a class="headerlink" href="#data-generators" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">ImageDataGenerator</span></code>: allows to encode, resize, and rescale JPEG images</p></li>
@@ -2058,8 +2057,8 @@ _________________________________________________________________
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="training">
+</section>
+<section id="training">
 <h3>Training<a class="headerlink" href="#training" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>The <code class="docutils literal notranslate"><span class="pre">fit</span></code> function also supports generators</p>
@@ -2127,8 +2126,8 @@ _________________________________________________________________
 <img alt="../_images/09 - Convolutional Neural Networks_72_0.png" src="../_images/09 - Convolutional Neural Networks_72_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="data-augmentation">
+</section>
+<section id="data-augmentation">
 <h3>Data augmentation<a class="headerlink" href="#data-augmentation" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Generate new images via image transformations</p>
@@ -2311,9 +2310,9 @@ Found 20 images belonging to 2 classes.
 <img alt="../_images/09 - Convolutional Neural Networks_82_0.png" src="../_images/09 - Convolutional Neural Networks_82_0.png" />
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="interpreting-the-model">
+</section>
+</section>
+<section id="interpreting-the-model">
 <h2>Interpreting the model<a class="headerlink" href="#interpreting-the-model" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Let’s see what the convnet is learning exactly by observing the intermediate feature maps</p>
@@ -2625,7 +2624,7 @@ _________________________________________________________________
 <img alt="../_images/09 - Convolutional Neural Networks_104_0.png" src="../_images/09 - Convolutional Neural Networks_104_0.png" />
 </div>
 </div>
-<div class="section" id="spatial-hierarchies">
+<section id="spatial-hierarchies">
 <h3>Spatial hierarchies<a class="headerlink" href="#spatial-hierarchies" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Deep convnets can learn <em>spatial hierarchies</em> of patterns</p>
@@ -2636,8 +2635,8 @@ _________________________________________________________________
 </ul>
 </li>
 </ul>
-<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/10_hierarchy.png?raw=1" alt="ml" style="width: 500px;  margin-left: auto; margin-right: auto;"/></div>
-<div class="section" id="visualizing-the-learned-filters">
+<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/10_hierarchy.png?raw=1" alt="ml" style="width: 500px;  margin-left: auto; margin-right: auto;"/></section>
+<section id="visualizing-the-learned-filters">
 <h3>Visualizing the learned filters<a class="headerlink" href="#visualizing-the-learned-filters" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>The filters themselves can be visualized by finding the input image that they are maximally responsive to</p></li>
@@ -2925,8 +2924,8 @@ _________________________________________________________________
 <img alt="../_images/09 - Convolutional Neural Networks_126_0.png" src="../_images/09 - Convolutional Neural Networks_126_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="visualizing-class-activation">
+</section>
+<section id="visualizing-class-activation">
 <h3>Visualizing class activation<a class="headerlink" href="#visualizing-class-activation" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>We can also visualize which part of the input image had the greatest influence on the final classification</p>
@@ -3148,9 +3147,9 @@ _________________________________________________________________
 <img alt="../_images/09 - Convolutional Neural Networks_141_0.png" src="../_images/09 - Convolutional Neural Networks_141_0.png" />
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="transfer-learning">
+</section>
+</section>
+<section id="transfer-learning">
 <h2>Transfer learning<a class="headerlink" href="#transfer-learning" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>We can re-use pretrained networks instead of training from scratch</p></li>
@@ -3232,7 +3231,7 @@ _________________________________________________________________
 </div>
 </div>
 </div>
-<div class="section" id="using-pre-trained-networks-3-ways">
+<section id="using-pre-trained-networks-3-ways">
 <h3>Using pre-trained networks: 3 ways<a class="headerlink" href="#using-pre-trained-networks-3-ways" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Fast feature extraction (similar task, little data)</p>
@@ -3257,8 +3256,8 @@ _________________________________________________________________
 </ul>
 </li>
 </ul>
-<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/pretraining.png?raw=1" alt="ml" style="width: 700px;  margin-left: auto; margin-right: auto;"/></div>
-<div class="section" id="fast-feature-extraction-without-data-augmentation">
+<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/pretraining.png?raw=1" alt="ml" style="width: 700px;  margin-left: auto; margin-right: auto;"/></section>
+<section id="fast-feature-extraction-without-data-augmentation">
 <h3>Fast feature extraction (without data augmentation)<a class="headerlink" href="#fast-feature-extraction-without-data-augmentation" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Run every batch through the pre-trained convolutional base</p></li>
@@ -3366,8 +3365,8 @@ _________________________________________________________________
 <img alt="../_images/09 - Convolutional Neural Networks_153_1.png" src="../_images/09 - Convolutional Neural Networks_153_1.png" />
 </div>
 </div>
-</div>
-<div class="section" id="fast-feature-extraction-with-data-augmentation">
+</section>
+<section id="fast-feature-extraction-with-data-augmentation">
 <h3>Fast feature extraction (with data augmentation)<a class="headerlink" href="#fast-feature-extraction-with-data-augmentation" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Simply add the Dense layers to the convolutional base</p></li>
@@ -3517,8 +3516,8 @@ Found 20 images belonging to 2 classes.
 <img alt="../_images/09 - Convolutional Neural Networks_161_1.png" src="../_images/09 - Convolutional Neural Networks_161_1.png" />
 </div>
 </div>
-</div>
-<div class="section" id="fine-tuning">
+</section>
+<section id="fine-tuning">
 <h3>Fine-tuning<a class="headerlink" href="#fine-tuning" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Add your custom network on top of an already trained base network.</p></li>
@@ -3695,9 +3694,9 @@ _________________________________________________________________
 <img alt="../_images/09 - Convolutional Neural Networks_171_1.png" src="../_images/09 - Convolutional Neural Networks_171_1.png" />
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="take-aways">
+</section>
+</section>
+<section id="take-aways">
 <h2>Take-aways<a class="headerlink" href="#take-aways" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Convnets are ideal for attacking visual-classification problems.</p></li>
@@ -3706,8 +3705,8 @@ _________________________________________________________________
 <li><p>Data augmentation helps fight overfitting</p></li>
 <li><p>You can use a pretrained convnet to build better models via transfer learning</p></li>
 </ul>
-</div>
-</div>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -3721,7 +3720,7 @@ _________________________________________________________________
             mode: "python"
         },
         kernelOptions: {
-            name: "python3",
+            kernelName: "python3",
             path: "./notebooks"
         },
         predefinedOutput: true
@@ -3759,7 +3758,7 @@ _________________________________________________________________
   
     By Joaquin Vanschoren<br/>
   
-      &copy; Copyright 2021. CC0 Licensed - Use as you like.<br/>
+      &copy; Copyright 2023. CC0 Licensed - Use as you like.<br/>
 </p>
         </footer>
     </div>

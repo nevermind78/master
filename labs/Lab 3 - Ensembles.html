@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Lab 3b: Ensembles &#8212; ML Engineering</title>
     
   <!-- Loaded before other Sphinx assets -->
@@ -34,10 +35,13 @@
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
     <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
@@ -626,9 +630,9 @@ title="Print to PDF"
                 
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="lab-3b-ensembles">
+  <section class="tex2jax_ignore mathjax_ignore" id="lab-3b-ensembles">
 <h1>Lab 3b: Ensembles<a class="headerlink" href="#lab-3b-ensembles" title="Permalink to this headline">#</a></h1>
-<div class="section" id="using-trees-to-detect-trees">
+<section id="using-trees-to-detect-trees">
 <h2>Using trees to detect trees<a class="headerlink" href="#using-trees-to-detect-trees" title="Permalink to this headline">#</a></h2>
 <p>We will be using tree-based ensemble methods on the <a class="reference external" href="https://www.openml.org/d/180">Covertype dataset</a>.
 It contains about 100,000 observations of 7 types of trees (Spruce, Pine, Cottonwood, Aspen,…) described by 55 features describing elevation, distance to water, soil type, etc.</p>
@@ -636,7 +640,7 @@ It contains about 100,000 observations of 7 types of trees (Spruce, Pine, Cotton
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Auto-setup when running on Google Colab</span>
 <span class="k">if</span> <span class="s1">&#39;google.colab&#39;</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">get_ipython</span><span class="p">()):</span>
-    <span class="o">!</span>pip install openml
+    <span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>openml
 
 <span class="c1"># General imports</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
@@ -645,43 +649,6 @@ It contains about 100,000 observations of 7 types of trees (Spruce, Pine, Cotton
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">openml</span> <span class="k">as</span> <span class="nn">oml</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">ImportError</span><span class="g g-Whitespace">                               </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="mi">0</span><span class="n">t</span><span class="o">/</span><span class="mi">5</span><span class="n">d8ttqzd773fy0wq3h5db0xr0000gn</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_37556</span><span class="o">/</span><span class="mf">2438812200.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="n">get_ipython</span><span class="p">()</span><span class="o">.</span><span class="n">run_line_magic</span><span class="p">(</span><span class="s1">&#39;matplotlib&#39;</span><span class="p">,</span> <span class="s1">&#39;inline&#39;</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">7</span> <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="ne">----&gt; </span><span class="mi">8</span> <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="g g-Whitespace">      </span><span class="mi">9</span> <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="g g-Whitespace">     </span><span class="mi">10</span> <span class="kn">import</span> <span class="nn">openml</span> <span class="k">as</span> <span class="nn">oml</span>
-
-<span class="o">~/</span><span class="n">miniforge3</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.9</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">pandas</span><span class="o">/</span><span class="fm">__init__</span><span class="o">.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">     </span><span class="mi">20</span> 
-<span class="g g-Whitespace">     </span><span class="mi">21</span> <span class="c1"># numpy compat</span>
-<span class="ne">---&gt; </span><span class="mi">22</span> <span class="kn">from</span> <span class="nn">pandas.compat</span> <span class="kn">import</span> <span class="n">is_numpy_dev</span> <span class="k">as</span> <span class="n">_is_numpy_dev</span>  <span class="c1"># pyright: ignore # noqa:F401</span>
-<span class="g g-Whitespace">     </span><span class="mi">23</span> 
-<span class="g g-Whitespace">     </span><span class="mi">24</span> <span class="k">try</span><span class="p">:</span>
-
-<span class="o">~/</span><span class="n">miniforge3</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.9</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">pandas</span><span class="o">/</span><span class="n">compat</span><span class="o">/</span><span class="fm">__init__</span><span class="o">.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">     </span><span class="mi">16</span> 
-<span class="g g-Whitespace">     </span><span class="mi">17</span> <span class="kn">from</span> <span class="nn">pandas._typing</span> <span class="kn">import</span> <span class="n">F</span>
-<span class="ne">---&gt; </span><span class="mi">18</span> <span class="kn">from</span> <span class="nn">pandas.compat.numpy</span> <span class="kn">import</span> <span class="p">(</span>
-<span class="g g-Whitespace">     </span><span class="mi">19</span>     <span class="n">is_numpy_dev</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">20</span>     <span class="n">np_version_under1p21</span><span class="p">,</span>
-
-<span class="o">~/</span><span class="n">miniforge3</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.9</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">pandas</span><span class="o">/</span><span class="n">compat</span><span class="o">/</span><span class="n">numpy</span><span class="o">/</span><span class="fm">__init__</span><span class="o">.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">     </span><span class="mi">21</span> 
-<span class="g g-Whitespace">     </span><span class="mi">22</span> <span class="k">if</span> <span class="n">_nlv</span> <span class="o">&lt;</span> <span class="n">Version</span><span class="p">(</span><span class="n">_min_numpy_ver</span><span class="p">):</span>
-<span class="ne">---&gt; </span><span class="mi">23</span>     <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span>
-<span class="g g-Whitespace">     </span><span class="mi">24</span>         <span class="sa">f</span><span class="s2">&quot;this version of pandas is incompatible with numpy &lt; </span><span class="si">{</span><span class="n">_min_numpy_ver</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
-<span class="g g-Whitespace">     </span><span class="mi">25</span>         <span class="sa">f</span><span class="s2">&quot;your numpy version is </span><span class="si">{</span><span class="n">_np_version</span><span class="si">}</span><span class="s2">.</span><span class="se">\n</span><span class="s2">&quot;</span>
-
-<span class="ne">ImportError</span>: this version of pandas is incompatible with numpy &lt; 1.20.3
-<span class="n">your</span> <span class="n">numpy</span> <span class="n">version</span> <span class="ow">is</span> <span class="mf">1.19.5</span><span class="o">.</span>
-<span class="n">Please</span> <span class="n">upgrade</span> <span class="n">numpy</span> <span class="n">to</span> <span class="o">&gt;=</span> <span class="mf">1.20.3</span> <span class="n">to</span> <span class="n">use</span> <span class="n">this</span> <span class="n">pandas</span> <span class="n">version</span>
 </pre></div>
 </div>
 </div>
@@ -764,52 +731,52 @@ Douglas Fir and Aspen grow at low elevations, while only Krummholz pines survive
 <img alt="../_images/Lab 3 - Ensembles_6_0.png" src="../_images/Lab 3 - Ensembles_6_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="exercise-1-random-forests">
+</section>
+<section id="exercise-1-random-forests">
 <h2>Exercise 1: Random Forests<a class="headerlink" href="#exercise-1-random-forests" title="Permalink to this headline">#</a></h2>
 <p>Implement a function <code class="docutils literal notranslate"><span class="pre">evaluate_RF</span></code> that measures the performance of a Random Forest Classifier, using trees
 of (max) depth 2,8,32,64, for any number of trees in the ensemble (<code class="docutils literal notranslate"><span class="pre">n_estimators</span></code>).
 For the evaluation you should measure accuracy using 3-fold cross-validation.
 Use <code class="docutils literal notranslate"><span class="pre">random_state=1</span></code> to ensure reproducibility. Finally, plot the results for at least 5 values of <code class="docutils literal notranslate"><span class="pre">n_estimators</span></code> ranging from 1 to 30. You can, of course, reuse code from earlier labs and assignments. Interpret the results.
 You can take a 50% subsample to speed the plotting.</p>
-</div>
-<div class="section" id="exercise-2-other-measures">
+</section>
+<section id="exercise-2-other-measures">
 <h2>Exercise 2: Other measures<a class="headerlink" href="#exercise-2-other-measures" title="Permalink to this headline">#</a></h2>
 <p>Repeat the same plot but now use balanced_accuracy as the evaluation measure. See the <a class="reference external" href="https://scikit-learn.org/stable/modules/model_evaluation.html#balanced-accuracy-score">documentation</a>.
 Only use the optimal max_depth from the previous question. Do you see an important difference?</p>
-</div>
-<div class="section" id="exercise-3-feature-importance">
+</section>
+<section id="exercise-3-feature-importance">
 <h2>Exercise 3: Feature importance<a class="headerlink" href="#exercise-3-feature-importance" title="Permalink to this headline">#</a></h2>
 <p>Retrieve the feature importances according to the (tuned) random forest model. Which feature are most important?</p>
-</div>
-<div class="section" id="exercise-4-feature-selection">
+</section>
+<section id="exercise-4-feature-selection">
 <h2>Exercise 4: Feature selection<a class="headerlink" href="#exercise-4-feature-selection" title="Permalink to this headline">#</a></h2>
 <p>Re-build your tuned random forest, but this time only using the first 10 features.
 Return both the balanced accuracy and training time. Interpret the results.</p>
-</div>
-<div class="section" id="exercise-5-confusion-matrix">
+</section>
+<section id="exercise-5-confusion-matrix">
 <h2>Exercise 5: Confusion matrix<a class="headerlink" href="#exercise-5-confusion-matrix" title="Permalink to this headline">#</a></h2>
 <p>Do a standard stratified holdout and generate the confusion matrix of the tuned random forest. Which classes are still often confused?</p>
-</div>
-<div class="section" id="exercise-6-a-second-level-model">
+</section>
+<section id="exercise-6-a-second-level-model">
 <h2>Exercise 6: A second-level model<a class="headerlink" href="#exercise-6-a-second-level-model" title="Permalink to this headline">#</a></h2>
 <p>Build a binary model specifically to correctly choose between the first and the second class.
 Select only the data points with those classes and train a new random forest. Do a standard stratified split and plot the resulting ROC curve. Can we still improve the model by calibrating the threshold?</p>
-</div>
-<div class="section" id="exercise-7-model-calibration">
+</section>
+<section id="exercise-7-model-calibration">
 <h2>Exercise 7: Model calibration<a class="headerlink" href="#exercise-7-model-calibration" title="Permalink to this headline">#</a></h2>
 <p>For the trained binary random forest model, plot a calibration curve (see <a class="reference external" href="https://ml-course.github.io/engineer/slides_html/03%20-%20Model%20Selection.slides.html#/40">course notebook</a>).
 Next, try to correct for this using Platt Scaling (or sigmoid scaling).</p>
 <p>Probability calibration should be done on new data not used for model fitting. The class <a class="reference external" href="https://scikit-learn.org/stable/auto_examples/calibration/plot_calibration_curve.html#sphx-glr-auto-examples-calibration-plot-calibration-curve-py">CalibratedClassifierCV</a> uses a cross-validation generator and estimates for each split the model parameter on the train samples and the calibration of the test samples. The probabilities predicted for the folds are then averaged. Already fitted classifiers can be calibrated by CalibratedClassifierCV via the parameter cv=”prefit”. <a class="reference external" href="https://scikit-learn.org/stable/modules/calibration.html">Read more</a></p>
-</div>
-<div class="section" id="exercise-8-gradient-boosting">
+</section>
+<section id="exercise-8-gradient-boosting">
 <h2>Exercise 8: Gradient Boosting<a class="headerlink" href="#exercise-8-gradient-boosting" title="Permalink to this headline">#</a></h2>
 <p>Implement a function <code class="docutils literal notranslate"><span class="pre">evaluate_GB</span></code> that measures the performance of <code class="docutils literal notranslate"><span class="pre">GradientBoostingClassifier</span></code> or the <code class="docutils literal notranslate"><span class="pre">XGBoostClassifier</span></code> for
 different learning rates (0.01, 0.1, 1, and 10). As before, use a 3-fold cross-validation. You can use a 5% stratified sample of the whole dataset.
 Finally plot the results for <code class="docutils literal notranslate"><span class="pre">n_estimators</span></code> ranging from 1 to 100. Run all the GBClassifiers with <code class="docutils literal notranslate"><span class="pre">random_state=1</span></code> to ensure reproducibility.</p>
 <p>Implement a function that plots the score of <code class="docutils literal notranslate"><span class="pre">evaluate_GB</span></code> for <code class="docutils literal notranslate"><span class="pre">n_estimators</span></code> = 10,20,30,…,100 on a linear scale.</p>
-</div>
-</div>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -823,7 +790,7 @@ Finally plot the results for <code class="docutils literal notranslate"><span cl
             mode: "python"
         },
         kernelOptions: {
-            name: "python3",
+            kernelName: "python3",
             path: "./labs"
         },
         predefinedOutput: true
@@ -861,7 +828,7 @@ Finally plot the results for <code class="docutils literal notranslate"><span cl
   
     By Joaquin Vanschoren<br/>
   
-      &copy; Copyright 2021. CC0 Licensed - Use as you like.<br/>
+      &copy; Copyright 2023. CC0 Licensed - Use as you like.<br/>
 </p>
         </footer>
     </div>

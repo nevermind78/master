@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Gaussian Processes, step by step &#8212; ML Engineering</title>
     
   <!-- Loaded before other Sphinx assets -->
@@ -34,10 +35,13 @@
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
     <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
@@ -189,17 +193,17 @@ const thebe_selector_output = ".output, .cell_output"
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%202%20-%20Kernelization.html">
-   Lab 2: Kernelization
+  <a class="reference internal" href="../labs/Lab%202a%20-%20Kernelization.html">
+   Lab 2a: Kernelization
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%203a%20-%20Model%20Selection.html">
-   Lab 3a: Model selection
+  <a class="reference internal" href="../labs/Lab%202b%20-%20Model%20Selection.html">
+   Lab 2b: Model selection
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%203b%20-%20Ensembles.html">
+  <a class="reference internal" href="../labs/Lab%203%20-%20Ensembles.html">
    Lab 3b: Ensembles
   </a>
  </li>
@@ -268,11 +272,6 @@ const thebe_selector_output = ".output, .cell_output"
  <li class="toctree-l1">
   <a class="reference internal" href="../labs/Lab%201%20-%20Tutorial.html">
    Lab 1: Machine Learning with Python
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%203%20-%20Tutorial.html">
-   Lab 3 Tutorial: Model Selection in scikit-learn
   </a>
  </li>
  <li class="toctree-l1">
@@ -559,7 +558,7 @@ title="Print to PDF"
                 
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="gaussian-processes-step-by-step">
+  <section class="tex2jax_ignore mathjax_ignore" id="gaussian-processes-step-by-step">
 <h1>Gaussian Processes, step by step<a class="headerlink" href="#gaussian-processes-step-by-step" title="Permalink to this headline">#</a></h1>
 <p>To better understand Gaussian Processes, we’ll study it’s posterior predictions for increasingly large samples of data. As input data, we consider real data about solar radiation measured by a weather balloon:
 <a class="reference external" href="https://www.openml.org/d/512">https://www.openml.org/d/512</a>. We’ll use only the raw data (at least the first 1500 points) and try to learn the (very noisy) trend.</p>
@@ -596,7 +595,7 @@ title="Print to PDF"
 <img alt="../_images/S6 Bayesian Updates_2_0.png" src="../_images/S6 Bayesian Updates_2_0.png" />
 </div>
 </div>
-<div class="section" id="bayesian-updates">
+<section id="bayesian-updates">
 <h2>Bayesian updates<a class="headerlink" href="#bayesian-updates" title="Permalink to this headline">#</a></h2>
 <p>Starting with the humble RBF kernel, <code class="docutils literal notranslate"><span class="pre">RBF(10,</span> <span class="pre">(1e-2,</span> <span class="pre">1e2))</span></code>, we look at the posterior as we train the GP with 10 random data points at a time. Results are plotted below:</p>
 <div class="cell docutils container">
@@ -654,8 +653,8 @@ title="Print to PDF"
 </div>
 </div>
 <p>We can see that the GP interpolates the data points nicely. At the same time, it is clearly overfitting.</p>
-</div>
-<div class="section" id="extrapolation-and-evaluation">
+</section>
+<section id="extrapolation-and-evaluation">
 <h2>Extrapolation and evaluation<a class="headerlink" href="#extrapolation-and-evaluation" title="Permalink to this headline">#</a></h2>
 <p>We will now train the GP on the complete dataset and evaluate how well it can extrapolate to future data points. We will also need to tune the hyperparameters.</p>
 <div class="cell docutils container">
@@ -710,8 +709,8 @@ title="Print to PDF"
 </div>
 </div>
 <p>The main problem is that Gaussian Processes assume that noise is normally distributed, which it clearly is not in this case. There exist more robust generalizations of GP’s, e.g. using Student-t likelihood, but these are not supported by SKlearn (try GPy instead).</p>
-</div>
-</div>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -725,7 +724,7 @@ title="Print to PDF"
             mode: "python"
         },
         kernelOptions: {
-            name: "python3",
+            kernelName: "python3",
             path: "./studies"
         },
         predefinedOutput: true
@@ -749,7 +748,7 @@ title="Print to PDF"
   
     By Joaquin Vanschoren<br/>
   
-      &copy; Copyright 2021. CC0 Licensed - Use as you like.<br/>
+      &copy; Copyright 2023. CC0 Licensed - Use as you like.<br/>
 </p>
         </footer>
     </div>

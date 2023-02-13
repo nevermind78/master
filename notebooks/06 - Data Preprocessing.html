@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Lecture 6. Data preprocessing &#8212; ML Engineering</title>
     
   <!-- Loaded before other Sphinx assets -->
@@ -34,10 +35,13 @@
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
     <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
@@ -193,17 +197,17 @@ const thebe_selector_output = ".output, .cell_output"
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%202%20-%20Kernelization.html">
-   Lab 2: Kernelization
+  <a class="reference internal" href="../labs/Lab%202a%20-%20Kernelization.html">
+   Lab 2a: Kernelization
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%203a%20-%20Model%20Selection.html">
-   Lab 3a: Model selection
+  <a class="reference internal" href="../labs/Lab%202b%20-%20Model%20Selection.html">
+   Lab 2b: Model selection
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%203b%20-%20Ensembles.html">
+  <a class="reference internal" href="../labs/Lab%203%20-%20Ensembles.html">
    Lab 3b: Ensembles
   </a>
  </li>
@@ -272,11 +276,6 @@ const thebe_selector_output = ".output, .cell_output"
  <li class="toctree-l1">
   <a class="reference internal" href="../labs/Lab%201%20-%20Tutorial.html">
    Lab 1: Machine Learning with Python
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%203%20-%20Tutorial.html">
-   Lab 3 Tutorial: Model Selection in scikit-learn
   </a>
  </li>
  <li class="toctree-l1">
@@ -1231,7 +1230,7 @@ title="Print to PDF"
                 
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="lecture-6-data-preprocessing">
+  <section class="tex2jax_ignore mathjax_ignore" id="lecture-6-data-preprocessing">
 <h1>Lecture 6. Data preprocessing<a class="headerlink" href="#lecture-6-data-preprocessing" title="Permalink to this headline">#</a></h1>
 <p><strong>Real-world machine learning pipelines</strong></p>
 <p>Joaquin Vanschoren</p>
@@ -1240,8 +1239,8 @@ title="Print to PDF"
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Auto-setup when running on Google Colab</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="k">if</span> <span class="s1">&#39;google.colab&#39;</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">get_ipython</span><span class="p">())</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s1">&#39;/content/master&#39;</span><span class="p">):</span>
-    <span class="o">!</span>git clone -q https://github.com/ML-course/master.git /content/master
-    <span class="o">!</span>pip --quiet install -r /content/master/requirements_colab.txt
+    <span class="o">!</span>git<span class="w"> </span>clone<span class="w"> </span>-q<span class="w"> </span>https://github.com/ML-course/master.git<span class="w"> </span>/content/master
+    <span class="o">!</span>pip<span class="w"> </span>--quiet<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>/content/master/requirements_colab.txt
     <span class="o">%</span><span class="k">cd</span> master/notebooks
 
 <span class="c1"># Global imports and settings</span>
@@ -1257,52 +1256,8 @@ title="Print to PDF"
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">ImportError</span><span class="g g-Whitespace">                               </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="mi">0</span><span class="n">t</span><span class="o">/</span><span class="mi">5</span><span class="n">d8ttqzd773fy0wq3h5db0xr0000gn</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_37049</span><span class="o">/</span><span class="mf">334741781.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">      </span><span class="mi">8</span> <span class="c1"># Global imports and settings</span>
-<span class="g g-Whitespace">      </span><span class="mi">9</span> <span class="n">get_ipython</span><span class="p">()</span><span class="o">.</span><span class="n">run_line_magic</span><span class="p">(</span><span class="s1">&#39;matplotlib&#39;</span><span class="p">,</span> <span class="s1">&#39;inline&#39;</span><span class="p">)</span>
-<span class="ne">---&gt; </span><span class="mi">10</span> <span class="kn">from</span> <span class="nn">preamble</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="g g-Whitespace">     </span><span class="mi">11</span> <span class="n">interactive</span> <span class="o">=</span> <span class="kc">False</span> <span class="c1"># Set to True for interactive plots</span>
-<span class="g g-Whitespace">     </span><span class="mi">12</span> <span class="k">if</span> <span class="n">interactive</span><span class="p">:</span>
-
-<span class="o">~/</span><span class="n">Documents</span><span class="o">/</span><span class="n">ml</span><span class="o">-</span><span class="n">course</span><span class="o">/</span><span class="n">master</span><span class="o">/</span><span class="n">notebooks</span><span class="o">/</span><span class="n">preamble</span><span class="o">.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">set_matplotlib_formats</span><span class="p">,</span> <span class="n">display</span><span class="p">,</span> <span class="n">HTML</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="kn">from</span> <span class="nn">IPython.core.interactiveshell</span> <span class="kn">import</span> <span class="n">InteractiveShell</span>
-<span class="ne">----&gt; </span><span class="mi">3</span> <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-
-<span class="o">~/</span><span class="n">miniforge3</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.9</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">pandas</span><span class="o">/</span><span class="fm">__init__</span><span class="o">.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">     </span><span class="mi">20</span> 
-<span class="g g-Whitespace">     </span><span class="mi">21</span> <span class="c1"># numpy compat</span>
-<span class="ne">---&gt; </span><span class="mi">22</span> <span class="kn">from</span> <span class="nn">pandas.compat</span> <span class="kn">import</span> <span class="n">is_numpy_dev</span> <span class="k">as</span> <span class="n">_is_numpy_dev</span>  <span class="c1"># pyright: ignore # noqa:F401</span>
-<span class="g g-Whitespace">     </span><span class="mi">23</span> 
-<span class="g g-Whitespace">     </span><span class="mi">24</span> <span class="k">try</span><span class="p">:</span>
-
-<span class="o">~/</span><span class="n">miniforge3</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.9</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">pandas</span><span class="o">/</span><span class="n">compat</span><span class="o">/</span><span class="fm">__init__</span><span class="o">.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">     </span><span class="mi">16</span> 
-<span class="g g-Whitespace">     </span><span class="mi">17</span> <span class="kn">from</span> <span class="nn">pandas._typing</span> <span class="kn">import</span> <span class="n">F</span>
-<span class="ne">---&gt; </span><span class="mi">18</span> <span class="kn">from</span> <span class="nn">pandas.compat.numpy</span> <span class="kn">import</span> <span class="p">(</span>
-<span class="g g-Whitespace">     </span><span class="mi">19</span>     <span class="n">is_numpy_dev</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">20</span>     <span class="n">np_version_under1p21</span><span class="p">,</span>
-
-<span class="o">~/</span><span class="n">miniforge3</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.9</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">pandas</span><span class="o">/</span><span class="n">compat</span><span class="o">/</span><span class="n">numpy</span><span class="o">/</span><span class="fm">__init__</span><span class="o">.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">     </span><span class="mi">21</span> 
-<span class="g g-Whitespace">     </span><span class="mi">22</span> <span class="k">if</span> <span class="n">_nlv</span> <span class="o">&lt;</span> <span class="n">Version</span><span class="p">(</span><span class="n">_min_numpy_ver</span><span class="p">):</span>
-<span class="ne">---&gt; </span><span class="mi">23</span>     <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span>
-<span class="g g-Whitespace">     </span><span class="mi">24</span>         <span class="sa">f</span><span class="s2">&quot;this version of pandas is incompatible with numpy &lt; </span><span class="si">{</span><span class="n">_min_numpy_ver</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
-<span class="g g-Whitespace">     </span><span class="mi">25</span>         <span class="sa">f</span><span class="s2">&quot;your numpy version is </span><span class="si">{</span><span class="n">_np_version</span><span class="si">}</span><span class="s2">.</span><span class="se">\n</span><span class="s2">&quot;</span>
-
-<span class="ne">ImportError</span>: this version of pandas is incompatible with numpy &lt; 1.20.3
-<span class="n">your</span> <span class="n">numpy</span> <span class="n">version</span> <span class="ow">is</span> <span class="mf">1.19.5</span><span class="o">.</span>
-<span class="n">Please</span> <span class="n">upgrade</span> <span class="n">numpy</span> <span class="n">to</span> <span class="o">&gt;=</span> <span class="mf">1.20.3</span> <span class="n">to</span> <span class="n">use</span> <span class="n">this</span> <span class="n">pandas</span> <span class="n">version</span>
-</pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="data-transformations">
+<section id="data-transformations">
 <h2>Data transformations<a class="headerlink" href="#data-transformations" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Machine learning models make a lot of assumptions about the data</p></li>
@@ -1326,8 +1281,8 @@ title="Print to PDF"
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="scaling">
+</section>
+<section id="scaling">
 <h2>Scaling<a class="headerlink" href="#scaling" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Use when different numeric features have different scales (different range of values)</p>
@@ -1393,7 +1348,7 @@ title="Print to PDF"
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "0a01152df0f14d068f3a6d175677ac90", "version_major": 2, "version_minor": 0}
+{"model_id": "604ae584d70646da982e3779348c3989", "version_major": 2, "version_minor": 0}
 </script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
@@ -1403,8 +1358,11 @@ title="Print to PDF"
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="../_images/06 - Data Preprocessing_5_0.png" src="../_images/06 - Data Preprocessing_5_0.png" />
 </div>
-<div class="section" id="why-do-we-need-scaling">
+</div>
+<section id="why-do-we-need-scaling">
 <h3>Why do we need scaling?<a class="headerlink" href="#why-do-we-need-scaling" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>KNN: Distances depend mainly on feature with larger values</p></li>
@@ -1485,7 +1443,7 @@ title="Print to PDF"
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "362f5e11b82f460ca38d4c5001cbde9a", "version_major": 2, "version_minor": 0}
+{"model_id": "d4e14e0ea9a84ff0b6b0cb1b68c89994", "version_major": 2, "version_minor": 0}
 </script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
@@ -1495,9 +1453,12 @@ title="Print to PDF"
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="../_images/06 - Data Preprocessing_8_0.png" src="../_images/06 - Data Preprocessing_8_0.png" />
 </div>
 </div>
-<div class="section" id="standard-scaling-standardization">
+</section>
+<section id="standard-scaling-standardization">
 <h3>Standard scaling (standardization)<a class="headerlink" href="#standard-scaling-standardization" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Generally most useful, assumes data is more or less normally distributed</p></li>
@@ -1515,8 +1476,8 @@ $<span class="math notranslate nohighlight">\(\mathbf{x}_{new} = \frac{\mathbf{x
 <img alt="../_images/06 - Data Preprocessing_10_0.png" src="../_images/06 - Data Preprocessing_10_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="min-max-scaling">
+</section>
+<section id="min-max-scaling">
 <h3>Min-max scaling<a class="headerlink" href="#min-max-scaling" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Scales all features between a given <span class="math notranslate nohighlight">\(min\)</span> and <span class="math notranslate nohighlight">\(max\)</span> value (e.g. 0 and 1)</p></li>
@@ -1535,8 +1496,8 @@ $<span class="math notranslate nohighlight">\(\mathbf{x}_{new} = \frac{\mathbf{x
 <img alt="../_images/06 - Data Preprocessing_12_0.png" src="../_images/06 - Data Preprocessing_12_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="robust-scaling">
+</section>
+<section id="robust-scaling">
 <h3>Robust scaling<a class="headerlink" href="#robust-scaling" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Subtracts the median, scales between quantiles <span class="math notranslate nohighlight">\(q_{25}\)</span> and <span class="math notranslate nohighlight">\(q_{75}\)</span></p></li>
@@ -1553,8 +1514,8 @@ $<span class="math notranslate nohighlight">\(\mathbf{x}_{new} = \frac{\mathbf{x
 <img alt="../_images/06 - Data Preprocessing_14_0.png" src="../_images/06 - Data Preprocessing_14_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="normalization">
+</section>
+<section id="normalization">
 <h3>Normalization<a class="headerlink" href="#normalization" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Makes sure that feature values of each point (each row) sum up to 1 (L1 norm)</p>
@@ -1579,8 +1540,8 @@ $<span class="math notranslate nohighlight">\(\mathbf{x}_{new} = \frac{\mathbf{x
 <img alt="../_images/06 - Data Preprocessing_16_0.png" src="../_images/06 - Data Preprocessing_16_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="maximum-absolute-scaler">
+</section>
+<section id="maximum-absolute-scaler">
 <h3>Maximum Absolute scaler<a class="headerlink" href="#maximum-absolute-scaler" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>For sparse data (many features, but few are non-zero)</p>
@@ -1601,8 +1562,8 @@ $<span class="math notranslate nohighlight">\(\mathbf{x}_{new} = \frac{\mathbf{x
 <img alt="../_images/06 - Data Preprocessing_18_0.png" src="../_images/06 - Data Preprocessing_18_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="power-transformations">
+</section>
+<section id="power-transformations">
 <h3>Power transformations<a class="headerlink" href="#power-transformations" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Some features follow certain distributions</p>
@@ -1676,9 +1637,9 @@ $<span class="math notranslate nohighlight">\(bc_{\lambda}(x) = \begin{cases} lo
 <img alt="../_images/06 - Data Preprocessing_20_0.png" src="../_images/06 - Data Preprocessing_20_0.png" />
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="categorical-feature-encoding">
+</section>
+</section>
+<section id="categorical-feature-encoding">
 <h2>Categorical feature encoding<a class="headerlink" href="#categorical-feature-encoding" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Many algorithms can only handle numeric features, so we need to encode the categorical ones</p></li>
@@ -1708,64 +1669,64 @@ $<span class="math notranslate nohighlight">\(bc_{\lambda}(x) = \begin{cases} lo
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html"><style type="text/css">
-#T_41a26 th {
+#T_6b8cb th {
   font-size: 12;
 }
-#T_41a26 td {
+#T_6b8cb td {
   font-size: 12;
 }
 </style>
-<table id="T_41a26">
+<table id="T_6b8cb">
   <thead>
     <tr>
       <th class="blank level0" >&nbsp;</th>
-      <th id="T_41a26_level0_col0" class="col_heading level0 col0" >boro</th>
-      <th id="T_41a26_level0_col1" class="col_heading level0 col1" >salary</th>
-      <th id="T_41a26_level0_col2" class="col_heading level0 col2" >vegan</th>
+      <th id="T_6b8cb_level0_col0" class="col_heading level0 col0" >boro</th>
+      <th id="T_6b8cb_level0_col1" class="col_heading level0 col1" >salary</th>
+      <th id="T_6b8cb_level0_col2" class="col_heading level0 col2" >vegan</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th id="T_41a26_level0_row0" class="row_heading level0 row0" >0</th>
-      <td id="T_41a26_row0_col0" class="data row0 col0" >Manhattan</td>
-      <td id="T_41a26_row0_col1" class="data row0 col1" >103</td>
-      <td id="T_41a26_row0_col2" class="data row0 col2" >0</td>
+      <th id="T_6b8cb_level0_row0" class="row_heading level0 row0" >0</th>
+      <td id="T_6b8cb_row0_col0" class="data row0 col0" >Manhattan</td>
+      <td id="T_6b8cb_row0_col1" class="data row0 col1" >103</td>
+      <td id="T_6b8cb_row0_col2" class="data row0 col2" >0</td>
     </tr>
     <tr>
-      <th id="T_41a26_level0_row1" class="row_heading level0 row1" >1</th>
-      <td id="T_41a26_row1_col0" class="data row1 col0" >Queens</td>
-      <td id="T_41a26_row1_col1" class="data row1 col1" >89</td>
-      <td id="T_41a26_row1_col2" class="data row1 col2" >0</td>
+      <th id="T_6b8cb_level0_row1" class="row_heading level0 row1" >1</th>
+      <td id="T_6b8cb_row1_col0" class="data row1 col0" >Queens</td>
+      <td id="T_6b8cb_row1_col1" class="data row1 col1" >89</td>
+      <td id="T_6b8cb_row1_col2" class="data row1 col2" >0</td>
     </tr>
     <tr>
-      <th id="T_41a26_level0_row2" class="row_heading level0 row2" >2</th>
-      <td id="T_41a26_row2_col0" class="data row2 col0" >Manhattan</td>
-      <td id="T_41a26_row2_col1" class="data row2 col1" >142</td>
-      <td id="T_41a26_row2_col2" class="data row2 col2" >0</td>
+      <th id="T_6b8cb_level0_row2" class="row_heading level0 row2" >2</th>
+      <td id="T_6b8cb_row2_col0" class="data row2 col0" >Manhattan</td>
+      <td id="T_6b8cb_row2_col1" class="data row2 col1" >142</td>
+      <td id="T_6b8cb_row2_col2" class="data row2 col2" >0</td>
     </tr>
     <tr>
-      <th id="T_41a26_level0_row3" class="row_heading level0 row3" >3</th>
-      <td id="T_41a26_row3_col0" class="data row3 col0" >Brooklyn</td>
-      <td id="T_41a26_row3_col1" class="data row3 col1" >54</td>
-      <td id="T_41a26_row3_col2" class="data row3 col2" >1</td>
+      <th id="T_6b8cb_level0_row3" class="row_heading level0 row3" >3</th>
+      <td id="T_6b8cb_row3_col0" class="data row3 col0" >Brooklyn</td>
+      <td id="T_6b8cb_row3_col1" class="data row3 col1" >54</td>
+      <td id="T_6b8cb_row3_col2" class="data row3 col2" >1</td>
     </tr>
     <tr>
-      <th id="T_41a26_level0_row4" class="row_heading level0 row4" >4</th>
-      <td id="T_41a26_row4_col0" class="data row4 col0" >Brooklyn</td>
-      <td id="T_41a26_row4_col1" class="data row4 col1" >63</td>
-      <td id="T_41a26_row4_col2" class="data row4 col2" >1</td>
+      <th id="T_6b8cb_level0_row4" class="row_heading level0 row4" >4</th>
+      <td id="T_6b8cb_row4_col0" class="data row4 col0" >Brooklyn</td>
+      <td id="T_6b8cb_row4_col1" class="data row4 col1" >63</td>
+      <td id="T_6b8cb_row4_col2" class="data row4 col2" >1</td>
     </tr>
     <tr>
-      <th id="T_41a26_level0_row5" class="row_heading level0 row5" >5</th>
-      <td id="T_41a26_row5_col0" class="data row5 col0" >Bronx</td>
-      <td id="T_41a26_row5_col1" class="data row5 col1" >219</td>
-      <td id="T_41a26_row5_col2" class="data row5 col2" >0</td>
+      <th id="T_6b8cb_level0_row5" class="row_heading level0 row5" >5</th>
+      <td id="T_6b8cb_row5_col0" class="data row5 col0" >Bronx</td>
+      <td id="T_6b8cb_row5_col1" class="data row5 col1" >219</td>
+      <td id="T_6b8cb_row5_col2" class="data row5 col2" >0</td>
     </tr>
   </tbody>
 </table>
 </div></div>
 </div>
-<div class="section" id="ordinal-encoding">
+<section id="ordinal-encoding">
 <h3>Ordinal encoding<a class="headerlink" href="#ordinal-encoding" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Simply assigns an integer value to each category in the order they are encountered</p></li>
@@ -1795,65 +1756,65 @@ $<span class="math notranslate nohighlight">\(bc_{\lambda}(x) = \begin{cases} lo
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html"><style type="text/css">
-#T_2aa13 th {
+#T_1a1da th {
   font-size: 12;
 }
-#T_2aa13 td {
+#T_1a1da td {
   font-size: 12;
 }
 </style>
-<table id="T_2aa13">
+<table id="T_1a1da">
   <thead>
     <tr>
       <th class="blank level0" >&nbsp;</th>
-      <th id="T_2aa13_level0_col0" class="col_heading level0 col0" >boro</th>
-      <th id="T_2aa13_level0_col1" class="col_heading level0 col1" >boro_ordinal</th>
-      <th id="T_2aa13_level0_col2" class="col_heading level0 col2" >salary</th>
+      <th id="T_1a1da_level0_col0" class="col_heading level0 col0" >boro</th>
+      <th id="T_1a1da_level0_col1" class="col_heading level0 col1" >boro_ordinal</th>
+      <th id="T_1a1da_level0_col2" class="col_heading level0 col2" >salary</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th id="T_2aa13_level0_row0" class="row_heading level0 row0" >0</th>
-      <td id="T_2aa13_row0_col0" class="data row0 col0" >Manhattan</td>
-      <td id="T_2aa13_row0_col1" class="data row0 col1" >2</td>
-      <td id="T_2aa13_row0_col2" class="data row0 col2" >103</td>
+      <th id="T_1a1da_level0_row0" class="row_heading level0 row0" >0</th>
+      <td id="T_1a1da_row0_col0" class="data row0 col0" >Manhattan</td>
+      <td id="T_1a1da_row0_col1" class="data row0 col1" >2</td>
+      <td id="T_1a1da_row0_col2" class="data row0 col2" >103</td>
     </tr>
     <tr>
-      <th id="T_2aa13_level0_row1" class="row_heading level0 row1" >1</th>
-      <td id="T_2aa13_row1_col0" class="data row1 col0" >Queens</td>
-      <td id="T_2aa13_row1_col1" class="data row1 col1" >3</td>
-      <td id="T_2aa13_row1_col2" class="data row1 col2" >89</td>
+      <th id="T_1a1da_level0_row1" class="row_heading level0 row1" >1</th>
+      <td id="T_1a1da_row1_col0" class="data row1 col0" >Queens</td>
+      <td id="T_1a1da_row1_col1" class="data row1 col1" >3</td>
+      <td id="T_1a1da_row1_col2" class="data row1 col2" >89</td>
     </tr>
     <tr>
-      <th id="T_2aa13_level0_row2" class="row_heading level0 row2" >2</th>
-      <td id="T_2aa13_row2_col0" class="data row2 col0" >Manhattan</td>
-      <td id="T_2aa13_row2_col1" class="data row2 col1" >2</td>
-      <td id="T_2aa13_row2_col2" class="data row2 col2" >142</td>
+      <th id="T_1a1da_level0_row2" class="row_heading level0 row2" >2</th>
+      <td id="T_1a1da_row2_col0" class="data row2 col0" >Manhattan</td>
+      <td id="T_1a1da_row2_col1" class="data row2 col1" >2</td>
+      <td id="T_1a1da_row2_col2" class="data row2 col2" >142</td>
     </tr>
     <tr>
-      <th id="T_2aa13_level0_row3" class="row_heading level0 row3" >3</th>
-      <td id="T_2aa13_row3_col0" class="data row3 col0" >Brooklyn</td>
-      <td id="T_2aa13_row3_col1" class="data row3 col1" >1</td>
-      <td id="T_2aa13_row3_col2" class="data row3 col2" >54</td>
+      <th id="T_1a1da_level0_row3" class="row_heading level0 row3" >3</th>
+      <td id="T_1a1da_row3_col0" class="data row3 col0" >Brooklyn</td>
+      <td id="T_1a1da_row3_col1" class="data row3 col1" >1</td>
+      <td id="T_1a1da_row3_col2" class="data row3 col2" >54</td>
     </tr>
     <tr>
-      <th id="T_2aa13_level0_row4" class="row_heading level0 row4" >4</th>
-      <td id="T_2aa13_row4_col0" class="data row4 col0" >Brooklyn</td>
-      <td id="T_2aa13_row4_col1" class="data row4 col1" >1</td>
-      <td id="T_2aa13_row4_col2" class="data row4 col2" >63</td>
+      <th id="T_1a1da_level0_row4" class="row_heading level0 row4" >4</th>
+      <td id="T_1a1da_row4_col0" class="data row4 col0" >Brooklyn</td>
+      <td id="T_1a1da_row4_col1" class="data row4 col1" >1</td>
+      <td id="T_1a1da_row4_col2" class="data row4 col2" >63</td>
     </tr>
     <tr>
-      <th id="T_2aa13_level0_row5" class="row_heading level0 row5" >5</th>
-      <td id="T_2aa13_row5_col0" class="data row5 col0" >Bronx</td>
-      <td id="T_2aa13_row5_col1" class="data row5 col1" >0</td>
-      <td id="T_2aa13_row5_col2" class="data row5 col2" >219</td>
+      <th id="T_1a1da_level0_row5" class="row_heading level0 row5" >5</th>
+      <td id="T_1a1da_row5_col0" class="data row5 col0" >Bronx</td>
+      <td id="T_1a1da_row5_col1" class="data row5 col1" >0</td>
+      <td id="T_1a1da_row5_col2" class="data row5 col2" >219</td>
     </tr>
   </tbody>
 </table>
 </div></div>
 </div>
-</div>
-<div class="section" id="one-hot-encoding-dummy-encoding">
+</section>
+<section id="one-hot-encoding-dummy-encoding">
 <h3>One-hot encoding (dummy encoding)<a class="headerlink" href="#one-hot-encoding-dummy-encoding" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Simply adds a new 0/1 feature for every category, having 1 (hot) if the sample has that category</p></li>
@@ -1883,86 +1844,86 @@ $<span class="math notranslate nohighlight">\(bc_{\lambda}(x) = \begin{cases} lo
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html"><style type="text/css">
-#T_2bef7 th {
+#T_2d690 th {
   font-size: 12;
 }
-#T_2bef7 td {
+#T_2d690 td {
   font-size: 12;
 }
 </style>
-<table id="T_2bef7">
+<table id="T_2d690">
   <thead>
     <tr>
       <th class="blank level0" >&nbsp;</th>
-      <th id="T_2bef7_level0_col0" class="col_heading level0 col0" >boro</th>
-      <th id="T_2bef7_level0_col1" class="col_heading level0 col1" >boro_Bronx</th>
-      <th id="T_2bef7_level0_col2" class="col_heading level0 col2" >boro_Brooklyn</th>
-      <th id="T_2bef7_level0_col3" class="col_heading level0 col3" >boro_Manhattan</th>
-      <th id="T_2bef7_level0_col4" class="col_heading level0 col4" >boro_Queens</th>
-      <th id="T_2bef7_level0_col5" class="col_heading level0 col5" >salary</th>
+      <th id="T_2d690_level0_col0" class="col_heading level0 col0" >boro</th>
+      <th id="T_2d690_level0_col1" class="col_heading level0 col1" >boro_Bronx</th>
+      <th id="T_2d690_level0_col2" class="col_heading level0 col2" >boro_Brooklyn</th>
+      <th id="T_2d690_level0_col3" class="col_heading level0 col3" >boro_Manhattan</th>
+      <th id="T_2d690_level0_col4" class="col_heading level0 col4" >boro_Queens</th>
+      <th id="T_2d690_level0_col5" class="col_heading level0 col5" >salary</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th id="T_2bef7_level0_row0" class="row_heading level0 row0" >0</th>
-      <td id="T_2bef7_row0_col0" class="data row0 col0" >Manhattan</td>
-      <td id="T_2bef7_row0_col1" class="data row0 col1" >0</td>
-      <td id="T_2bef7_row0_col2" class="data row0 col2" >0</td>
-      <td id="T_2bef7_row0_col3" class="data row0 col3" >1</td>
-      <td id="T_2bef7_row0_col4" class="data row0 col4" >0</td>
-      <td id="T_2bef7_row0_col5" class="data row0 col5" >103</td>
+      <th id="T_2d690_level0_row0" class="row_heading level0 row0" >0</th>
+      <td id="T_2d690_row0_col0" class="data row0 col0" >Manhattan</td>
+      <td id="T_2d690_row0_col1" class="data row0 col1" >0</td>
+      <td id="T_2d690_row0_col2" class="data row0 col2" >0</td>
+      <td id="T_2d690_row0_col3" class="data row0 col3" >1</td>
+      <td id="T_2d690_row0_col4" class="data row0 col4" >0</td>
+      <td id="T_2d690_row0_col5" class="data row0 col5" >103</td>
     </tr>
     <tr>
-      <th id="T_2bef7_level0_row1" class="row_heading level0 row1" >1</th>
-      <td id="T_2bef7_row1_col0" class="data row1 col0" >Queens</td>
-      <td id="T_2bef7_row1_col1" class="data row1 col1" >0</td>
-      <td id="T_2bef7_row1_col2" class="data row1 col2" >0</td>
-      <td id="T_2bef7_row1_col3" class="data row1 col3" >0</td>
-      <td id="T_2bef7_row1_col4" class="data row1 col4" >1</td>
-      <td id="T_2bef7_row1_col5" class="data row1 col5" >89</td>
+      <th id="T_2d690_level0_row1" class="row_heading level0 row1" >1</th>
+      <td id="T_2d690_row1_col0" class="data row1 col0" >Queens</td>
+      <td id="T_2d690_row1_col1" class="data row1 col1" >0</td>
+      <td id="T_2d690_row1_col2" class="data row1 col2" >0</td>
+      <td id="T_2d690_row1_col3" class="data row1 col3" >0</td>
+      <td id="T_2d690_row1_col4" class="data row1 col4" >1</td>
+      <td id="T_2d690_row1_col5" class="data row1 col5" >89</td>
     </tr>
     <tr>
-      <th id="T_2bef7_level0_row2" class="row_heading level0 row2" >2</th>
-      <td id="T_2bef7_row2_col0" class="data row2 col0" >Manhattan</td>
-      <td id="T_2bef7_row2_col1" class="data row2 col1" >0</td>
-      <td id="T_2bef7_row2_col2" class="data row2 col2" >0</td>
-      <td id="T_2bef7_row2_col3" class="data row2 col3" >1</td>
-      <td id="T_2bef7_row2_col4" class="data row2 col4" >0</td>
-      <td id="T_2bef7_row2_col5" class="data row2 col5" >142</td>
+      <th id="T_2d690_level0_row2" class="row_heading level0 row2" >2</th>
+      <td id="T_2d690_row2_col0" class="data row2 col0" >Manhattan</td>
+      <td id="T_2d690_row2_col1" class="data row2 col1" >0</td>
+      <td id="T_2d690_row2_col2" class="data row2 col2" >0</td>
+      <td id="T_2d690_row2_col3" class="data row2 col3" >1</td>
+      <td id="T_2d690_row2_col4" class="data row2 col4" >0</td>
+      <td id="T_2d690_row2_col5" class="data row2 col5" >142</td>
     </tr>
     <tr>
-      <th id="T_2bef7_level0_row3" class="row_heading level0 row3" >3</th>
-      <td id="T_2bef7_row3_col0" class="data row3 col0" >Brooklyn</td>
-      <td id="T_2bef7_row3_col1" class="data row3 col1" >0</td>
-      <td id="T_2bef7_row3_col2" class="data row3 col2" >1</td>
-      <td id="T_2bef7_row3_col3" class="data row3 col3" >0</td>
-      <td id="T_2bef7_row3_col4" class="data row3 col4" >0</td>
-      <td id="T_2bef7_row3_col5" class="data row3 col5" >54</td>
+      <th id="T_2d690_level0_row3" class="row_heading level0 row3" >3</th>
+      <td id="T_2d690_row3_col0" class="data row3 col0" >Brooklyn</td>
+      <td id="T_2d690_row3_col1" class="data row3 col1" >0</td>
+      <td id="T_2d690_row3_col2" class="data row3 col2" >1</td>
+      <td id="T_2d690_row3_col3" class="data row3 col3" >0</td>
+      <td id="T_2d690_row3_col4" class="data row3 col4" >0</td>
+      <td id="T_2d690_row3_col5" class="data row3 col5" >54</td>
     </tr>
     <tr>
-      <th id="T_2bef7_level0_row4" class="row_heading level0 row4" >4</th>
-      <td id="T_2bef7_row4_col0" class="data row4 col0" >Brooklyn</td>
-      <td id="T_2bef7_row4_col1" class="data row4 col1" >0</td>
-      <td id="T_2bef7_row4_col2" class="data row4 col2" >1</td>
-      <td id="T_2bef7_row4_col3" class="data row4 col3" >0</td>
-      <td id="T_2bef7_row4_col4" class="data row4 col4" >0</td>
-      <td id="T_2bef7_row4_col5" class="data row4 col5" >63</td>
+      <th id="T_2d690_level0_row4" class="row_heading level0 row4" >4</th>
+      <td id="T_2d690_row4_col0" class="data row4 col0" >Brooklyn</td>
+      <td id="T_2d690_row4_col1" class="data row4 col1" >0</td>
+      <td id="T_2d690_row4_col2" class="data row4 col2" >1</td>
+      <td id="T_2d690_row4_col3" class="data row4 col3" >0</td>
+      <td id="T_2d690_row4_col4" class="data row4 col4" >0</td>
+      <td id="T_2d690_row4_col5" class="data row4 col5" >63</td>
     </tr>
     <tr>
-      <th id="T_2bef7_level0_row5" class="row_heading level0 row5" >5</th>
-      <td id="T_2bef7_row5_col0" class="data row5 col0" >Bronx</td>
-      <td id="T_2bef7_row5_col1" class="data row5 col1" >1</td>
-      <td id="T_2bef7_row5_col2" class="data row5 col2" >0</td>
-      <td id="T_2bef7_row5_col3" class="data row5 col3" >0</td>
-      <td id="T_2bef7_row5_col4" class="data row5 col4" >0</td>
-      <td id="T_2bef7_row5_col5" class="data row5 col5" >219</td>
+      <th id="T_2d690_level0_row5" class="row_heading level0 row5" >5</th>
+      <td id="T_2d690_row5_col0" class="data row5 col0" >Bronx</td>
+      <td id="T_2d690_row5_col1" class="data row5 col1" >1</td>
+      <td id="T_2d690_row5_col2" class="data row5 col2" >0</td>
+      <td id="T_2d690_row5_col3" class="data row5 col3" >0</td>
+      <td id="T_2d690_row5_col4" class="data row5 col4" >0</td>
+      <td id="T_2d690_row5_col5" class="data row5 col5" >219</td>
     </tr>
   </tbody>
 </table>
 </div></div>
 </div>
-</div>
-<div class="section" id="target-encoding">
+</section>
+<section id="target-encoding">
 <h3>Target encoding<a class="headerlink" href="#target-encoding" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Value close to 1 if category correlates with class 1, close to 0 if correlates with class 0</p></li>
@@ -2006,7 +1967,7 @@ $<span class="math notranslate nohighlight">\(Enc(i) = \color{blue}{\frac{1}{1+e
 <img alt="../_images/06 - Data Preprocessing_29_0.png" src="../_images/06 - Data Preprocessing_29_0.png" />
 </div>
 </div>
-<div class="section" id="example">
+<section id="example">
 <h4>Example<a class="headerlink" href="#example" title="Permalink to this headline">#</a></h4>
 <ul class="simple">
 <li><p>For Brooklyn, <span class="math notranslate nohighlight">\(n_{iY}=2, n_{i}=2, n_{Y}=2, n=6\)</span></p></li>
@@ -2032,73 +1993,73 @@ $<span class="math notranslate nohighlight">\(Enc(Brooklyn) = \frac{1}{1+e^{-1}}
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html"><style type="text/css">
-#T_b44ae th {
+#T_baeb5 th {
   font-size: 12;
 }
-#T_b44ae td {
+#T_baeb5 td {
   font-size: 12;
 }
 </style>
-<table id="T_b44ae">
+<table id="T_baeb5">
   <thead>
     <tr>
       <th class="blank level0" >&nbsp;</th>
-      <th id="T_b44ae_level0_col0" class="col_heading level0 col0" >boro</th>
-      <th id="T_b44ae_level0_col1" class="col_heading level0 col1" >boro_encoded</th>
-      <th id="T_b44ae_level0_col2" class="col_heading level0 col2" >salary</th>
-      <th id="T_b44ae_level0_col3" class="col_heading level0 col3" >vegan</th>
+      <th id="T_baeb5_level0_col0" class="col_heading level0 col0" >boro</th>
+      <th id="T_baeb5_level0_col1" class="col_heading level0 col1" >boro_encoded</th>
+      <th id="T_baeb5_level0_col2" class="col_heading level0 col2" >salary</th>
+      <th id="T_baeb5_level0_col3" class="col_heading level0 col3" >vegan</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th id="T_b44ae_level0_row0" class="row_heading level0 row0" >0</th>
-      <td id="T_b44ae_row0_col0" class="data row0 col0" >Manhattan</td>
-      <td id="T_b44ae_row0_col1" class="data row0 col1" >0.089647</td>
-      <td id="T_b44ae_row0_col2" class="data row0 col2" >103</td>
-      <td id="T_b44ae_row0_col3" class="data row0 col3" >0</td>
+      <th id="T_baeb5_level0_row0" class="row_heading level0 row0" >0</th>
+      <td id="T_baeb5_row0_col0" class="data row0 col0" >Manhattan</td>
+      <td id="T_baeb5_row0_col1" class="data row0 col1" >0.286050</td>
+      <td id="T_baeb5_row0_col2" class="data row0 col2" >103</td>
+      <td id="T_baeb5_row0_col3" class="data row0 col3" >0</td>
     </tr>
     <tr>
-      <th id="T_b44ae_level0_row1" class="row_heading level0 row1" >1</th>
-      <td id="T_b44ae_row1_col0" class="data row1 col0" >Queens</td>
-      <td id="T_b44ae_row1_col1" class="data row1 col1" >0.333333</td>
-      <td id="T_b44ae_row1_col2" class="data row1 col2" >89</td>
-      <td id="T_b44ae_row1_col3" class="data row1 col3" >0</td>
+      <th id="T_baeb5_level0_row1" class="row_heading level0 row1" >1</th>
+      <td id="T_baeb5_row1_col0" class="data row1 col0" >Queens</td>
+      <td id="T_baeb5_row1_col1" class="data row1 col1" >0.289964</td>
+      <td id="T_baeb5_row1_col2" class="data row1 col2" >89</td>
+      <td id="T_baeb5_row1_col3" class="data row1 col3" >0</td>
     </tr>
     <tr>
-      <th id="T_b44ae_level0_row2" class="row_heading level0 row2" >2</th>
-      <td id="T_b44ae_row2_col0" class="data row2 col0" >Manhattan</td>
-      <td id="T_b44ae_row2_col1" class="data row2 col1" >0.089647</td>
-      <td id="T_b44ae_row2_col2" class="data row2 col2" >142</td>
-      <td id="T_b44ae_row2_col3" class="data row2 col3" >0</td>
+      <th id="T_baeb5_level0_row2" class="row_heading level0 row2" >2</th>
+      <td id="T_baeb5_row2_col0" class="data row2 col0" >Manhattan</td>
+      <td id="T_baeb5_row2_col1" class="data row2 col1" >0.286050</td>
+      <td id="T_baeb5_row2_col2" class="data row2 col2" >142</td>
+      <td id="T_baeb5_row2_col3" class="data row2 col3" >0</td>
     </tr>
     <tr>
-      <th id="T_b44ae_level0_row3" class="row_heading level0 row3" >3</th>
-      <td id="T_b44ae_row3_col0" class="data row3 col0" >Brooklyn</td>
-      <td id="T_b44ae_row3_col1" class="data row3 col1" >0.820706</td>
-      <td id="T_b44ae_row3_col2" class="data row3 col2" >54</td>
-      <td id="T_b44ae_row3_col3" class="data row3 col3" >1</td>
+      <th id="T_baeb5_level0_row3" class="row_heading level0 row3" >3</th>
+      <td id="T_baeb5_row3_col0" class="data row3 col0" >Brooklyn</td>
+      <td id="T_baeb5_row3_col1" class="data row3 col1" >0.427901</td>
+      <td id="T_baeb5_row3_col2" class="data row3 col2" >54</td>
+      <td id="T_baeb5_row3_col3" class="data row3 col3" >1</td>
     </tr>
     <tr>
-      <th id="T_b44ae_level0_row4" class="row_heading level0 row4" >4</th>
-      <td id="T_b44ae_row4_col0" class="data row4 col0" >Brooklyn</td>
-      <td id="T_b44ae_row4_col1" class="data row4 col1" >0.820706</td>
-      <td id="T_b44ae_row4_col2" class="data row4 col2" >63</td>
-      <td id="T_b44ae_row4_col3" class="data row4 col3" >1</td>
+      <th id="T_baeb5_level0_row4" class="row_heading level0 row4" >4</th>
+      <td id="T_baeb5_row4_col0" class="data row4 col0" >Brooklyn</td>
+      <td id="T_baeb5_row4_col1" class="data row4 col1" >0.427901</td>
+      <td id="T_baeb5_row4_col2" class="data row4 col2" >63</td>
+      <td id="T_baeb5_row4_col3" class="data row4 col3" >1</td>
     </tr>
     <tr>
-      <th id="T_b44ae_level0_row5" class="row_heading level0 row5" >5</th>
-      <td id="T_b44ae_row5_col0" class="data row5 col0" >Bronx</td>
-      <td id="T_b44ae_row5_col1" class="data row5 col1" >0.333333</td>
-      <td id="T_b44ae_row5_col2" class="data row5 col2" >219</td>
-      <td id="T_b44ae_row5_col3" class="data row5 col3" >0</td>
+      <th id="T_baeb5_level0_row5" class="row_heading level0 row5" >5</th>
+      <td id="T_baeb5_row5_col0" class="data row5 col0" >Bronx</td>
+      <td id="T_baeb5_row5_col1" class="data row5 col1" >0.289964</td>
+      <td id="T_baeb5_row5_col2" class="data row5 col2" >219</td>
+      <td id="T_baeb5_row5_col3" class="data row5 col3" >0</td>
     </tr>
   </tbody>
 </table>
 </div></div>
 </div>
-</div>
-</div>
-<div class="section" id="in-practice-scikit-learn">
+</section>
+</section>
+<section id="in-practice-scikit-learn">
 <h3>In practice (scikit-learn)<a class="headerlink" href="#in-practice-scikit-learn" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Ordinal encoding and one-hot encoding are implemented in scikit-learn</p>
@@ -2134,9 +2095,9 @@ $<span class="math notranslate nohighlight">\(Enc(Brooklyn) = \frac{1}{1+e^{-1}}
 <span class="n">X_encoded</span> <span class="o">=</span> <span class="n">encoder</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="applying-data-transformations">
+</section>
+</section>
+<section id="applying-data-transformations">
 <h2>Applying data transformations<a class="headerlink" href="#applying-data-transformations" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Data transformations should always follow a fit-predict paradigm</p>
@@ -2163,7 +2124,7 @@ $<span class="math notranslate nohighlight">\(Enc(Brooklyn) = \frac{1}{1+e^{-1}}
 </ul>
 </li>
 </ul>
-<div class="section" id="id1">
+<section id="id1">
 <h3>In practice (scikit-learn)<a class="headerlink" href="#id1" title="Permalink to this headline">#</a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># choose scaling method and fit on training data</span>
 <span class="n">scaler</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
@@ -2180,8 +2141,8 @@ $<span class="math notranslate nohighlight">\(Enc(Brooklyn) = \frac{1}{1+e^{-1}}
 <span class="n">X_train_scaled</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="test-set-distortion">
+</section>
+<section id="test-set-distortion">
 <h3>Test set distortion<a class="headerlink" href="#test-set-distortion" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Properly scaled: <code class="docutils literal notranslate"><span class="pre">fit</span></code> on training set, <code class="docutils literal notranslate"><span class="pre">transform</span></code> on training and test set</p></li>
@@ -2249,8 +2210,8 @@ $<span class="math notranslate nohighlight">\(Enc(Brooklyn) = \frac{1}{1+e^{-1}}
 <img alt="../_images/06 - Data Preprocessing_37_0.png" src="../_images/06 - Data Preprocessing_37_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="data-leakage">
+</section>
+<section id="data-leakage">
 <h3>Data leakage<a class="headerlink" href="#data-leakage" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Cross-validation: training set is split into training and validation sets for model selection</p></li>
@@ -2261,8 +2222,8 @@ $<span class="math notranslate nohighlight">\(Enc(Brooklyn) = \frac{1}{1+e^{-1}}
 </li>
 <li><p>Right: Scaler is fit on training folds only</p></li>
 </ul>
-<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/infoleak.png" alt="ml" style="width: 1500px;"/></div>
-<div class="section" id="pipelines">
+<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/infoleak.png" alt="ml" style="width: 1500px;"/></section>
+<section id="pipelines">
 <h3>Pipelines<a class="headerlink" href="#pipelines" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>A pipeline is a combination of data transformation and learning algorithms</p></li>
@@ -2272,7 +2233,7 @@ $<span class="math notranslate nohighlight">\(Enc(Brooklyn) = \frac{1}{1+e^{-1}}
 </ul>
 </li>
 </ul>
-<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/07_pipelines.png" alt="ml" style="width: 600px;"/><div class="section" id="id2">
+<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/07_pipelines.png" alt="ml" style="width: 600px;"/><section id="id2">
 <h4>In practice (scikit-learn)<a class="headerlink" href="#id2" title="Permalink to this headline">#</a></h4>
 <ul class="simple">
 <li><p>A <code class="docutils literal notranslate"><span class="pre">pipeline</span></code> combines multiple processing <em>steps</em> in a single estimator</p></li>
@@ -2325,8 +2286,8 @@ pipe = make_pipeline(preprocessor, LinearSVC())
                                <span class="p">(</span><span class="n">OneHotEncoder</span><span class="p">(),</span><span class="n">categorical_features</span><span class="p">))</span>
 </pre></div>
 </div>
-<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/columntransformer.png" alt="ml" style="width: 900px;"/></div>
-<div class="section" id="pipeline-selection">
+<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/columntransformer.png" alt="ml" style="width: 900px;"/></section>
+<section id="pipeline-selection">
 <h4>Pipeline selection<a class="headerlink" href="#pipeline-selection" title="Permalink to this headline">#</a></h4>
 <ul class="simple">
 <li><p>We can safely use pipelines in model selection (e.g. grid search)</p></li>
@@ -2345,8 +2306,8 @@ pipe = make_pipeline(preprocessor, LinearSVC())
 
 </pre></div>
 </div>
-</div>
-<div class="section" id="example-tune-multiple-steps-at-once">
+</section>
+<section id="example-tune-multiple-steps-at-once">
 <h4>Example: Tune multiple steps at once<a class="headerlink" href="#example-tune-multiple-steps-at-once" title="Permalink to this headline">#</a></h4>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pipe</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">StandardScaler</span><span class="p">(),</span><span class="n">PolynomialFeatures</span><span class="p">(),</span> <span class="n">Ridge</span><span class="p">())</span>
 <span class="n">param_grid</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;polynomialfeatures__degree&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
@@ -2356,11 +2317,12 @@ pipe = make_pipeline(preprocessor, LinearSVC())
 </div>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_boston</span>
-<span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">make_pipeline</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">make_pipeline</span>
 <span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">Ridge</span>
 <span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">GridSearchCV</span>
-<span class="n">boston</span> <span class="o">=</span> <span class="n">load_boston</span><span class="p">()</span>
+<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">fetch_openml</span>
+
+<span class="n">boston</span> <span class="o">=</span> <span class="n">fetch_openml</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;boston&quot;</span><span class="p">,</span> <span class="n">as_frame</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">boston</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">boston</span><span class="o">.</span><span class="n">target</span><span class="p">,</span>
                                                     <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 <span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">PolynomialFeatures</span>
@@ -2388,10 +2350,10 @@ pipe = make_pipeline(preprocessor, LinearSVC())
 <img alt="../_images/06 - Data Preprocessing_47_0.png" src="../_images/06 - Data Preprocessing_47_0.png" />
 </div>
 </div>
-</div>
-</div>
-</div>
-<div class="section" id="automatic-feature-selection">
+</section>
+</section>
+</section>
+<section id="automatic-feature-selection">
 <h2>Automatic Feature Selection<a class="headerlink" href="#automatic-feature-selection" title="Permalink to this headline">#</a></h2>
 <p>It can be a good idea to reduce the number of features to only the most useful ones</p>
 <ul class="simple">
@@ -2410,7 +2372,7 @@ pipe = make_pipeline(preprocessor, LinearSVC())
 <li><p>Easier data collection, smaller models (less storage)</p></li>
 <li><p>More interpretable models: fewer features to look at</p></li>
 </ul>
-<div class="section" id="example-bike-sharing">
+<section id="example-bike-sharing">
 <h3>Example: bike sharing<a class="headerlink" href="#example-bike-sharing" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>The Bike Sharing Demand dataset shows the amount of bikes rented in Washington DC</p></li>
@@ -2426,6 +2388,10 @@ pipe = make_pipeline(preprocessor, LinearSVC())
 <span class="c1"># Get bike sharing data from OpenML</span>
 <span class="n">bikes</span> <span class="o">=</span> <span class="n">fetch_openml</span><span class="p">(</span><span class="n">data_id</span><span class="o">=</span><span class="mi">42713</span><span class="p">,</span> <span class="n">as_frame</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">X_bike_cat</span><span class="p">,</span> <span class="n">y_bike</span> <span class="o">=</span> <span class="n">bikes</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">bikes</span><span class="o">.</span><span class="n">target</span>
+
+<span class="c1"># Optional: take half of the data to speed up processing</span>
+<span class="n">X_bike_cat</span> <span class="o">=</span> <span class="n">X_bike_cat</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">frac</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">y_bike</span> <span class="o">=</span> <span class="n">y_bike</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">frac</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 
 <span class="c1"># One-hot encode the categorical features</span>
 <span class="n">encoder</span> <span class="o">=</span> <span class="n">OneHotEncoder</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
@@ -2480,8 +2446,8 @@ pipe = make_pipeline(preprocessor, LinearSVC())
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="unsupervised-feature-selection">
+</section>
+<section id="unsupervised-feature-selection">
 <h3>Unsupervised feature selection<a class="headerlink" href="#unsupervised-feature-selection" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Variance-based</p>
@@ -2525,7 +2491,7 @@ pipe = make_pipeline(preprocessor, LinearSVC())
 <img alt="../_images/06 - Data Preprocessing_55_0.png" src="../_images/06 - Data Preprocessing_55_0.png" />
 </div>
 </div>
-<div class="section" id="covariance-based-feature-selection">
+<section id="covariance-based-feature-selection">
 <h4>Covariance based feature selection<a class="headerlink" href="#covariance-based-feature-selection" title="Permalink to this headline">#</a></h4>
 <ul class="simple">
 <li><p>Remove features <span class="math notranslate nohighlight">\(X_i\)</span> (= <span class="math notranslate nohighlight">\(\mathbf{X_{:,i}}\)</span>) that are highly correlated (have high correlation coefficient <span class="math notranslate nohighlight">\(\rho\)</span>)
@@ -2564,6 +2530,7 @@ $<span class="math notranslate nohighlight">\(\rho (X_1,X_2)={\frac  {{\mathrm  
 <span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestRegressor</span>
 <span class="kn">from</span> <span class="nn">mlxtend.feature_selection</span> <span class="kn">import</span> <span class="n">SequentialFeatureSelector</span>
 <span class="kn">from</span> <span class="nn">sklearn.inspection</span> <span class="kn">import</span> <span class="n">permutation_importance</span>
+<span class="kn">from</span> <span class="nn">tqdm.notebook</span> <span class="kn">import</span> <span class="n">trange</span><span class="p">,</span> <span class="n">tqdm</span>
 
 <span class="c1"># Pre-compute all importances on bike sharing dataset</span>
 <span class="c1"># Scaled feature selection thresholds</span>
@@ -2593,7 +2560,7 @@ $<span class="math notranslate nohighlight">\(\rho (X_1,X_2)={\frac  {{\mathrm  
 <span class="n">fs</span><span class="p">[</span><span class="s1">&#39;FTest&#39;</span><span class="p">][</span><span class="s1">&#39;label&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;F test&quot;</span>
 <span class="n">fs</span><span class="p">[</span><span class="s1">&#39;FTest&#39;</span><span class="p">][</span><span class="s1">&#39;score&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">f_regression</span><span class="p">(</span><span class="n">scale</span><span class="p">(</span><span class="n">X_bike</span><span class="p">),</span><span class="n">y_bike</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 <span class="n">fs</span><span class="p">[</span><span class="s1">&#39;FTest&#39;</span><span class="p">][</span><span class="s1">&#39;scaled_score&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">fs</span><span class="p">[</span><span class="s1">&#39;FTest&#39;</span><span class="p">][</span><span class="s1">&#39;score&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">fs</span><span class="p">[</span><span class="s1">&#39;FTest&#39;</span><span class="p">][</span><span class="s1">&#39;score&#39;</span><span class="p">])</span>
-<span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">thresholds</span><span class="p">:</span>
+<span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">thresholds</span><span class="p">):</span>
     <span class="n">selector</span> <span class="o">=</span> <span class="n">SelectPercentile</span><span class="p">(</span><span class="n">score_func</span><span class="o">=</span><span class="n">f_regression</span><span class="p">,</span> <span class="n">percentile</span><span class="o">=</span><span class="n">t</span><span class="o">*</span><span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">scale</span><span class="p">(</span><span class="n">X_bike</span><span class="p">),</span> <span class="n">y_bike</span><span class="p">)</span>
     <span class="n">fs</span><span class="p">[</span><span class="s1">&#39;FTest&#39;</span><span class="p">][</span><span class="s1">&#39;select&#39;</span><span class="p">][</span><span class="n">t</span><span class="p">]</span> <span class="o">=</span> <span class="n">selector</span><span class="o">.</span><span class="n">get_support</span><span class="p">()</span>
     <span class="n">fs</span><span class="p">[</span><span class="s1">&#39;FTest&#39;</span><span class="p">][</span><span class="s1">&#39;cv_score&#39;</span><span class="p">][</span><span class="n">t</span><span class="p">]</span> <span class="o">=</span> <span class="n">cv_score</span><span class="p">(</span><span class="n">selector</span><span class="p">)</span>
@@ -2603,7 +2570,7 @@ $<span class="math notranslate nohighlight">\(\rho (X_1,X_2)={\frac  {{\mathrm  
 <span class="n">fs</span><span class="p">[</span><span class="s1">&#39;MutualInformation&#39;</span><span class="p">][</span><span class="s1">&#39;label&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Mutual Information&quot;</span>
 <span class="n">fs</span><span class="p">[</span><span class="s1">&#39;MutualInformation&#39;</span><span class="p">][</span><span class="s1">&#39;score&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">mutual_info_regression</span><span class="p">(</span><span class="n">scale</span><span class="p">(</span><span class="n">X_bike</span><span class="p">),</span><span class="n">y_bike</span><span class="p">,</span><span class="n">discrete_features</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">13</span><span class="p">))</span> <span class="c1"># first 13 features are discrete</span>
 <span class="n">fs</span><span class="p">[</span><span class="s1">&#39;MutualInformation&#39;</span><span class="p">][</span><span class="s1">&#39;scaled_score&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">fs</span><span class="p">[</span><span class="s1">&#39;MutualInformation&#39;</span><span class="p">][</span><span class="s1">&#39;score&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">fs</span><span class="p">[</span><span class="s1">&#39;MutualInformation&#39;</span><span class="p">][</span><span class="s1">&#39;score&#39;</span><span class="p">])</span>
-<span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">thresholds</span><span class="p">:</span>
+<span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">thresholds</span><span class="p">):</span>
     <span class="n">selector</span> <span class="o">=</span> <span class="n">SelectPercentile</span><span class="p">(</span><span class="n">score_func</span><span class="o">=</span><span class="n">mutual_info_regression</span><span class="p">,</span> <span class="n">percentile</span><span class="o">=</span><span class="n">t</span><span class="o">*</span><span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">scale</span><span class="p">(</span><span class="n">X_bike</span><span class="p">),</span> <span class="n">y_bike</span><span class="p">)</span>
     <span class="n">fs</span><span class="p">[</span><span class="s1">&#39;MutualInformation&#39;</span><span class="p">][</span><span class="s1">&#39;select&#39;</span><span class="p">][</span><span class="n">t</span><span class="p">]</span> <span class="o">=</span> <span class="n">selector</span><span class="o">.</span><span class="n">get_support</span><span class="p">()</span>
     <span class="n">fs</span><span class="p">[</span><span class="s1">&#39;MutualInformation&#39;</span><span class="p">][</span><span class="s1">&#39;cv_score&#39;</span><span class="p">][</span><span class="n">t</span><span class="p">]</span> <span class="o">=</span> <span class="n">cv_score</span><span class="p">(</span><span class="n">selector</span><span class="p">)</span>
@@ -2613,7 +2580,7 @@ $<span class="math notranslate nohighlight">\(\rho (X_1,X_2)={\frac  {{\mathrm  
 <span class="n">fs</span><span class="p">[</span><span class="s1">&#39;RandomForest&#39;</span><span class="p">][</span><span class="s1">&#39;label&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Random Forest&quot;</span>
 <span class="n">fs</span><span class="p">[</span><span class="s1">&#39;RandomForest&#39;</span><span class="p">][</span><span class="s1">&#39;score&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">randomforestCV</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_bike</span><span class="p">,</span> <span class="n">y_bike</span><span class="p">)</span><span class="o">.</span><span class="n">feature_importances_</span>
 <span class="n">fs</span><span class="p">[</span><span class="s1">&#39;RandomForest&#39;</span><span class="p">][</span><span class="s1">&#39;scaled_score&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">fs</span><span class="p">[</span><span class="s1">&#39;RandomForest&#39;</span><span class="p">][</span><span class="s1">&#39;score&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">fs</span><span class="p">[</span><span class="s1">&#39;RandomForest&#39;</span><span class="p">][</span><span class="s1">&#39;score&#39;</span><span class="p">])</span>
-<span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">thresholds</span><span class="p">:</span>
+<span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">thresholds</span><span class="p">):</span>
     <span class="n">selector</span> <span class="o">=</span> <span class="n">SelectFromModel</span><span class="p">(</span><span class="n">randomforestCV</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">*mean&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">((</span><span class="mi">1</span><span class="o">-</span><span class="n">t</span><span class="p">)))</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_bike</span><span class="p">,</span> <span class="n">y_bike</span><span class="p">)</span> <span class="c1"># Threshold can&#39;t be easily scaled here</span>
     <span class="n">fs</span><span class="p">[</span><span class="s1">&#39;RandomForest&#39;</span><span class="p">][</span><span class="s1">&#39;select&#39;</span><span class="p">][</span><span class="n">t</span><span class="p">]</span> <span class="o">=</span> <span class="n">selector</span><span class="o">.</span><span class="n">get_support</span><span class="p">()</span>
     <span class="n">fs</span><span class="p">[</span><span class="s1">&#39;RandomForest&#39;</span><span class="p">][</span><span class="s1">&#39;cv_score&#39;</span><span class="p">][</span><span class="n">t</span><span class="p">]</span> <span class="o">=</span> <span class="n">cv_score</span><span class="p">(</span><span class="n">selector</span><span class="p">)</span>
@@ -2625,7 +2592,7 @@ $<span class="math notranslate nohighlight">\(\rho (X_1,X_2)={\frac  {{\mathrm  
     <span class="n">fs</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="s1">&#39;label&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">name</span>
     <span class="n">fs</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="s1">&#39;score&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_bike</span><span class="p">,</span> <span class="n">y_bike</span><span class="p">)</span><span class="o">.</span><span class="n">coef_</span>
     <span class="n">fs</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="s1">&#39;scaled_score&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">fs</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="s1">&#39;score&#39;</span><span class="p">])</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">fs</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="s1">&#39;score&#39;</span><span class="p">]))</span> <span class="c1"># Use absolute values</span>
-    <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">thresholds</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">thresholds</span><span class="p">):</span>
         <span class="n">selector</span> <span class="o">=</span> <span class="n">SelectFromModel</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">*mean&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">((</span><span class="mi">1</span><span class="o">-</span><span class="n">t</span><span class="p">)</span><span class="o">*</span><span class="mi">2</span><span class="p">))</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">scale</span><span class="p">(</span><span class="n">X_bike</span><span class="p">),</span> <span class="n">y_bike</span><span class="p">)</span>
         <span class="n">fs</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="s1">&#39;select&#39;</span><span class="p">][</span><span class="n">t</span><span class="p">]</span> <span class="o">=</span> <span class="n">selector</span><span class="o">.</span><span class="n">get_support</span><span class="p">()</span>
         <span class="n">fs</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="s1">&#39;cv_score&#39;</span><span class="p">][</span><span class="n">t</span><span class="p">]</span> <span class="o">=</span> <span class="n">cv_score</span><span class="p">(</span><span class="n">selector</span><span class="p">)</span>
@@ -2635,18 +2602,18 @@ $<span class="math notranslate nohighlight">\(\rho (X_1,X_2)={\frac  {{\mathrm  
 <span class="n">fs</span><span class="p">[</span><span class="s1">&#39;RFE&#39;</span><span class="p">][</span><span class="s1">&#39;label&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Recursive Feature Elimination (with RandomForest)&quot;</span>
 <span class="n">fs</span><span class="p">[</span><span class="s1">&#39;RFE&#39;</span><span class="p">][</span><span class="s1">&#39;score&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">RFE</span><span class="p">(</span><span class="n">RandomForestRegressor</span><span class="p">(),</span> <span class="n">n_features_to_select</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_bike</span><span class="p">,</span> <span class="n">y_bike</span><span class="p">)</span><span class="o">.</span><span class="n">ranking_</span>
 <span class="n">fs</span><span class="p">[</span><span class="s1">&#39;RFE&#39;</span><span class="p">][</span><span class="s1">&#39;scaled_score&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">20</span> <span class="o">-</span> <span class="n">fs</span><span class="p">[</span><span class="s1">&#39;RFE&#39;</span><span class="p">][</span><span class="s1">&#39;score&#39;</span><span class="p">])</span><span class="o">/</span> <span class="mi">19</span>
-<span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">thresholds</span><span class="p">:</span>
+<span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">thresholds</span><span class="p">):</span>
     <span class="n">selector</span> <span class="o">=</span> <span class="n">RFE</span><span class="p">(</span><span class="n">RandomForestRegressor</span><span class="p">(),</span> <span class="n">n_features_to_select</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">t</span><span class="o">*</span><span class="mi">20</span><span class="p">))</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_bike</span><span class="p">,</span> <span class="n">y_bike</span><span class="p">)</span>
     <span class="n">fs</span><span class="p">[</span><span class="s1">&#39;RFE&#39;</span><span class="p">][</span><span class="s1">&#39;select&#39;</span><span class="p">][</span><span class="n">t</span><span class="p">]</span> <span class="o">=</span> <span class="n">selector</span><span class="o">.</span><span class="n">support_</span>
     <span class="n">fs</span><span class="p">[</span><span class="s1">&#39;RFE&#39;</span><span class="p">][</span><span class="s1">&#39;cv_score&#39;</span><span class="p">][</span><span class="n">t</span><span class="p">]</span> <span class="o">=</span> <span class="n">cv_score</span><span class="p">(</span><span class="n">selector</span><span class="p">)</span>
 
 <span class="c1"># Sequential Feature Selection</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Computing Forward selection&quot;</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">floating</span> <span class="ow">in</span> <span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">]:</span>
+<span class="k">for</span> <span class="n">floating</span> <span class="ow">in</span> <span class="p">[</span><span class="kc">False</span><span class="p">]:</span> <span class="c1"># Doing only non-floating to speed up computations</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">ForwardSelection&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">&quot;Floating&quot;</span> <span class="k">if</span> <span class="n">floating</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
     <span class="n">fs</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="s1">&#39;label&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> (with Ridge)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
     <span class="n">fs</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="s1">&#39;scaled_score&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span> <span class="c1"># There is no scoring here</span>
-    <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">thresholds</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">thresholds</span><span class="p">):</span>
         <span class="n">selector</span> <span class="o">=</span> <span class="n">SequentialFeatureSelector</span><span class="p">(</span><span class="n">RidgeCV</span><span class="p">(),</span> <span class="n">k_features</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">t</span><span class="o">*</span><span class="mi">20</span><span class="p">),</span> <span class="n">forward</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">floating</span><span class="o">=</span><span class="n">floating</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_bike</span><span class="p">,</span> <span class="n">y_bike</span><span class="p">)</span>
         <span class="n">fs</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="s1">&#39;select&#39;</span><span class="p">][</span><span class="n">t</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">x</span> <span class="ow">in</span> <span class="n">selector</span><span class="o">.</span><span class="n">k_feature_idx_</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">20</span><span class="p">)])</span>
         <span class="n">fs</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="s1">&#39;cv_score&#39;</span><span class="p">][</span><span class="n">t</span><span class="p">]</span> <span class="o">=</span> <span class="n">cv_score</span><span class="p">(</span><span class="n">selector</span><span class="p">)</span>
@@ -2658,7 +2625,7 @@ $<span class="math notranslate nohighlight">\(\rho (X_1,X_2)={\frac  {{\mathrm  
                                                     <span class="n">n_repeats</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">importances_mean</span>
 <span class="n">fs</span><span class="p">[</span><span class="s1">&#39;Permutation&#39;</span><span class="p">][</span><span class="s1">&#39;scaled_score&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">fs</span><span class="p">[</span><span class="s1">&#39;Permutation&#39;</span><span class="p">][</span><span class="s1">&#39;score&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">fs</span><span class="p">[</span><span class="s1">&#39;Permutation&#39;</span><span class="p">][</span><span class="s1">&#39;score&#39;</span><span class="p">])</span>
 <span class="n">sorted_idx</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="n">fs</span><span class="p">[</span><span class="s1">&#39;Permutation&#39;</span><span class="p">][</span><span class="s1">&#39;score&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">argsort</span><span class="p">()</span> <span class="c1"># inverted sort</span>
-<span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">thresholds</span><span class="p">:</span>
+<span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">thresholds</span><span class="p">):</span>
     <span class="n">mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">x</span> <span class="ow">in</span> <span class="n">sorted_idx</span><span class="p">[:</span><span class="nb">int</span><span class="p">(</span><span class="n">t</span><span class="o">*</span><span class="mi">20</span><span class="p">)]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">20</span><span class="p">)])</span>
     <span class="n">fs</span><span class="p">[</span><span class="s1">&#39;Permutation&#39;</span><span class="p">][</span><span class="s1">&#39;select&#39;</span><span class="p">][</span><span class="n">t</span><span class="p">]</span> <span class="o">=</span> <span class="n">mask</span>
     <span class="c1"># Hard to use this in a pipeline, resorting to transforming the data beforehand</span>
@@ -2668,16 +2635,46 @@ $<span class="math notranslate nohighlight">\(\rho (X_1,X_2)={\frac  {{\mathrm  
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Computing F test
-Computing Mutual information
-Computing Random Forest
-Computing Ridge
-Computing Lasso
-Computing RFE
-Computing Forward selection
-Computing Permutation importance
 </pre></div>
 </div>
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "e45009e72f034f48bf45cad7da5bff22", "version_major": 2, "version_minor": 0}
+</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Computing Mutual information
+</pre></div>
 </div>
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "275ea91b61cf478985d65df9651e6e9e", "version_major": 2, "version_minor": 0}
+</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Computing Random Forest
+</pre></div>
+</div>
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "d719c0d1f23e4558a67d97d65260045d", "version_major": 2, "version_minor": 0}
+</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Computing Ridge
+</pre></div>
+</div>
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "23bd361e5e1a46c08264a40e3e39fdb0", "version_major": 2, "version_minor": 0}
+</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Computing Lasso
+</pre></div>
+</div>
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "2639132e3ab9439ba9aeda85d2367cb1", "version_major": 2, "version_minor": 0}
+</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Computing RFE
+</pre></div>
+</div>
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "c7d54ac50d7f4e8ca91a8d71815960eb", "version_major": 2, "version_minor": 0}
+</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Computing Forward selection
+</pre></div>
+</div>
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "737be268708242daa83f5e084d9cb15f", "version_major": 2, "version_minor": 0}
+</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Computing Permutation importance
+</pre></div>
+</div>
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "a071489d162847f4b41b08f87880f92a", "version_major": 2, "version_minor": 0}
+</script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
@@ -2710,9 +2707,9 @@ Computing Permutation importance
 </div>
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="supervised-feature-selection-overview">
+</section>
+</section>
+<section id="supervised-feature-selection-overview">
 <h3>Supervised feature selection: overview<a class="headerlink" href="#supervised-feature-selection-overview" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Univariate: F-test and Mutual Information</p></li>
@@ -2730,11 +2727,11 @@ Computing Permutation importance
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "e5d6c043cd33433095de121b6475bc38", "version_major": 2, "version_minor": 0}
+{"model_id": "a2e9ee18e6c746f3948f6a8fe6d15beb", "version_major": 2, "version_minor": 0}
 </script></div>
 </div>
-</div>
-<div class="section" id="univariate-statistics-f-test">
+</section>
+<section id="univariate-statistics-f-test">
 <h3>Univariate statistics (F-test)<a class="headerlink" href="#univariate-statistics-f-test" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Consider each feature individually (univariate), independent of the model that you aim to apply</p></li>
@@ -2756,7 +2753,7 @@ Computing Permutation importance
 <img alt="../_images/06 - Data Preprocessing_63_0.png" src="../_images/06 - Data Preprocessing_63_0.png" />
 </div>
 </div>
-<div class="section" id="f-statistic">
+<section id="f-statistic">
 <h4>F-statistic<a class="headerlink" href="#f-statistic" title="Permalink to this headline">#</a></h4>
 <ul class="simple">
 <li><p>For regression: does feature <span class="math notranslate nohighlight">\(X_i\)</span> correlate (positively or negatively) with the target <span class="math notranslate nohighlight">\(y\)</span>?
@@ -2769,8 +2766,8 @@ $<span class="math notranslate nohighlight">\(\text{F-statistic} = \frac{\text{w
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="mutual-information">
+</section>
+<section id="mutual-information">
 <h4>Mutual information<a class="headerlink" href="#mutual-information" title="Permalink to this headline">#</a></h4>
 <ul class="simple">
 <li><p>Measures how much information <span class="math notranslate nohighlight">\(X_i\)</span> gives about the target <span class="math notranslate nohighlight">\(Y\)</span>. In terms of entropy <span class="math notranslate nohighlight">\(H\)</span>:
@@ -2792,9 +2789,9 @@ $<span class="math notranslate nohighlight">\(MI(X,Y) = H(X) + H(Y) - H(X,Y)\)</
 <img alt="../_images/06 - Data Preprocessing_66_0.png" src="../_images/06 - Data Preprocessing_66_0.png" />
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="model-based-feature-selection">
+</section>
+</section>
+<section id="model-based-feature-selection">
 <h3>Model-based Feature Selection<a class="headerlink" href="#model-based-feature-selection" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Use a <a class="reference external" href="https://explained.ai/rf-importance/index.html">tuned</a>(!) supervised model to judge the importance of each feature</p>
@@ -2817,7 +2814,7 @@ $<span class="math notranslate nohighlight">\(MI(X,Y) = H(X) + H(Y) - H(X,Y)\)</
 <img alt="../_images/06 - Data Preprocessing_68_0.png" src="../_images/06 - Data Preprocessing_68_0.png" />
 </div>
 </div>
-<div class="section" id="relief-model-based-selection-with-knn">
+<section id="relief-model-based-selection-with-knn">
 <h4>Relief: Model-based selection with kNN<a class="headerlink" href="#relief-model-based-selection-with-knn" title="Permalink to this headline">#</a></h4>
 <ul class="simple">
 <li><p>For I iterations, choose a random point <span class="math notranslate nohighlight">\(\mathbf{x_i}\)</span> and find <span class="math notranslate nohighlight">\(k\)</span> nearest neighbors <span class="math notranslate nohighlight">\(\mathbf{x_{k}}\)</span></p></li>
@@ -2828,8 +2825,8 @@ $<span class="math notranslate nohighlight">\(MI(X,Y) = H(X) + H(Y) - H(X,Y)\)</
 </li>
 <li><p>Many variants: ReliefF (uses L1 norm, faster), RReliefF (for regression), …</p></li>
 </ul>
-<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/relief.png" alt="ml" style="width: 350px;"/></div>
-<div class="section" id="iterative-model-based-feature-selection">
+<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/relief.png" alt="ml" style="width: 350px;"/></section>
+<section id="iterative-model-based-feature-selection">
 <h4>Iterative Model-based Feature Selection<a class="headerlink" href="#iterative-model-based-feature-selection" title="Permalink to this headline">#</a></h4>
 <ul class="simple">
 <li><p>Dropping many features at once is not ideal: feature importance may change in subset</p></li>
@@ -2850,9 +2847,9 @@ $<span class="math notranslate nohighlight">\(MI(X,Y) = H(X) + H(Y) - H(X,Y)\)</
 <img alt="../_images/06 - Data Preprocessing_71_0.png" src="../_images/06 - Data Preprocessing_71_0.png" />
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="sequential-feature-selection-wrapping">
+</section>
+</section>
+<section id="sequential-feature-selection-wrapping">
 <h3>Sequential feature selection (Wrapping)<a class="headerlink" href="#sequential-feature-selection-wrapping" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Evaluate your model with different sets of features, find best subset based on performance</p></li>
@@ -2875,8 +2872,8 @@ $<span class="math notranslate nohighlight">\(MI(X,Y) = H(X) + H(Y) - H(X,Y)\)</
 <img alt="../_images/06 - Data Preprocessing_73_0.png" src="../_images/06 - Data Preprocessing_73_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="permutation-feature-importance">
+</section>
+<section id="permutation-feature-importance">
 <h3>Permutation feature importance<a class="headerlink" href="#permutation-feature-importance" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Defined as the decrease in model performance when a single feature value is randomly shuffled</p>
@@ -2898,8 +2895,8 @@ $<span class="math notranslate nohighlight">\(MI(X,Y) = H(X) + H(Y) - H(X,Y)\)</
 <img alt="../_images/06 - Data Preprocessing_75_0.png" src="../_images/06 - Data Preprocessing_75_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="comparison">
+</section>
+<section id="comparison">
 <h3>Comparison<a class="headerlink" href="#comparison" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Feature importances (scaled) and cross-validated <span class="math notranslate nohighlight">\(R^2\)</span> score of pipeline</p>
@@ -2920,7 +2917,7 @@ $<span class="math notranslate nohighlight">\(MI(X,Y) = H(X) + H(Y) - H(X,Y)\)</
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "116dcdc062c1404dac75bb4d83c2cffc", "version_major": 2, "version_minor": 0}
+{"model_id": "290d56961a8149e7bf2ddf3eb36a49f3", "version_major": 2, "version_minor": 0}
 </script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
@@ -2930,9 +2927,12 @@ $<span class="math notranslate nohighlight">\(MI(X,Y) = H(X) + H(Y) - H(X,Y)\)</
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="../_images/06 - Data Preprocessing_78_0.png" src="../_images/06 - Data Preprocessing_78_0.png" />
 </div>
 </div>
-<div class="section" id="id3">
+</section>
+<section id="id3">
 <h3>In practice (scikit-learn)<a class="headerlink" href="#id3" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Unsupervised: <code class="docutils literal notranslate"><span class="pre">VarianceTreshold</span></code></p></li>
@@ -2988,9 +2988,9 @@ $<span class="math notranslate nohighlight">\(MI(X,Y) = H(X) + H(Y) - H(X,Y)\)</
 <span class="n">feature_ids</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="n">importances</span><span class="p">)</span><span class="o">.</span><span class="n">argsort</span><span class="p">()[:</span><span class="n">n</span><span class="p">]</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="feature-engineering">
+</section>
+</section>
+<section id="feature-engineering">
 <h2>Feature Engineering<a class="headerlink" href="#feature-engineering" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Create new features based on existing ones</p>
@@ -3007,7 +3007,7 @@ $<span class="math notranslate nohighlight">\(MI(X,Y) = H(X) + H(Y) - H(X,Y)\)</
 </ul>
 </li>
 </ul>
-<div class="section" id="polynomials">
+<section id="polynomials">
 <h3>Polynomials<a class="headerlink" href="#polynomials" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Add all polynomials up to degree <span class="math notranslate nohighlight">\(d\)</span> and all products</p>
@@ -3050,8 +3050,8 @@ $<span class="math notranslate nohighlight">\([1, x_1, ..., x_p] \xrightarrow{} 
 <img alt="../_images/06 - Data Preprocessing_83_0.png" src="../_images/06 - Data Preprocessing_83_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="binning">
+</section>
+<section id="binning">
 <h3>Binning<a class="headerlink" href="#binning" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Partition numeric feature values into <span class="math notranslate nohighlight">\(n\)</span> intervals (bins)</p></li>
@@ -3085,48 +3085,48 @@ $<span class="math notranslate nohighlight">\([1, x_1, ..., x_p] \xrightarrow{} 
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html"><style type="text/css">
-#T_7ba06 th {
+#T_f9369 th {
   font-size: 12;
 }
-#T_7ba06 td {
+#T_f9369 td {
   font-size: 12;
 }
 </style>
-<table id="T_7ba06">
+<table id="T_f9369">
   <thead>
     <tr>
       <th class="blank level0" >&nbsp;</th>
-      <th id="T_7ba06_level0_col0" class="col_heading level0 col0" >orig</th>
-      <th id="T_7ba06_level0_col1" class="col_heading level0 col1" >[-3.0,-1.5]</th>
-      <th id="T_7ba06_level0_col2" class="col_heading level0 col2" >[-1.5,0.0]</th>
-      <th id="T_7ba06_level0_col3" class="col_heading level0 col3" >[0.0,1.5]</th>
-      <th id="T_7ba06_level0_col4" class="col_heading level0 col4" >[1.5,3.0]</th>
+      <th id="T_f9369_level0_col0" class="col_heading level0 col0" >orig</th>
+      <th id="T_f9369_level0_col1" class="col_heading level0 col1" >[-3.0,-1.5]</th>
+      <th id="T_f9369_level0_col2" class="col_heading level0 col2" >[-1.5,0.0]</th>
+      <th id="T_f9369_level0_col3" class="col_heading level0 col3" >[0.0,1.5]</th>
+      <th id="T_f9369_level0_col4" class="col_heading level0 col4" >[1.5,3.0]</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th id="T_7ba06_level0_row0" class="row_heading level0 row0" >0</th>
-      <td id="T_7ba06_row0_col0" class="data row0 col0" >-0.752759</td>
-      <td id="T_7ba06_row0_col1" class="data row0 col1" >0.000000</td>
-      <td id="T_7ba06_row0_col2" class="data row0 col2" >1.000000</td>
-      <td id="T_7ba06_row0_col3" class="data row0 col3" >0.000000</td>
-      <td id="T_7ba06_row0_col4" class="data row0 col4" >0.000000</td>
+      <th id="T_f9369_level0_row0" class="row_heading level0 row0" >0</th>
+      <td id="T_f9369_row0_col0" class="data row0 col0" >-0.752759</td>
+      <td id="T_f9369_row0_col1" class="data row0 col1" >0.000000</td>
+      <td id="T_f9369_row0_col2" class="data row0 col2" >1.000000</td>
+      <td id="T_f9369_row0_col3" class="data row0 col3" >0.000000</td>
+      <td id="T_f9369_row0_col4" class="data row0 col4" >0.000000</td>
     </tr>
     <tr>
-      <th id="T_7ba06_level0_row1" class="row_heading level0 row1" >1</th>
-      <td id="T_7ba06_row1_col0" class="data row1 col0" >2.704286</td>
-      <td id="T_7ba06_row1_col1" class="data row1 col1" >0.000000</td>
-      <td id="T_7ba06_row1_col2" class="data row1 col2" >0.000000</td>
-      <td id="T_7ba06_row1_col3" class="data row1 col3" >0.000000</td>
-      <td id="T_7ba06_row1_col4" class="data row1 col4" >1.000000</td>
+      <th id="T_f9369_level0_row1" class="row_heading level0 row1" >1</th>
+      <td id="T_f9369_row1_col0" class="data row1 col0" >2.704286</td>
+      <td id="T_f9369_row1_col1" class="data row1 col1" >0.000000</td>
+      <td id="T_f9369_row1_col2" class="data row1 col2" >0.000000</td>
+      <td id="T_f9369_row1_col3" class="data row1 col3" >0.000000</td>
+      <td id="T_f9369_row1_col4" class="data row1 col4" >1.000000</td>
     </tr>
     <tr>
-      <th id="T_7ba06_level0_row2" class="row_heading level0 row2" >2</th>
-      <td id="T_7ba06_row2_col0" class="data row2 col0" >1.391964</td>
-      <td id="T_7ba06_row2_col1" class="data row2 col1" >0.000000</td>
-      <td id="T_7ba06_row2_col2" class="data row2 col2" >0.000000</td>
-      <td id="T_7ba06_row2_col3" class="data row2 col3" >1.000000</td>
-      <td id="T_7ba06_row2_col4" class="data row2 col4" >0.000000</td>
+      <th id="T_f9369_level0_row2" class="row_heading level0 row2" >2</th>
+      <td id="T_f9369_row2_col0" class="data row2 col0" >1.391964</td>
+      <td id="T_f9369_row2_col1" class="data row2 col1" >0.000000</td>
+      <td id="T_f9369_row2_col2" class="data row2 col2" >0.000000</td>
+      <td id="T_f9369_row2_col3" class="data row2 col3" >1.000000</td>
+      <td id="T_f9369_row2_col4" class="data row2 col4" >0.000000</td>
     </tr>
   </tbody>
 </table>
@@ -3156,8 +3156,8 @@ $<span class="math notranslate nohighlight">\([1, x_1, ..., x_p] \xrightarrow{} 
 <img alt="../_images/06 - Data Preprocessing_86_0.png" src="../_images/06 - Data Preprocessing_86_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="binning-interaction-features">
+</section>
+<section id="binning-interaction-features">
 <h3>Binning + interaction features<a class="headerlink" href="#binning-interaction-features" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Add <em>interaction features</em> (or <em>product features</em> )</p>
@@ -3180,64 +3180,64 @@ $<span class="math notranslate nohighlight">\([1, x_1, ..., x_p] \xrightarrow{} 
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html"><style type="text/css">
-#T_4761f th {
+#T_2f247 th {
   font-size: 12;
 }
-#T_4761f td {
+#T_2f247 td {
   font-size: 12;
 }
 </style>
-<table id="T_4761f">
+<table id="T_2f247">
   <thead>
     <tr>
       <th class="blank level0" >&nbsp;</th>
-      <th id="T_4761f_level0_col0" class="col_heading level0 col0" >orig</th>
-      <th id="T_4761f_level0_col1" class="col_heading level0 col1" >b0</th>
-      <th id="T_4761f_level0_col2" class="col_heading level0 col2" >b1</th>
-      <th id="T_4761f_level0_col3" class="col_heading level0 col3" >b2</th>
-      <th id="T_4761f_level0_col4" class="col_heading level0 col4" >b3</th>
-      <th id="T_4761f_level0_col5" class="col_heading level0 col5" >X*b0</th>
-      <th id="T_4761f_level0_col6" class="col_heading level0 col6" >X*b1</th>
-      <th id="T_4761f_level0_col7" class="col_heading level0 col7" >X*b2</th>
-      <th id="T_4761f_level0_col8" class="col_heading level0 col8" >X*b3</th>
+      <th id="T_2f247_level0_col0" class="col_heading level0 col0" >orig</th>
+      <th id="T_2f247_level0_col1" class="col_heading level0 col1" >b0</th>
+      <th id="T_2f247_level0_col2" class="col_heading level0 col2" >b1</th>
+      <th id="T_2f247_level0_col3" class="col_heading level0 col3" >b2</th>
+      <th id="T_2f247_level0_col4" class="col_heading level0 col4" >b3</th>
+      <th id="T_2f247_level0_col5" class="col_heading level0 col5" >X*b0</th>
+      <th id="T_2f247_level0_col6" class="col_heading level0 col6" >X*b1</th>
+      <th id="T_2f247_level0_col7" class="col_heading level0 col7" >X*b2</th>
+      <th id="T_2f247_level0_col8" class="col_heading level0 col8" >X*b3</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th id="T_4761f_level0_row0" class="row_heading level0 row0" >0</th>
-      <td id="T_4761f_row0_col0" class="data row0 col0" >-0.752759</td>
-      <td id="T_4761f_row0_col1" class="data row0 col1" >0.000000</td>
-      <td id="T_4761f_row0_col2" class="data row0 col2" >1.000000</td>
-      <td id="T_4761f_row0_col3" class="data row0 col3" >0.000000</td>
-      <td id="T_4761f_row0_col4" class="data row0 col4" >0.000000</td>
-      <td id="T_4761f_row0_col5" class="data row0 col5" >-0.000000</td>
-      <td id="T_4761f_row0_col6" class="data row0 col6" >-0.752759</td>
-      <td id="T_4761f_row0_col7" class="data row0 col7" >-0.000000</td>
-      <td id="T_4761f_row0_col8" class="data row0 col8" >-0.000000</td>
+      <th id="T_2f247_level0_row0" class="row_heading level0 row0" >0</th>
+      <td id="T_2f247_row0_col0" class="data row0 col0" >-0.752759</td>
+      <td id="T_2f247_row0_col1" class="data row0 col1" >0.000000</td>
+      <td id="T_2f247_row0_col2" class="data row0 col2" >1.000000</td>
+      <td id="T_2f247_row0_col3" class="data row0 col3" >0.000000</td>
+      <td id="T_2f247_row0_col4" class="data row0 col4" >0.000000</td>
+      <td id="T_2f247_row0_col5" class="data row0 col5" >-0.000000</td>
+      <td id="T_2f247_row0_col6" class="data row0 col6" >-0.752759</td>
+      <td id="T_2f247_row0_col7" class="data row0 col7" >-0.000000</td>
+      <td id="T_2f247_row0_col8" class="data row0 col8" >-0.000000</td>
     </tr>
     <tr>
-      <th id="T_4761f_level0_row1" class="row_heading level0 row1" >1</th>
-      <td id="T_4761f_row1_col0" class="data row1 col0" >2.704286</td>
-      <td id="T_4761f_row1_col1" class="data row1 col1" >0.000000</td>
-      <td id="T_4761f_row1_col2" class="data row1 col2" >0.000000</td>
-      <td id="T_4761f_row1_col3" class="data row1 col3" >0.000000</td>
-      <td id="T_4761f_row1_col4" class="data row1 col4" >1.000000</td>
-      <td id="T_4761f_row1_col5" class="data row1 col5" >0.000000</td>
-      <td id="T_4761f_row1_col6" class="data row1 col6" >0.000000</td>
-      <td id="T_4761f_row1_col7" class="data row1 col7" >0.000000</td>
-      <td id="T_4761f_row1_col8" class="data row1 col8" >2.704286</td>
+      <th id="T_2f247_level0_row1" class="row_heading level0 row1" >1</th>
+      <td id="T_2f247_row1_col0" class="data row1 col0" >2.704286</td>
+      <td id="T_2f247_row1_col1" class="data row1 col1" >0.000000</td>
+      <td id="T_2f247_row1_col2" class="data row1 col2" >0.000000</td>
+      <td id="T_2f247_row1_col3" class="data row1 col3" >0.000000</td>
+      <td id="T_2f247_row1_col4" class="data row1 col4" >1.000000</td>
+      <td id="T_2f247_row1_col5" class="data row1 col5" >0.000000</td>
+      <td id="T_2f247_row1_col6" class="data row1 col6" >0.000000</td>
+      <td id="T_2f247_row1_col7" class="data row1 col7" >0.000000</td>
+      <td id="T_2f247_row1_col8" class="data row1 col8" >2.704286</td>
     </tr>
     <tr>
-      <th id="T_4761f_level0_row2" class="row_heading level0 row2" >2</th>
-      <td id="T_4761f_row2_col0" class="data row2 col0" >1.391964</td>
-      <td id="T_4761f_row2_col1" class="data row2 col1" >0.000000</td>
-      <td id="T_4761f_row2_col2" class="data row2 col2" >0.000000</td>
-      <td id="T_4761f_row2_col3" class="data row2 col3" >1.000000</td>
-      <td id="T_4761f_row2_col4" class="data row2 col4" >0.000000</td>
-      <td id="T_4761f_row2_col5" class="data row2 col5" >0.000000</td>
-      <td id="T_4761f_row2_col6" class="data row2 col6" >0.000000</td>
-      <td id="T_4761f_row2_col7" class="data row2 col7" >1.391964</td>
-      <td id="T_4761f_row2_col8" class="data row2 col8" >0.000000</td>
+      <th id="T_2f247_level0_row2" class="row_heading level0 row2" >2</th>
+      <td id="T_2f247_row2_col0" class="data row2 col0" >1.391964</td>
+      <td id="T_2f247_row2_col1" class="data row2 col1" >0.000000</td>
+      <td id="T_2f247_row2_col2" class="data row2 col2" >0.000000</td>
+      <td id="T_2f247_row2_col3" class="data row2 col3" >1.000000</td>
+      <td id="T_2f247_row2_col4" class="data row2 col4" >0.000000</td>
+      <td id="T_2f247_row2_col5" class="data row2 col5" >0.000000</td>
+      <td id="T_2f247_row2_col6" class="data row2 col6" >0.000000</td>
+      <td id="T_2f247_row2_col7" class="data row2 col7" >1.391964</td>
+      <td id="T_2f247_row2_col8" class="data row2 col8" >0.000000</td>
     </tr>
   </tbody>
 </table>
@@ -3265,8 +3265,8 @@ $<span class="math notranslate nohighlight">\([1, x_1, ..., x_p] \xrightarrow{} 
 <img alt="../_images/06 - Data Preprocessing_89_0.png" src="../_images/06 - Data Preprocessing_89_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="categorical-feature-interactions">
+</section>
+<section id="categorical-feature-interactions">
 <h3>Categorical feature interactions<a class="headerlink" href="#categorical-feature-interactions" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>One-hot-encode categorical feature</p></li>
@@ -3287,58 +3287,58 @@ $<span class="math notranslate nohighlight">\([1, x_1, ..., x_p] \xrightarrow{} 
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html"><style type="text/css">
-#T_ec1cf th {
+#T_34f19 th {
   font-size: 12;
 }
-#T_ec1cf td {
+#T_34f19 td {
   font-size: 12;
 }
 </style>
-<table id="T_ec1cf">
+<table id="T_34f19">
   <thead>
     <tr>
       <th class="blank level0" >&nbsp;</th>
-      <th id="T_ec1cf_level0_col0" class="col_heading level0 col0" >gender</th>
-      <th id="T_ec1cf_level0_col1" class="col_heading level0 col1" >age</th>
-      <th id="T_ec1cf_level0_col2" class="col_heading level0 col2" >pageviews</th>
-      <th id="T_ec1cf_level0_col3" class="col_heading level0 col3" >time</th>
+      <th id="T_34f19_level0_col0" class="col_heading level0 col0" >gender</th>
+      <th id="T_34f19_level0_col1" class="col_heading level0 col1" >age</th>
+      <th id="T_34f19_level0_col2" class="col_heading level0 col2" >pageviews</th>
+      <th id="T_34f19_level0_col3" class="col_heading level0 col3" >time</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th id="T_ec1cf_level0_row0" class="row_heading level0 row0" >0</th>
-      <td id="T_ec1cf_row0_col0" class="data row0 col0" >M</td>
-      <td id="T_ec1cf_row0_col1" class="data row0 col1" >14</td>
-      <td id="T_ec1cf_row0_col2" class="data row0 col2" >70</td>
-      <td id="T_ec1cf_row0_col3" class="data row0 col3" >269</td>
+      <th id="T_34f19_level0_row0" class="row_heading level0 row0" >0</th>
+      <td id="T_34f19_row0_col0" class="data row0 col0" >M</td>
+      <td id="T_34f19_row0_col1" class="data row0 col1" >14</td>
+      <td id="T_34f19_row0_col2" class="data row0 col2" >70</td>
+      <td id="T_34f19_row0_col3" class="data row0 col3" >269</td>
     </tr>
     <tr>
-      <th id="T_ec1cf_level0_row1" class="row_heading level0 row1" >1</th>
-      <td id="T_ec1cf_row1_col0" class="data row1 col0" >F</td>
-      <td id="T_ec1cf_row1_col1" class="data row1 col1" >16</td>
-      <td id="T_ec1cf_row1_col2" class="data row1 col2" >12</td>
-      <td id="T_ec1cf_row1_col3" class="data row1 col3" >1522</td>
+      <th id="T_34f19_level0_row1" class="row_heading level0 row1" >1</th>
+      <td id="T_34f19_row1_col0" class="data row1 col0" >F</td>
+      <td id="T_34f19_row1_col1" class="data row1 col1" >16</td>
+      <td id="T_34f19_row1_col2" class="data row1 col2" >12</td>
+      <td id="T_34f19_row1_col3" class="data row1 col3" >1522</td>
     </tr>
     <tr>
-      <th id="T_ec1cf_level0_row2" class="row_heading level0 row2" >2</th>
-      <td id="T_ec1cf_row2_col0" class="data row2 col0" >M</td>
-      <td id="T_ec1cf_row2_col1" class="data row2 col1" >12</td>
-      <td id="T_ec1cf_row2_col2" class="data row2 col2" >42</td>
-      <td id="T_ec1cf_row2_col3" class="data row2 col3" >235</td>
+      <th id="T_34f19_level0_row2" class="row_heading level0 row2" >2</th>
+      <td id="T_34f19_row2_col0" class="data row2 col0" >M</td>
+      <td id="T_34f19_row2_col1" class="data row2 col1" >12</td>
+      <td id="T_34f19_row2_col2" class="data row2 col2" >42</td>
+      <td id="T_34f19_row2_col3" class="data row2 col3" >235</td>
     </tr>
     <tr>
-      <th id="T_ec1cf_level0_row3" class="row_heading level0 row3" >3</th>
-      <td id="T_ec1cf_row3_col0" class="data row3 col0" >F</td>
-      <td id="T_ec1cf_row3_col1" class="data row3 col1" >25</td>
-      <td id="T_ec1cf_row3_col2" class="data row3 col2" >64</td>
-      <td id="T_ec1cf_row3_col3" class="data row3 col3" >63</td>
+      <th id="T_34f19_level0_row3" class="row_heading level0 row3" >3</th>
+      <td id="T_34f19_row3_col0" class="data row3 col0" >F</td>
+      <td id="T_34f19_row3_col1" class="data row3 col1" >25</td>
+      <td id="T_34f19_row3_col2" class="data row3 col2" >64</td>
+      <td id="T_34f19_row3_col3" class="data row3 col3" >63</td>
     </tr>
     <tr>
-      <th id="T_ec1cf_level0_row4" class="row_heading level0 row4" >4</th>
-      <td id="T_ec1cf_row4_col0" class="data row4 col0" >F</td>
-      <td id="T_ec1cf_row4_col1" class="data row4 col1" >22</td>
-      <td id="T_ec1cf_row4_col2" class="data row4 col2" >93</td>
-      <td id="T_ec1cf_row4_col3" class="data row4 col3" >21</td>
+      <th id="T_34f19_level0_row4" class="row_heading level0 row4" >4</th>
+      <td id="T_34f19_row4_col0" class="data row4 col0" >F</td>
+      <td id="T_34f19_row4_col1" class="data row4 col1" >22</td>
+      <td id="T_34f19_row4_col2" class="data row4 col2" >93</td>
+      <td id="T_34f19_row4_col3" class="data row4 col3" >21</td>
     </tr>
   </tbody>
 </table>
@@ -3359,90 +3359,90 @@ $<span class="math notranslate nohighlight">\([1, x_1, ..., x_p] \xrightarrow{} 
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html"><style type="text/css">
-#T_dc8e1 th {
+#T_f78cb th {
   font-size: 12;
 }
-#T_dc8e1 td {
+#T_f78cb td {
   font-size: 12;
 }
 </style>
-<table id="T_dc8e1">
+<table id="T_f78cb">
   <thead>
     <tr>
       <th class="blank level0" >&nbsp;</th>
-      <th id="T_dc8e1_level0_col0" class="col_heading level0 col0" >age_M</th>
-      <th id="T_dc8e1_level0_col1" class="col_heading level0 col1" >pageviews_M</th>
-      <th id="T_dc8e1_level0_col2" class="col_heading level0 col2" >time_M</th>
-      <th id="T_dc8e1_level0_col3" class="col_heading level0 col3" >gender_M_M</th>
-      <th id="T_dc8e1_level0_col4" class="col_heading level0 col4" >age_F</th>
-      <th id="T_dc8e1_level0_col5" class="col_heading level0 col5" >pageviews_F</th>
-      <th id="T_dc8e1_level0_col6" class="col_heading level0 col6" >time_F</th>
-      <th id="T_dc8e1_level0_col7" class="col_heading level0 col7" >gender_F_F</th>
+      <th id="T_f78cb_level0_col0" class="col_heading level0 col0" >age_M</th>
+      <th id="T_f78cb_level0_col1" class="col_heading level0 col1" >pageviews_M</th>
+      <th id="T_f78cb_level0_col2" class="col_heading level0 col2" >time_M</th>
+      <th id="T_f78cb_level0_col3" class="col_heading level0 col3" >gender_M_M</th>
+      <th id="T_f78cb_level0_col4" class="col_heading level0 col4" >age_F</th>
+      <th id="T_f78cb_level0_col5" class="col_heading level0 col5" >pageviews_F</th>
+      <th id="T_f78cb_level0_col6" class="col_heading level0 col6" >time_F</th>
+      <th id="T_f78cb_level0_col7" class="col_heading level0 col7" >gender_F_F</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th id="T_dc8e1_level0_row0" class="row_heading level0 row0" >0</th>
-      <td id="T_dc8e1_row0_col0" class="data row0 col0" >14</td>
-      <td id="T_dc8e1_row0_col1" class="data row0 col1" >70</td>
-      <td id="T_dc8e1_row0_col2" class="data row0 col2" >269</td>
-      <td id="T_dc8e1_row0_col3" class="data row0 col3" >1</td>
-      <td id="T_dc8e1_row0_col4" class="data row0 col4" >0</td>
-      <td id="T_dc8e1_row0_col5" class="data row0 col5" >0</td>
-      <td id="T_dc8e1_row0_col6" class="data row0 col6" >0</td>
-      <td id="T_dc8e1_row0_col7" class="data row0 col7" >0</td>
+      <th id="T_f78cb_level0_row0" class="row_heading level0 row0" >0</th>
+      <td id="T_f78cb_row0_col0" class="data row0 col0" >14</td>
+      <td id="T_f78cb_row0_col1" class="data row0 col1" >70</td>
+      <td id="T_f78cb_row0_col2" class="data row0 col2" >269</td>
+      <td id="T_f78cb_row0_col3" class="data row0 col3" >1</td>
+      <td id="T_f78cb_row0_col4" class="data row0 col4" >0</td>
+      <td id="T_f78cb_row0_col5" class="data row0 col5" >0</td>
+      <td id="T_f78cb_row0_col6" class="data row0 col6" >0</td>
+      <td id="T_f78cb_row0_col7" class="data row0 col7" >0</td>
     </tr>
     <tr>
-      <th id="T_dc8e1_level0_row1" class="row_heading level0 row1" >1</th>
-      <td id="T_dc8e1_row1_col0" class="data row1 col0" >0</td>
-      <td id="T_dc8e1_row1_col1" class="data row1 col1" >0</td>
-      <td id="T_dc8e1_row1_col2" class="data row1 col2" >0</td>
-      <td id="T_dc8e1_row1_col3" class="data row1 col3" >0</td>
-      <td id="T_dc8e1_row1_col4" class="data row1 col4" >16</td>
-      <td id="T_dc8e1_row1_col5" class="data row1 col5" >12</td>
-      <td id="T_dc8e1_row1_col6" class="data row1 col6" >1522</td>
-      <td id="T_dc8e1_row1_col7" class="data row1 col7" >1</td>
+      <th id="T_f78cb_level0_row1" class="row_heading level0 row1" >1</th>
+      <td id="T_f78cb_row1_col0" class="data row1 col0" >0</td>
+      <td id="T_f78cb_row1_col1" class="data row1 col1" >0</td>
+      <td id="T_f78cb_row1_col2" class="data row1 col2" >0</td>
+      <td id="T_f78cb_row1_col3" class="data row1 col3" >0</td>
+      <td id="T_f78cb_row1_col4" class="data row1 col4" >16</td>
+      <td id="T_f78cb_row1_col5" class="data row1 col5" >12</td>
+      <td id="T_f78cb_row1_col6" class="data row1 col6" >1522</td>
+      <td id="T_f78cb_row1_col7" class="data row1 col7" >1</td>
     </tr>
     <tr>
-      <th id="T_dc8e1_level0_row2" class="row_heading level0 row2" >2</th>
-      <td id="T_dc8e1_row2_col0" class="data row2 col0" >12</td>
-      <td id="T_dc8e1_row2_col1" class="data row2 col1" >42</td>
-      <td id="T_dc8e1_row2_col2" class="data row2 col2" >235</td>
-      <td id="T_dc8e1_row2_col3" class="data row2 col3" >1</td>
-      <td id="T_dc8e1_row2_col4" class="data row2 col4" >0</td>
-      <td id="T_dc8e1_row2_col5" class="data row2 col5" >0</td>
-      <td id="T_dc8e1_row2_col6" class="data row2 col6" >0</td>
-      <td id="T_dc8e1_row2_col7" class="data row2 col7" >0</td>
+      <th id="T_f78cb_level0_row2" class="row_heading level0 row2" >2</th>
+      <td id="T_f78cb_row2_col0" class="data row2 col0" >12</td>
+      <td id="T_f78cb_row2_col1" class="data row2 col1" >42</td>
+      <td id="T_f78cb_row2_col2" class="data row2 col2" >235</td>
+      <td id="T_f78cb_row2_col3" class="data row2 col3" >1</td>
+      <td id="T_f78cb_row2_col4" class="data row2 col4" >0</td>
+      <td id="T_f78cb_row2_col5" class="data row2 col5" >0</td>
+      <td id="T_f78cb_row2_col6" class="data row2 col6" >0</td>
+      <td id="T_f78cb_row2_col7" class="data row2 col7" >0</td>
     </tr>
     <tr>
-      <th id="T_dc8e1_level0_row3" class="row_heading level0 row3" >3</th>
-      <td id="T_dc8e1_row3_col0" class="data row3 col0" >0</td>
-      <td id="T_dc8e1_row3_col1" class="data row3 col1" >0</td>
-      <td id="T_dc8e1_row3_col2" class="data row3 col2" >0</td>
-      <td id="T_dc8e1_row3_col3" class="data row3 col3" >0</td>
-      <td id="T_dc8e1_row3_col4" class="data row3 col4" >25</td>
-      <td id="T_dc8e1_row3_col5" class="data row3 col5" >64</td>
-      <td id="T_dc8e1_row3_col6" class="data row3 col6" >63</td>
-      <td id="T_dc8e1_row3_col7" class="data row3 col7" >1</td>
+      <th id="T_f78cb_level0_row3" class="row_heading level0 row3" >3</th>
+      <td id="T_f78cb_row3_col0" class="data row3 col0" >0</td>
+      <td id="T_f78cb_row3_col1" class="data row3 col1" >0</td>
+      <td id="T_f78cb_row3_col2" class="data row3 col2" >0</td>
+      <td id="T_f78cb_row3_col3" class="data row3 col3" >0</td>
+      <td id="T_f78cb_row3_col4" class="data row3 col4" >25</td>
+      <td id="T_f78cb_row3_col5" class="data row3 col5" >64</td>
+      <td id="T_f78cb_row3_col6" class="data row3 col6" >63</td>
+      <td id="T_f78cb_row3_col7" class="data row3 col7" >1</td>
     </tr>
     <tr>
-      <th id="T_dc8e1_level0_row4" class="row_heading level0 row4" >4</th>
-      <td id="T_dc8e1_row4_col0" class="data row4 col0" >0</td>
-      <td id="T_dc8e1_row4_col1" class="data row4 col1" >0</td>
-      <td id="T_dc8e1_row4_col2" class="data row4 col2" >0</td>
-      <td id="T_dc8e1_row4_col3" class="data row4 col3" >0</td>
-      <td id="T_dc8e1_row4_col4" class="data row4 col4" >22</td>
-      <td id="T_dc8e1_row4_col5" class="data row4 col5" >93</td>
-      <td id="T_dc8e1_row4_col6" class="data row4 col6" >21</td>
-      <td id="T_dc8e1_row4_col7" class="data row4 col7" >1</td>
+      <th id="T_f78cb_level0_row4" class="row_heading level0 row4" >4</th>
+      <td id="T_f78cb_row4_col0" class="data row4 col0" >0</td>
+      <td id="T_f78cb_row4_col1" class="data row4 col1" >0</td>
+      <td id="T_f78cb_row4_col2" class="data row4 col2" >0</td>
+      <td id="T_f78cb_row4_col3" class="data row4 col3" >0</td>
+      <td id="T_f78cb_row4_col4" class="data row4 col4" >22</td>
+      <td id="T_f78cb_row4_col5" class="data row4 col5" >93</td>
+      <td id="T_f78cb_row4_col6" class="data row4 col6" >21</td>
+      <td id="T_f78cb_row4_col7" class="data row4 col7" >1</td>
     </tr>
   </tbody>
 </table>
 </div></div>
 </div>
-</div>
-</div>
-<div class="section" id="missing-value-imputation">
+</section>
+</section>
+<section id="missing-value-imputation">
 <h2>Missing value imputation<a class="headerlink" href="#missing-value-imputation" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Data can be missing in different ways:</p>
@@ -3467,11 +3467,13 @@ $<span class="math notranslate nohighlight">\([1, x_1, ..., x_p] \xrightarrow{} 
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.experimental</span> <span class="kn">import</span> <span class="n">enable_iterative_imputer</span>
 <span class="kn">from</span> <span class="nn">sklearn.impute</span> <span class="kn">import</span> <span class="n">SimpleImputer</span><span class="p">,</span> <span class="n">KNNImputer</span><span class="p">,</span> <span class="n">IterativeImputer</span>
+<span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestRegressor</span>
 <span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">BayesianRidge</span>
 <span class="kn">from</span> <span class="nn">fancyimpute</span> <span class="kn">import</span> <span class="n">SoftImpute</span><span class="p">,</span> <span class="n">IterativeSVD</span><span class="p">,</span> <span class="n">MatrixFactorization</span>
 
 <span class="kn">from</span> <span class="nn">sklearn.utils._testing</span> <span class="kn">import</span> <span class="n">ignore_warnings</span>
 <span class="kn">from</span> <span class="nn">sklearn.exceptions</span> <span class="kn">import</span> <span class="n">ConvergenceWarning</span>
+<span class="kn">import</span> <span class="nn">matplotlib.lines</span> <span class="k">as</span> <span class="nn">mlines</span>
 
 <span class="c1"># Colors</span>
 <span class="n">norm</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">Normalize</span><span class="p">()</span>
@@ -3528,17 +3530,27 @@ $<span class="math notranslate nohighlight">\([1, x_1, ..., x_p] \xrightarrow{} 
     
     <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="o">*</span><span class="n">fig_scale</span><span class="p">,</span> <span class="mi">3</span><span class="o">*</span><span class="n">fig_scale</span><span class="p">))</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> (ACC:</span><span class="si">{:.3f}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">imputer</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">scores</span><span class="p">)))</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X_imp</span><span class="p">[</span><span class="n">imputed_mask</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">X_imp</span><span class="p">[</span><span class="n">imputed_mask</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">y</span><span class="p">[</span><span class="n">imputed_mask</span><span class="p">],</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;brg&#39;</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">.6</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;s&quot;</span><span class="p">,</span> <span class="n">edgecolors</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X_imp</span><span class="p">[</span><span class="n">imputed_mask</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">X_imp</span><span class="p">[</span><span class="n">imputed_mask</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">y</span><span class="p">[</span><span class="n">imputed_mask</span><span class="p">],</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;brg&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">.3</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;s&quot;</span><span class="p">,</span> <span class="n">linewidths</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X_imp</span><span class="p">[</span><span class="o">~</span><span class="n">imputed_mask</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">X_imp</span><span class="p">[</span><span class="o">~</span><span class="n">imputed_mask</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">y</span><span class="p">[</span><span class="o">~</span><span class="n">imputed_mask</span><span class="p">],</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;brg&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">.6</span><span class="p">)</span>
     <span class="c1"># this is for creating the legend...</span>
-    <span class="n">square</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">Line2D</span><span class="p">((</span><span class="mi">0</span><span class="p">,),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,),</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;s&quot;</span><span class="p">,</span> <span class="n">markerfacecolor</span><span class="o">=</span><span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">markeredgecolor</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Imputed data&#39;</span><span class="p">)</span>
-    <span class="n">circle</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">Line2D</span><span class="p">((</span><span class="mi">0</span><span class="p">,),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,),</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">markerfacecolor</span><span class="o">=</span><span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">markeredgecolor</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Real data&#39;</span><span class="p">)</span>
+    <span class="n">square</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">Line2D</span><span class="p">((</span><span class="mi">0</span><span class="p">,),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,),</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;s&quot;</span><span class="p">,</span> <span class="n">markerfacecolor</span><span class="o">=</span><span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">markeredgecolor</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">,</span> <span class="n">markeredgewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Imputed data&#39;</span><span class="p">)</span>
+    <span class="n">circle</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">Line2D</span><span class="p">((</span><span class="mi">0</span><span class="p">,),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,),</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">markerfacecolor</span><span class="o">=</span><span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">markeredgecolor</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">,</span> <span class="n">markeredgewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Real data&#39;</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">handles</span><span class="o">=</span><span class="p">[</span><span class="n">square</span><span class="p">,</span> <span class="n">circle</span><span class="p">],</span> <span class="n">numpoints</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s2">&quot;best&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(CVXPY) Feb 13 12:46:40 AM: Encountered unexpected exception importing solver CVXOPT:
+ImportError(&quot;dlopen(/Users/jvanscho/miniconda3/lib/python3.10/site-packages/cvxopt/base.cpython-310-darwin.so, 0x0002): tried: &#39;/Users/jvanscho/miniconda3/lib/python3.10/site-packages/cvxopt/base.cpython-310-darwin.so&#39; (mach-o file, but is an incompatible architecture (have &#39;x86_64&#39;, need &#39;arm64&#39;)), &#39;/System/Volumes/Preboot/Cryptexes/OS/Users/jvanscho/miniconda3/lib/python3.10/site-packages/cvxopt/base.cpython-310-darwin.so&#39; (no such file), &#39;/Users/jvanscho/miniconda3/lib/python3.10/site-packages/cvxopt/base.cpython-310-darwin.so&#39; (mach-o file, but is an incompatible architecture (have &#39;x86_64&#39;, need &#39;arm64&#39;))&quot;)
+(CVXPY) Feb 13 12:46:40 AM: Encountered unexpected exception importing solver GLPK:
+ImportError(&quot;dlopen(/Users/jvanscho/miniconda3/lib/python3.10/site-packages/cvxopt/base.cpython-310-darwin.so, 0x0002): tried: &#39;/Users/jvanscho/miniconda3/lib/python3.10/site-packages/cvxopt/base.cpython-310-darwin.so&#39; (mach-o file, but is an incompatible architecture (have &#39;x86_64&#39;, need &#39;arm64&#39;)), &#39;/System/Volumes/Preboot/Cryptexes/OS/Users/jvanscho/miniconda3/lib/python3.10/site-packages/cvxopt/base.cpython-310-darwin.so&#39; (no such file), &#39;/Users/jvanscho/miniconda3/lib/python3.10/site-packages/cvxopt/base.cpython-310-darwin.so&#39; (mach-o file, but is an incompatible architecture (have &#39;x86_64&#39;, need &#39;arm64&#39;))&quot;)
+(CVXPY) Feb 13 12:46:40 AM: Encountered unexpected exception importing solver GLPK_MI:
+ImportError(&quot;dlopen(/Users/jvanscho/miniconda3/lib/python3.10/site-packages/cvxopt/base.cpython-310-darwin.so, 0x0002): tried: &#39;/Users/jvanscho/miniconda3/lib/python3.10/site-packages/cvxopt/base.cpython-310-darwin.so&#39; (mach-o file, but is an incompatible architecture (have &#39;x86_64&#39;, need &#39;arm64&#39;)), &#39;/System/Volumes/Preboot/Cryptexes/OS/Users/jvanscho/miniconda3/lib/python3.10/site-packages/cvxopt/base.cpython-310-darwin.so&#39; (no such file), &#39;/Users/jvanscho/miniconda3/lib/python3.10/site-packages/cvxopt/base.cpython-310-darwin.so&#39; (mach-o file, but is an incompatible architecture (have &#39;x86_64&#39;, need &#39;arm64&#39;))&quot;)
+</pre></div>
 </div>
-<div class="section" id="overview">
+</div>
+</div>
+<section id="overview">
 <h3>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Mean/constant imputation</p></li>
@@ -3548,7 +3560,14 @@ $<span class="math notranslate nohighlight">\([1, x_1, ..., x_p] \xrightarrow{} 
 </ul>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nd">@interact</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ipywidgets</span> <span class="kn">import</span> <span class="n">interact</span><span class="p">,</span> <span class="n">interact_manual</span>
+<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">fetch_openml</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">LabelEncoder</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
+<span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">make_pipeline</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">cross_val_score</span>
+
+<span class="nd">@interact</span>
 <span class="k">def</span> <span class="nf">compare_imputers</span><span class="p">(</span><span class="n">imputer</span><span class="o">=</span><span class="n">imputers</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
     <span class="n">plot_imputation</span><span class="p">(</span><span class="n">imputer</span><span class="o">=</span><span class="n">imputer</span><span class="p">)</span>
 </pre></div>
@@ -3556,7 +3575,7 @@ $<span class="math notranslate nohighlight">\([1, x_1, ..., x_p] \xrightarrow{} 
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "44eda2b7fed3492ebc7e00eb57998835", "version_major": 2, "version_minor": 0}
+{"model_id": "ee9fb7a6a90f4895b494b6924d60d746", "version_major": 2, "version_minor": 0}
 </script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
@@ -3566,9 +3585,12 @@ $<span class="math notranslate nohighlight">\([1, x_1, ..., x_p] \xrightarrow{} 
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="../_images/06 - Data Preprocessing_97_0.png" src="../_images/06 - Data Preprocessing_97_0.png" />
 </div>
 </div>
-<div class="section" id="mean-imputation">
+</section>
+<section id="mean-imputation">
 <h3>Mean imputation<a class="headerlink" href="#mean-imputation" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Replace all missing values of a feature by the same value</p>
@@ -3591,8 +3613,8 @@ $<span class="math notranslate nohighlight">\([1, x_1, ..., x_p] \xrightarrow{} 
 <img alt="../_images/06 - Data Preprocessing_99_0.png" src="../_images/06 - Data Preprocessing_99_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="knn-imputation">
+</section>
+<section id="knn-imputation">
 <h3>kNN imputation<a class="headerlink" href="#knn-imputation" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Use special version of kNN to predict value of missing points</p></li>
@@ -3608,8 +3630,8 @@ $<span class="math notranslate nohighlight">\([1, x_1, ..., x_p] \xrightarrow{} 
 <img alt="../_images/06 - Data Preprocessing_101_0.png" src="../_images/06 - Data Preprocessing_101_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="iterative-model-based-imputation">
+</section>
+<section id="iterative-model-based-imputation">
 <h3>Iterative (model-based) Imputation<a class="headerlink" href="#iterative-model-based-imputation" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Better known as Multiple Imputation by Chained Equations (MICE)</p></li>
@@ -3635,8 +3657,8 @@ $<span class="math notranslate nohighlight">\([1, x_1, ..., x_p] \xrightarrow{} 
 <img alt="../_images/06 - Data Preprocessing_103_0.png" src="../_images/06 - Data Preprocessing_103_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="matrix-factorization">
+</section>
+<section id="matrix-factorization">
 <h3>Matrix Factorization<a class="headerlink" href="#matrix-factorization" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Basic idea: low-rank approximation</p>
@@ -3662,8 +3684,8 @@ $<span class="math notranslate nohighlight">\([1, x_1, ..., x_p] \xrightarrow{} 
 <img alt="../_images/06 - Data Preprocessing_105_0.png" src="../_images/06 - Data Preprocessing_105_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="soft-thresholded-singular-value-decomposition-svd">
+</section>
+<section id="soft-thresholded-singular-value-decomposition-svd">
 <h3>Soft-thresholded Singular Value Decomposition (SVD)<a class="headerlink" href="#soft-thresholded-singular-value-decomposition-svd" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Same basic idea, but smoother</p>
@@ -3689,8 +3711,8 @@ $<span class="math notranslate nohighlight">\([1, x_1, ..., x_p] \xrightarrow{} 
 <img alt="../_images/06 - Data Preprocessing_107_0.png" src="../_images/06 - Data Preprocessing_107_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="id4">
+</section>
+<section id="id4">
 <h3>Comparison<a class="headerlink" href="#id4" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Best method depends on the problem and dataset at hand. Use cross-validation.</p></li>
@@ -3711,7 +3733,7 @@ $<span class="math notranslate nohighlight">\([1, x_1, ..., x_p] \xrightarrow{} 
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "bef7a3aa75cd43bf904cc41d61d28426", "version_major": 2, "version_minor": 0}
+{"model_id": "20bacc992e2d4d18817b05c949016d0d", "version_major": 2, "version_minor": 0}
 </script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
@@ -3721,9 +3743,12 @@ $<span class="math notranslate nohighlight">\([1, x_1, ..., x_p] \xrightarrow{} 
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="../_images/06 - Data Preprocessing_110_0.png" src="../_images/06 - Data Preprocessing_110_0.png" />
 </div>
 </div>
-<div class="section" id="id5">
+</section>
+<section id="id5">
 <h3>In practice (scikit-learn)<a class="headerlink" href="#id5" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Simple replacement: <code class="docutils literal notranslate"><span class="pre">SimpleImputer</span></code></p>
@@ -3755,8 +3780,8 @@ $<span class="math notranslate nohighlight">\([1, x_1, ..., x_p] \xrightarrow{} 
 <span class="n">X_complete</span> <span class="o">=</span> <span class="n">imp</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="in-practice-fancyimpute">
+</section>
+<section id="in-practice-fancyimpute">
 <h3>In practice (fancyimpute)<a class="headerlink" href="#in-practice-fancyimpute" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Cannot be used in CV pipelines (has <code class="docutils literal notranslate"><span class="pre">fit_transform</span></code> but no <code class="docutils literal notranslate"><span class="pre">transform</span></code>)</p></li>
@@ -3784,9 +3809,9 @@ $<span class="math notranslate nohighlight">\([1, x_1, ..., x_p] \xrightarrow{} 
 <span class="n">X_complete</span> <span class="o">=</span> <span class="n">imp</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="handling-imbalanced-data">
+</section>
+</section>
+<section id="handling-imbalanced-data">
 <h2>Handling imbalanced data<a class="headerlink" href="#handling-imbalanced-data" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Problem:</p>
@@ -3826,8 +3851,9 @@ $<span class="math notranslate nohighlight">\([1, x_1, ..., x_p] \xrightarrow{} 
 <span class="kn">from</span> <span class="nn">imblearn.combine</span> <span class="kn">import</span> <span class="n">SMOTEENN</span>
 <span class="kn">from</span> <span class="nn">imblearn.pipeline</span> <span class="kn">import</span> <span class="n">make_pipeline</span> <span class="k">as</span> <span class="n">make_imb_pipeline</span> <span class="c1"># avoid confusion</span>
 <span class="kn">from</span> <span class="nn">sklearn.utils</span> <span class="kn">import</span> <span class="n">shuffle</span>
-<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">cross_validate</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">cross_validate</span><span class="p">,</span> <span class="n">train_test_split</span>
 <span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestClassifier</span>
+<span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="kn">import</span> <span class="n">SVC</span>
 
 <span class="c1"># Some imbalanced data</span>
 <span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">RandomState</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
@@ -3881,17 +3907,17 @@ $<span class="math notranslate nohighlight">\([1, x_1, ..., x_p] \xrightarrow{} 
     <span class="c1"># Plot</span>
     <span class="n">nr_plots</span> <span class="o">=</span> <span class="mi">2</span> <span class="k">if</span> <span class="n">sampler2</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="mi">3</span>
     <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">nr_plots</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="n">nr_plots</span><span class="o">*</span><span class="mi">3</span><span class="o">*</span><span class="n">fig_scale</span><span class="p">,</span> <span class="mi">3</span><span class="o">*</span><span class="n">fig_scale</span><span class="p">),</span> <span class="n">subplot_kw</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;xticks&#39;</span><span class="p">:(),</span> <span class="s1">&#39;yticks&#39;</span><span class="p">:()})</span>
-    <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Original (AUC: </span><span class="si">{:.3f}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">orig_scores</span><span class="p">)))</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Original (AUC: </span><span class="si">{:.3f}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">orig_scores</span><span class="p">)),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
     <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X_syn</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X_syn</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">tab10</span><span class="p">(</span><span class="n">y_syn</span><span class="p">),</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">.3</span><span class="p">)</span>
  
     <span class="n">X_resampled</span><span class="p">,</span> <span class="n">y_resampled</span><span class="p">,</span> <span class="n">scores</span> <span class="o">=</span> <span class="n">build_evaluate</span><span class="p">(</span><span class="n">sampler</span><span class="p">)</span>
-    <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> (AUC: </span><span class="si">{:.3f}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">sampler</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">scores</span><span class="p">)));</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> (AUC: </span><span class="si">{:.3f}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">sampler</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">scores</span><span class="p">)),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">3</span><span class="p">);</span>
     <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X_resampled</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X_resampled</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">tab10</span><span class="p">(</span><span class="n">y_resampled</span><span class="p">),</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">.3</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">xlim</span><span class="o">=</span><span class="p">(</span><span class="n">X0min</span><span class="p">,</span> <span class="n">X0max</span><span class="p">),</span> <span class="n">ylim</span><span class="o">=</span><span class="p">(</span><span class="n">X1min</span><span class="p">,</span> <span class="n">X1max</span><span class="p">))</span>
     
     <span class="k">if</span> <span class="n">sampler2</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">X_resampled</span><span class="p">,</span> <span class="n">y_resampled</span><span class="p">,</span> <span class="n">scores</span> <span class="o">=</span> <span class="n">build_evaluate</span><span class="p">(</span><span class="n">sampler2</span><span class="p">)</span>
-        <span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> (AUC: </span><span class="si">{:.3f}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">sampler2</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">scores</span><span class="p">)));</span>
+        <span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> (AUC: </span><span class="si">{:.3f}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">sampler2</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">scores</span><span class="p">)),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">3</span><span class="p">);</span>
         <span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X_resampled</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X_resampled</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">tab10</span><span class="p">(</span><span class="n">y_resampled</span><span class="p">),</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">.3</span><span class="p">)</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span><span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">xlim</span><span class="o">=</span><span class="p">(</span><span class="n">X0min</span><span class="p">,</span> <span class="n">X0max</span><span class="p">),</span> <span class="n">ylim</span><span class="o">=</span><span class="p">(</span><span class="n">X1min</span><span class="p">,</span> <span class="n">X1max</span><span class="p">))</span>
         
@@ -3900,7 +3926,7 @@ $<span class="math notranslate nohighlight">\([1, x_1, ..., x_p] \xrightarrow{} 
 </div>
 </div>
 </div>
-<div class="section" id="random-undersampling">
+<section id="random-undersampling">
 <h3>Random Undersampling<a class="headerlink" href="#random-undersampling" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Copy the points from the minority class</p></li>
@@ -3922,8 +3948,8 @@ $<span class="math notranslate nohighlight">\([1, x_1, ..., x_p] \xrightarrow{} 
 <img alt="../_images/06 - Data Preprocessing_116_0.png" src="../_images/06 - Data Preprocessing_116_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="model-based-undersampling">
+</section>
+<section id="model-based-undersampling">
 <h3>Model-based Undersampling<a class="headerlink" href="#model-based-undersampling" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Edited Nearest Neighbors</p>
@@ -3949,8 +3975,8 @@ $<span class="math notranslate nohighlight">\([1, x_1, ..., x_p] \xrightarrow{} 
 <img alt="../_images/06 - Data Preprocessing_118_0.png" src="../_images/06 - Data Preprocessing_118_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="random-oversampling">
+</section>
+<section id="random-oversampling">
 <h3>Random Oversampling<a class="headerlink" href="#random-oversampling" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Copy the points from the majority class</p></li>
@@ -3972,8 +3998,8 @@ $<span class="math notranslate nohighlight">\([1, x_1, ..., x_p] \xrightarrow{} 
 <img alt="../_images/06 - Data Preprocessing_120_0.png" src="../_images/06 - Data Preprocessing_120_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="synthetic-minority-oversampling-technique-smote">
+</section>
+<section id="synthetic-minority-oversampling-technique-smote">
 <h3>Synthetic Minority Oversampling Technique (SMOTE)<a class="headerlink" href="#synthetic-minority-oversampling-technique-smote" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Repeatedly choose a random minority point and a neighboring minority point</p>
@@ -3998,8 +4024,8 @@ $<span class="math notranslate nohighlight">\([1, x_1, ..., x_p] \xrightarrow{} 
 <img alt="../_images/06 - Data Preprocessing_122_0.png" src="../_images/06 - Data Preprocessing_122_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="combined-techniques">
+</section>
+<section id="combined-techniques">
 <h3>Combined techniques<a class="headerlink" href="#combined-techniques" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Combines over- and under-sampling</p></li>
@@ -4020,8 +4046,8 @@ $<span class="math notranslate nohighlight">\([1, x_1, ..., x_p] \xrightarrow{} 
 <img alt="../_images/06 - Data Preprocessing_124_0.png" src="../_images/06 - Data Preprocessing_124_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="ensemble-resampling">
+</section>
+<section id="ensemble-resampling">
 <h3>Ensemble Resampling<a class="headerlink" href="#ensemble-resampling" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Bagged ensemble of balanced base learners. Acts as a learner, not a preprocessor</p></li>
@@ -4046,8 +4072,8 @@ $<span class="math notranslate nohighlight">\([1, x_1, ..., x_p] \xrightarrow{} 
 <img alt="../_images/06 - Data Preprocessing_126_0.png" src="../_images/06 - Data Preprocessing_126_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="id6">
+</section>
+<section id="id6">
 <h3>Comparison<a class="headerlink" href="#id6" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>The best method depends on the data (amount of data, imbalance,…)</p>
@@ -4072,7 +4098,7 @@ $<span class="math notranslate nohighlight">\([1, x_1, ..., x_p] \xrightarrow{} 
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "60d78388fff843d2bdf73bb604242c0c", "version_major": 2, "version_minor": 0}
+{"model_id": "99b5c82737b1432c8306a0374a92c9e9", "version_major": 2, "version_minor": 0}
 </script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
@@ -4082,9 +4108,12 @@ $<span class="math notranslate nohighlight">\([1, x_1, ..., x_p] \xrightarrow{} 
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="../_images/06 - Data Preprocessing_129_0.png" src="../_images/06 - Data Preprocessing_129_0.png" />
 </div>
 </div>
-<div class="section" id="in-practice-imblearn">
+</section>
+<section id="in-practice-imblearn">
 <h3>In practice (<a class="reference external" href="http://imbalanced-learn.org">imblearn</a>)<a class="headerlink" href="#in-practice-imblearn" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Follows fit-sample paradigm (equivalent of fit-transform, but also affects y)</p></li>
@@ -4115,8 +4144,8 @@ $<span class="math notranslate nohighlight">\([1, x_1, ..., x_p] \xrightarrow{} 
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">clf</span> <span class="o">=</span> <span class="n">EasyEnsembleClassifier</span><span class="p">(</span><span class="n">base_estimator</span><span class="o">=</span><span class="n">SVC</span><span class="p">())</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="real-world-data">
+</section>
+<section id="real-world-data">
 <h3>Real-world data<a class="headerlink" href="#real-world-data" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>The effect of sampling procedures can be unpredictable</p></li>
@@ -4128,7 +4157,9 @@ $<span class="math notranslate nohighlight">\([1, x_1, ..., x_p] \xrightarrow{} 
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">roc_curve</span><span class="p">,</span> <span class="n">precision_recall_curve</span>
 
 <span class="c1"># Datasets</span>
-<span class="n">datasets</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Speech&#39;</span><span class="p">,</span><span class="s1">&#39;mc1&#39;</span><span class="p">,</span><span class="s1">&#39;mammography&#39;</span><span class="p">]</span>
+<span class="c1"># Try more if you like: [&#39;Speech&#39; ,&#39;mc1&#39;,&#39;mammography&#39;]</span>
+<span class="c1"># Only showing Speech by default to speed up compute</span>
+<span class="n">datasets</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Speech&#39;</span><span class="p">]</span> 
     
 <span class="n">roc_curves</span> <span class="o">=</span> <span class="p">{}</span>
 
@@ -4190,26 +4221,6 @@ Evaluating ADASYN
 Evaluating EasyEnsembleClassifier
 Evaluating BalancedBaggingClassifier
 Evaluating SMOTEENN
-Dataset mc1
-Evaluating RandomUnderSampler
-Evaluating EditedNearestNeighbours
-Evaluating CondensedNearestNeighbour
-Evaluating RandomOverSampler
-Evaluating SMOTE
-Evaluating ADASYN
-Evaluating EasyEnsembleClassifier
-Evaluating BalancedBaggingClassifier
-Evaluating SMOTEENN
-Dataset mammography
-Evaluating RandomUnderSampler
-Evaluating EditedNearestNeighbours
-Evaluating CondensedNearestNeighbour
-Evaluating RandomOverSampler
-Evaluating SMOTE
-Evaluating ADASYN
-Evaluating EasyEnsembleClassifier
-Evaluating BalancedBaggingClassifier
-Evaluating SMOTEENN
 </pre></div>
 </div>
 </div>
@@ -4259,7 +4270,7 @@ Evaluating SMOTEENN
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "984f8a052927424e8f048be37c97d6e2", "version_major": 2, "version_minor": 0}
+{"model_id": "fd58939cf3a242eea5feb7deefab031f", "version_major": 2, "version_minor": 0}
 </script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
@@ -4269,10 +4280,13 @@ Evaluating SMOTEENN
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="../_images/06 - Data Preprocessing_134_0.png" src="../_images/06 - Data Preprocessing_134_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="summary">
+</section>
+</section>
+<section id="summary">
 <h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Data preprocessing is a crucial part of machine learning</p>
@@ -4297,8 +4311,8 @@ Evaluating SMOTEENN
 </ul>
 </li>
 </ul>
-</div>
-</div>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -4312,7 +4326,7 @@ Evaluating SMOTEENN
             mode: "python"
         },
         kernelOptions: {
-            name: "python3",
+            kernelName: "python3",
             path: "./notebooks"
         },
         predefinedOutput: true
@@ -4350,7 +4364,7 @@ Evaluating SMOTEENN
   
     By Joaquin Vanschoren<br/>
   
-      &copy; Copyright 2021. CC0 Licensed - Use as you like.<br/>
+      &copy; Copyright 2023. CC0 Licensed - Use as you like.<br/>
 </p>
         </footer>
     </div>

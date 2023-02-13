@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Lab 1a: Linear regression &#8212; ML Engineering</title>
     
   <!-- Loaded before other Sphinx assets -->
@@ -34,10 +35,13 @@
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
     <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
@@ -193,17 +197,17 @@ const thebe_selector_output = ".output, .cell_output"
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="Lab%202%20-%20Kernelization.html">
-   Lab 2: Kernelization
+  <a class="reference internal" href="Lab%202a%20-%20Kernelization.html">
+   Lab 2a: Kernelization
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="Lab%203a%20-%20Model%20Selection.html">
-   Lab 3a: Model selection
+  <a class="reference internal" href="Lab%202b%20-%20Model%20Selection.html">
+   Lab 2b: Model selection
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="Lab%203b%20-%20Ensembles.html">
+  <a class="reference internal" href="Lab%203%20-%20Ensembles.html">
    Lab 3b: Ensembles
   </a>
  </li>
@@ -272,11 +276,6 @@ const thebe_selector_output = ".output, .cell_output"
  <li class="toctree-l1">
   <a class="reference internal" href="Lab%201%20-%20Tutorial.html">
    Lab 1: Machine Learning with Python
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Lab%203%20-%20Tutorial.html">
-   Lab 3 Tutorial: Model Selection in scikit-learn
   </a>
  </li>
  <li class="toctree-l1">
@@ -675,14 +674,14 @@ title="Print to PDF"
                 
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="lab-1a-linear-regression">
+  <section class="tex2jax_ignore mathjax_ignore" id="lab-1a-linear-regression">
 <h1>Lab 1a: Linear regression<a class="headerlink" href="#lab-1a-linear-regression" title="Permalink to this headline">#</a></h1>
 <p>The <a class="reference external" href="https://www.openml.org/d/547">NO2 dataset</a> contains 500 measurement of pollution caused by cars. The goal is to predict the concentration of <span class="math notranslate nohighlight">\(NO_2\)</span> from data about traffic and atmospheric conditions. The predictive variables include the number of cars per hour, temperature, wind, and time of day.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Auto-setup when running on Google Colab</span>
 <span class="k">if</span> <span class="s1">&#39;google.colab&#39;</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">get_ipython</span><span class="p">()):</span>
-    <span class="o">!</span>pip install openml
+    <span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>openml
 
 <span class="c1"># General imports</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
@@ -700,43 +699,6 @@ title="Print to PDF"
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">ImportError</span><span class="g g-Whitespace">                               </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="mi">0</span><span class="n">t</span><span class="o">/</span><span class="mi">5</span><span class="n">d8ttqzd773fy0wq3h5db0xr0000gn</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_36901</span><span class="o">/</span><span class="mf">788168324.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="n">get_ipython</span><span class="p">()</span><span class="o">.</span><span class="n">run_line_magic</span><span class="p">(</span><span class="s1">&#39;matplotlib&#39;</span><span class="p">,</span> <span class="s1">&#39;inline&#39;</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">7</span> <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="ne">----&gt; </span><span class="mi">8</span> <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="g g-Whitespace">      </span><span class="mi">9</span> <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="g g-Whitespace">     </span><span class="mi">10</span> <span class="kn">import</span> <span class="nn">openml</span> <span class="k">as</span> <span class="nn">oml</span>
-
-<span class="o">~/</span><span class="n">miniforge3</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.9</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">pandas</span><span class="o">/</span><span class="fm">__init__</span><span class="o">.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">     </span><span class="mi">20</span> 
-<span class="g g-Whitespace">     </span><span class="mi">21</span> <span class="c1"># numpy compat</span>
-<span class="ne">---&gt; </span><span class="mi">22</span> <span class="kn">from</span> <span class="nn">pandas.compat</span> <span class="kn">import</span> <span class="n">is_numpy_dev</span> <span class="k">as</span> <span class="n">_is_numpy_dev</span>  <span class="c1"># pyright: ignore # noqa:F401</span>
-<span class="g g-Whitespace">     </span><span class="mi">23</span> 
-<span class="g g-Whitespace">     </span><span class="mi">24</span> <span class="k">try</span><span class="p">:</span>
-
-<span class="o">~/</span><span class="n">miniforge3</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.9</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">pandas</span><span class="o">/</span><span class="n">compat</span><span class="o">/</span><span class="fm">__init__</span><span class="o">.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">     </span><span class="mi">16</span> 
-<span class="g g-Whitespace">     </span><span class="mi">17</span> <span class="kn">from</span> <span class="nn">pandas._typing</span> <span class="kn">import</span> <span class="n">F</span>
-<span class="ne">---&gt; </span><span class="mi">18</span> <span class="kn">from</span> <span class="nn">pandas.compat.numpy</span> <span class="kn">import</span> <span class="p">(</span>
-<span class="g g-Whitespace">     </span><span class="mi">19</span>     <span class="n">is_numpy_dev</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">20</span>     <span class="n">np_version_under1p21</span><span class="p">,</span>
-
-<span class="o">~/</span><span class="n">miniforge3</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.9</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">pandas</span><span class="o">/</span><span class="n">compat</span><span class="o">/</span><span class="n">numpy</span><span class="o">/</span><span class="fm">__init__</span><span class="o">.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">     </span><span class="mi">21</span> 
-<span class="g g-Whitespace">     </span><span class="mi">22</span> <span class="k">if</span> <span class="n">_nlv</span> <span class="o">&lt;</span> <span class="n">Version</span><span class="p">(</span><span class="n">_min_numpy_ver</span><span class="p">):</span>
-<span class="ne">---&gt; </span><span class="mi">23</span>     <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span>
-<span class="g g-Whitespace">     </span><span class="mi">24</span>         <span class="sa">f</span><span class="s2">&quot;this version of pandas is incompatible with numpy &lt; </span><span class="si">{</span><span class="n">_min_numpy_ver</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
-<span class="g g-Whitespace">     </span><span class="mi">25</span>         <span class="sa">f</span><span class="s2">&quot;your numpy version is </span><span class="si">{</span><span class="n">_np_version</span><span class="si">}</span><span class="s2">.</span><span class="se">\n</span><span class="s2">&quot;</span>
-
-<span class="ne">ImportError</span>: this version of pandas is incompatible with numpy &lt; 1.20.3
-<span class="n">your</span> <span class="n">numpy</span> <span class="n">version</span> <span class="ow">is</span> <span class="mf">1.19.5</span><span class="o">.</span>
-<span class="n">Please</span> <span class="n">upgrade</span> <span class="n">numpy</span> <span class="n">to</span> <span class="o">&gt;=</span> <span class="mf">1.20.3</span> <span class="n">to</span> <span class="n">use</span> <span class="n">this</span> <span class="n">pandas</span> <span class="n">version</span>
-</pre></div>
-</div>
-</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -748,7 +710,7 @@ title="Print to PDF"
 </div>
 </div>
 </div>
-<div class="section" id="quick-visualization">
+<section id="quick-visualization">
 <h2>Quick visualization<a class="headerlink" href="#quick-visualization" title="Permalink to this headline">#</a></h2>
 <p>We can use pandas to quickly visualize the data. If you are new to pandas, take some time to understand the code.</p>
 <p>We’ll remove the ‘day’ feature to focus on the non-temporal aspects of this interaction. We are not aiming to predict future levels, and even if we would it would require special treatment (e.g. different train-test splits). There also doesn’t seem to be a long term trend in the data, even though there are clear periodic trends in temperature.</p>
@@ -866,17 +828,17 @@ title="Print to PDF"
 </div>
 </div>
 <p>We can see that the target (<span class="math notranslate nohighlight">\(NO_2\)</span> levels) seem to be correlated to the number of cars per hour, which makes sense because cars produce <span class="math notranslate nohighlight">\(NO_2\)</span>. Other influences (air temperature differences and wind) seem to have a more complex and subtle effect. Let’s try to model these using linear regression models.</p>
-</div>
-<div class="section" id="exercise-1-model-benchmark">
+</section>
+<section id="exercise-1-model-benchmark">
 <h2>Exercise 1: Model benchmark<a class="headerlink" href="#exercise-1-model-benchmark" title="Permalink to this headline">#</a></h2>
 <p>It is clear that <span class="math notranslate nohighlight">\(NO_2\)</span> concentrations depend on a combination of these features, so we will now try to learn this complex relationship. We first evaluate a range of linear regression problems, i.e. Linear Regression, Ridge, Lasso and ElasticNet, as well as kNN. Since we observed that some features have very different scales, we’ll also build pipelines of all these measures with an additional scaling step. For now, we’ll stick to the default hyperparameter settings.</p>
-<div class="section" id="exercise-1-1">
+<section id="exercise-1-1">
 <h3>Exercise 1.1<a class="headerlink" href="#exercise-1-1" title="Permalink to this headline">#</a></h3>
 <p>Implement a function below which evaluates each classifier passed into it on the given data, and then returns both the train and test scores of each as a list. You are allowed to import additional functions from whichever module you like, but you should be able to complete the function with <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.cross_validate.html"><code class="docutils literal notranslate"><span class="pre">cross_validate</span></code></a> function and standard Python built-ins. Below you the function you will find example output.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">evaluate_learners</span><span class="p">(</span><span class="n">models</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;     </span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;     </span>
 <span class="sd">    Given a list of models [model1, model2, ..., modelN] return two lists:</span>
 <span class="sd">     - a list with the scores obtained on the training samples for each model,</span>
 <span class="sd">     - a list with the test scores obtained on the test samples for each model.</span>
@@ -896,8 +858,8 @@ title="Print to PDF"
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="exercise-1-2">
+</section>
+<section id="exercise-1-2">
 <h3>Exercise 1.2<a class="headerlink" href="#exercise-1-2" title="Permalink to this headline">#</a></h3>
 <p>Call the function you created with a Linear Regression, Ridge, Lasso and ElasticNet, as well as kNN.
 Store the return values in the variables <code class="docutils literal notranslate"><span class="pre">train_scores</span></code> and <code class="docutils literal notranslate"><span class="pre">test_scores</span></code>. Then, run the code given below to produce a plot visualizing the scores.</p>
@@ -937,17 +899,17 @@ Store the return values in the variables <code class="docutils literal notransla
 <img alt="../_images/Lab 1a - Linear Models for Regression_15_0.png" src="../_images/Lab 1a - Linear Models for Regression_15_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="exercise-1-3">
+</section>
+<section id="exercise-1-3">
 <h3>Exercise 1.3<a class="headerlink" href="#exercise-1-3" title="Permalink to this headline">#</a></h3>
 <p>Interpret the plot. Which is the best regressor? Are any of the models overfitting? If so, what can we do to solve this? Is there a lot of variance in the results?</p>
-</div>
-</div>
-<div class="section" id="exercise-2-regularization">
+</section>
+</section>
+<section id="exercise-2-regularization">
 <h2>Exercise 2: Regularization<a class="headerlink" href="#exercise-2-regularization" title="Permalink to this headline">#</a></h2>
 <p>We will now tune these algorithm’s main regularization hyperparameter: the regularization hyperparameter (<code class="docutils literal notranslate"><span class="pre">alpha</span></code>) in Lasso and Ridge, and the number of neighbors (<code class="docutils literal notranslate"><span class="pre">n_neighbors</span></code>) in kNN.</p>
 <p>We expect the optimum for the alpha parameters to lie in <span class="math notranslate nohighlight">\([10^{-12},10^{12}]\)</span> and for n_neighbors between 1 and 50. alpha should be varied on a log scale (i.e. [0.01, 0.1, 1, 10, 100]), n_neighbors should be varied uniformly (i.e. [1,2,3,4]).</p>
-<div class="section" id="exercise-2-1">
+<section id="exercise-2-1">
 <h3>Exercise 2.1<a class="headerlink" href="#exercise-2-1" title="Permalink to this headline">#</a></h3>
 <p>Vary the hyperparameters in the range given above and, for each regressor, create a line plot that plots both the training and test score for every value of the regularization hyperparameter. Hence, you should produce 3 plots, one for each regressor. Use the default 5-fold cross validation for all scores, but only plot the means.</p>
 <p>Hints:</p>
@@ -957,12 +919,12 @@ Store the return values in the variables <code class="docutils literal notransla
 <li><p>You can use matplotlib’s default <a class="reference external" href="https://matplotlib.org/tutorials/introductory/pyplot.html">plot</a> function to plot the train and test scores.</p></li>
 <li><p>You can manually loop over the hyperparameter ranges, or you can already check out scikit-learn’s <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.GridSearchCV.html">GridSearchCV</a> function to save some programming. We’ll see it again later in the course.</p></li>
 </ul>
-</div>
-<div class="section" id="exercise-2-2">
+</section>
+<section id="exercise-2-2">
 <h3>Exercise 2.2<a class="headerlink" href="#exercise-2-2" title="Permalink to this headline">#</a></h3>
 <p>Interpret the plots. When are the methods underfitting? When are they overfitting? How sensitive are they to the regularization hyperparameter?</p>
-</div>
-<div class="section" id="exercise-2-3">
+</section>
+<section id="exercise-2-3">
 <h3>Exercise 2.3<a class="headerlink" href="#exercise-2-3" title="Permalink to this headline">#</a></h3>
 <p>ElasticNet allows to mix L1 and L2 loss, and the <code class="docutils literal notranslate"><span class="pre">l1_ratio</span></code> hyperparameter defines the ratio of L1 loss. Hence, it has two interacting hyperparameters: l1_ratio and alpha. Run a grid search to obtain a matrix of l1_ratio and alpha values and the resulting cross-validation scores. Then, use the function provided below to plot a heatmap of all values and interpret the result. Can you explain how the two hyperparameters interact?</p>
 <div class="cell docutils container">
@@ -970,7 +932,7 @@ Store the return values in the variables <code class="docutils literal notransla
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Generic heatmap</span>
 <span class="k">def</span> <span class="nf">heatmap</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">xlabel</span><span class="p">,</span> <span class="n">ylabel</span><span class="p">,</span> <span class="n">xticklabels</span><span class="p">,</span> <span class="n">yticklabels</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
             <span class="n">vmin</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%0.2f</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">printvalues</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Plots a heatmap for the performance of a model for every combination of two hyperparameter values</span>
 <span class="sd">    </span>
 <span class="sd">    values: nxn array with all evaluation results, varying the first hyperparameter first</span>
@@ -1013,22 +975,22 @@ Store the return values in the variables <code class="docutils literal notransla
 </div>
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="exercise-3-visualizing-coefficients">
+</section>
+</section>
+<section id="exercise-3-visualizing-coefficients">
 <h2>Exercise 3: Visualizing coefficients<a class="headerlink" href="#exercise-3-visualizing-coefficients" title="Permalink to this headline">#</a></h2>
 <p>Finally, let’s verify whether the different optimized linear models also find the same coefficients.</p>
-<div class="section" id="exercise-3-1">
+<section id="exercise-3-1">
 <h3>Exercise 3.1<a class="headerlink" href="#exercise-3-1" title="Permalink to this headline">#</a></h3>
 <p>Draw a <a class="reference external" href="https://matplotlib.org/gallery/shapes_and_collections/scatter.html">scatterplot</a> plotting the coefficients of the different models in different colors. Do you see much difference between the different models?</p>
 <p>For all models, choose an alpha parameter that seems to work well in the previous exercise. When in doubt, use alpha=0.001.</p>
-</div>
-<div class="section" id="exercise-3-2">
+</section>
+<section id="exercise-3-2">
 <h3>Exercise 3.2<a class="headerlink" href="#exercise-3-2" title="Permalink to this headline">#</a></h3>
 <p>Redraw the same plot but now using a large amount of regularization (e.g. alpha=1). What do you observe? Does this help you explain the performance difference between Ridge and Lasso in exercise 1.2?</p>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -1042,7 +1004,7 @@ Store the return values in the variables <code class="docutils literal notransla
             mode: "python"
         },
         kernelOptions: {
-            name: "python3",
+            kernelName: "python3",
             path: "./labs"
         },
         predefinedOutput: true
@@ -1080,7 +1042,7 @@ Store the return values in the variables <code class="docutils literal notransla
   
     By Joaquin Vanschoren<br/>
   
-      &copy; Copyright 2021. CC0 Licensed - Use as you like.<br/>
+      &copy; Copyright 2023. CC0 Licensed - Use as you like.<br/>
 </p>
         </footer>
     </div>

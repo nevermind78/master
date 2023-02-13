@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Lecture 10. Neural Networks for text &#8212; ML Engineering</title>
     
   <!-- Loaded before other Sphinx assets -->
@@ -34,10 +35,13 @@
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
     <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
@@ -193,17 +197,17 @@ const thebe_selector_output = ".output, .cell_output"
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%202%20-%20Kernelization.html">
-   Lab 2: Kernelization
+  <a class="reference internal" href="../labs/Lab%202a%20-%20Kernelization.html">
+   Lab 2a: Kernelization
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%203a%20-%20Model%20Selection.html">
-   Lab 3a: Model selection
+  <a class="reference internal" href="../labs/Lab%202b%20-%20Model%20Selection.html">
+   Lab 2b: Model selection
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%203b%20-%20Ensembles.html">
+  <a class="reference internal" href="../labs/Lab%203%20-%20Ensembles.html">
    Lab 3b: Ensembles
   </a>
  </li>
@@ -272,11 +276,6 @@ const thebe_selector_output = ".output, .cell_output"
  <li class="toctree-l1">
   <a class="reference internal" href="../labs/Lab%201%20-%20Tutorial.html">
    Lab 1: Machine Learning with Python
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%203%20-%20Tutorial.html">
-   Lab 3 Tutorial: Model Selection in scikit-learn
   </a>
  </li>
  <li class="toctree-l1">
@@ -899,7 +898,7 @@ title="Print to PDF"
                 
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="lecture-10-neural-networks-for-text">
+  <section class="tex2jax_ignore mathjax_ignore" id="lecture-10-neural-networks-for-text">
 <h1>Lecture 10. Neural Networks for text<a class="headerlink" href="#lecture-10-neural-networks-for-text" title="Permalink to this headline">#</a></h1>
 <p><strong>Turning text into numbers</strong></p>
 <p>Joaquin Vanschoren</p>
@@ -923,7 +922,7 @@ title="Print to PDF"
 </div>
 </div>
 </div>
-<div class="section" id="overview">
+<section id="overview">
 <h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Bag of words representations</p>
@@ -938,8 +937,8 @@ title="Print to PDF"
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="bag-of-word-representation">
+</section>
+<section id="bag-of-word-representation">
 <h2>Bag of word representation<a class="headerlink" href="#bag-of-word-representation" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>First, build a <em>vocabulary</em> of all occuring words. Maps every word to an index.</p></li>
@@ -985,7 +984,7 @@ Review 10: the french horror cinema has seen something of a revival over the las
 </div>
 </div>
 </div>
-<div class="section" id="bag-of-words-with-one-hot-encoding">
+<section id="bag-of-words-with-one-hot-encoding">
 <h3>Bag of words with one-hot-encoding<a class="headerlink" href="#bag-of-words-with-one-hot-encoding" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Encoded review: shows the list of word IDs. Words are sorted by frequency of occurance.</p>
@@ -1035,8 +1034,8 @@ One-hot-encoded review:  [0. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 0. 1. 0. 
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="word-counts">
+</section>
+<section id="word-counts">
 <h3>Word counts<a class="headerlink" href="#word-counts" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Count the number of times each word appears in the document</p></li>
@@ -1076,8 +1075,8 @@ Count encoding doc 2: [0 0 0 3 1 0 1 1 0 1 2 1 0 1 0 0 1 0 1 0 0 1 0 0 0 0 1 1 1
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="classification">
+</section>
+<section id="classification">
 <h3>Classification<a class="headerlink" href="#classification" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>With this tabular representation, we can fit any model (e.g. Logistic regression)</p></li>
@@ -1135,8 +1134,8 @@ Count encoding doc 2: [0 0 0 3 1 0 1 1 0 1 2 1 0 1 0 0 1 0 1 0 0 1 0 0 0 0 1 1 1
 <img alt="../_images/10 - Neural Networks for text_13_0.png" src="../_images/10 - Neural Networks for text_13_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="preprocessing">
+</section>
+<section id="preprocessing">
 <h3>Preprocessing<a class="headerlink" href="#preprocessing" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Tokenization: how to you split text into words? On spaces only? Also -, ` ?</p></li>
@@ -1156,8 +1155,8 @@ Count encoding doc 2: [0 0 0 3 1 0 1 1 0 1 2 1 0 1 0 0 1 0 1 0 0 1 0 0 0 0 1 1 1
 <li><p>Character n-grams: combinations of <span class="math notranslate nohighlight">\(n\)</span> adjacent letters: ‘awe’, ‘wes’, ‘eso’,…</p></li>
 <li><p>Useful libraries: <a class="reference external" href="https://www.nltk.org/">nltk</a>, <a class="reference external" href="https://spacy.io/">spaCy</a>, <a class="reference external" href="https://radimrehurek.com/gensim/">gensim</a>,…</p></li>
 </ul>
-</div>
-<div class="section" id="scaling">
+</section>
+<section id="scaling">
 <h3>Scaling<a class="headerlink" href="#scaling" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>L2 Normalization (vector norm): sum of squares of all word values equals 1</p>
@@ -1186,9 +1185,9 @@ $<span class="math notranslate nohighlight">\( t_i = \frac{t_i}{\| t\|_2 }\)</sp
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Lambda</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">tf</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">normalize</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)))</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="neural-networks-on-bag-of-words">
+</section>
+</section>
+<section id="neural-networks-on-bag-of-words">
 <h2>Neural networks on bag of words<a class="headerlink" href="#neural-networks-on-bag-of-words" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>We could build simple neural networks on bag-of-word vectors</p>
@@ -1281,7 +1280,7 @@ $<span class="math notranslate nohighlight">\( t_i = \frac{t_i}{\| t\|_2 }\)</sp
 </div>
 </div>
 </div>
-<div class="section" id="model-selection">
+<section id="model-selection">
 <h3>Model selection<a class="headerlink" href="#model-selection" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Take a validation set of 10,000 samples from the training set</p></li>
@@ -1314,7 +1313,7 @@ $<span class="math notranslate nohighlight">\( t_i = \frac{t_i}{\| t\|_2 }\)</sp
 <img alt="../_images/10 - Neural Networks for text_20_0.png" src="../_images/10 - Neural Networks for text_20_0.png" />
 </div>
 </div>
-<div class="section" id="regularization-smaller-networks">
+<section id="regularization-smaller-networks">
 <h4>Regularization: smaller networks<a class="headerlink" href="#regularization-smaller-networks" title="Permalink to this headline">#</a></h4>
 <ul class="simple">
 <li><p>The easiest way to avoid overfitting is to use a simpler model</p>
@@ -1342,8 +1341,8 @@ $<span class="math notranslate nohighlight">\( t_i = \frac{t_i}{\| t\|_2 }\)</sp
 <img alt="../_images/10 - Neural Networks for text_22_0.png" src="../_images/10 - Neural Networks for text_22_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="weight-regularization-l2">
+</section>
+<section id="weight-regularization-l2">
 <h4>Weight regularization (L2)<a class="headerlink" href="#weight-regularization-l2" title="Permalink to this headline">#</a></h4>
 <ul class="simple">
 <li><p>L2 regularized model (on 16 hidden nodes) is equally/more resistant to overfitting, even though both have the same number of parameters</p></li>
@@ -1375,8 +1374,8 @@ $<span class="math notranslate nohighlight">\( t_i = \frac{t_i}{\| t\|_2 }\)</sp
 <img alt="../_images/10 - Neural Networks for text_24_0.png" src="../_images/10 - Neural Networks for text_24_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="dropout-regularization">
+</section>
+<section id="dropout-regularization">
 <h4>Dropout Regularization<a class="headerlink" href="#dropout-regularization" title="Permalink to this headline">#</a></h4>
 <ul class="simple">
 <li><p>Overfits less than the original model, but more than L2-regularization</p></li>
@@ -1405,8 +1404,8 @@ $<span class="math notranslate nohighlight">\( t_i = \frac{t_i}{\| t\|_2 }\)</sp
 <img alt="../_images/10 - Neural Networks for text_26_0.png" src="../_images/10 - Neural Networks for text_26_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="tuning">
+</section>
+<section id="tuning">
 <h4>Tuning<a class="headerlink" href="#tuning" title="Permalink to this headline">#</a></h4>
 <ul class="simple">
 <li><p>We can vary the remaining hyperparameters</p>
@@ -1530,8 +1529,8 @@ Metal device set to: Apple M1 Pro
 </table>
 </div></div></div>
 </div>
-</div>
-<div class="section" id="predictions">
+</section>
+<section id="predictions">
 <h4>Predictions<a class="headerlink" href="#predictions" title="Permalink to this headline">#</a></h4>
 <p>Let’s look at a few predictions:</p>
 <div class="cell docutils container">
@@ -1554,9 +1553,9 @@ Predicted positiveness:  [0.693]
 </div>
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="multi-class-classification-topic-classification">
+</section>
+</section>
+<section id="multi-class-classification-topic-classification">
 <h3>Multi-class classification (topic classification)<a class="headerlink" href="#multi-class-classification-topic-classification" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Reuters dataset: 11,000 news stories, 46 topics</p></li>
@@ -1593,7 +1592,7 @@ Topic:  3
 </div>
 </div>
 </div>
-<div class="section" id="building-the-network">
+<section id="building-the-network">
 <h4>Building the network<a class="headerlink" href="#building-the-network" title="Permalink to this headline">#</a></h4>
 <ul class="simple">
 <li><p>16 hidden units may be too limited to learn 46 topics, hence we use 64</p></li>
@@ -1616,8 +1615,8 @@ Topic:  3
               <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;accuracy&#39;</span><span class="p">])</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="result">
+</section>
+<section id="result">
 <h4>Result<a class="headerlink" href="#result" title="Permalink to this headline">#</a></h4>
 <ul class="simple">
 <li><p>Some overfitting after about 8 epochs</p></li>
@@ -1659,10 +1658,10 @@ Topic:  3
 <img alt="../_images/10 - Neural Networks for text_36_0.png" src="../_images/10 - Neural Networks for text_36_0.png" />
 </div>
 </div>
-</div>
-</div>
-</div>
-<div class="section" id="word-embeddings">
+</section>
+</section>
+</section>
+<section id="word-embeddings">
 <h2>Word Embeddings<a class="headerlink" href="#word-embeddings" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>An embedding maps each word to a point in a much smaller <span class="math notranslate nohighlight">\(m\)</span>-dimensional space (e.g. 300 values)</p></li>
@@ -1683,7 +1682,7 @@ Topic:  3
 </ul>
 </li>
 </ul>
-<div class="section" id="training-embedding-layers-from-scratch">
+<section id="training-embedding-layers-from-scratch">
 <h3>Training Embedding layers from scratch<a class="headerlink" href="#training-embedding-layers-from-scratch" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Input layer uses fixed length documents. E.g. 100 nodes for 100 word IDs</p>
@@ -1713,8 +1712,8 @@ Topic:  3
 <li><p>Add layers to map word embeddings to the desired output (see later)</p></li>
 <li><p>Learn all weights from the labeled data.</p></li>
 </ul>
-</div>
-<div class="section" id="pre-trained-embeddings">
+</section>
+<section id="pre-trained-embeddings">
 <h3>Pre-trained embeddings<a class="headerlink" href="#pre-trained-embeddings" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>With more data we can build better embeddings, but we also need more labels</p></li>
@@ -1749,7 +1748,7 @@ Topic:  3
 </ul>
 </li>
 </ul>
-<div class="section" id="word2vec">
+<section id="word2vec">
 <h4>Word2Vec<a class="headerlink" href="#word2vec" title="Permalink to this headline">#</a></h4>
 <ul class="simple">
 <li><p>Move a window over text to get <span class="math notranslate nohighlight">\(C\)</span> context words (<span class="math notranslate nohighlight">\(V\)</span>-dim one-hot encoded)</p></li>
@@ -1757,8 +1756,8 @@ Topic:  3
 <li><p>CBOW: predict word given context, use weights of last layer as embedding</p></li>
 <li><p>Skip-Gram: predict context given word, use weights of first layer as embedding (better for large corpora)</p></li>
 </ul>
-<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/09_word_embeddings_3.png" alt="ml" style="width: 600px;"/></div>
-<div class="section" id="word2vec-properties">
+<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/09_word_embeddings_3.png" alt="ml" style="width: 600px;"/></section>
+<section id="word2vec-properties">
 <h4>Word2Vec properties<a class="headerlink" href="#word2vec-properties" title="Permalink to this headline">#</a></h4>
 <ul class="simple">
 <li><p>Word2Vec happens to learn <a class="reference external" href="https://www.aclweb.org/anthology/N13-1090/">interesting relationships</a> between words</p>
@@ -1774,8 +1773,8 @@ Topic:  3
 </ul>
 </li>
 </ul>
-<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/word2vec.png" alt="ml" style="width: 800px;"/></div>
-<div class="section" id="fasttext">
+<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/word2vec.png" alt="ml" style="width: 800px;"/></section>
+<section id="fasttext">
 <h4>FastText<a class="headerlink" href="#fasttext" title="Permalink to this headline">#</a></h4>
 <ul class="simple">
 <li><p>Limitations of Word2Vec:</p>
@@ -1802,8 +1801,8 @@ Topic:  3
 </li>
 <li><p>Training with positive examples (in-context words) and random negative examples</p></li>
 </ul>
-</div>
-<div class="section" id="global-vector-model-glove">
+</section>
+<section id="global-vector-model-glove">
 <h4>Global Vector model (GloVe)<a class="headerlink" href="#global-vector-model-glove" title="Permalink to this headline">#</a></h4>
 <ul class="simple">
 <li><p>Builds a co-occurence matrix <span class="math notranslate nohighlight">\(\mathbf{X}\)</span></p>
@@ -1820,9 +1819,9 @@ Topic:  3
 </ul>
 <div class="math notranslate nohighlight">
 \[\mathcal{L} = \sum_{i,j=1}^{V} f(\mathbf{X}_{ij}) (\mathbf{w_i} \mathbf{w'_j} + b_i + b'_j - log(\mathbf{X}_{ij}))^2\]</div>
-<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/glove3.png" alt="ml" style="width: 800px;"/></div>
-</div>
-<div class="section" id="document-paragraph-embeddings">
+<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/glove3.png" alt="ml" style="width: 800px;"/></section>
+</section>
+<section id="document-paragraph-embeddings">
 <h3>Document/paragraph embeddings<a class="headerlink" href="#document-paragraph-embeddings" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Simplest approach to represent a document: sum or average of all word vectors</p></li>
@@ -1835,9 +1834,9 @@ Topic:  3
 </ul>
 </li>
 </ul>
-<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/doc2vec.png" alt="ml" style="width:600px;"/></div>
-</div>
-<div class="section" id="neural-networks-on-word-embeddings">
+<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/doc2vec.png" alt="ml" style="width:600px;"/></section>
+</section>
+<section id="neural-networks-on-word-embeddings">
 <h2>Neural networks on word embeddings<a class="headerlink" href="#neural-networks-on-word-embeddings" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Say that we have m-dimensional word embeddings and documents of size <span class="math notranslate nohighlight">\(l\)</span></p></li>
@@ -1865,7 +1864,7 @@ Topic:  3
 </ul>
 </li>
 </ul>
-<div class="section" id="id1">
+<section id="id1">
 <h3>Training embedding layers from scratch<a class="headerlink" href="#id1" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Simple model with an embedding layer and direct mapping to binary class</p>
@@ -1945,8 +1944,8 @@ _________________________________________________________________
 <img alt="../_images/10 - Neural Networks for text_49_0.png" src="../_images/10 - Neural Networks for text_49_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="d-convolutional-networks">
+</section>
+<section id="d-convolutional-networks">
 <h3>1D convolutional networks<a class="headerlink" href="#d-convolutional-networks" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Similar to 2D convnets, 1D convnets extract local 1D patches from image tensors</p>
@@ -1957,7 +1956,7 @@ _________________________________________________________________
 <li><p>Pattern learned can later be recognized elsewhere (translation invariance)</p></li>
 <li><p>1D Pooling: extracts 1D patches and outputs the max value (max pooling) or average</p></li>
 </ul>
-<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/1Dconvnet.png" alt="ml" style="width:500px;"/><div class="section" id="conv1d-model">
+<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/1Dconvnet.png" alt="ml" style="width:500px;"/><section id="conv1d-model">
 <h4>Conv1D model<a class="headerlink" href="#conv1d-model" title="Permalink to this headline">#</a></h4>
 <ul class="simple">
 <li><p>First layer learns the word embeddings</p></li>
@@ -2017,9 +2016,9 @@ _________________________________________________________________
 </div>
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="using-pretrained-embeddings">
+</section>
+</section>
+<section id="using-pretrained-embeddings">
 <h3>Using pretrained embeddings<a class="headerlink" href="#using-pretrained-embeddings" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Download the <a class="reference external" href="https://nlp.stanford.edu/projects/glove">GloVe embeddings trained on Wikipedia</a> (400k words)</p></li>
@@ -2224,7 +2223,7 @@ _________________________________________________________________
 </div>
 </div>
 </div>
-<div class="section" id="id2">
+<section id="id2">
 <h4>Conv1D model<a class="headerlink" href="#id2" title="Permalink to this headline">#</a></h4>
 <ul class="simple">
 <li><p>First layer learns the word embeddings)</p></li>
@@ -2326,10 +2325,10 @@ _________________________________________________________________
 </div>
 </div>
 </div>
-</div>
-</div>
-</div>
-<div class="section" id="summary">
+</section>
+</section>
+</section>
+<section id="summary">
 <h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Bag of words representations</p>
@@ -2366,8 +2365,8 @@ _________________________________________________________________
 </ul>
 </li>
 </ul>
-</div>
-</div>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -2381,7 +2380,7 @@ _________________________________________________________________
             mode: "python"
         },
         kernelOptions: {
-            name: "python3",
+            kernelName: "python3",
             path: "./notebooks"
         },
         predefinedOutput: true
@@ -2419,7 +2418,7 @@ _________________________________________________________________
   
     By Joaquin Vanschoren<br/>
   
-      &copy; Copyright 2021. CC0 Licensed - Use as you like.<br/>
+      &copy; Copyright 2023. CC0 Licensed - Use as you like.<br/>
 </p>
         </footer>
     </div>

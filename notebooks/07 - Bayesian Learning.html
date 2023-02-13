@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Lecture 7. Bayesian Learning &#8212; ML Engineering</title>
     
   <!-- Loaded before other Sphinx assets -->
@@ -34,10 +35,13 @@
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
     <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
@@ -193,17 +197,17 @@ const thebe_selector_output = ".output, .cell_output"
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%202%20-%20Kernelization.html">
-   Lab 2: Kernelization
+  <a class="reference internal" href="../labs/Lab%202a%20-%20Kernelization.html">
+   Lab 2a: Kernelization
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%203a%20-%20Model%20Selection.html">
-   Lab 3a: Model selection
+  <a class="reference internal" href="../labs/Lab%202b%20-%20Model%20Selection.html">
+   Lab 2b: Model selection
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%203b%20-%20Ensembles.html">
+  <a class="reference internal" href="../labs/Lab%203%20-%20Ensembles.html">
    Lab 3b: Ensembles
   </a>
  </li>
@@ -272,11 +276,6 @@ const thebe_selector_output = ".output, .cell_output"
  <li class="toctree-l1">
   <a class="reference internal" href="../labs/Lab%201%20-%20Tutorial.html">
    Lab 1: Machine Learning with Python
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%203%20-%20Tutorial.html">
-   Lab 3 Tutorial: Model Selection in scikit-learn
   </a>
  </li>
  <li class="toctree-l1">
@@ -962,8 +961,8 @@ title="Print to PDF"
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Auto-setup when running on Google Colab</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="k">if</span> <span class="s1">&#39;google.colab&#39;</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">get_ipython</span><span class="p">())</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s1">&#39;/content/master&#39;</span><span class="p">):</span>
-    <span class="o">!</span>git clone -q https://github.com/ML-course/master.git /content/master
-    <span class="o">!</span>pip --quiet install -r /content/master/requirements_colab.txt
+    <span class="o">!</span>git<span class="w"> </span>clone<span class="w"> </span>-q<span class="w"> </span>https://github.com/ML-course/master.git<span class="w"> </span>/content/master
+    <span class="o">!</span>pip<span class="w"> </span>--quiet<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>/content/master/requirements_colab.txt
     <span class="o">%</span><span class="k">cd</span> master/notebooks
 
 <span class="c1"># Global imports and settings</span>
@@ -979,57 +978,13 @@ title="Print to PDF"
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">ImportError</span><span class="g g-Whitespace">                               </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="mi">0</span><span class="n">t</span><span class="o">/</span><span class="mi">5</span><span class="n">d8ttqzd773fy0wq3h5db0xr0000gn</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_37054</span><span class="o">/</span><span class="mf">289015504.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">      </span><span class="mi">8</span> <span class="c1"># Global imports and settings</span>
-<span class="g g-Whitespace">      </span><span class="mi">9</span> <span class="n">get_ipython</span><span class="p">()</span><span class="o">.</span><span class="n">run_line_magic</span><span class="p">(</span><span class="s1">&#39;matplotlib&#39;</span><span class="p">,</span> <span class="s1">&#39;inline&#39;</span><span class="p">)</span>
-<span class="ne">---&gt; </span><span class="mi">10</span> <span class="kn">from</span> <span class="nn">preamble</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="g g-Whitespace">     </span><span class="mi">11</span> <span class="n">interactive</span> <span class="o">=</span> <span class="kc">True</span> <span class="c1"># Set to True for interactive plots</span>
-<span class="g g-Whitespace">     </span><span class="mi">12</span> <span class="k">if</span> <span class="n">interactive</span><span class="p">:</span>
-
-<span class="o">~/</span><span class="n">Documents</span><span class="o">/</span><span class="n">ml</span><span class="o">-</span><span class="n">course</span><span class="o">/</span><span class="n">master</span><span class="o">/</span><span class="n">notebooks</span><span class="o">/</span><span class="n">preamble</span><span class="o">.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">set_matplotlib_formats</span><span class="p">,</span> <span class="n">display</span><span class="p">,</span> <span class="n">HTML</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="kn">from</span> <span class="nn">IPython.core.interactiveshell</span> <span class="kn">import</span> <span class="n">InteractiveShell</span>
-<span class="ne">----&gt; </span><span class="mi">3</span> <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-
-<span class="o">~/</span><span class="n">miniforge3</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.9</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">pandas</span><span class="o">/</span><span class="fm">__init__</span><span class="o">.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">     </span><span class="mi">20</span> 
-<span class="g g-Whitespace">     </span><span class="mi">21</span> <span class="c1"># numpy compat</span>
-<span class="ne">---&gt; </span><span class="mi">22</span> <span class="kn">from</span> <span class="nn">pandas.compat</span> <span class="kn">import</span> <span class="n">is_numpy_dev</span> <span class="k">as</span> <span class="n">_is_numpy_dev</span>  <span class="c1"># pyright: ignore # noqa:F401</span>
-<span class="g g-Whitespace">     </span><span class="mi">23</span> 
-<span class="g g-Whitespace">     </span><span class="mi">24</span> <span class="k">try</span><span class="p">:</span>
-
-<span class="o">~/</span><span class="n">miniforge3</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.9</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">pandas</span><span class="o">/</span><span class="n">compat</span><span class="o">/</span><span class="fm">__init__</span><span class="o">.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">     </span><span class="mi">16</span> 
-<span class="g g-Whitespace">     </span><span class="mi">17</span> <span class="kn">from</span> <span class="nn">pandas._typing</span> <span class="kn">import</span> <span class="n">F</span>
-<span class="ne">---&gt; </span><span class="mi">18</span> <span class="kn">from</span> <span class="nn">pandas.compat.numpy</span> <span class="kn">import</span> <span class="p">(</span>
-<span class="g g-Whitespace">     </span><span class="mi">19</span>     <span class="n">is_numpy_dev</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">20</span>     <span class="n">np_version_under1p21</span><span class="p">,</span>
-
-<span class="o">~/</span><span class="n">miniforge3</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.9</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">pandas</span><span class="o">/</span><span class="n">compat</span><span class="o">/</span><span class="n">numpy</span><span class="o">/</span><span class="fm">__init__</span><span class="o">.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">     </span><span class="mi">21</span> 
-<span class="g g-Whitespace">     </span><span class="mi">22</span> <span class="k">if</span> <span class="n">_nlv</span> <span class="o">&lt;</span> <span class="n">Version</span><span class="p">(</span><span class="n">_min_numpy_ver</span><span class="p">):</span>
-<span class="ne">---&gt; </span><span class="mi">23</span>     <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span>
-<span class="g g-Whitespace">     </span><span class="mi">24</span>         <span class="sa">f</span><span class="s2">&quot;this version of pandas is incompatible with numpy &lt; </span><span class="si">{</span><span class="n">_min_numpy_ver</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
-<span class="g g-Whitespace">     </span><span class="mi">25</span>         <span class="sa">f</span><span class="s2">&quot;your numpy version is </span><span class="si">{</span><span class="n">_np_version</span><span class="si">}</span><span class="s2">.</span><span class="se">\n</span><span class="s2">&quot;</span>
-
-<span class="ne">ImportError</span>: this version of pandas is incompatible with numpy &lt; 1.20.3
-<span class="n">your</span> <span class="n">numpy</span> <span class="n">version</span> <span class="ow">is</span> <span class="mf">1.19.5</span><span class="o">.</span>
-<span class="n">Please</span> <span class="n">upgrade</span> <span class="n">numpy</span> <span class="n">to</span> <span class="o">&gt;=</span> <span class="mf">1.20.3</span> <span class="n">to</span> <span class="n">use</span> <span class="n">this</span> <span class="n">pandas</span> <span class="n">version</span>
-</pre></div>
 </div>
-</div>
-</div>
-<div class="tex2jax_ignore mathjax_ignore section" id="lecture-7-bayesian-learning">
+<section class="tex2jax_ignore mathjax_ignore" id="lecture-7-bayesian-learning">
 <h1>Lecture 7. Bayesian Learning<a class="headerlink" href="#lecture-7-bayesian-learning" title="Permalink to this headline">#</a></h1>
 <p><strong>Learning in an uncertain world</strong></p>
 <p>Joaquin Vanschoren</p>
 <img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/frequentists_vs_bayesians.png" alt="ml" style="width: 400px;"/>
-XKCD, Randall Monroe<div class="section" id="bayes-rule">
+XKCD, Randall Monroe<section id="bayes-rule">
 <h2>Bayes’ rule<a class="headerlink" href="#bayes-rule" title="Permalink to this headline">#</a></h2>
 <p>Rule for updating the probability of a hypothesis <span class="math notranslate nohighlight">\(c\)</span> given data <span class="math notranslate nohighlight">\(x\)</span></p>
 <img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/06_bayes_rule.png" alt="ml" style="width: 700px;"/>
@@ -1037,7 +992,7 @@ XKCD, Randall Monroe<div class="section" id="bayes-rule">
 <span class="math notranslate nohighlight">\(P(c)\)</span> is the <em>prior</em> probability of class <span class="math notranslate nohighlight">\(c\)</span>: what you believed before you saw the data <span class="math notranslate nohighlight">\(x\)</span><br />
 <span class="math notranslate nohighlight">\(P(x|c)\)</span> is the <em>likelihood</em> of data point <span class="math notranslate nohighlight">\(x\)</span> given that the class is <span class="math notranslate nohighlight">\(c\)</span> (computed from your dataset)<br />
 <span class="math notranslate nohighlight">\(P(x)\)</span> is the prior probability of the data (<em>marginal likelihood</em>): the likelihood of the data <span class="math notranslate nohighlight">\(x\)</span> under any circumstance (no matter what the class is)</p>
-<div class="section" id="example-exploding-sun">
+<section id="example-exploding-sun">
 <h3>Example: exploding sun<a class="headerlink" href="#example-exploding-sun" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Let’s compute the probability that the sun has exploded</p></li>
@@ -1055,8 +1010,8 @@ P(exploded|yes) &amp;= \frac{P(yes|exploded)P(exploded)}{P(yes)} \\
 <ul class="simple">
 <li><p>The one positive observation of the detector increases the probability</p></li>
 </ul>
-</div>
-<div class="section" id="example-covid-test">
+</section>
+<section id="example-covid-test">
 <h3>Example: COVID test<a class="headerlink" href="#example-covid-test" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>What is the probability of having COVID-19 if a 96% accurate test returns positive? Assume a false positive rate of 4%</p></li>
@@ -1072,9 +1027,9 @@ P(C|pos) &amp;= \frac{P(pos|C)P(C)}{P(pos)} \\
  &amp;= \frac{0.96*0.015}{0.96*0.015+0.04*0.985} \\
  &amp;= 0.268
  \end{aligned}\end{split}\]</div>
-</div>
-</div>
-<div class="section" id="bayesian-models">
+</section>
+</section>
+<section id="bayesian-models">
 <h2>Bayesian models<a class="headerlink" href="#bayesian-models" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Learn the joint distribution <span class="math notranslate nohighlight">\(P(x,y)=P(x|y)P(y)\)</span>.</p>
@@ -1110,7 +1065,7 @@ P(C|pos) &amp;= \frac{P(pos|C)P(C)}{P(pos)} \\
     
     <span class="k">if</span> <span class="ow">not</span> <span class="n">ax</span><span class="p">:</span>
         <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">figaspect</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">fig_scale</span><span class="o">*</span><span class="mf">1.1</span><span class="p">)</span>
-        <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">gca</span><span class="p">(</span><span class="n">projection</span><span class="o">=</span><span class="s1">&#39;3d&#39;</span><span class="p">)</span>
+        <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">projection</span><span class="o">=</span><span class="s1">&#39;3d&#39;</span><span class="p">)</span>
         
     <span class="k">if</span> <span class="n">contour</span><span class="p">:</span>
         <span class="n">ax</span><span class="o">.</span><span class="n">plot_surface</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span><span class="o">*</span><span class="mf">0.001</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;jet&#39;</span><span class="p">)</span>
@@ -1153,7 +1108,7 @@ P(C|pos) &amp;= \frac{P(pos|C)P(C)}{P(pos)} \\
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "40aa801c6726439babb0a8853bf84e5e", "version_major": 2, "version_minor": 0}
+{"model_id": "e0a36b290ecb4ab1820baa96dc01bb50", "version_major": 2, "version_minor": 0}
 </script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
@@ -1171,7 +1126,7 @@ P(C|pos) &amp;= \frac{P(pos|C)P(C)}{P(pos)} \\
 </div>
 </div>
 </div>
-<div class="section" id="generative-models">
+<section id="generative-models">
 <h3>Generative models<a class="headerlink" href="#generative-models" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>The joint distribution represents the training data for a particular output (e.g. a class)</p></li>
@@ -1183,8 +1138,8 @@ P(C|pos) &amp;= \frac{P(pos|C)P(C)}{P(pos)} \\
 </ul>
 </li>
 </ul>
-<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/06_discriminative_generative.png" alt="ml" style="width: 500px"/></div>
-<div class="section" id="naive-bayes">
+<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/06_discriminative_generative.png" alt="ml" style="width: 500px"/></section>
+<section id="naive-bayes">
 <h3>Naive Bayes<a class="headerlink" href="#naive-bayes" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Predict the probability that a point belongs to a certain class, using Bayes’ Theorem</p></li>
@@ -1197,11 +1152,11 @@ P(C|pos) &amp;= \frac{P(pos|C)P(C)}{P(pos)} \\
 <span class="math notranslate nohighlight">\(P(\mathbf{x}|c) = P(x_1|c) \times P(x_2|c) \times ... \times P(x_n|c)\)</span></p></li>
 <li><p>Very fast: only needs to extract statistics from each feature.</p></li>
 </ul>
-<div class="section" id="on-categorical-data">
+<section id="on-categorical-data">
 <h4>On categorical data<a class="headerlink" href="#on-categorical-data" title="Permalink to this headline">#</a></h4>
 <p>What’s the probability that your friend will play golf if the weather is sunny?</p>
-<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/06_bayes_example.png" alt="ml" style="width: 1200px;"/></div>
-<div class="section" id="on-numeric-data">
+<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/06_bayes_example.png" alt="ml" style="width: 1200px;"/></section>
+<section id="on-numeric-data">
 <h4>On numeric data<a class="headerlink" href="#on-numeric-data" title="Permalink to this headline">#</a></h4>
 <ul class="simple">
 <li><p>We need to fit a distribution (e.g. Gaussian) over the data points</p></li>
@@ -1242,9 +1197,9 @@ P(C|pos) &amp;= \frac{P(pos|C)P(C)}{P(pos)} \\
 </ul>
 </li>
 </ul>
-</div>
-</div>
-<div class="section" id="bayesian-networks">
+</section>
+</section>
+<section id="bayesian-networks">
 <h3>Bayesian Networks<a class="headerlink" href="#bayesian-networks" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>What if we know that some variables are not independent?</p></li>
@@ -1363,8 +1318,8 @@ P(C|pos) &amp;= \frac{P(pos|C)P(C)}{P(pos)} \\
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="gaussian-processes">
+</section>
+<section id="gaussian-processes">
 <h3>Gaussian processes<a class="headerlink" href="#gaussian-processes" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Model the data as a Gaussian distribution, conditioned on the training points</p></li>
@@ -1385,12 +1340,12 @@ P(C|pos) &amp;= \frac{P(pos|C)P(C)}{P(pos)} \\
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "3c0a7cd6893f4d82b8101d29f6028059", "version_major": 2, "version_minor": 0}
+{"model_id": "977d05dc11e54072948dcaae8ff93490", "version_major": 2, "version_minor": 0}
 </script></div>
 </div>
-</div>
-</div>
-<div class="section" id="probabilistic-interpretation-of-regression">
+</section>
+</section>
+<section id="probabilistic-interpretation-of-regression">
 <h2>Probabilistic interpretation of regression<a class="headerlink" href="#probabilistic-interpretation-of-regression" title="Permalink to this headline">#</a></h2>
 <p>Linear regression (recap):</p>
 <div class="math notranslate nohighlight">
@@ -1430,7 +1385,7 @@ P(C|pos) &amp;= \frac{P(pos|C)P(C)}{P(pos)} \\
 </div>
 </div>
 </div>
-<div class="section" id="example-olympic-marathon-data">
+<section id="example-olympic-marathon-data">
 <h3>Example: Olympic marathon data<a class="headerlink" href="#example-olympic-marathon-data" title="Permalink to this headline">#</a></h3>
 <p>We learned: <span class="math notranslate nohighlight">\( y= w_1 x + w_0 = -0.013 x + 28.895\)</span></p>
 <div class="cell tag_hide-input docutils container">
@@ -1451,8 +1406,8 @@ P(C|pos) &amp;= \frac{P(pos|C)P(C)}{P(pos)} \\
 <img alt="../_images/07 - Bayesian Learning_23_0.png" src="../_images/07 - Bayesian Learning_23_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="polynomial-regression-recap">
+</section>
+<section id="polynomial-regression-recap">
 <h3>Polynomial regression (recap)<a class="headerlink" href="#polynomial-regression-recap" title="Permalink to this headline">#</a></h3>
 <p>We can fit a 2nd degree polynomial by using a basis expansion (adding more <em>basis functions</em>):</p>
 <div class="math notranslate nohighlight">
@@ -1475,8 +1430,8 @@ P(C|pos) &amp;= \frac{P(pos|C)P(C)}{P(pos)} \\
 <img alt="../_images/07 - Bayesian Learning_25_0.png" src="../_images/07 - Bayesian Learning_25_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="kernelized-regression-recap">
+</section>
+<section id="kernelized-regression-recap">
 <h3>Kernelized regression (recap)<a class="headerlink" href="#kernelized-regression-recap" title="Permalink to this headline">#</a></h3>
 <p>We can also kernelize the model and learn a dual coefficient per data point</p>
 <div class="cell tag_hide-input docutils container">
@@ -1510,11 +1465,11 @@ P(C|pos) &amp;= \frac{P(pos|C)P(C)}{P(pos)} \\
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "536665aa565c4a25a0636b63405fc13c", "version_major": 2, "version_minor": 0}
+{"model_id": "3971844e0578490a9cf8386ae96d5783", "version_major": 2, "version_minor": 0}
 </script></div>
 </div>
-</div>
-<div class="section" id="probabilistic-interpretation">
+</section>
+<section id="probabilistic-interpretation">
 <h3>Probabilistic interpretation<a class="headerlink" href="#probabilistic-interpretation" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>These models do not give us any indication of the (un)certainty of the predictions</p></li>
@@ -1565,7 +1520,7 @@ P(C|pos) &amp;= \frac{P(pos|C)P(C)}{P(pos)} \\
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "3e6c94d5638e4e5494d496bd16136560", "version_major": 2, "version_minor": 0}
+{"model_id": "5a76003d9de449538ee94bd3d61a8ab6", "version_major": 2, "version_minor": 0}
 </script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
@@ -1576,9 +1531,9 @@ P(C|pos) &amp;= \frac{P(pos|C)P(C)}{P(pos)} \\
 </div>
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="how-to-learn-probabilities">
+</section>
+</section>
+<section id="how-to-learn-probabilities">
 <h2>How to learn probabilities?<a class="headerlink" href="#how-to-learn-probabilities" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Maximum Likelihood Estimation (MLE): Maximize <span class="math notranslate nohighlight">\(P(\textbf{X}|\textbf{w})\)</span></p>
@@ -1608,7 +1563,7 @@ $<span class="math notranslate nohighlight">\(P(y|x_{test},\textbf{X}) = \int_w 
 </ul>
 </li>
 </ul>
-<div class="section" id="gaussian-prior-p-w">
+<section id="gaussian-prior-p-w">
 <h3>Gaussian prior <span class="math notranslate nohighlight">\(P(w)\)</span><a class="headerlink" href="#gaussian-prior-p-w" title="Permalink to this headline">#</a></h3>
 <p>In the Bayesian approach, we assume a <em>prior (Gaussian) distribution</em> for the parameters, <span class="math notranslate nohighlight">\(\mathbf{w} \sim \mathcal{N}(\mathbf{0}, \alpha \mathbf{I})\)</span>:</p>
 <ul class="simple">
@@ -1632,7 +1587,7 @@ $<span class="math notranslate nohighlight">\(w_i \sim \mathcal{N}(0,\alpha)\)</
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "df8f96f110a642dc9ac31e145483e574", "version_major": 2, "version_minor": 0}
+{"model_id": "850924eb23b04786ace2fd9f769d1fc1", "version_major": 2, "version_minor": 0}
 </script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
@@ -1643,8 +1598,8 @@ $<span class="math notranslate nohighlight">\(w_i \sim \mathcal{N}(0,\alpha)\)</
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="sampling-from-the-prior-weight-space">
+</section>
+<section id="sampling-from-the-prior-weight-space">
 <h3>Sampling from the prior (weight space)<a class="headerlink" href="#sampling-from-the-prior-weight-space" title="Permalink to this headline">#</a></h3>
 <p>We can sample from the prior distribution to see what form we are imposing on the functions <em>a priori</em> (before seeing any data).</p>
 <ul class="simple">
@@ -1715,7 +1670,7 @@ $<span class="math notranslate nohighlight">\(w_i \sim \mathcal{N}(0,\alpha)\)</
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "61b0bcf6519945e69e7dcb195067dea1", "version_major": 2, "version_minor": 0}
+{"model_id": "31f217755b664f6c81345b85bd2cf9cc", "version_major": 2, "version_minor": 0}
 </script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
@@ -1726,8 +1681,8 @@ $<span class="math notranslate nohighlight">\(w_i \sim \mathcal{N}(0,\alpha)\)</
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="learning-gaussian-distributions">
+</section>
+<section id="learning-gaussian-distributions">
 <h3>Learning Gaussian distributions<a class="headerlink" href="#learning-gaussian-distributions" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>We assume that our data is Gaussian distributed: <span class="math notranslate nohighlight">\(P(y|x_{test},\textbf{X}) = \mathcal{N}(\mathbf{\mu,\Sigma})\)</span></p></li>
@@ -1754,7 +1709,7 @@ $<span class="math notranslate nohighlight">\(w_i \sim \mathcal{N}(0,\alpha)\)</
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "9132117cff0f44c2984c7f5b0e50b798", "version_major": 2, "version_minor": 0}
+{"model_id": "62af27bc1353422aa7cbbe6eca58db38", "version_major": 2, "version_minor": 0}
 </script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
@@ -1778,8 +1733,8 @@ $<span class="math notranslate nohighlight">\(w_i \sim \mathcal{N}(0,\alpha)\)</
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="understanding-covariances">
+</section>
+<section id="understanding-covariances">
 <h3>Understanding covariances<a class="headerlink" href="#understanding-covariances" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>If two variables <span class="math notranslate nohighlight">\(x_i\)</span> covariate strongly, knowing about <span class="math notranslate nohighlight">\(x_1\)</span> tells us a lot about <span class="math notranslate nohighlight">\(x_2\)</span></p></li>
@@ -1803,7 +1758,7 @@ $<span class="math notranslate nohighlight">\(w_i \sim \mathcal{N}(0,\alpha)\)</
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "ac4e078e54c34af28084310bcc4e57e3", "version_major": 2, "version_minor": 0}
+{"model_id": "59e0d345c66e4b9698ccafcf70745b52", "version_major": 2, "version_minor": 0}
 </script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
@@ -1824,8 +1779,8 @@ $<span class="math notranslate nohighlight">\(w_i \sim \mathcal{N}(0,\alpha)\)</
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="sampling-from-higher-dimensional-distributions">
+</section>
+<section id="sampling-from-higher-dimensional-distributions">
 <h3>Sampling from higher-dimensional distributions<a class="headerlink" href="#sampling-from-higher-dimensional-distributions" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Instead of sampling <span class="math notranslate nohighlight">\(\mathbf{w}\)</span> and then multiplying by <span class="math notranslate nohighlight">\(\boldsymbol{\Phi}\)</span>, we can also generate examples of <span class="math notranslate nohighlight">\(f(x)\)</span> directly.</p></li>
@@ -1925,7 +1880,7 @@ $<span class="math notranslate nohighlight">\(w_i \sim \mathcal{N}(0,\alpha)\)</
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "c5a4f93ddb914055a6d024d76268b8a1", "version_major": 2, "version_minor": 0}
+{"model_id": "9258e0692ab244cda62da513c3f9c3a8", "version_major": 2, "version_minor": 0}
 </script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
@@ -1948,7 +1903,7 @@ $<span class="math notranslate nohighlight">\(w_i \sim \mathcal{N}(0,\alpha)\)</
 </div>
 </div>
 <p><a class="reference external" href="https://pymc3-testing.readthedocs.io/en/rtd-docs/notebooks/GP-covariances.html">More examples of covariances</a></p>
-<div class="section" id="noisy-functions">
+<section id="noisy-functions">
 <h4>Noisy functions<a class="headerlink" href="#noisy-functions" title="Permalink to this headline">#</a></h4>
 <p>We normally add Gaussian noise to obtain our observations:
 $<span class="math notranslate nohighlight">\(
@@ -1964,7 +1919,7 @@ $<span class="math notranslate nohighlight">\(
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "59bcbfa2978a4e689683addbb283577b", "version_major": 2, "version_minor": 0}
+{"model_id": "30520afb91a4482ca844abb4a349edfa", "version_major": 2, "version_minor": 0}
 </script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
@@ -1975,10 +1930,10 @@ $<span class="math notranslate nohighlight">\(
 </div>
 </div>
 </div>
-</div>
-</div>
-</div>
-<div class="section" id="gaussian-process">
+</section>
+</section>
+</section>
+<section id="gaussian-process">
 <h2>Gaussian Process<a class="headerlink" href="#gaussian-process" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Usually, we want our functions to be <em>smooth</em>: if two points are similar/nearby, the predictions should be similar.</p>
@@ -2021,10 +1976,10 @@ k(\mathbf{x}, \mathbf{x}^\prime) = \alpha \exp\left( -\frac{\left\Vert \mathbf{x
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "3dd41fb5684c4173b34bd78253887355", "version_major": 2, "version_minor": 0}
+{"model_id": "cdf649ebf14346479becb838f12ca25f", "version_major": 2, "version_minor": 0}
 </script></div>
 </div>
-<div class="section" id="computing-the-posterior-p-mathbf-y-mathbf-x">
+<section id="computing-the-posterior-p-mathbf-y-mathbf-x">
 <h3>Computing the posterior <span class="math notranslate nohighlight">\(P(\mathbf{y}|\mathbf{X})\)</span><a class="headerlink" href="#computing-the-posterior-p-mathbf-y-mathbf-x" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Assuming that <span class="math notranslate nohighlight">\(P(X)\)</span> is a Gaussian density with a covariance given by kernel matrix <span class="math notranslate nohighlight">\(\mathbf{K}\)</span>, the model likelihood becomes:
@@ -2069,8 +2024,8 @@ E(\boldsymbol{\theta}) = \frac{1}{2} \log |\mathbf{K}| + \frac{1}{2} \mathbf{y}^
         <span class="k">return</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">log_likelihood</span><span class="p">()</span>  
 </pre></div>
 </div>
-</div>
-<div class="section" id="making-predictions">
+</section>
+<section id="making-predictions">
 <h3>Making predictions<a class="headerlink" href="#making-predictions" title="Permalink to this headline">#</a></h3>
 <p>The model makes predictions for <span class="math notranslate nohighlight">\(\mathbf{f}\)</span> that are unaffected by future values of <span class="math notranslate nohighlight">\(\mathbf{f}^*\)</span>.<br />
 If we think of <span class="math notranslate nohighlight">\(\mathbf{f}^*\)</span> as test points, we can still write down a joint probability density over the training observations, <span class="math notranslate nohighlight">\(\mathbf{f}\)</span> and the test observations, <span class="math notranslate nohighlight">\(\mathbf{f}^*\)</span>.</p>
@@ -2086,8 +2041,8 @@ $<span class="math notranslate nohighlight">\(
 $<span class="math notranslate nohighlight">\(
 \begin{bmatrix}x_1 \\ x_2 \end{bmatrix} \sim \mathcal{N}\left(\mathbf{0}, \begin{bmatrix} \mathbf{K} &amp; \mathbf{K}_\ast \\ \mathbf{K}_\ast^\top &amp; \mathbf{K}_{\ast,\ast}\end{bmatrix}\right)
 \)</span>$</p>
-</div>
-<div class="section" id="conditional-density-p-mathbf-y-x-test-mathbf-x">
+</section>
+<section id="conditional-density-p-mathbf-y-x-test-mathbf-x">
 <h3>Conditional Density <span class="math notranslate nohighlight">\(P(\mathbf{y}|x_{test} , \mathbf{X})\)</span><a class="headerlink" href="#conditional-density-p-mathbf-y-x-test-mathbf-x" title="Permalink to this headline">#</a></h3>
 <p>Finally, we need to define <em>conditional</em> distributions to answer particular questions of interest</p>
 <p>We will need the <em>conditional density</em> for making predictions.
@@ -2110,8 +2065,8 @@ $</p>
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="gaussian-process-example">
+</section>
+<section id="gaussian-process-example">
 <h3>Gaussian process example<a class="headerlink" href="#gaussian-process-example" title="Permalink to this headline">#</a></h3>
 <p>We can now get the mean and covariance learned on our dataset, and sample from this distribution!</p>
 <div class="cell tag_hide-input docutils container">
@@ -2137,7 +2092,7 @@ $</p>
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "49b755b5e7c14829997333d96668dd0c", "version_major": 2, "version_minor": 0}
+{"model_id": "0be80f1e68e348dc9e75089aa4b994db", "version_major": 2, "version_minor": 0}
 </script></div>
 </div>
 <p>Remember that our prediction is the sum of the mean and the variance: <span class="math notranslate nohighlight">\(P(\mathbf{y}|x_{test} , \mathbf{X}) = \mathcal{N}(\mathbf{\mu,\Sigma})\)</span></p>
@@ -2159,7 +2114,7 @@ $</p>
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "f31d9bc5ad444266935be04a0d330903", "version_major": 2, "version_minor": 0}
+{"model_id": "9c52beea5dd74c529d63df78faed26fd", "version_major": 2, "version_minor": 0}
 </script></div>
 </div>
 <p>The values on the diagonal of the covariance matrix give us the variance, so we can simply plot the mean and 95% confidence interval</p>
@@ -2177,11 +2132,11 @@ $</p>
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "df04c413d9cb49419e64a769f606f8c7", "version_major": 2, "version_minor": 0}
+{"model_id": "628024316a7c42768e1abca5390e5719", "version_major": 2, "version_minor": 0}
 </script></div>
 </div>
-</div>
-<div class="section" id="gaussian-processes-in-practice-with-gpy">
+</section>
+<section id="gaussian-processes-in-practice-with-gpy">
 <h3>Gaussian Processes in practice (with GPy)<a class="headerlink" href="#gaussian-processes-in-practice-with-gpy" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">GPyRegression</span></code></p></li>
@@ -2299,7 +2254,7 @@ Best to optimize with a few restarts: the optimizer may converges to the high-no
 <img alt="../_images/07 - Bayesian Learning_80_0.png" src="../_images/07 - Bayesian Learning_80_0.png" />
 </div>
 </div>
-<div class="section" id="gaussian-processes-with-scikit-learn">
+<section id="gaussian-processes-with-scikit-learn">
 <h4>Gaussian Processes with scikit-learn<a class="headerlink" href="#gaussian-processes-with-scikit-learn" title="Permalink to this headline">#</a></h4>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">GaussianProcessRegressor</span></code></p></li>
@@ -2344,7 +2299,7 @@ Best to optimize with a few restarts: the optimizer may converges to the high-no
 <span class="kn">from</span> <span class="nn">sklearn.gaussian_process.kernels</span> <span class="kn">import</span> <span class="n">RBF</span><span class="p">,</span> <span class="n">ConstantKernel</span> <span class="k">as</span> <span class="n">C</span>
 
 <span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;The function to predict.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The function to predict.&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">x</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 
 <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">atleast_2d</span><span class="p">([</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">3.</span><span class="p">,</span> <span class="mf">5.</span><span class="p">,</span> <span class="mf">6.</span><span class="p">,</span> <span class="mf">7.</span><span class="p">,</span> <span class="mf">8.</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
@@ -2432,9 +2387,9 @@ Best to optimize with a few restarts: the optimizer may converges to the high-no
 <img alt="../_images/07 - Bayesian Learning_85_0.png" src="../_images/07 - Bayesian Learning_85_0.png" />
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="gaussian-processes-conclusions">
+</section>
+</section>
+<section id="gaussian-processes-conclusions">
 <h3>Gaussian processes: Conclusions<a class="headerlink" href="#gaussian-processes-conclusions" title="Permalink to this headline">#</a></h3>
 <p>Advantages:</p>
 <ul class="simple">
@@ -2451,16 +2406,16 @@ Best to optimize with a few restarts: the optimizer may converges to the high-no
 </li>
 <li><p>They lose efficiency in high dimensional spaces – namely when the number of features exceeds a few dozens.</p></li>
 </ul>
-</div>
-<div class="section" id="gaussian-processes-and-neural-networks">
+</section>
+<section id="gaussian-processes-and-neural-networks">
 <h3>Gaussian processes and neural networks<a class="headerlink" href="#gaussian-processes-and-neural-networks" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>You can prove that a Gaussian process is equivalent to a neural network with one layer and an infinite number of nodes</p></li>
 <li><p>You can build <em>deep Gaussian Processes</em> by constructing layers of GPs</p></li>
 </ul>
-<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/06_deep_gps.png" alt="ml" style="width: 1000px;"/></div>
-</div>
-<div class="section" id="bayesian-optimization">
+<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/06_deep_gps.png" alt="ml" style="width: 1000px;"/></section>
+</section>
+<section id="bayesian-optimization">
 <h2>Bayesian optimization<a class="headerlink" href="#bayesian-optimization" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>The incremental updates you can do with Bayesian models allow a more effective way to optimize functions</p>
@@ -2479,7 +2434,7 @@ Best to optimize with a few restarts: the optimizer may converges to the high-no
 <li><p>We use the predictions of this model to choose the next point to evaluate</p></li>
 <li><p>With every new evaluation, we update the surrogate model and repeat</p></li>
 </ul>
-<div class="section" id="example-see-figure">
+<section id="example-see-figure">
 <h3>Example (see figure):<a class="headerlink" href="#example-see-figure" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Consider only 1 continuous hyperparameter (X-axis)</p>
@@ -2509,8 +2464,8 @@ Best to optimize with a few restarts: the optimizer may converges to the high-no
 <img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/03_Bayesian_optimization.png" alt="ml" style="width: 800px;"/>
 <p>Shahriari et al. Taking the Human Out of the Loop: A Review of Bayesian Optimization</p>
 <p>In 2 dimensions:</p>
-<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/05_2dbo.png" alt="ml" style="width: 800px;"/></div>
-<div class="section" id="surrogate-models">
+<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/05_2dbo.png" alt="ml" style="width: 800px;"/></section>
+<section id="surrogate-models">
 <h3>Surrogate models<a class="headerlink" href="#surrogate-models" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Surrogate model can be anything as long as it can do regression and is probabilistic</p></li>
@@ -2535,8 +2490,8 @@ Best to optimize with a few restarts: the optimizer may converges to the high-no
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="acquisition-functions">
+</section>
+<section id="acquisition-functions">
 <h3>Acquisition Functions<a class="headerlink" href="#acquisition-functions" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>When we have trained the surrogate model, we ask it to predict a number of samples</p>
@@ -2559,8 +2514,8 @@ $<span class="math notranslate nohighlight">\(EI(X) := \mathbb{E}\left[ \max\{0,
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="bayesian-optimization-conclusions">
+</section>
+<section id="bayesian-optimization-conclusions">
 <h3>Bayesian Optimization: conclusions<a class="headerlink" href="#bayesian-optimization-conclusions" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>More efficient way to optimize hyperparameters</p></li>
@@ -2573,9 +2528,9 @@ $<span class="math notranslate nohighlight">\(EI(X) := \mathbb{E}\left[ \max\{0,
 </ul>
 </li>
 </ul>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -2589,7 +2544,7 @@ $<span class="math notranslate nohighlight">\(EI(X) := \mathbb{E}\left[ \max\{0,
             mode: "python"
         },
         kernelOptions: {
-            name: "python3",
+            kernelName: "python3",
             path: "./notebooks"
         },
         predefinedOutput: true
@@ -2627,7 +2582,7 @@ $<span class="math notranslate nohighlight">\(EI(X) := \mathbb{E}\left[ \max\{0,
   
     By Joaquin Vanschoren<br/>
   
-      &copy; Copyright 2021. CC0 Licensed - Use as you like.<br/>
+      &copy; Copyright 2023. CC0 Licensed - Use as you like.<br/>
 </p>
         </footer>
     </div>

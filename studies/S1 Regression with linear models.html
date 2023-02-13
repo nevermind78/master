@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Regression with linear models &#8212; ML Engineering</title>
     
   <!-- Loaded before other Sphinx assets -->
@@ -34,10 +35,13 @@
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
     <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
@@ -191,17 +195,17 @@ const thebe_selector_output = ".output, .cell_output"
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%202%20-%20Kernelization.html">
-   Lab 2: Kernelization
+  <a class="reference internal" href="../labs/Lab%202a%20-%20Kernelization.html">
+   Lab 2a: Kernelization
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%203a%20-%20Model%20Selection.html">
-   Lab 3a: Model selection
+  <a class="reference internal" href="../labs/Lab%202b%20-%20Model%20Selection.html">
+   Lab 2b: Model selection
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%203b%20-%20Ensembles.html">
+  <a class="reference internal" href="../labs/Lab%203%20-%20Ensembles.html">
    Lab 3b: Ensembles
   </a>
  </li>
@@ -270,11 +274,6 @@ const thebe_selector_output = ".output, .cell_output"
  <li class="toctree-l1">
   <a class="reference internal" href="../labs/Lab%201%20-%20Tutorial.html">
    Lab 1: Machine Learning with Python
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%203%20-%20Tutorial.html">
-   Lab 3 Tutorial: Model Selection in scikit-learn
   </a>
  </li>
  <li class="toctree-l1">
@@ -581,7 +580,7 @@ title="Print to PDF"
                 
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="regression-with-linear-models">
+  <section class="tex2jax_ignore mathjax_ignore" id="regression-with-linear-models">
 <h1>Regression with linear models<a class="headerlink" href="#regression-with-linear-models" title="Permalink to this headline">#</a></h1>
 <p>We explore the performance of several linear regression models on a real-world dataset, i.e. <a class="reference external" href="https://www.openml.org/d/41021">MoneyBall</a>. This dataset captures performance data from baseball players. The regression task is to accurately predict the number of ‘runs’ each player can score, and understanding which are the most important factors.</p>
 <div class="cell docutils container">
@@ -605,7 +604,7 @@ title="Print to PDF"
 </div>
 </div>
 </div>
-<div class="section" id="exploratory-analysis-and-visualization">
+<section id="exploratory-analysis-and-visualization">
 <h2>Exploratory analysis and visualization<a class="headerlink" href="#exploratory-analysis-and-visualization" title="Permalink to this headline">#</a></h2>
 <p>First, we visually explore the data by visualizing the value distribution and the interaction between every other feature in a scatter matrix. We use the target feature as the color variable to see which features are correlated with the target.</p>
 <p>For the plotting to work, however, we need to fill in the missing values. Let’s find out which columns have missing values. This matches what we already saw on the OpenML page (<a class="reference external" href="https://www.openml.org/d/41021">https://www.openml.org/d/41021</a>).</p>
@@ -671,8 +670,8 @@ dtype: bool
 <li><p>OOBP and OSLG have a very peaked distribution.</p></li>
 <li><p>Several features (e.g. League, Playoffs,…) are clearly categorical and should be encoded before doing linear regression.</p></li>
 </ul>
-</div>
-<div class="section" id="training-linear-regression-models">
+</section>
+<section id="training-linear-regression-models">
 <h2>Training linear regression models<a class="headerlink" href="#training-linear-regression-models" title="Permalink to this headline">#</a></h2>
 <p>To adequately build models, we need to:</p>
 <ul class="simple">
@@ -730,8 +729,8 @@ Cross-validated R^2 score for ElasticNet: 0.05
 </div>
 <p>Interestingly, LinearRegression is better than Ridge, and slightly better than Lasso. The latter two are perhaps overfitting and need to be tuned.</p>
 <p>Scaling helps performance significantly, except for ElasticNet. Since scaling also changes the scale of the coefficients, the default hyperparameter settings may just fit better after scaling. Indeed, if one feature had a very different scale, the corresponding coefficient has to compensate for this, leading to possibly large coefficients and more likely overfitting. Thus, scaling may sometimes act as a regularizer. It is less clear why ElasticSearch performs so much worse, we should check what happens if we tune it.</p>
-</div>
-<div class="section" id="hyperparameter-tuning">
+</section>
+<section id="hyperparameter-tuning">
 <h2>Hyperparameter tuning<a class="headerlink" href="#hyperparameter-tuning" title="Permalink to this headline">#</a></h2>
 <p>Next, we visualize the effect of the alpha regularizer for Ridge and Lasso, and both alpha and L1_ratio for ElasticNet</p>
 <div class="cell docutils container">
@@ -826,8 +825,8 @@ Cross-validated R^2 score for ElasticNet: 0.05
 <img alt="../_images/S1 Regression with linear models_21_0.png" src="../_images/S1 Regression with linear models_21_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="visualizing-the-coefficients">
+</section>
+<section id="visualizing-the-coefficients">
 <h2>Visualizing the coefficients<a class="headerlink" href="#visualizing-the-coefficients" title="Permalink to this headline">#</a></h2>
 <p>Do the different models agree on which features are important? We also compare the results with the feature importances returned by a RandomForest.</p>
 <div class="cell docutils container">
@@ -916,8 +915,8 @@ Cross-validated R^2 score for ElasticNet: 0.05
 </div>
 </div>
 </div>
-</div>
-</div>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -931,7 +930,7 @@ Cross-validated R^2 score for ElasticNet: 0.05
             mode: "python"
         },
         kernelOptions: {
-            name: "python3",
+            kernelName: "python3",
             path: "./studies"
         },
         predefinedOutput: true
@@ -955,7 +954,7 @@ Cross-validated R^2 score for ElasticNet: 0.05
   
     By Joaquin Vanschoren<br/>
   
-      &copy; Copyright 2021. CC0 Licensed - Use as you like.<br/>
+      &copy; Copyright 2023. CC0 Licensed - Use as you like.<br/>
 </p>
         </footer>
     </div>

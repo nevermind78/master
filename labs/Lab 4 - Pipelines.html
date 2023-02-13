@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Lab 4: Data preprocessing &#8212; ML Engineering</title>
     
   <!-- Loaded before other Sphinx assets -->
@@ -34,10 +35,13 @@
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
     <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
@@ -52,7 +56,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Lab 5: Bayesian models" href="Lab%205%20-%20Bayesian%20learning.html" />
-    <link rel="prev" title="Lab 3b: Ensembles" href="Lab%203b%20-%20Ensembles.html" />
+    <link rel="prev" title="Lab 3b: Ensembles" href="Lab%203%20-%20Ensembles.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -193,17 +197,17 @@ const thebe_selector_output = ".output, .cell_output"
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="Lab%202%20-%20Kernelization.html">
-   Lab 2: Kernelization
+  <a class="reference internal" href="Lab%202a%20-%20Kernelization.html">
+   Lab 2a: Kernelization
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="Lab%203a%20-%20Model%20Selection.html">
-   Lab 3a: Model selection
+  <a class="reference internal" href="Lab%202b%20-%20Model%20Selection.html">
+   Lab 2b: Model selection
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="Lab%203b%20-%20Ensembles.html">
+  <a class="reference internal" href="Lab%203%20-%20Ensembles.html">
    Lab 3b: Ensembles
   </a>
  </li>
@@ -272,11 +276,6 @@ const thebe_selector_output = ".output, .cell_output"
  <li class="toctree-l1">
   <a class="reference internal" href="Lab%201%20-%20Tutorial.html">
    Lab 1: Machine Learning with Python
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Lab%203%20-%20Tutorial.html">
-   Lab 3 Tutorial: Model Selection in scikit-learn
   </a>
  </li>
  <li class="toctree-l1">
@@ -623,14 +622,14 @@ title="Print to PDF"
                 
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="lab-4-data-preprocessing">
+  <section class="tex2jax_ignore mathjax_ignore" id="lab-4-data-preprocessing">
 <h1>Lab 4:  Data preprocessing<a class="headerlink" href="#lab-4-data-preprocessing" title="Permalink to this headline">#</a></h1>
 <p>We explore the performance of several linear regression models on a real-world dataset, i.e. <a class="reference external" href="https://www.openml.org/d/41021">MoneyBall</a>. See the description on OpenML for more information. In short, this dataset captures performance data from baseball players. The regression task is to accurately predict the number of ‘runs’ each player can score, and understanding which are the most important factors.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Auto-setup when running on Google Colab</span>
 <span class="k">if</span> <span class="s1">&#39;google.colab&#39;</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">get_ipython</span><span class="p">()):</span>
-    <span class="o">!</span>pip install openml
+    <span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>openml
 
 <span class="c1"># General imports</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
@@ -639,43 +638,6 @@ title="Print to PDF"
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">openml</span> <span class="k">as</span> <span class="nn">oml</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">ImportError</span><span class="g g-Whitespace">                               </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="mi">0</span><span class="n">t</span><span class="o">/</span><span class="mi">5</span><span class="n">d8ttqzd773fy0wq3h5db0xr0000gn</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_36935</span><span class="o">/</span><span class="mf">2438812200.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="n">get_ipython</span><span class="p">()</span><span class="o">.</span><span class="n">run_line_magic</span><span class="p">(</span><span class="s1">&#39;matplotlib&#39;</span><span class="p">,</span> <span class="s1">&#39;inline&#39;</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">7</span> <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="ne">----&gt; </span><span class="mi">8</span> <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="g g-Whitespace">      </span><span class="mi">9</span> <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="g g-Whitespace">     </span><span class="mi">10</span> <span class="kn">import</span> <span class="nn">openml</span> <span class="k">as</span> <span class="nn">oml</span>
-
-<span class="o">~/</span><span class="n">miniforge3</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.9</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">pandas</span><span class="o">/</span><span class="fm">__init__</span><span class="o">.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">     </span><span class="mi">20</span> 
-<span class="g g-Whitespace">     </span><span class="mi">21</span> <span class="c1"># numpy compat</span>
-<span class="ne">---&gt; </span><span class="mi">22</span> <span class="kn">from</span> <span class="nn">pandas.compat</span> <span class="kn">import</span> <span class="n">is_numpy_dev</span> <span class="k">as</span> <span class="n">_is_numpy_dev</span>  <span class="c1"># pyright: ignore # noqa:F401</span>
-<span class="g g-Whitespace">     </span><span class="mi">23</span> 
-<span class="g g-Whitespace">     </span><span class="mi">24</span> <span class="k">try</span><span class="p">:</span>
-
-<span class="o">~/</span><span class="n">miniforge3</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.9</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">pandas</span><span class="o">/</span><span class="n">compat</span><span class="o">/</span><span class="fm">__init__</span><span class="o">.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">     </span><span class="mi">16</span> 
-<span class="g g-Whitespace">     </span><span class="mi">17</span> <span class="kn">from</span> <span class="nn">pandas._typing</span> <span class="kn">import</span> <span class="n">F</span>
-<span class="ne">---&gt; </span><span class="mi">18</span> <span class="kn">from</span> <span class="nn">pandas.compat.numpy</span> <span class="kn">import</span> <span class="p">(</span>
-<span class="g g-Whitespace">     </span><span class="mi">19</span>     <span class="n">is_numpy_dev</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">20</span>     <span class="n">np_version_under1p21</span><span class="p">,</span>
-
-<span class="o">~/</span><span class="n">miniforge3</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.9</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">pandas</span><span class="o">/</span><span class="n">compat</span><span class="o">/</span><span class="n">numpy</span><span class="o">/</span><span class="fm">__init__</span><span class="o">.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">     </span><span class="mi">21</span> 
-<span class="g g-Whitespace">     </span><span class="mi">22</span> <span class="k">if</span> <span class="n">_nlv</span> <span class="o">&lt;</span> <span class="n">Version</span><span class="p">(</span><span class="n">_min_numpy_ver</span><span class="p">):</span>
-<span class="ne">---&gt; </span><span class="mi">23</span>     <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span>
-<span class="g g-Whitespace">     </span><span class="mi">24</span>         <span class="sa">f</span><span class="s2">&quot;this version of pandas is incompatible with numpy &lt; </span><span class="si">{</span><span class="n">_min_numpy_ver</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
-<span class="g g-Whitespace">     </span><span class="mi">25</span>         <span class="sa">f</span><span class="s2">&quot;your numpy version is </span><span class="si">{</span><span class="n">_np_version</span><span class="si">}</span><span class="s2">.</span><span class="se">\n</span><span class="s2">&quot;</span>
-
-<span class="ne">ImportError</span>: this version of pandas is incompatible with numpy &lt; 1.20.3
-<span class="n">your</span> <span class="n">numpy</span> <span class="n">version</span> <span class="ow">is</span> <span class="mf">1.19.5</span><span class="o">.</span>
-<span class="n">Please</span> <span class="n">upgrade</span> <span class="n">numpy</span> <span class="n">to</span> <span class="o">&gt;=</span> <span class="mf">1.20.3</span> <span class="n">to</span> <span class="n">use</span> <span class="n">this</span> <span class="n">pandas</span> <span class="n">version</span>
 </pre></div>
 </div>
 </div>
@@ -690,7 +652,7 @@ title="Print to PDF"
 </div>
 </div>
 </div>
-<div class="section" id="exploratory-analysis-and-visualization">
+<section id="exploratory-analysis-and-visualization">
 <h2>Exploratory analysis and visualization<a class="headerlink" href="#exploratory-analysis-and-visualization" title="Permalink to this headline">#</a></h2>
 <p>First, we visually explore the data by visualizing the value distribution and the interaction between every other feature in a scatter matrix. We use the target feature as the color variable to see which features are correlated with the target.</p>
 <p>For the plotting to work, however, we need to remove the categorical features (the first 2) and fill in the missing values. Let’s find out which columns have missing values. This matches what we already saw on the OpenML page (<a class="reference external" href="https://www.openml.org/d/41021">https://www.openml.org/d/41021</a>).</p>
@@ -757,8 +719,8 @@ dtype: bool
 <li><p>OOBP and OSLG have a very peaked distribution.</p></li>
 <li><p>‘Playoffs’ seems to be categorical and should probably be encoded as such.</p></li>
 </ul>
-</div>
-<div class="section" id="exercise-1-build-a-pipeline">
+</section>
+<section id="exercise-1-build-a-pipeline">
 <h2>Exercise 1: Build a pipeline<a class="headerlink" href="#exercise-1-build-a-pipeline" title="Permalink to this headline">#</a></h2>
 <p>Implement a function <code class="docutils literal notranslate"><span class="pre">build_pipeline</span></code> that does the following:</p>
 <ul class="simple">
@@ -770,7 +732,7 @@ dtype: bool
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">build_pipeline</span><span class="p">(</span><span class="n">regressor</span><span class="p">,</span> <span class="n">numerical</span><span class="p">,</span> <span class="n">categorical</span><span class="p">,</span> <span class="n">scaling</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot; Build a robust pipeline with the given regression model</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; Build a robust pipeline with the given regression model</span>
 <span class="sd">    Keyword arguments:</span>
 <span class="sd">    regressor -- the regression model</span>
 <span class="sd">    categorical -- the list of categorical features</span>
@@ -783,12 +745,12 @@ dtype: bool
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="exercise-2-test-the-pipeline">
+</section>
+<section id="exercise-2-test-the-pipeline">
 <h2>Exercise 2: Test the pipeline<a class="headerlink" href="#exercise-2-test-the-pipeline" title="Permalink to this headline">#</a></h2>
 <p>Test the pipeline by evaluating linear regression (without scaling) on the dataset, using 5-fold cross-validation and <span class="math notranslate nohighlight">\(R^2\)</span>. Make sure to run it on the original dataset (‘X’), not the manually cleaned version (‘X_clean’).</p>
-</div>
-<div class="section" id="exercise-3-a-first-benchmark">
+</section>
+<section id="exercise-3-a-first-benchmark">
 <h2>Exercise 3: A first benchmark<a class="headerlink" href="#exercise-3-a-first-benchmark" title="Permalink to this headline">#</a></h2>
 <p>Evaluate the following algorithms in their default settings, both with and without scaling, and interpret the results:</p>
 <ul class="simple">
@@ -799,12 +761,12 @@ dtype: bool
 <li><p>RandomForests</p></li>
 <li><p>GradientBoosting</p></li>
 </ul>
-</div>
-<div class="section" id="exercise-4-tuning-linear-models">
+</section>
+<section id="exercise-4-tuning-linear-models">
 <h2>Exercise 4: Tuning linear models<a class="headerlink" href="#exercise-4-tuning-linear-models" title="Permalink to this headline">#</a></h2>
 <p>Next, visualize the effect of the alpha regularizer for Ridge and Lasso. Vary alpha from 1e-4 to 1e6 and plot the <span class="math notranslate nohighlight">\(R^2\)</span> score as a line plot (one line for each algorithm). Always use scaling. Interpret the results.</p>
-</div>
-<div class="section" id="exercise-5-tuning-svms">
+</section>
+<section id="exercise-5-tuning-svms">
 <h2>Exercise 5: Tuning SVMs<a class="headerlink" href="#exercise-5-tuning-svms" title="Permalink to this headline">#</a></h2>
 <p>Next, tune the SVM’s C and gamma. You can stay within the 1e-6 to 1e6 range. Plot the <span class="math notranslate nohighlight">\(R^2\)</span> score as a heatmap.</p>
 <div class="cell docutils container">
@@ -836,17 +798,17 @@ dtype: bool
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="exercise-5b-tuning-svms-2">
+</section>
+<section id="exercise-5b-tuning-svms-2">
 <h2>Exercise 5b: Tuning SVMs (2)<a class="headerlink" href="#exercise-5b-tuning-svms-2" title="Permalink to this headline">#</a></h2>
 <p>Redraw the heatmap, but now use scaling. What do you observe?</p>
-</div>
-<div class="section" id="exercise-6-feature-importance">
+</section>
+<section id="exercise-6-feature-importance">
 <h2>Exercise 6: Feature importance<a class="headerlink" href="#exercise-6-feature-importance" title="Permalink to this headline">#</a></h2>
 <p>Retrieve the coefficients from the optimized Lasso, Ridge, and the feature importances from the default RandomForest and GradientBoosting models.
 Compare the results. Do the different models agree on which features are important? You will need to map the encoded feature names to the correct coefficients and feature importances. If you can, plot the importances as a bar chart.</p>
-</div>
-</div>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -860,7 +822,7 @@ Compare the results. Do the different models agree on which features are importa
             mode: "python"
         },
         kernelOptions: {
-            name: "python3",
+            kernelName: "python3",
             path: "./labs"
         },
         predefinedOutput: true
@@ -875,7 +837,7 @@ Compare the results. Do the different models agree on which features are importa
                 
     <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="Lab%203b%20-%20Ensembles.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="Lab%203%20-%20Ensembles.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
@@ -898,7 +860,7 @@ Compare the results. Do the different models agree on which features are importa
   
     By Joaquin Vanschoren<br/>
   
-      &copy; Copyright 2021. CC0 Licensed - Use as you like.<br/>
+      &copy; Copyright 2023. CC0 Licensed - Use as you like.<br/>
 </p>
         </footer>
     </div>

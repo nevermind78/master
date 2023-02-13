@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Lecture 4: Model Selection &#8212; ML Engineering</title>
     
   <!-- Loaded before other Sphinx assets -->
@@ -34,10 +35,13 @@
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
     <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
@@ -193,17 +197,17 @@ const thebe_selector_output = ".output, .cell_output"
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%202%20-%20Kernelization.html">
-   Lab 2: Kernelization
+  <a class="reference internal" href="../labs/Lab%202a%20-%20Kernelization.html">
+   Lab 2a: Kernelization
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%203a%20-%20Model%20Selection.html">
-   Lab 3a: Model selection
+  <a class="reference internal" href="../labs/Lab%202b%20-%20Model%20Selection.html">
+   Lab 2b: Model selection
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%203b%20-%20Ensembles.html">
+  <a class="reference internal" href="../labs/Lab%203%20-%20Ensembles.html">
    Lab 3b: Ensembles
   </a>
  </li>
@@ -272,11 +276,6 @@ const thebe_selector_output = ".output, .cell_output"
  <li class="toctree-l1">
   <a class="reference internal" href="../labs/Lab%201%20-%20Tutorial.html">
    Lab 1: Machine Learning with Python
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%203%20-%20Tutorial.html">
-   Lab 3 Tutorial: Model Selection in scikit-learn
   </a>
  </li>
  <li class="toctree-l1">
@@ -1153,7 +1152,7 @@ title="Print to PDF"
                 
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="lecture-4-model-selection">
+  <section class="tex2jax_ignore mathjax_ignore" id="lecture-4-model-selection">
 <h1>Lecture 4: Model Selection<a class="headerlink" href="#lecture-4-model-selection" title="Permalink to this headline">#</a></h1>
 <p><strong>Can I trust you?</strong></p>
 <p>Joaquin Vanschoren</p>
@@ -1162,8 +1161,8 @@ title="Print to PDF"
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Auto-setup when running on Google Colab</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="k">if</span> <span class="s1">&#39;google.colab&#39;</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">get_ipython</span><span class="p">())</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s1">&#39;/content/master&#39;</span><span class="p">):</span>
-    <span class="o">!</span>git clone -q https://github.com/ML-course/master.git /content/master
-    <span class="o">!</span>pip --quiet install -r /content/master/requirements_colab.txt
+    <span class="o">!</span>git<span class="w"> </span>clone<span class="w"> </span>-q<span class="w"> </span>https://github.com/ML-course/master.git<span class="w"> </span>/content/master
+    <span class="o">!</span>pip<span class="w"> </span>--quiet<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>/content/master/requirements_colab.txt
     <span class="o">%</span><span class="k">cd</span> master/notebooks
 
 <span class="c1"># Global imports and settings</span>
@@ -1178,52 +1177,8 @@ title="Print to PDF"
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">ImportError</span><span class="g g-Whitespace">                               </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="mi">0</span><span class="n">t</span><span class="o">/</span><span class="mi">5</span><span class="n">d8ttqzd773fy0wq3h5db0xr0000gn</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_37030</span><span class="o">/</span><span class="mf">3864337541.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">      </span><span class="mi">8</span> <span class="c1"># Global imports and settings</span>
-<span class="g g-Whitespace">      </span><span class="mi">9</span> <span class="n">get_ipython</span><span class="p">()</span><span class="o">.</span><span class="n">run_line_magic</span><span class="p">(</span><span class="s1">&#39;matplotlib&#39;</span><span class="p">,</span> <span class="s1">&#39;inline&#39;</span><span class="p">)</span>
-<span class="ne">---&gt; </span><span class="mi">10</span> <span class="kn">from</span> <span class="nn">preamble</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="g g-Whitespace">     </span><span class="mi">11</span> <span class="n">interactive</span> <span class="o">=</span> <span class="kc">True</span> <span class="c1"># Set to True for interactive plots</span>
-<span class="g g-Whitespace">     </span><span class="mi">12</span> <span class="k">if</span> <span class="n">interactive</span><span class="p">:</span>
-
-<span class="o">~/</span><span class="n">Documents</span><span class="o">/</span><span class="n">ml</span><span class="o">-</span><span class="n">course</span><span class="o">/</span><span class="n">master</span><span class="o">/</span><span class="n">notebooks</span><span class="o">/</span><span class="n">preamble</span><span class="o">.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">set_matplotlib_formats</span><span class="p">,</span> <span class="n">display</span><span class="p">,</span> <span class="n">HTML</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="kn">from</span> <span class="nn">IPython.core.interactiveshell</span> <span class="kn">import</span> <span class="n">InteractiveShell</span>
-<span class="ne">----&gt; </span><span class="mi">3</span> <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-
-<span class="o">~/</span><span class="n">miniforge3</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.9</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">pandas</span><span class="o">/</span><span class="fm">__init__</span><span class="o">.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">     </span><span class="mi">20</span> 
-<span class="g g-Whitespace">     </span><span class="mi">21</span> <span class="c1"># numpy compat</span>
-<span class="ne">---&gt; </span><span class="mi">22</span> <span class="kn">from</span> <span class="nn">pandas.compat</span> <span class="kn">import</span> <span class="n">is_numpy_dev</span> <span class="k">as</span> <span class="n">_is_numpy_dev</span>  <span class="c1"># pyright: ignore # noqa:F401</span>
-<span class="g g-Whitespace">     </span><span class="mi">23</span> 
-<span class="g g-Whitespace">     </span><span class="mi">24</span> <span class="k">try</span><span class="p">:</span>
-
-<span class="o">~/</span><span class="n">miniforge3</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.9</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">pandas</span><span class="o">/</span><span class="n">compat</span><span class="o">/</span><span class="fm">__init__</span><span class="o">.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">     </span><span class="mi">16</span> 
-<span class="g g-Whitespace">     </span><span class="mi">17</span> <span class="kn">from</span> <span class="nn">pandas._typing</span> <span class="kn">import</span> <span class="n">F</span>
-<span class="ne">---&gt; </span><span class="mi">18</span> <span class="kn">from</span> <span class="nn">pandas.compat.numpy</span> <span class="kn">import</span> <span class="p">(</span>
-<span class="g g-Whitespace">     </span><span class="mi">19</span>     <span class="n">is_numpy_dev</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">20</span>     <span class="n">np_version_under1p21</span><span class="p">,</span>
-
-<span class="o">~/</span><span class="n">miniforge3</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.9</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">pandas</span><span class="o">/</span><span class="n">compat</span><span class="o">/</span><span class="n">numpy</span><span class="o">/</span><span class="fm">__init__</span><span class="o">.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">     </span><span class="mi">21</span> 
-<span class="g g-Whitespace">     </span><span class="mi">22</span> <span class="k">if</span> <span class="n">_nlv</span> <span class="o">&lt;</span> <span class="n">Version</span><span class="p">(</span><span class="n">_min_numpy_ver</span><span class="p">):</span>
-<span class="ne">---&gt; </span><span class="mi">23</span>     <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span>
-<span class="g g-Whitespace">     </span><span class="mi">24</span>         <span class="sa">f</span><span class="s2">&quot;this version of pandas is incompatible with numpy &lt; </span><span class="si">{</span><span class="n">_min_numpy_ver</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
-<span class="g g-Whitespace">     </span><span class="mi">25</span>         <span class="sa">f</span><span class="s2">&quot;your numpy version is </span><span class="si">{</span><span class="n">_np_version</span><span class="si">}</span><span class="s2">.</span><span class="se">\n</span><span class="s2">&quot;</span>
-
-<span class="ne">ImportError</span>: this version of pandas is incompatible with numpy &lt; 1.20.3
-<span class="n">your</span> <span class="n">numpy</span> <span class="n">version</span> <span class="ow">is</span> <span class="mf">1.19.5</span><span class="o">.</span>
-<span class="n">Please</span> <span class="n">upgrade</span> <span class="n">numpy</span> <span class="n">to</span> <span class="o">&gt;=</span> <span class="mf">1.20.3</span> <span class="n">to</span> <span class="n">use</span> <span class="n">this</span> <span class="n">pandas</span> <span class="n">version</span>
-</pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="evaluation">
+<section id="evaluation">
 <h2>Evaluation<a class="headerlink" href="#evaluation" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>To know whether we can <em>trust</em> our method or system, we need to evaluate it.</p></li>
@@ -1244,7 +1199,7 @@ title="Print to PDF"
 </ul>
 </li>
 </ul>
-<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/eval_trust.png" alt="ml" style="width: 400px;"/><div class="section" id="designing-machine-learning-systems">
+<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/eval_trust.png" alt="ml" style="width: 400px;"/><section id="designing-machine-learning-systems">
 <h3>Designing Machine Learning systems<a class="headerlink" href="#designing-machine-learning-systems" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Just running your favourite algorithm is usually not a great way to start</p></li>
@@ -1265,8 +1220,8 @@ title="Print to PDF"
 </ul>
 </li>
 </ul>
-<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/eval_debt2.png" alt="ml" style="width: 700px;"/></div>
-<div class="section" id="real-world-evaluations">
+<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/eval_debt2.png" alt="ml" style="width: 700px;"/></section>
+<section id="real-world-evaluations">
 <h3>Real world evaluations<a class="headerlink" href="#real-world-evaluations" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Evaluate predictions, but also how outcomes improve <em>because of them</em></p></li>
@@ -1282,9 +1237,9 @@ title="Print to PDF"
 </ul>
 </li>
 </ul>
-<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/eval_abbandit.png" alt="ml" style="width: 500px;"/></div>
-</div>
-<div class="section" id="performance-estimation-techniques">
+<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/eval_abbandit.png" alt="ml" style="width: 500px;"/></section>
+</section>
+<section id="performance-estimation-techniques">
 <h2>Performance estimation techniques<a class="headerlink" href="#performance-estimation-techniques" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Always evaluate models <em>as if they are predicting future data</em></p></li>
@@ -1342,7 +1297,7 @@ title="Print to PDF"
 <img alt="../_images/04 - Model Selection_7_0.png" src="../_images/04 - Model Selection_7_0.png" />
 </div>
 </div>
-<div class="section" id="k-fold-cross-validation">
+<section id="k-fold-cross-validation">
 <h3>K-fold Cross-validation<a class="headerlink" href="#k-fold-cross-validation" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Each random split can yield very different models (and scores)</p>
@@ -1362,7 +1317,7 @@ title="Print to PDF"
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_cv_indices</span><span class="p">(</span><span class="n">cv</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">group</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">show_groups</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">700</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Create a sample plot for indices of a cross-validation object.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create a sample plot for indices of a cross-validation object.&quot;&quot;&quot;</span>
     <span class="n">n_splits</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">get_n_splits</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">group</span><span class="p">)</span>
 
     <span class="c1"># Generate the training/testing visualizations for each CV split</span>
@@ -1455,7 +1410,7 @@ title="Print to PDF"
 <img alt="../_images/04 - Model Selection_13_0.png" src="../_images/04 - Model Selection_13_0.png" />
 </div>
 </div>
-<div class="section" id="stratified-k-fold-cross-validation">
+<section id="stratified-k-fold-cross-validation">
 <h4>Stratified K-Fold cross-validation<a class="headerlink" href="#stratified-k-fold-cross-validation" title="Permalink to this headline">#</a></h4>
 <ul class="simple">
 <li><p>If the data is unbalanced, some classes have only few samples</p></li>
@@ -1481,8 +1436,8 @@ title="Print to PDF"
 <img alt="../_images/04 - Model Selection_15_0.png" src="../_images/04 - Model Selection_15_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="leave-one-out-cross-validation">
+</section>
+<section id="leave-one-out-cross-validation">
 <h4>Leave-One-Out cross-validation<a class="headerlink" href="#leave-one-out-cross-validation" title="Permalink to this headline">#</a></h4>
 <ul class="simple">
 <li><p><em>k</em> fold cross-validation with <em>k</em> equal to the number of samples</p></li>
@@ -1509,8 +1464,8 @@ title="Print to PDF"
 <img alt="../_images/04 - Model Selection_17_0.png" src="../_images/04 - Model Selection_17_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="shuffle-split-cross-validation">
+</section>
+<section id="shuffle-split-cross-validation">
 <h4>Shuffle-Split cross-validation<a class="headerlink" href="#shuffle-split-cross-validation" title="Permalink to this headline">#</a></h4>
 <ul class="simple">
 <li><p>Shuffles the data, samples (<code class="docutils literal notranslate"><span class="pre">train_size</span></code>) points randomly as the training set</p></li>
@@ -1532,9 +1487,9 @@ title="Print to PDF"
 <img alt="../_images/04 - Model Selection_19_0.png" src="../_images/04 - Model Selection_19_0.png" />
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="the-bootstrap">
+</section>
+</section>
+<section id="the-bootstrap">
 <h3>The Bootstrap<a class="headerlink" href="#the-bootstrap" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Sample <em>n</em> (dataset size) data points, with replacement, as training set (the bootstrap)</p>
@@ -1580,8 +1535,8 @@ title="Print to PDF"
 <img alt="../_images/04 - Model Selection_21_0.png" src="../_images/04 - Model Selection_21_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="repeated-cross-validation">
+</section>
+<section id="repeated-cross-validation">
 <h3>Repeated cross-validation<a class="headerlink" href="#repeated-cross-validation" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Cross-validation is still biased in that the initial split can be made in many ways</p></li>
@@ -1613,8 +1568,8 @@ title="Print to PDF"
 <img alt="../_images/04 - Model Selection_23_0.png" src="../_images/04 - Model Selection_23_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="cross-validation-with-groups">
+</section>
+<section id="cross-validation-with-groups">
 <h3>Cross-validation with groups<a class="headerlink" href="#cross-validation-with-groups" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Sometimes the data contains inherent groups:</p>
@@ -1644,8 +1599,8 @@ title="Print to PDF"
 <img alt="../_images/04 - Model Selection_25_0.png" src="../_images/04 - Model Selection_25_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="time-series">
+</section>
+<section id="time-series">
 <h3>Time series<a class="headerlink" href="#time-series" title="Permalink to this headline">#</a></h3>
 <p>When the data is ordered, random test sets are not a good idea</p>
 <div class="cell tag_hide-input docutils container">
@@ -1671,7 +1626,7 @@ title="Print to PDF"
 <img alt="../_images/04 - Model Selection_27_0.png" src="../_images/04 - Model Selection_27_0.png" />
 </div>
 </div>
-<div class="section" id="test-then-train-prequential-evaluation">
+<section id="test-then-train-prequential-evaluation">
 <h4>Test-then-train (prequential evaluation)<a class="headerlink" href="#test-then-train-prequential-evaluation" title="Permalink to this headline">#</a></h4>
 <ul class="simple">
 <li><p>Every new sample is evaluated only once, then added to the training set</p>
@@ -1705,9 +1660,9 @@ title="Print to PDF"
 <img alt="../_images/04 - Model Selection_29_0.png" src="../_images/04 - Model Selection_29_0.png" />
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="choosing-a-performance-estimation-procedure">
+</section>
+</section>
+<section id="choosing-a-performance-estimation-procedure">
 <h3>Choosing a performance estimation procedure<a class="headerlink" href="#choosing-a-performance-estimation-procedure" title="Permalink to this headline">#</a></h3>
 <p>No strict rules, only guidelines:</p>
 <ul class="simple">
@@ -1731,11 +1686,11 @@ title="Print to PDF"
 <li><p>Use grouping or leave-one-subject-out for grouped data</p></li>
 <li><p>Use train-then-test for time series</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="evaluation-metrics-for-classification">
+</section>
+</section>
+<section id="evaluation-metrics-for-classification">
 <h2>Evaluation Metrics for Classification<a class="headerlink" href="#evaluation-metrics-for-classification" title="Permalink to this headline">#</a></h2>
-<div class="section" id="evaluation-vs-optimization">
+<section id="evaluation-vs-optimization">
 <h3>Evaluation vs Optimization<a class="headerlink" href="#evaluation-vs-optimization" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Each algorithm optimizes a given objective function (on the training data)</p>
@@ -1753,8 +1708,8 @@ $<span class="math notranslate nohighlight">\(\mathcal{L}_{Ridge} = \sum_{n=1}^{
 </li>
 <li><p>We also tune the algorithm’s hyperparameters to maximize that score</p></li>
 </ul>
-</div>
-<div class="section" id="binary-classification">
+</section>
+<section id="binary-classification">
 <h3>Binary classification<a class="headerlink" href="#binary-classification" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>We have a positive and a negative class</p></li>
@@ -1770,7 +1725,7 @@ $<span class="math notranslate nohighlight">\(\mathcal{L}_{Ridge} = \sum_{n=1}^{
 </ul>
 </li>
 </ul>
-<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/type1error.jpg" alt="ml" style="width: 60%"/><div class="section" id="confusion-matrices">
+<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/type1error.jpg" alt="ml" style="width: 60%"/><section id="confusion-matrices">
 <h4>Confusion matrices<a class="headerlink" href="#confusion-matrices" title="Permalink to this headline">#</a></h4>
 <ul class="simple">
 <li><p>We can represent all predictions (correct and incorrect) in a confusion matrix</p>
@@ -1824,8 +1779,8 @@ $<span class="math notranslate nohighlight">\(\mathcal{L}_{Ridge} = \sum_{n=1}^{
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="predictive-accuracy">
+</section>
+<section id="predictive-accuracy">
 <h4>Predictive accuracy<a class="headerlink" href="#predictive-accuracy" title="Permalink to this headline">#</a></h4>
 <ul class="simple">
 <li><p>Accuracy can be computed based on the confusion matrix</p></li>
@@ -1847,7 +1802,7 @@ $<span class="math notranslate nohighlight">\(\mathcal{L}_{Ridge} = \sum_{n=1}^{
 <span class="k">def</span> <span class="nf">plot_confusion_matrix</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;predicted labels&quot;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;true labels&quot;</span><span class="p">,</span> <span class="n">xticklabels</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                           <span class="n">yticklabels</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                           <span class="n">fmt</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">xtickrotation</span><span class="o">=</span><span class="mi">45</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fsize</span><span class="o">=</span><span class="mi">8</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Plot a matrix as heatmap with explicit numbers.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Plot a matrix as heatmap with explicit numbers.</span>
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    values : ndarray</span>
@@ -1949,8 +1904,8 @@ $<span class="math notranslate nohighlight">\(\mathcal{L}_{Ridge} = \sum_{n=1}^{
 <img alt="../_images/04 - Model Selection_39_0.png" src="../_images/04 - Model Selection_39_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="precision">
+</section>
+<section id="precision">
 <h4>Precision<a class="headerlink" href="#precision" title="Permalink to this headline">#</a></h4>
 <ul class="simple">
 <li><p>Use when the goal is to limit FPs</p>
@@ -1974,8 +1929,8 @@ $<span class="math notranslate nohighlight">\(\mathcal{L}_{Ridge} = \sum_{n=1}^{
 <img alt="../_images/04 - Model Selection_41_0.png" src="../_images/04 - Model Selection_41_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="recall">
+</section>
+<section id="recall">
 <h4>Recall<a class="headerlink" href="#recall" title="Permalink to this headline">#</a></h4>
 <ul class="simple">
 <li><p>Use when the goal is to limit FNs</p>
@@ -2002,8 +1957,8 @@ $<span class="math notranslate nohighlight">\(\mathcal{L}_{Ridge} = \sum_{n=1}^{
 </div>
 <p><strong>Comparison</strong><br />
 <img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/07_precision-recall.jpg" alt="ml" style="width: 50%"/></p>
-</div>
-<div class="section" id="f1-score">
+</section>
+<section id="f1-score">
 <h4>F1-score<a class="headerlink" href="#f1-score" title="Permalink to this headline">#</a></h4>
 <ul class="simple">
 <li><p>Trades off precision and recall:</p></li>
@@ -2025,9 +1980,9 @@ $<span class="math notranslate nohighlight">\(\mathcal{L}_{Ridge} = \sum_{n=1}^{
 <p><strong>Classification measure Zoo</strong><br />
 <img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/07_zoo.png" alt="ml" style="width: 1500px;"/></p>
 <p><a class="reference external" href="https://en.wikipedia.org/wiki/Precision_and_recall">https://en.wikipedia.org/wiki/Precision_and_recall</a></p>
-</div>
-</div>
-<div class="section" id="multi-class-classification">
+</section>
+</section>
+<section id="multi-class-classification">
 <h3>Multi-class classification<a class="headerlink" href="#multi-class-classification" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Train models <em>per class</em> : one class viewed as positive, other(s) als negative, then average</p>
@@ -2073,8 +2028,8 @@ $<span class="math notranslate nohighlight">\(\frac{1}{C} \sum_{c=1}^C R(y_c,\ha
 <img alt="../_images/04 - Model Selection_49_2.png" src="../_images/04 - Model Selection_49_2.png" />
 </div>
 </div>
-</div>
-<div class="section" id="other-useful-classification-metrics">
+</section>
+<section id="other-useful-classification-metrics">
 <h3>Other useful classification metrics<a class="headerlink" href="#other-useful-classification-metrics" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Cohen’s Kappa</p>
@@ -2099,9 +2054,9 @@ $<span class="math notranslate nohighlight">\(MCC = \frac{tp \times tn - fp \tim
 </ul>
 </li>
 </ul>
-</div>
-</div>
-<div class="section" id="probabilistic-evaluation">
+</section>
+</section>
+<section id="probabilistic-evaluation">
 <h2>Probabilistic evaluation<a class="headerlink" href="#probabilistic-evaluation" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Classifiers can often provide uncertainty estimates of predictions.</p></li>
@@ -2119,7 +2074,7 @@ $<span class="math notranslate nohighlight">\(\hat{y} = w_0 * x_0 + w_1 * x_1 + 
 </ul>
 </li>
 </ul>
-<div class="section" id="the-decision-function">
+<section id="the-decision-function">
 <h3>The decision function<a class="headerlink" href="#the-decision-function" title="Permalink to this headline">#</a></h3>
 <p>In the binary classification case, the return value of the decision function encodes how strongly the model believes a data point
 belongs to the “positive” class.</p>
@@ -2174,8 +2129,8 @@ belongs to the “positive” class.</p>
 <img alt="../_images/04 - Model Selection_53_0.png" src="../_images/04 - Model Selection_53_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="predicting-probabilities">
+</section>
+<section id="predicting-probabilities">
 <h3>Predicting probabilities<a class="headerlink" href="#predicting-probabilities" title="Permalink to this headline">#</a></h3>
 <p>Some models can also return a <em>probability</em> for each class with every prediction. These sum up to 1.
 We can visualize them again. Note that the gradient looks different now.</p>
@@ -2210,8 +2165,8 @@ We can visualize them again. Note that the gradient looks different now.</p>
 <img alt="../_images/04 - Model Selection_55_0.png" src="../_images/04 - Model Selection_55_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="threshold-calibration">
+</section>
+<section id="threshold-calibration">
 <h3>Threshold calibration<a class="headerlink" href="#threshold-calibration" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>By default, we threshold at 0 for  <code class="docutils literal notranslate"><span class="pre">decision_function</span></code> and 0.5 for <code class="docutils literal notranslate"><span class="pre">predict_proba</span></code></p></li>
@@ -2279,7 +2234,7 @@ We can visualize them again. Note that the gradient looks different now.</p>
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "daaec135d3ec4ecaabc6fdff1697929f", "version_major": 2, "version_minor": 0}
+{"model_id": "efcef2a8dbe74bfb873991bb28bc95bc", "version_major": 2, "version_minor": 0}
 </script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
@@ -2291,8 +2246,8 @@ We can visualize them again. Note that the gradient looks different now.</p>
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="precision-recall-curve">
+</section>
+<section id="precision-recall-curve">
 <h3>Precision-Recall curve<a class="headerlink" href="#precision-recall-curve" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>The best trade-off between precision and recall depends on your application</p>
@@ -2348,7 +2303,7 @@ We can visualize them again. Note that the gradient looks different now.</p>
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "567c92779ec24995b057681601b105e6", "version_major": 2, "version_minor": 0}
+{"model_id": "a55e9e22c5744230bf605eb508e451a6", "version_major": 2, "version_minor": 0}
 </script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
@@ -2359,7 +2314,7 @@ We can visualize them again. Note that the gradient looks different now.</p>
 </div>
 </div>
 </div>
-<div class="section" id="model-selection">
+<section id="model-selection">
 <h4>Model selection<a class="headerlink" href="#model-selection" title="Permalink to this headline">#</a></h4>
 <ul class="simple">
 <li><p>Some models can achieve trade-offs that others can’t</p></li>
@@ -2404,8 +2359,8 @@ We can visualize them again. Note that the gradient looks different now.</p>
 <img alt="../_images/04 - Model Selection_63_0.png" src="../_images/04 - Model Selection_63_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="hyperparameter-effects">
+</section>
+<section id="hyperparameter-effects">
 <h4>Hyperparameter effects<a class="headerlink" href="#hyperparameter-effects" title="Permalink to this headline">#</a></h4>
 <p>Of course, hyperparameters affect predictions and hence also the shape of the curve</p>
 <div class="cell tag_hide-input docutils container">
@@ -2420,9 +2375,9 @@ We can visualize them again. Note that the gradient looks different now.</p>
 <img alt="../_images/04 - Model Selection_65_0.png" src="../_images/04 - Model Selection_65_0.png" />
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="receiver-operating-characteristics-roc">
+</section>
+</section>
+<section id="receiver-operating-characteristics-roc">
 <h3>Receiver Operating Characteristics (ROC)<a class="headerlink" href="#receiver-operating-characteristics-roc" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Trade off <em>true positive rate</em> <span class="math notranslate nohighlight">\(\textit{TPR}= \frac{TP}{TP + FN}\)</span> with <em>false positive rate</em> <span class="math notranslate nohighlight">\(\textit{FPR} = \frac{FP}{FP + TN}\)</span></p></li>
@@ -2460,7 +2415,7 @@ We can visualize them again. Note that the gradient looks different now.</p>
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "c08a7aba60914a3ab2d6e94b20221f50", "version_major": 2, "version_minor": 0}
+{"model_id": "6535796b67324447b3e8ea1851086744", "version_major": 2, "version_minor": 0}
 </script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
@@ -2471,7 +2426,7 @@ We can visualize them again. Note that the gradient looks different now.</p>
 </div>
 </div>
 </div>
-<div class="section" id="visualization">
+<section id="visualization">
 <h4>Visualization<a class="headerlink" href="#visualization" title="Permalink to this headline">#</a></h4>
 <ul class="simple">
 <li><p>Histograms show the amount of points with a certain decision value (for each class)</p></li>
@@ -2526,7 +2481,7 @@ We can visualize them again. Note that the gradient looks different now.</p>
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "2d0057a6f02242d087360bf868a30816", "version_major": 2, "version_minor": 0}
+{"model_id": "f2d4b80d87424088bd34faa37cd0a069", "version_major": 2, "version_minor": 0}
 </script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
@@ -2537,8 +2492,8 @@ We can visualize them again. Note that the gradient looks different now.</p>
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="id1">
+</section>
+<section id="id1">
 <h4>Model selection<a class="headerlink" href="#id1" title="Permalink to this headline">#</a></h4>
 <ul class="simple">
 <li><p>Again, some models can achieve trade-offs that others can’t</p></li>
@@ -2585,8 +2540,8 @@ We can visualize them again. Note that the gradient looks different now.</p>
 <img alt="../_images/04 - Model Selection_73_0.png" src="../_images/04 - Model Selection_73_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="multi-class-auroc-or-auprc">
+</section>
+<section id="multi-class-auroc-or-auprc">
 <h4>Multi-class AUROC (or AUPRC)<a class="headerlink" href="#multi-class-auroc-or-auprc" title="Permalink to this headline">#</a></h4>
 <ul class="simple">
 <li><p>We again need to choose between micro- or macro averaging TPR and FPR.</p>
@@ -2681,9 +2636,9 @@ We can visualize them again. Note that the gradient looks different now.</p>
 <img alt="../_images/04 - Model Selection_75_0.png" src="../_images/04 - Model Selection_75_0.png" />
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="model-calibration">
+</section>
+</section>
+<section id="model-calibration">
 <h3>Model calibration<a class="headerlink" href="#model-calibration" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>For some models, the <em>predicted</em> uncertainty does not reflect the <em>actual</em> uncertainty</p>
@@ -2778,7 +2733,7 @@ We can visualize them again. Note that the gradient looks different now.</p>
 <img alt="../_images/04 - Model Selection_77_0.png" src="../_images/04 - Model Selection_77_0.png" />
 </div>
 </div>
-<div class="section" id="brier-score">
+<section id="brier-score">
 <h4>Brier score<a class="headerlink" href="#brier-score" title="Permalink to this headline">#</a></h4>
 <ul class="simple">
 <li><p>You may want to select models based on how accurate the class confidences are.</p></li>
@@ -2815,8 +2770,8 @@ SVM Brier score loss: 0.0795
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="model-calibration-techniques">
+</section>
+<section id="model-calibration-techniques">
 <h4>Model calibration techniques<a class="headerlink" href="#model-calibration-techniques" title="Permalink to this headline">#</a></h4>
 <ul class="simple">
 <li><p>We can post-process trained models to make them more calibrated.</p></li>
@@ -2834,7 +2789,7 @@ SVM Brier score loss: 0.0795
 </ul>
 <div class="math notranslate nohighlight">
 \[f_{calib}(f(x))≈p(y)\]</div>
-<div class="section" id="platt-scaling">
+<section id="platt-scaling">
 <h5>Platt Scaling<a class="headerlink" href="#platt-scaling" title="Permalink to this headline">#</a></h5>
 <ul class="simple">
 <li><p>Calibrator is a logistic (sigmoid) function:</p>
@@ -2870,8 +2825,8 @@ $<span class="math notranslate nohighlight">\(f_{platt}=\frac{1}{1+\exp(−w_1 f
 <img alt="../_images/04 - Model Selection_82_0.png" src="../_images/04 - Model Selection_82_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="isotonic-regression">
+</section>
+<section id="isotonic-regression">
 <h5>Isotonic regression<a class="headerlink" href="#isotonic-regression" title="Permalink to this headline">#</a></h5>
 <ul class="simple">
 <li><p>Maps input <span class="math notranslate nohighlight">\(x_i\)</span> to an output <span class="math notranslate nohighlight">\(\hat{y}_i\)</span> so that <span class="math notranslate nohighlight">\(\hat{y}_i\)</span> increases monotonically with <span class="math notranslate nohighlight">\(x_i\)</span> and minimizes loss <span class="math notranslate nohighlight">\(\sum_i^n (y_i-\hat{y}_i)\)</span></p>
@@ -2896,11 +2851,11 @@ $<span class="math notranslate nohighlight">\(f_{platt}=\frac{1}{1+\exp(−w_1 f
 <img alt="../_images/04 - Model Selection_84_0.png" src="../_images/04 - Model Selection_84_0.png" />
 </div>
 </div>
-</div>
-</div>
-</div>
-</div>
-<div class="section" id="cost-sensitive-classification-dealing-with-imbalance">
+</section>
+</section>
+</section>
+</section>
+<section id="cost-sensitive-classification-dealing-with-imbalance">
 <h2>Cost-sensitive classification (dealing with imbalance)<a class="headerlink" href="#cost-sensitive-classification-dealing-with-imbalance" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>In the real worlds, different kinds of misclassification can have different costs</p>
@@ -2917,7 +2872,7 @@ $<span class="math notranslate nohighlight">\(f_{platt}=\frac{1}{1+\exp(−w_1 f
 </ul>
 </li>
 </ul>
-<div class="section" id="class-weighting">
+<section id="class-weighting">
 <h3>Class weighting<a class="headerlink" href="#class-weighting" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>If some classes are more important than others, we can give them more weight</p>
@@ -2968,8 +2923,8 @@ $<span class="math notranslate nohighlight">\(\mathcal{L_{log}}(\mathbf{w}) = - 
 <img alt="../_images/04 - Model Selection_87_0.png" src="../_images/04 - Model Selection_87_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="instance-weighting">
+</section>
+<section id="instance-weighting">
 <h3>Instance weighting<a class="headerlink" href="#instance-weighting" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>If some <em>training instances</em> are important to get right, we can give them more weight</p>
@@ -3019,8 +2974,8 @@ $<span class="math notranslate nohighlight">\(\mathcal{L_{log}}(\mathbf{w}) = - 
 <img alt="../_images/04 - Model Selection_89_0.png" src="../_images/04 - Model Selection_89_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="cost-sensitive-algorithms">
+</section>
+<section id="cost-sensitive-algorithms">
 <h3>Cost-sensitive algorithms<a class="headerlink" href="#cost-sensitive-algorithms" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Cost-sensitive algorithms</p>
@@ -3041,8 +2996,8 @@ $<span class="math notranslate nohighlight">\(\mathcal{L_{log}}(\mathbf{w}) = - 
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="tuning-the-decision-threshold">
+</section>
+<section id="tuning-the-decision-threshold">
 <h3>Tuning the decision threshold<a class="headerlink" href="#tuning-the-decision-threshold" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>If every FP or FN has a certain cost, we can compute the total cost for a given model:
@@ -3100,7 +3055,7 @@ $<span class="math notranslate nohighlight">\(\text{total cost} = \text{FPR} * c
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "88d017898f5d48dabf3017454e30cd0d", "version_major": 2, "version_minor": 0}
+{"model_id": "83a856e37be24e49a6e04a8501605ea8", "version_major": 2, "version_minor": 0}
 </script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
@@ -3112,9 +3067,9 @@ $<span class="math notranslate nohighlight">\(\text{total cost} = \text{FPR} * c
 </div>
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="regression-metrics">
+</section>
+</section>
+<section id="regression-metrics">
 <h2>Regression metrics<a class="headerlink" href="#regression-metrics" title="Permalink to this headline">#</a></h2>
 <p>Most commonly used are</p>
 <ul class="simple">
@@ -3129,7 +3084,7 @@ $<span class="math notranslate nohighlight">\(\text{total cost} = \text{FPR} * c
 </ul>
 </li>
 </ul>
-<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/distracted_rmse.jpg" alt="ml" style="width: 500px;"/><div class="section" id="r-squared">
+<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/distracted_rmse.jpg" alt="ml" style="width: 500px;"/><section id="r-squared">
 <h3>R squared<a class="headerlink" href="#r-squared" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\(R^2 = 1 - \frac{\color{blue}{\sum_{i}(y_{pred_i}-y_{actual_i})^2}}{\color{red}{\sum_{i}(y_{mean}-y_{actual_i})^2}}\)</span></p>
@@ -3140,8 +3095,8 @@ $<span class="math notranslate nohighlight">\(\text{total cost} = \text{FPR} * c
 </ul>
 </li>
 </ul>
-<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/07_r2.png" alt="ml" style="width: 600px;"/></div>
-<div class="section" id="visualizing-regression-errors">
+<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/07_r2.png" alt="ml" style="width: 600px;"/></section>
+<section id="visualizing-regression-errors">
 <h3>Visualizing regression errors<a class="headerlink" href="#visualizing-regression-errors" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Prediction plot (left): predicted vs actual target values</p></li>
@@ -3154,12 +3109,15 @@ $<span class="math notranslate nohighlight">\(\text{total cost} = \text{FPR} * c
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">Ridge</span>
-<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_boston</span>
-<span class="n">boston</span> <span class="o">=</span> <span class="n">load_boston</span><span class="p">()</span>
+<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">fetch_openml</span>
+<span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">make_pipeline</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span>
+<span class="n">boston</span> <span class="o">=</span> <span class="n">fetch_openml</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;boston&quot;</span><span class="p">,</span> <span class="n">as_frame</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 <span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">boston</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">boston</span><span class="o">.</span><span class="n">target</span><span class="p">)</span>
+<span class="n">ridge_pipe</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">StandardScaler</span><span class="p">(),</span><span class="n">Ridge</span><span class="p">())</span>
 
-<span class="n">pred</span> <span class="o">=</span> <span class="n">Ridge</span><span class="p">(</span><span class="n">normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="n">pred</span> <span class="o">=</span> <span class="n">ridge_pipe</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="s2">&quot;equal&quot;</span><span class="p">)</span>
@@ -3182,9 +3140,9 @@ $<span class="math notranslate nohighlight">\(\text{total cost} = \text{FPR} * c
 <img alt="../_images/04 - Model Selection_97_0.png" src="../_images/04 - Model Selection_97_0.png" />
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="bias-variance-decomposition">
+</section>
+</section>
+<section id="bias-variance-decomposition">
 <h2>Bias-Variance decomposition<a class="headerlink" href="#bias-variance-decomposition" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Evaluate the same algorithm multiple times on different random samples of the data</p></li>
@@ -3203,7 +3161,7 @@ $<span class="math notranslate nohighlight">\(\text{total cost} = \text{FPR} * c
 </ul>
 </li>
 </ul>
-<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/03_bias_variance.png" alt="ml" style="width: 40%"/><div class="section" id="computing-bias-and-variance-error">
+<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/03_bias_variance.png" alt="ml" style="width: 40%"/><section id="computing-bias-and-variance-error">
 <h3>Computing bias and variance error<a class="headerlink" href="#computing-bias-and-variance-error" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Take 100 or more bootstraps (or shuffle-splits)</p></li>
@@ -3263,8 +3221,8 @@ $<span class="math notranslate nohighlight">\(\text{total cost} = \text{FPR} * c
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="bias-and-variance-underfitting-and-overfitting">
+</section>
+<section id="bias-and-variance-underfitting-and-overfitting">
 <h3>Bias and variance, underfitting and overfitting<a class="headerlink" href="#bias-and-variance-underfitting-and-overfitting" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>High variance means that you are likely overfitting</p>
@@ -3283,8 +3241,8 @@ $<span class="math notranslate nohighlight">\(\text{total cost} = \text{FPR} * c
 </ul>
 </li>
 </ul>
-<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/03_Bias-Variance-Tradeoff.png" alt="ml" style="width: 40%"/></div>
-<div class="section" id="understanding-under-and-overfitting">
+<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/03_Bias-Variance-Tradeoff.png" alt="ml" style="width: 40%"/></section>
+<section id="understanding-under-and-overfitting">
 <h3>Understanding under- and overfitting<a class="headerlink" href="#understanding-under-and-overfitting" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Regularization reduces variance error (increases stability of predictions)</p>
@@ -3360,9 +3318,9 @@ $<span class="math notranslate nohighlight">\(\text{total cost} = \text{FPR} * c
 </div>
 </div>
 <p>Summary Flowchart (by Andrew Ng)</p>
-<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/03_Bias-Variance-Flowchart.png" alt="ml" style="width: 50%"/></div>
-</div>
-<div class="section" id="hyperparameter-tuning">
+<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/03_Bias-Variance-Flowchart.png" alt="ml" style="width: 50%"/></section>
+</section>
+<section id="hyperparameter-tuning">
 <h2>Hyperparameter tuning<a class="headerlink" href="#hyperparameter-tuning" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>There exists a huge range of techniques to tune hyperparameters. The simplest:</p>
@@ -3410,7 +3368,7 @@ $<span class="math notranslate nohighlight">\(\text{total cost} = \text{FPR} * c
 </div>
 </div>
 </div>
-<div class="section" id="nested-cross-validation">
+<section id="nested-cross-validation">
 <h3>Nested cross-validation<a class="headerlink" href="#nested-cross-validation" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Simplest approach: single outer split and single inner split (shown below)</p></li>
@@ -3446,9 +3404,9 @@ $<span class="math notranslate nohighlight">\(\text{total cost} = \text{FPR} * c
 <img alt="../_images/04 - Model Selection_111_0.png" src="../_images/04 - Model Selection_111_0.png" />
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="summary">
+</section>
+</section>
+<section id="summary">
 <h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Split the data into training and test sets according to the application</p>
@@ -3482,8 +3440,8 @@ $<span class="math notranslate nohighlight">\(\text{total cost} = \text{FPR} * c
 </ul>
 </li>
 </ul>
-</div>
-</div>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -3497,7 +3455,7 @@ $<span class="math notranslate nohighlight">\(\text{total cost} = \text{FPR} * c
             mode: "python"
         },
         kernelOptions: {
-            name: "python3",
+            kernelName: "python3",
             path: "./notebooks"
         },
         predefinedOutput: true
@@ -3535,7 +3493,7 @@ $<span class="math notranslate nohighlight">\(\text{total cost} = \text{FPR} * c
   
     By Joaquin Vanschoren<br/>
   
-      &copy; Copyright 2021. CC0 Licensed - Use as you like.<br/>
+      &copy; Copyright 2023. CC0 Licensed - Use as you like.<br/>
 </p>
         </footer>
     </div>

@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Nepalese character recognition &#8212; ML Engineering</title>
     
   <!-- Loaded before other Sphinx assets -->
@@ -34,10 +35,13 @@
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
     <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
@@ -191,17 +195,17 @@ const thebe_selector_output = ".output, .cell_output"
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%202%20-%20Kernelization.html">
-   Lab 2: Kernelization
+  <a class="reference internal" href="../labs/Lab%202a%20-%20Kernelization.html">
+   Lab 2a: Kernelization
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%203a%20-%20Model%20Selection.html">
-   Lab 3a: Model selection
+  <a class="reference internal" href="../labs/Lab%202b%20-%20Model%20Selection.html">
+   Lab 2b: Model selection
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%203b%20-%20Ensembles.html">
+  <a class="reference internal" href="../labs/Lab%203%20-%20Ensembles.html">
    Lab 3b: Ensembles
   </a>
  </li>
@@ -270,11 +274,6 @@ const thebe_selector_output = ".output, .cell_output"
  <li class="toctree-l1">
   <a class="reference internal" href="../labs/Lab%201%20-%20Tutorial.html">
    Lab 1: Machine Learning with Python
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%203%20-%20Tutorial.html">
-   Lab 3 Tutorial: Model Selection in scikit-learn
   </a>
  </li>
  <li class="toctree-l1">
@@ -571,7 +570,7 @@ title="Print to PDF"
                 
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="nepalese-character-recognition">
+  <section class="tex2jax_ignore mathjax_ignore" id="nepalese-character-recognition">
 <h1>Nepalese character recognition<a class="headerlink" href="#nepalese-character-recognition" title="Permalink to this headline">#</a></h1>
 <p>The <a class="reference external" href="https://www.openml.org/d/40923">Devnagari-Script dataset</a> contains 92,000 images (32x32 pixels) of 46 characters from the Devanagari script. Our goal is to learn to <em>read</em> these letters, i.e. learn to recognize the right letter given the image.</p>
 <div class="cell docutils container">
@@ -618,7 +617,7 @@ title="Print to PDF"
 <img alt="../_images/S2 Nepalese Character Recognition_4_0.png" src="../_images/S2 Nepalese Character Recognition_4_0.png" />
 </div>
 </div>
-<div class="section" id="learning-curves">
+<section id="learning-curves">
 <h2>Learning curves<a class="headerlink" href="#learning-curves" title="Permalink to this headline">#</a></h2>
 <p>This is a rather large dataset. We’ll first plot the learning curves (performance vs sample size) for different learning algorithms. This will show us whether the algorithms keep improving with more data, or whether the returns diminish (curves level off). We also plot the training time to see the training time vs. accuracy trade-off. Given the size of the dataset, we use a holdout rather than cross-validation.</p>
 <div class="cell docutils container">
@@ -701,8 +700,8 @@ title="Print to PDF"
 <img alt="../_images/S2 Nepalese Character Recognition_8_2.png" src="../_images/S2 Nepalese Character Recognition_8_2.png" />
 </div>
 </div>
-</div>
-<div class="section" id="tuning-hyperparameters">
+</section>
+<section id="tuning-hyperparameters">
 <h2>Tuning hyperparameters<a class="headerlink" href="#tuning-hyperparameters" title="Permalink to this headline">#</a></h2>
 <p>Since both the kNN and RandomForest seem to overfit, we should optimize their hyperparameters.</p>
 <p>First, we optimize the number of trees in the forest with a simple grid search and plot the result.
@@ -762,8 +761,8 @@ Best score (ACC):0.790869565217
 <img alt="../_images/S2 Nepalese Character Recognition_13_1.png" src="../_images/S2 Nepalese Character Recognition_13_1.png" />
 </div>
 </div>
-</div>
-<div class="section" id="randomforest-hyperparameter-tuning">
+</section>
+<section id="randomforest-hyperparameter-tuning">
 <h2>RandomForest hyperparameter tuning<a class="headerlink" href="#randomforest-hyperparameter-tuning" title="Permalink to this headline">#</a></h2>
 <p>RandomForest seem to be a good model to stick to. Let’s try to find even better hyperparameters by tuning the two most important hyperparameters, <span class="math notranslate nohighlight">\(n\_estimators\)</span> and <span class="math notranslate nohighlight">\(max\_features\)</span>, simultaneously on the entire dataset.</p>
 <p>First, we do a simple grid search and plot the result:</p>
@@ -809,8 +808,8 @@ Best score (ACC):0.790869565217
 </div>
 </div>
 </div>
-</div>
-</div>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -824,7 +823,7 @@ Best score (ACC):0.790869565217
             mode: "python"
         },
         kernelOptions: {
-            name: "python3",
+            kernelName: "python3",
             path: "./studies"
         },
         predefinedOutput: true
@@ -848,7 +847,7 @@ Best score (ACC):0.790869565217
   
     By Joaquin Vanschoren<br/>
   
-      &copy; Copyright 2021. CC0 Licensed - Use as you like.<br/>
+      &copy; Copyright 2023. CC0 Licensed - Use as you like.<br/>
 </p>
         </footer>
     </div>

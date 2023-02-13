@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Lab 7 Tutorial: Deep Learning for text &#8212; ML Engineering</title>
     
   <!-- Loaded before other Sphinx assets -->
@@ -34,10 +35,13 @@
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
     <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
@@ -190,17 +194,17 @@ const thebe_selector_output = ".output, .cell_output"
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="Lab%202%20-%20Kernelization.html">
-   Lab 2: Kernelization
+  <a class="reference internal" href="Lab%202a%20-%20Kernelization.html">
+   Lab 2a: Kernelization
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="Lab%203a%20-%20Model%20Selection.html">
-   Lab 3a: Model selection
+  <a class="reference internal" href="Lab%202b%20-%20Model%20Selection.html">
+   Lab 2b: Model selection
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="Lab%203b%20-%20Ensembles.html">
+  <a class="reference internal" href="Lab%203%20-%20Ensembles.html">
    Lab 3b: Ensembles
   </a>
  </li>
@@ -269,11 +273,6 @@ const thebe_selector_output = ".output, .cell_output"
  <li class="toctree-l1">
   <a class="reference internal" href="Lab%201%20-%20Tutorial.html">
    Lab 1: Machine Learning with Python
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Lab%203%20-%20Tutorial.html">
-   Lab 3 Tutorial: Model Selection in scikit-learn
   </a>
  </li>
  <li class="toctree-l1">
@@ -714,7 +713,7 @@ title="Print to PDF"
                 
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="lab-7-tutorial-deep-learning-for-text">
+  <section class="tex2jax_ignore mathjax_ignore" id="lab-7-tutorial-deep-learning-for-text">
 <h1>Lab 7 Tutorial: Deep Learning for text<a class="headerlink" href="#lab-7-tutorial-deep-learning-for-text" title="Permalink to this headline">#</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -727,45 +726,8 @@ title="Print to PDF"
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">ImportError</span><span class="g g-Whitespace">                               </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="mi">0</span><span class="n">t</span><span class="o">/</span><span class="mi">5</span><span class="n">d8ttqzd773fy0wq3h5db0xr0000gn</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_36962</span><span class="o">/</span><span class="mf">1829666702.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">get_ipython</span><span class="p">()</span><span class="o">.</span><span class="n">run_line_magic</span><span class="p">(</span><span class="s1">&#39;matplotlib&#39;</span><span class="p">,</span> <span class="s1">&#39;inline&#39;</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="ne">----&gt; </span><span class="mi">4</span> <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="kn">import</span> <span class="nn">tensorflow.keras</span> <span class="k">as</span> <span class="nn">keras</span>
-
-<span class="o">~/</span><span class="n">miniforge3</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.9</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">pandas</span><span class="o">/</span><span class="fm">__init__</span><span class="o">.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">     </span><span class="mi">20</span> 
-<span class="g g-Whitespace">     </span><span class="mi">21</span> <span class="c1"># numpy compat</span>
-<span class="ne">---&gt; </span><span class="mi">22</span> <span class="kn">from</span> <span class="nn">pandas.compat</span> <span class="kn">import</span> <span class="n">is_numpy_dev</span> <span class="k">as</span> <span class="n">_is_numpy_dev</span>  <span class="c1"># pyright: ignore # noqa:F401</span>
-<span class="g g-Whitespace">     </span><span class="mi">23</span> 
-<span class="g g-Whitespace">     </span><span class="mi">24</span> <span class="k">try</span><span class="p">:</span>
-
-<span class="o">~/</span><span class="n">miniforge3</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.9</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">pandas</span><span class="o">/</span><span class="n">compat</span><span class="o">/</span><span class="fm">__init__</span><span class="o">.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">     </span><span class="mi">16</span> 
-<span class="g g-Whitespace">     </span><span class="mi">17</span> <span class="kn">from</span> <span class="nn">pandas._typing</span> <span class="kn">import</span> <span class="n">F</span>
-<span class="ne">---&gt; </span><span class="mi">18</span> <span class="kn">from</span> <span class="nn">pandas.compat.numpy</span> <span class="kn">import</span> <span class="p">(</span>
-<span class="g g-Whitespace">     </span><span class="mi">19</span>     <span class="n">is_numpy_dev</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">20</span>     <span class="n">np_version_under1p21</span><span class="p">,</span>
-
-<span class="o">~/</span><span class="n">miniforge3</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.9</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">pandas</span><span class="o">/</span><span class="n">compat</span><span class="o">/</span><span class="n">numpy</span><span class="o">/</span><span class="fm">__init__</span><span class="o">.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">     </span><span class="mi">21</span> 
-<span class="g g-Whitespace">     </span><span class="mi">22</span> <span class="k">if</span> <span class="n">_nlv</span> <span class="o">&lt;</span> <span class="n">Version</span><span class="p">(</span><span class="n">_min_numpy_ver</span><span class="p">):</span>
-<span class="ne">---&gt; </span><span class="mi">23</span>     <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span>
-<span class="g g-Whitespace">     </span><span class="mi">24</span>         <span class="sa">f</span><span class="s2">&quot;this version of pandas is incompatible with numpy &lt; </span><span class="si">{</span><span class="n">_min_numpy_ver</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
-<span class="g g-Whitespace">     </span><span class="mi">25</span>         <span class="sa">f</span><span class="s2">&quot;your numpy version is </span><span class="si">{</span><span class="n">_np_version</span><span class="si">}</span><span class="s2">.</span><span class="se">\n</span><span class="s2">&quot;</span>
-
-<span class="ne">ImportError</span>: this version of pandas is incompatible with numpy &lt; 1.20.3
-<span class="n">your</span> <span class="n">numpy</span> <span class="n">version</span> <span class="ow">is</span> <span class="mf">1.19.5</span><span class="o">.</span>
-<span class="n">Please</span> <span class="n">upgrade</span> <span class="n">numpy</span> <span class="n">to</span> <span class="o">&gt;=</span> <span class="mf">1.20.3</span> <span class="n">to</span> <span class="n">use</span> <span class="n">this</span> <span class="n">pandas</span> <span class="n">version</span>
-</pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="examples">
+<section id="examples">
 <h2>3 examples<a class="headerlink" href="#examples" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Binary classification (of movie reviews)</p></li>
@@ -774,7 +736,7 @@ title="Print to PDF"
 </ul>
 <p>We’ll use the Keras API, integrated in TensorFlow 2.<br />
 Examples from <em>Deep Learning with Python</em>, by <em>François Chollet</em></p>
-<div class="section" id="binary-classification">
+<section id="binary-classification">
 <h3>Binary classification<a class="headerlink" href="#binary-classification" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Dataset: 50,000 IMDB reviews, labeled positive (1) or negative (0)</p>
@@ -837,7 +799,7 @@ Label for the first review:  1.0
 </div>
 </div>
 </div>
-<div class="section" id="building-the-network">
+<section id="building-the-network">
 <h4>Building the network<a class="headerlink" href="#building-the-network" title="Permalink to this headline">#</a></h4>
 <ul class="simple">
 <li><p>We can solve this problem using a network of <em>Dense</em> layers and the <em>ReLU</em> activation function.</p></li>
@@ -885,8 +847,8 @@ You can also change hyperparameters such as the SGD learning rate.</p>
               <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="n">metrics</span><span class="o">.</span><span class="n">binary_accuracy</span><span class="p">])</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="model-selection">
+</section>
+<section id="model-selection">
 <h4>Model selection<a class="headerlink" href="#model-selection" title="Permalink to this headline">#</a></h4>
 <ul class="simple">
 <li><p>To tune the hyperparameters, split the training data into a training and validation set.</p></li>
@@ -979,8 +941,8 @@ Epoch 20/20
 <img alt="../_images/Lab 7 - Tutorial_13_0.png" src="../_images/Lab 7 - Tutorial_13_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="predictions">
+</section>
+<section id="predictions">
 <h4>Predictions<a class="headerlink" href="#predictions" title="Permalink to this headline">#</a></h4>
 <p>Out of curiosity, let’s look at a few predictions:</p>
 <div class="cell docutils container">
@@ -1006,9 +968,9 @@ Predicted positiveness:  [0.80061406]
 </div>
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="multi-class-classification-topic-classification">
+</section>
+</section>
+<section id="multi-class-classification-topic-classification">
 <h3>Multi-class classification (topic classification)<a class="headerlink" href="#multi-class-classification-topic-classification" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Dataset: 11,000 news stories, 46 topics</p>
@@ -1050,7 +1012,7 @@ Topic:  3
 </div>
 </div>
 </div>
-<div class="section" id="preparing-the-data">
+<section id="preparing-the-data">
 <h4>Preparing the data<a class="headerlink" href="#preparing-the-data" title="Permalink to this headline">#</a></h4>
 <ul class="simple">
 <li><p>As in the previous example, we need to vectorize the data (e.g. using one-hot-encoding)</p></li>
@@ -1072,9 +1034,9 @@ Topic:  3
 </div>
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="building-the-model">
+</section>
+</section>
+<section id="building-the-model">
 <h3>Building the model<a class="headerlink" href="#building-the-model" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>This time we use 64 hidden units because we have many more classes to learn.</p></li>
@@ -1094,7 +1056,7 @@ Topic:  3
 </div>
 </div>
 </div>
-<div class="section" id="training-and-tuning">
+<section id="training-and-tuning">
 <h4>Training and tuning<a class="headerlink" href="#training-and-tuning" title="Permalink to this headline">#</a></h4>
 <ul class="simple">
 <li><p>We again take a validation set from the training set</p></li>
@@ -1200,9 +1162,9 @@ Loss: 1.3110, Accuracy: 0.7832
 </div>
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="regression">
+</section>
+</section>
+<section id="regression">
 <h3>Regression<a class="headerlink" href="#regression" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Dataset: 506 examples of houses and sale prices (Boston)</p>
@@ -1229,7 +1191,7 @@ Loss: 1.3110, Accuracy: 0.7832
 </div>
 </div>
 </div>
-<div class="section" id="id1">
+<section id="id1">
 <h4>Building the network<a class="headerlink" href="#id1" title="Permalink to this headline">#</a></h4>
 <ul class="simple">
 <li><p>This is a small dataset, so easy to overfit</p>
@@ -1256,8 +1218,8 @@ Loss: 1.3110, Accuracy: 0.7832
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="preprocessing">
+</section>
+<section id="preprocessing">
 <h4>Preprocessing<a class="headerlink" href="#preprocessing" title="Permalink to this headline">#</a></h4>
 <ul class="simple">
 <li><p>Neural nets work a lot better if we standardize the features first.</p></li>
@@ -1329,10 +1291,10 @@ Loss: 1.3110, Accuracy: 0.7832
 </div>
 </div>
 </div>
-</div>
-</div>
-</div>
-<div class="section" id="regularization">
+</section>
+</section>
+</section>
+<section id="regularization">
 <h2>Regularization<a class="headerlink" href="#regularization" title="Permalink to this headline">#</a></h2>
 <p>Adding L1/L2 regularization</p>
 <ul class="simple">
@@ -1412,7 +1374,7 @@ _________________________________________________________________
 </div>
 </div>
 </div>
-<div class="section" id="word-embeddings-in-keras">
+<section id="word-embeddings-in-keras">
 <h3>Word embeddings in Keras<a class="headerlink" href="#word-embeddings-in-keras" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Uses a pre-trained embedding, obtained using GloVe</p></li>
@@ -1458,15 +1420,15 @@ None
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="further-reading">
+</section>
+<section id="further-reading">
 <h3>Further reading<a class="headerlink" href="#further-reading" title="Permalink to this headline">#</a></h3>
 <p><a class="reference external" href="https://www.tensorflow.org/learn">https://www.tensorflow.org/learn</a></p>
 <p><a class="reference external" href="http://playground.tensorflow.org">http://playground.tensorflow.org</a></p>
 <p><a class="reference external" href="https://www.tensorflow.org/tensorboard">https://www.tensorflow.org/tensorboard</a></p>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -1480,7 +1442,7 @@ None
             mode: "python"
         },
         kernelOptions: {
-            name: "python3",
+            kernelName: "python3",
             path: "./labs"
         },
         predefinedOutput: true
@@ -1511,7 +1473,7 @@ None
   
     By Joaquin Vanschoren<br/>
   
-      &copy; Copyright 2021. CC0 Licensed - Use as you like.<br/>
+      &copy; Copyright 2023. CC0 Licensed - Use as you like.<br/>
 </p>
         </footer>
     </div>

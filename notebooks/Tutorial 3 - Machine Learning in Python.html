@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Machine Learning in Python &#8212; ML Engineering</title>
     
   <!-- Loaded before other Sphinx assets -->
@@ -34,10 +35,13 @@
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
     <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
@@ -193,17 +197,17 @@ const thebe_selector_output = ".output, .cell_output"
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%202%20-%20Kernelization.html">
-   Lab 2: Kernelization
+  <a class="reference internal" href="../labs/Lab%202a%20-%20Kernelization.html">
+   Lab 2a: Kernelization
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%203a%20-%20Model%20Selection.html">
-   Lab 3a: Model selection
+  <a class="reference internal" href="../labs/Lab%202b%20-%20Model%20Selection.html">
+   Lab 2b: Model selection
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%203b%20-%20Ensembles.html">
+  <a class="reference internal" href="../labs/Lab%203%20-%20Ensembles.html">
    Lab 3b: Ensembles
   </a>
  </li>
@@ -272,11 +276,6 @@ const thebe_selector_output = ".output, .cell_output"
  <li class="toctree-l1">
   <a class="reference internal" href="../labs/Lab%201%20-%20Tutorial.html">
    Lab 1: Machine Learning with Python
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%203%20-%20Tutorial.html">
-   Lab 3 Tutorial: Model Selection in scikit-learn
   </a>
  </li>
  <li class="toctree-l1">
@@ -913,47 +912,11 @@ title="Print to PDF"
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">ImportError</span><span class="g g-Whitespace">                               </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="mi">0</span><span class="n">t</span><span class="o">/</span><span class="mi">5</span><span class="n">d8ttqzd773fy0wq3h5db0xr0000gn</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_37082</span><span class="o">/</span><span class="mf">1226428666.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">get_ipython</span><span class="p">()</span><span class="o">.</span><span class="n">run_line_magic</span><span class="p">(</span><span class="s1">&#39;matplotlib&#39;</span><span class="p">,</span> <span class="s1">&#39;inline&#39;</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="ne">----&gt; </span><span class="mi">4</span> <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-
-<span class="o">~/</span><span class="n">miniforge3</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.9</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">pandas</span><span class="o">/</span><span class="fm">__init__</span><span class="o">.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">     </span><span class="mi">20</span> 
-<span class="g g-Whitespace">     </span><span class="mi">21</span> <span class="c1"># numpy compat</span>
-<span class="ne">---&gt; </span><span class="mi">22</span> <span class="kn">from</span> <span class="nn">pandas.compat</span> <span class="kn">import</span> <span class="n">is_numpy_dev</span> <span class="k">as</span> <span class="n">_is_numpy_dev</span>  <span class="c1"># pyright: ignore # noqa:F401</span>
-<span class="g g-Whitespace">     </span><span class="mi">23</span> 
-<span class="g g-Whitespace">     </span><span class="mi">24</span> <span class="k">try</span><span class="p">:</span>
-
-<span class="o">~/</span><span class="n">miniforge3</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.9</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">pandas</span><span class="o">/</span><span class="n">compat</span><span class="o">/</span><span class="fm">__init__</span><span class="o">.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">     </span><span class="mi">16</span> 
-<span class="g g-Whitespace">     </span><span class="mi">17</span> <span class="kn">from</span> <span class="nn">pandas._typing</span> <span class="kn">import</span> <span class="n">F</span>
-<span class="ne">---&gt; </span><span class="mi">18</span> <span class="kn">from</span> <span class="nn">pandas.compat.numpy</span> <span class="kn">import</span> <span class="p">(</span>
-<span class="g g-Whitespace">     </span><span class="mi">19</span>     <span class="n">is_numpy_dev</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">20</span>     <span class="n">np_version_under1p21</span><span class="p">,</span>
-
-<span class="o">~/</span><span class="n">miniforge3</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.9</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">pandas</span><span class="o">/</span><span class="n">compat</span><span class="o">/</span><span class="n">numpy</span><span class="o">/</span><span class="fm">__init__</span><span class="o">.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">     </span><span class="mi">21</span> 
-<span class="g g-Whitespace">     </span><span class="mi">22</span> <span class="k">if</span> <span class="n">_nlv</span> <span class="o">&lt;</span> <span class="n">Version</span><span class="p">(</span><span class="n">_min_numpy_ver</span><span class="p">):</span>
-<span class="ne">---&gt; </span><span class="mi">23</span>     <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span>
-<span class="g g-Whitespace">     </span><span class="mi">24</span>         <span class="sa">f</span><span class="s2">&quot;this version of pandas is incompatible with numpy &lt; </span><span class="si">{</span><span class="n">_min_numpy_ver</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
-<span class="g g-Whitespace">     </span><span class="mi">25</span>         <span class="sa">f</span><span class="s2">&quot;your numpy version is </span><span class="si">{</span><span class="n">_np_version</span><span class="si">}</span><span class="s2">.</span><span class="se">\n</span><span class="s2">&quot;</span>
-
-<span class="ne">ImportError</span>: this version of pandas is incompatible with numpy &lt; 1.20.3
-<span class="n">your</span> <span class="n">numpy</span> <span class="n">version</span> <span class="ow">is</span> <span class="mf">1.19.5</span><span class="o">.</span>
-<span class="n">Please</span> <span class="n">upgrade</span> <span class="n">numpy</span> <span class="n">to</span> <span class="o">&gt;=</span> <span class="mf">1.20.3</span> <span class="n">to</span> <span class="n">use</span> <span class="n">this</span> <span class="n">pandas</span> <span class="n">version</span>
-</pre></div>
 </div>
-</div>
-</div>
-<div class="tex2jax_ignore mathjax_ignore section" id="machine-learning-in-python">
+<section class="tex2jax_ignore mathjax_ignore" id="machine-learning-in-python">
 <h1>Machine Learning in Python<a class="headerlink" href="#machine-learning-in-python" title="Permalink to this headline">#</a></h1>
 <p>Joaquin Vanschoren, Eindhoven University of Technology</p>
-<div class="section" id="why-python">
+<section id="why-python">
 <h2>Why Python?<a class="headerlink" href="#why-python" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Many data-heavy applications are now developed in Python</p></li>
@@ -970,9 +933,9 @@ title="Print to PDF"
 </ul>
 </li>
 </ul>
-<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/tut_ecosystem.jpg" alt="ml" style="width: 1000px;"/></div>
-</div>
-<div class="tex2jax_ignore mathjax_ignore section" id="numpy-scipy-matplotlib">
+<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/tut_ecosystem.jpg" alt="ml" style="width: 1000px;"/></section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="numpy-scipy-matplotlib">
 <h1>Numpy, Scipy, Matplotlib<a class="headerlink" href="#numpy-scipy-matplotlib" title="Permalink to this headline">#</a></h1>
 <ul class="simple">
 <li><p>We’ll illustrate these with a practical example</p></li>
@@ -991,7 +954,7 @@ title="Print to PDF"
 <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>  <span class="c1"># to reproduce the data</span>
 
 <span class="k">def</span> <span class="nf">gen_web_traffic_data</span><span class="p">():</span>
-    <span class="sd">&#39;&#39;&#39;</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    This function generates some fake data that first shows a weekly pattern </span>
 <span class="sd">    for a couple weeks before it grows exponentially.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
@@ -1007,7 +970,7 @@ title="Print to PDF"
     <span class="k">return</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span>
 
 <span class="k">def</span> <span class="nf">plot_web_traffic</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">models</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mx</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ymax</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39;</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Plot the web traffic (y) over time (x). </span>
 <span class="sd">    </span>
 <span class="sd">    If models is given, it is expected to be a list fitted models,</span>
@@ -1041,7 +1004,7 @@ title="Print to PDF"
 </div>
 </div>
 </div>
-<div class="section" id="example-modelling-web-traffic">
+<section id="example-modelling-web-traffic">
 <h2>Example: Modelling web traffic<a class="headerlink" href="#example-modelling-web-traffic" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>We generate some artificial data to mimic web traffic data</p>
@@ -1062,7 +1025,7 @@ title="Print to PDF"
 <img alt="../_images/Tutorial 3 - Machine Learning in Python_7_0.png" src="../_images/Tutorial 3 - Machine Learning in Python_7_0.png" />
 </div>
 </div>
-<div class="section" id="use-numpy-to-fit-some-polynomial-lines">
+<section id="use-numpy-to-fit-some-polynomial-lines">
 <h3>Use numpy to fit some polynomial lines<a class="headerlink" href="#use-numpy-to-fit-some-polynomial-lines" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">polyfit</span></code> fits a polynomial of degree d</p></li>
@@ -1094,8 +1057,8 @@ title="Print to PDF"
 <img alt="../_images/Tutorial 3 - Machine Learning in Python_9_1.png" src="../_images/Tutorial 3 - Machine Learning in Python_9_1.png" />
 </div>
 </div>
-</div>
-<div class="section" id="evaluate">
+</section>
+<section id="evaluate">
 <h3>Evaluate<a class="headerlink" href="#evaluate" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Using root mean squared error: <span class="math notranslate nohighlight">\(\sqrt{\sum_i (f(x_i) - y_i)^2}\)</span></p></li>
@@ -1125,10 +1088,10 @@ title="Print to PDF"
 {"model_id": "d670fff938d0438bb06b3fa07661bdf2", "version_major": 2, "version_minor": 0}
 </script></div>
 </div>
-</div>
-</div>
-</div>
-<div class="tex2jax_ignore mathjax_ignore section" id="scikit-learn">
+</section>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="scikit-learn">
 <h1>scikit-learn<a class="headerlink" href="#scikit-learn" title="Permalink to this headline">#</a></h1>
 <p>One of the most prominent Python libraries for machine learning:</p>
 <ul class="simple">
@@ -1140,7 +1103,7 @@ title="Print to PDF"
 <li><p>Works well with numpy, scipy, pandas, matplotlib,…</p></li>
 </ul>
 <p><strong>Note</strong>: We’ll repeat most of the material below in the lectures and labs on model selection and data preprocessing, but it’s still very useful to study it beforehand.</p>
-<div class="section" id="algorithms">
+<section id="algorithms">
 <h2>Algorithms<a class="headerlink" href="#algorithms" title="Permalink to this headline">#</a></h2>
 <p>See the <a class="reference external" href="http://scikit-learn.org/dev/modules/classes.html">Reference</a></p>
 <p><strong>Supervised learning:</strong></p>
@@ -1167,8 +1130,8 @@ title="Print to PDF"
 <li><p>Grid-search</p></li>
 <li><p>Lots of metrics</p></li>
 </ul>
-</div>
-<div class="section" id="data-import">
+</section>
+<section id="data-import">
 <h2>Data import<a class="headerlink" href="#data-import" title="Permalink to this headline">#</a></h2>
 <p>Multiple options:</p>
 <ul class="simple">
@@ -1259,8 +1222,8 @@ Targets:
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="building-models">
+</section>
+<section id="building-models">
 <h2>Building models<a class="headerlink" href="#building-models" title="Permalink to this headline">#</a></h2>
 <p>All scikitlearn <em>estimators</em> follow the same interface</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">SupervisedEstimator</span><span class="p">(</span><span class="o">...</span><span class="p">):</span>
@@ -1279,7 +1242,7 @@ Targets:
         <span class="k">return</span> <span class="n">score</span>
 </pre></div>
 </div>
-<div class="section" id="training-and-testing-data">
+<section id="training-and-testing-data">
 <h3>Training and testing data<a class="headerlink" href="#training-and-testing-data" title="Permalink to this headline">#</a></h3>
 <p>To evaluate our classifier, we need to test it on unseen data.<br />
 <code class="docutils literal notranslate"><span class="pre">train_test_split</span></code>: splits data randomly in 75% training and 25% test data.</p>
@@ -1309,8 +1272,8 @@ y_test shape: (38,)
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="fitting-a-model">
+</section>
+<section id="fitting-a-model">
 <h3>Fitting a model<a class="headerlink" href="#fitting-a-model" title="Permalink to this headline">#</a></h3>
 <p>The first model we’ll build is a k-Nearest Neighbor classifier.<br />
 kNN is included in <code class="docutils literal notranslate"><span class="pre">sklearn.neighbors</span></code>, so let’s build our first model</p>
@@ -1332,8 +1295,8 @@ kNN is included in <code class="docutils literal notranslate"><span class="pre">
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="making-predictions">
+</section>
+<section id="making-predictions">
 <h3>Making predictions<a class="headerlink" href="#making-predictions" title="Permalink to this headline">#</a></h3>
 <p>Let’s create a new example and ask the kNN model to classify it</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">X_new</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">5</span><span class="p">,</span> <span class="mf">2.9</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">]])</span>
@@ -1358,8 +1321,8 @@ Predicted target name: [&#39;setosa&#39;]
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="evaluating-the-model">
+</section>
+<section id="evaluating-the-model">
 <h3>Evaluating the model<a class="headerlink" href="#evaluating-the-model" title="Permalink to this headline">#</a></h3>
 <p>Feeding all test examples to the model yields all predictions</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">y_pred</span> <span class="o">=</span> <span class="n">knn</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
@@ -1396,9 +1359,9 @@ Predicted target name: [&#39;setosa&#39;]
 </div>
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="cross-validation">
+</section>
+</section>
+<section id="cross-validation">
 <h2>Cross-validation<a class="headerlink" href="#cross-validation" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>More stable, thorough way to estimate generalization performance</p></li>
@@ -1410,7 +1373,7 @@ Predicted target name: [&#39;setosa&#39;]
 </ul>
 </li>
 </ul>
-<div class="section" id="cross-validation-in-scikit-learn">
+<section id="cross-validation-in-scikit-learn">
 <h3>Cross-validation in scikit-learn<a class="headerlink" href="#cross-validation-in-scikit-learn" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">cross_val_score</span></code> function with learner, training data, labels</p></li>
@@ -1452,8 +1415,8 @@ Variance in cross-validation score: 0.0006
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="more-variants">
+</section>
+<section id="more-variants">
 <h3>More variants<a class="headerlink" href="#more-variants" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Stratified cross-validation: for inbalanced datasets</p></li>
@@ -1463,8 +1426,8 @@ Variance in cross-validation score: 0.0006
 <li><p>Cross-validation with groups: Whenever your data contains non-independent datapoints, e.g. data points from the same patient</p></li>
 <li><p>Bootstrapping: sampling with replacement, for extracting statistical properties</p></li>
 </ul>
-</div>
-<div class="section" id="avoid-data-leakage">
+</section>
+<section id="avoid-data-leakage">
 <h3>Avoid data leakage<a class="headerlink" href="#avoid-data-leakage" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Simply taking the best performing model based on cross-validation performance yields optimistic results</p></li>
@@ -1482,9 +1445,9 @@ Variance in cross-validation score: 0.0006
 </ul>
 </li>
 </ul>
-</div>
-</div>
-<div class="section" id="pipelines">
+</section>
+</section>
+<section id="pipelines">
 <h2>Pipelines<a class="headerlink" href="#pipelines" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Many learning algorithms are greatly affected by <em>how</em> you represent the training data</p></li>
@@ -1498,7 +1461,7 @@ Variance in cross-validation score: 0.0006
 <li><p>This is called a <em>pipeline</em> (or <em>workflow</em>)</p></li>
 <li><p>The best way to represent data depends not only on the semantics of the data, but also on the kind of model you are using.</p></li>
 </ul>
-<div class="section" id="example-speed-dating-data">
+<section id="example-speed-dating-data">
 <h3>Example: Speed dating data<a class="headerlink" href="#example-speed-dating-data" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Data collected from speed dating events</p></li>
@@ -1524,8 +1487,8 @@ Variance in cross-validation score: 0.0006
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="scaling">
+</section>
+<section id="scaling">
 <h3>Scaling<a class="headerlink" href="#scaling" title="Permalink to this headline">#</a></h3>
 <p>When the features have different scales (their values range between very different minimum and maximum values), one feature will overpower the others. Several scaling techniques are available to solve this:</p>
 <ul class="simple">
@@ -1550,7 +1513,7 @@ Variance in cross-validation score: 0.0006
 </ul>
 </li>
 </ul>
-<div class="section" id="applying-scaling-transformations">
+<section id="applying-scaling-transformations">
 <h4>Applying scaling transformations<a class="headerlink" href="#applying-scaling-transformations" title="Permalink to this headline">#</a></h4>
 <ul class="simple">
 <li><p>Lets apply a scaling transformation <em>manually</em>, then use it to train a learning algorithm</p></li>
@@ -1569,9 +1532,9 @@ Variance in cross-validation score: 0.0006
 <span class="n">X_test_scaled</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="missing-value-imputation">
+</section>
+</section>
+<section id="missing-value-imputation">
 <h3>Missing value imputation<a class="headerlink" href="#missing-value-imputation" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Many sci-kit learn algorithms cannot handle missing value</p></li>
@@ -1597,8 +1560,8 @@ Variance in cross-validation score: 0.0006
 <span class="n">imp</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X1_train</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="feature-encoding">
+</section>
+<section id="feature-encoding">
 <h3>Feature encoding<a class="headerlink" href="#feature-encoding" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>scikit-learn classifiers only handle numeric data. If your features are categorical, you need to encode them first</p></li>
@@ -1633,9 +1596,9 @@ Variance in cross-validation score: 0.0006
         <span class="p">(</span><span class="s1">&#39;cat&#39;</span><span class="p">,</span> <span class="n">categorical_transformer</span><span class="p">,</span> <span class="n">categorical_features</span><span class="p">)])</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="building-pipelines">
+</section>
+</section>
+<section id="building-pipelines">
 <h2>Building Pipelines<a class="headerlink" href="#building-pipelines" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>In scikit-learn, a <code class="docutils literal notranslate"><span class="pre">pipeline</span></code> combines multiple processing <em>steps</em> in a single estimator</p></li>
@@ -1767,8 +1730,8 @@ Average cross-validation score: 0.98
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="model-selection-and-hyperparameter-tuning">
+</section>
+<section id="model-selection-and-hyperparameter-tuning">
 <h2>Model selection and Hyperparameter tuning<a class="headerlink" href="#model-selection-and-hyperparameter-tuning" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>There are many algorithms to choose from</p></li>
@@ -1790,7 +1753,7 @@ Average cross-validation score: 0.98
 </ul>
 <p>Grid vs Random Search
 <img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/eval_gridrandom.png" alt="ml" style="width: 800px;"/></p>
-<div class="section" id="grid-search">
+<section id="grid-search">
 <h3>Grid Search<a class="headerlink" href="#grid-search" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>For each hyperparameter, create a list of interesting/possible values</p>
@@ -1807,7 +1770,7 @@ Average cross-validation score: 0.98
 <li><p>Split the training data into a training and validation set</p></li>
 <li><p>Select the hyperparameter values yielding the best results on the validation set</p></li>
 </ul>
-<div class="section" id="grid-search-in-scikit-learn">
+<section id="grid-search-in-scikit-learn">
 <h4>Grid search in scikit-learn<a class="headerlink" href="#grid-search-in-scikit-learn" title="Permalink to this headline">#</a></h4>
 <ul class="simple">
 <li><p>Create a parameter grid as a dictionary</p>
@@ -1895,8 +1858,8 @@ SVC(C=10, gamma=0.1)
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="nested-cross-validation">
+</section>
+<section id="nested-cross-validation">
 <h4>Nested cross-validation<a class="headerlink" href="#nested-cross-validation" title="Permalink to this headline">#</a></h4>
 <ul class="simple">
 <li><p>Note that we are still using a single split to create the outer test set</p></li>
@@ -1934,9 +1897,9 @@ Mean cross-validation score:  0.9800000000000001
 </div>
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="random-search">
+</section>
+</section>
+<section id="random-search">
 <h3>Random Search<a class="headerlink" href="#random-search" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Grid Search has a few downsides:</p>
@@ -1997,8 +1960,8 @@ Mean cross-validation score:  0.9800000000000001
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="using-pipelines-in-grid-searches">
+</section>
+<section id="using-pipelines-in-grid-searches">
 <h3>Using Pipelines in Grid-searches<a class="headerlink" href="#using-pipelines-in-grid-searches" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>We can use the pipeline as a single estimator in <code class="docutils literal notranslate"><span class="pre">cross_val_score</span></code> or <code class="docutils literal notranslate"><span class="pre">GridSearchCV</span></code></p></li>
@@ -2047,9 +2010,9 @@ Best parameters: {&#39;svm__C&#39;: 1, &#39;svm__gamma&#39;: 10}
 </div>
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="automated-machine-learning">
+</section>
+</section>
+<section id="automated-machine-learning">
 <h2>Automated Machine Learning<a class="headerlink" href="#automated-machine-learning" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Optimizes both the pipeline and all hyperparameters</p></li>
@@ -2070,8 +2033,8 @@ Best parameters: {&#39;svm__C&#39;: 1, &#39;svm__gamma&#39;: 10}
 <span class="n">automl</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-</div>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -2085,7 +2048,7 @@ Best parameters: {&#39;svm__C&#39;: 1, &#39;svm__gamma&#39;: 10}
             mode: "python"
         },
         kernelOptions: {
-            name: "python3",
+            kernelName: "python3",
             path: "./notebooks"
         },
         predefinedOutput: true
@@ -2123,7 +2086,7 @@ Best parameters: {&#39;svm__C&#39;: 1, &#39;svm__gamma&#39;: 10}
   
     By Joaquin Vanschoren<br/>
   
-      &copy; Copyright 2021. CC0 Licensed - Use as you like.<br/>
+      &copy; Copyright 2023. CC0 Licensed - Use as you like.<br/>
 </p>
         </footer>
     </div>

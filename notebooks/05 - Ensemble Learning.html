@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Lecture 5. Ensemble Learning &#8212; ML Engineering</title>
     
   <!-- Loaded before other Sphinx assets -->
@@ -34,10 +35,13 @@
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
     <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
@@ -193,17 +197,17 @@ const thebe_selector_output = ".output, .cell_output"
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%202%20-%20Kernelization.html">
-   Lab 2: Kernelization
+  <a class="reference internal" href="../labs/Lab%202a%20-%20Kernelization.html">
+   Lab 2a: Kernelization
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%203a%20-%20Model%20Selection.html">
-   Lab 3a: Model selection
+  <a class="reference internal" href="../labs/Lab%202b%20-%20Model%20Selection.html">
+   Lab 2b: Model selection
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%203b%20-%20Ensembles.html">
+  <a class="reference internal" href="../labs/Lab%203%20-%20Ensembles.html">
    Lab 3b: Ensembles
   </a>
  </li>
@@ -272,11 +276,6 @@ const thebe_selector_output = ".output, .cell_output"
  <li class="toctree-l1">
   <a class="reference internal" href="../labs/Lab%201%20-%20Tutorial.html">
    Lab 1: Machine Learning with Python
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%203%20-%20Tutorial.html">
-   Lab 3 Tutorial: Model Selection in scikit-learn
   </a>
  </li>
  <li class="toctree-l1">
@@ -949,7 +948,7 @@ title="Print to PDF"
                 
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="lecture-5-ensemble-learning">
+  <section class="tex2jax_ignore mathjax_ignore" id="lecture-5-ensemble-learning">
 <h1>Lecture 5. Ensemble Learning<a class="headerlink" href="#lecture-5-ensemble-learning" title="Permalink to this headline">#</a></h1>
 <p><strong>Crowd intelligence</strong></p>
 <p>Joaquin Vanschoren</p>
@@ -958,8 +957,8 @@ title="Print to PDF"
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Auto-setup when running on Google Colab</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="k">if</span> <span class="s1">&#39;google.colab&#39;</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">get_ipython</span><span class="p">())</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s1">&#39;/content/master&#39;</span><span class="p">):</span>
-    <span class="o">!</span>git clone -q https://github.com/ML-course/master.git /content/master
-    <span class="o">!</span>pip --quiet install -r /content/master/requirements_colab.txt
+    <span class="o">!</span>git<span class="w"> </span>clone<span class="w"> </span>-q<span class="w"> </span>https://github.com/ML-course/master.git<span class="w"> </span>/content/master
+    <span class="o">!</span>pip<span class="w"> </span>--quiet<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>/content/master/requirements_colab.txt
     <span class="o">%</span><span class="k">cd</span> master/notebooks
 
 <span class="c1"># Global imports and settings</span>
@@ -975,52 +974,8 @@ title="Print to PDF"
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">ImportError</span><span class="g g-Whitespace">                               </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="mi">0</span><span class="n">t</span><span class="o">/</span><span class="mi">5</span><span class="n">d8ttqzd773fy0wq3h5db0xr0000gn</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_37038</span><span class="o">/</span><span class="mf">457119730.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">      </span><span class="mi">8</span> <span class="c1"># Global imports and settings</span>
-<span class="g g-Whitespace">      </span><span class="mi">9</span> <span class="n">get_ipython</span><span class="p">()</span><span class="o">.</span><span class="n">run_line_magic</span><span class="p">(</span><span class="s1">&#39;matplotlib&#39;</span><span class="p">,</span> <span class="s1">&#39;inline&#39;</span><span class="p">)</span>
-<span class="ne">---&gt; </span><span class="mi">10</span> <span class="kn">from</span> <span class="nn">preamble</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="g g-Whitespace">     </span><span class="mi">11</span> <span class="n">interactive</span> <span class="o">=</span> <span class="kc">False</span> <span class="c1"># Set to True for interactive plots</span>
-<span class="g g-Whitespace">     </span><span class="mi">12</span> <span class="k">if</span> <span class="n">interactive</span><span class="p">:</span>
-
-<span class="o">~/</span><span class="n">Documents</span><span class="o">/</span><span class="n">ml</span><span class="o">-</span><span class="n">course</span><span class="o">/</span><span class="n">master</span><span class="o">/</span><span class="n">notebooks</span><span class="o">/</span><span class="n">preamble</span><span class="o">.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">set_matplotlib_formats</span><span class="p">,</span> <span class="n">display</span><span class="p">,</span> <span class="n">HTML</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="kn">from</span> <span class="nn">IPython.core.interactiveshell</span> <span class="kn">import</span> <span class="n">InteractiveShell</span>
-<span class="ne">----&gt; </span><span class="mi">3</span> <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-
-<span class="o">~/</span><span class="n">miniforge3</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.9</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">pandas</span><span class="o">/</span><span class="fm">__init__</span><span class="o">.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">     </span><span class="mi">20</span> 
-<span class="g g-Whitespace">     </span><span class="mi">21</span> <span class="c1"># numpy compat</span>
-<span class="ne">---&gt; </span><span class="mi">22</span> <span class="kn">from</span> <span class="nn">pandas.compat</span> <span class="kn">import</span> <span class="n">is_numpy_dev</span> <span class="k">as</span> <span class="n">_is_numpy_dev</span>  <span class="c1"># pyright: ignore # noqa:F401</span>
-<span class="g g-Whitespace">     </span><span class="mi">23</span> 
-<span class="g g-Whitespace">     </span><span class="mi">24</span> <span class="k">try</span><span class="p">:</span>
-
-<span class="o">~/</span><span class="n">miniforge3</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.9</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">pandas</span><span class="o">/</span><span class="n">compat</span><span class="o">/</span><span class="fm">__init__</span><span class="o">.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">     </span><span class="mi">16</span> 
-<span class="g g-Whitespace">     </span><span class="mi">17</span> <span class="kn">from</span> <span class="nn">pandas._typing</span> <span class="kn">import</span> <span class="n">F</span>
-<span class="ne">---&gt; </span><span class="mi">18</span> <span class="kn">from</span> <span class="nn">pandas.compat.numpy</span> <span class="kn">import</span> <span class="p">(</span>
-<span class="g g-Whitespace">     </span><span class="mi">19</span>     <span class="n">is_numpy_dev</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">20</span>     <span class="n">np_version_under1p21</span><span class="p">,</span>
-
-<span class="o">~/</span><span class="n">miniforge3</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.9</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">pandas</span><span class="o">/</span><span class="n">compat</span><span class="o">/</span><span class="n">numpy</span><span class="o">/</span><span class="fm">__init__</span><span class="o">.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">     </span><span class="mi">21</span> 
-<span class="g g-Whitespace">     </span><span class="mi">22</span> <span class="k">if</span> <span class="n">_nlv</span> <span class="o">&lt;</span> <span class="n">Version</span><span class="p">(</span><span class="n">_min_numpy_ver</span><span class="p">):</span>
-<span class="ne">---&gt; </span><span class="mi">23</span>     <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span>
-<span class="g g-Whitespace">     </span><span class="mi">24</span>         <span class="sa">f</span><span class="s2">&quot;this version of pandas is incompatible with numpy &lt; </span><span class="si">{</span><span class="n">_min_numpy_ver</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
-<span class="g g-Whitespace">     </span><span class="mi">25</span>         <span class="sa">f</span><span class="s2">&quot;your numpy version is </span><span class="si">{</span><span class="n">_np_version</span><span class="si">}</span><span class="s2">.</span><span class="se">\n</span><span class="s2">&quot;</span>
-
-<span class="ne">ImportError</span>: this version of pandas is incompatible with numpy &lt; 1.20.3
-<span class="n">your</span> <span class="n">numpy</span> <span class="n">version</span> <span class="ow">is</span> <span class="mf">1.19.5</span><span class="o">.</span>
-<span class="n">Please</span> <span class="n">upgrade</span> <span class="n">numpy</span> <span class="n">to</span> <span class="o">&gt;=</span> <span class="mf">1.20.3</span> <span class="n">to</span> <span class="n">use</span> <span class="n">this</span> <span class="n">pandas</span> <span class="n">version</span>
-</pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="ensemble-learning">
+<section id="ensemble-learning">
 <h2>Ensemble learning<a class="headerlink" href="#ensemble-learning" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>If different models make different mistakes, can we simply average the predictions?</p></li>
@@ -1080,7 +1035,7 @@ title="Print to PDF"
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "07191ac02d3e42b4a6081b5bb0a904ce", "version_major": 2, "version_minor": 0}
+{"model_id": "a775d307d05c4aeab6bf7cbbda6c1adf", "version_major": 2, "version_minor": 0}
 </script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
@@ -1089,6 +1044,9 @@ title="Print to PDF"
     <span class="n">combine_voters</span><span class="p">(</span><span class="n">models</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">models</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/05 - Ensemble Learning_4_0.png" src="../_images/05 - Ensemble Learning_4_0.png" />
 </div>
 </div>
 <ul class="simple">
@@ -1118,8 +1076,8 @@ title="Print to PDF"
 <li><p>Models must be uncorrelated but good enough (otherwise the ensemble is worse)</p></li>
 <li><p>We can also <em>learn</em> how to combine the predictions of different models: <strong><em>Stacking</em></strong></p></li>
 </ul>
-</div>
-<div class="section" id="decision-trees-recap">
+</section>
+<section id="decision-trees-recap">
 <h2>Decision trees (recap)<a class="headerlink" href="#decision-trees-recap" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Representation: Tree that splits data points into leaves based on tests</p></li>
@@ -1149,7 +1107,7 @@ title="Print to PDF"
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "e6fbdce7d02e4aaeb5f9148cb91c132e", "version_major": 2, "version_minor": 0}
+{"model_id": "a3720d01f3fc4795a45479725ac566de", "version_major": 2, "version_minor": 0}
 </script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
@@ -1159,8 +1117,11 @@ title="Print to PDF"
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="../_images/05 - Ensemble Learning_8_0.png" src="../_images/05 - Ensemble Learning_8_0.png" />
 </div>
-<div class="section" id="evaluation-loss-function-for-classification">
+</div>
+<section id="evaluation-loss-function-for-classification">
 <h3>Evaluation (loss function for classification)<a class="headerlink" href="#evaluation-loss-function-for-classification" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Every leaf predicts a class probability <span class="math notranslate nohighlight">\(\hat{p}_c\)</span> = the relative frequency of class <span class="math notranslate nohighlight">\(c\)</span></p></li>
@@ -1216,8 +1177,8 @@ title="Print to PDF"
 <img alt="../_images/05 - Ensemble Learning_10_0.png" src="../_images/05 - Ensemble Learning_10_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="regression-trees">
+</section>
+<section id="regression-trees">
 <h3>Regression trees<a class="headerlink" href="#regression-trees" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Every leaf predicts the <em>mean</em> target value <span class="math notranslate nohighlight">\(\mu\)</span> of all points in that leaf</p></li>
@@ -1268,8 +1229,8 @@ title="Print to PDF"
 <img alt="../_images/05 - Ensemble Learning_12_0.png" src="../_images/05 - Ensemble Learning_12_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="impurity-entropy-based-feature-importance">
+</section>
+<section id="impurity-entropy-based-feature-importance">
 <h3>Impurity/Entropy-based feature importance<a class="headerlink" href="#impurity-entropy-based-feature-importance" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>We can measure the importance of features (to the model) based on</p>
@@ -1302,8 +1263,8 @@ title="Print to PDF"
 <img alt="../_images/05 - Ensemble Learning_14_0.png" src="../_images/05 - Ensemble Learning_14_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="under-and-overfitting">
+</section>
+<section id="under-and-overfitting">
 <h3>Under- and overfitting<a class="headerlink" href="#under-and-overfitting" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>We can easily control the (maximum) depth of the trees as a hyperparameter</p></li>
@@ -1383,9 +1344,9 @@ title="Print to PDF"
 <img alt="../_images/05 - Ensemble Learning_16_0.png" src="../_images/05 - Ensemble Learning_16_0.png" />
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="bagging-bootstrap-aggregating">
+</section>
+</section>
+<section id="bagging-bootstrap-aggregating">
 <h2>Bagging (Bootstrap Aggregating)<a class="headerlink" href="#bagging-bootstrap-aggregating" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Obtain different models by training the <em>same</em> model on <em>different training samples</em></p>
@@ -1416,7 +1377,7 @@ title="Print to PDF"
 </ul>
 </li>
 </ul>
-<div class="section" id="random-forests">
+<section id="random-forests">
 <h3>Random Forests<a class="headerlink" href="#random-forests" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Uses <em>randomized trees</em> to make models even less correlated (more unstable)</p>
@@ -1453,7 +1414,7 @@ title="Print to PDF"
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "a7b0e10490f541ffa29260c07dc02300", "version_major": 2, "version_minor": 0}
+{"model_id": "af5e970fcae44adf88fd64b4105264f0", "version_major": 2, "version_minor": 0}
 </script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
@@ -1463,9 +1424,12 @@ title="Print to PDF"
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="../_images/05 - Ensemble Learning_20_0.png" src="../_images/05 - Ensemble Learning_20_0.png" />
 </div>
 </div>
-<div class="section" id="effect-on-bias-and-variance">
+</section>
+<section id="effect-on-bias-and-variance">
 <h3>Effect on bias and variance<a class="headerlink" href="#effect-on-bias-and-variance" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Increasing the number of models (trees) decreases variance (less overfitting)</p></li>
@@ -1474,72 +1438,83 @@ title="Print to PDF"
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">ShuffleSplit</span><span class="p">,</span> <span class="n">train_test_split</span>
-
-<span class="c1"># Bias-Variance Computation </span>
-<span class="k">def</span> <span class="nf">compute_bias_variance</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
-    <span class="c1"># Bootstraps</span>
-    <span class="n">n_repeat</span> <span class="o">=</span> <span class="mi">40</span> <span class="c1"># 40 is on the low side to get a good estimate. 100 is better.</span>
-    <span class="n">shuffle_split</span> <span class="o">=</span> <span class="n">ShuffleSplit</span><span class="p">(</span><span class="n">test_size</span><span class="o">=</span><span class="mf">0.33</span><span class="p">,</span> <span class="n">n_splits</span><span class="o">=</span><span class="n">n_repeat</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-
-    <span class="c1"># Store sample predictions</span>
-    <span class="n">y_all_pred</span> <span class="o">=</span> <span class="p">[[]</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">))]</span>
-
-    <span class="c1"># Train classifier on each bootstrap and score predictions</span>
-    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">train_index</span><span class="p">,</span> <span class="n">test_index</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">shuffle_split</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">X</span><span class="p">)):</span>
-        <span class="c1"># Train and predict</span>
-        <span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">train_index</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="n">train_index</span><span class="p">])</span>
-        <span class="n">y_pred</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">test_index</span><span class="p">])</span>
-
-        <span class="c1"># Store predictions</span>
-        <span class="k">for</span> <span class="n">j</span><span class="p">,</span><span class="n">index</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">test_index</span><span class="p">):</span>
-            <span class="n">y_all_pred</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y_pred</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
-
-    <span class="c1"># Compute bias, variance, error</span>
-    <span class="n">bias_sq</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">([</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">x</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">))</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">/</span><span class="n">n_repeat</span> 
-                <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">x</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">y_all_pred</span><span class="p">)])</span>
-    <span class="n">var</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">([((</span><span class="mi">1</span> <span class="o">-</span> <span class="p">((</span><span class="n">x</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">))</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">))</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">/</span><span class="n">n_repeat</span>
-               <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">x</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">y_all_pred</span><span class="p">)])</span>
-    <span class="n">error</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">([</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">x</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">))</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">/</span><span class="n">n_repeat</span> 
-            <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">x</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">y_all_pred</span><span class="p">)])</span>
-
-    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">bias_sq</span><span class="p">),</span> <span class="n">var</span><span class="p">,</span> <span class="n">error</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell tag_hide-input docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_breast_cancer</span>
+<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_breast_cancer</span>
 <span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestClassifier</span>
 <span class="n">cancer</span> <span class="o">=</span> <span class="n">load_breast_cancer</span><span class="p">()</span>
 
-<span class="k">def</span> <span class="nf">plot_bias_variance_rf</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+<span class="c1"># Faster version of plot_bias_variance that uses warm-starting</span>
+<span class="k">def</span> <span class="nf">plot_bias_variance_rf</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">warm_start</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     <span class="n">bias_scores</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">var_scores</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">err_scores</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">n_estimators</span><span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="mi">256</span><span class="p">,</span> <span class="mi">512</span><span class="p">,</span> <span class="mi">1024</span><span class="p">]</span>
 
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">n_estimators</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">clf</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;HistGradientBoostingClassifier&#39;</span><span class="p">:</span>
-            <span class="n">b</span><span class="p">,</span><span class="n">v</span><span class="p">,</span><span class="n">e</span> <span class="o">=</span> <span class="n">compute_bias_variance</span><span class="p">(</span><span class="n">clf</span><span class="o">.</span><span class="n">set_params</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">max_iter</span><span class="o">=</span><span class="n">i</span><span class="p">),</span><span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">b</span><span class="p">,</span><span class="n">v</span><span class="p">,</span><span class="n">e</span> <span class="o">=</span> <span class="n">compute_bias_variance</span><span class="p">(</span><span class="n">clf</span><span class="o">.</span><span class="n">set_params</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">n_estimators</span><span class="o">=</span><span class="n">i</span><span class="p">),</span><span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
-        <span class="n">bias_scores</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
-        <span class="n">var_scores</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
-        <span class="n">err_scores</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+    <span class="c1"># Bootstraps</span>
+    <span class="n">n_repeat</span> <span class="o">=</span> <span class="mi">40</span> <span class="c1"># 40 is on the low side to get a good estimate. 100 is better.</span>
+    <span class="n">shuffle_split</span> <span class="o">=</span> <span class="n">ShuffleSplit</span><span class="p">(</span><span class="n">test_size</span><span class="o">=</span><span class="mf">0.33</span><span class="p">,</span> <span class="n">n_splits</span><span class="o">=</span><span class="n">n_repeat</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    
+    <span class="c1"># Ensemble sizes</span>
+    <span class="n">n_estimators</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="mi">256</span><span class="p">,</span> <span class="mi">512</span><span class="p">,</span> <span class="mi">1024</span><span class="p">]</span>
+
+    <span class="c1"># Store sample predictions. One per n_estimators</span>
+    <span class="c1"># n_estimators : [predictions]</span>
+    <span class="n">predictions</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">nr_trees</span> <span class="ow">in</span> <span class="n">n_estimators</span><span class="p">:</span>
+        <span class="n">predictions</span><span class="p">[</span><span class="n">nr_trees</span><span class="p">]</span> <span class="o">=</span> <span class="p">[[]</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">))]</span>
+
+    <span class="c1"># Train classifier on each bootstrap and score predictions</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">train_index</span><span class="p">,</span> <span class="n">test_index</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">shuffle_split</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">X</span><span class="p">)):</span>
+                
+        <span class="c1"># Initialize </span>
+        <span class="n">clf</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">model</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;RandomForestClassifier&#39;</span><span class="p">:</span>
+            <span class="n">clf</span><span class="o">.</span><span class="n">n_jobs</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="k">if</span> <span class="n">model</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">!=</span> <span class="s1">&#39;AdaBoostClassifier&#39;</span><span class="p">:</span>
+            <span class="n">clf</span><span class="o">.</span><span class="n">warm_start</span> <span class="o">=</span> <span class="n">warm_start</span>
+        
+        <span class="n">prev_n_estimators</span> <span class="o">=</span> <span class="mi">0</span>
+    
+        <span class="c1"># Train incrementally        </span>
+        <span class="k">for</span> <span class="n">nr_trees</span> <span class="ow">in</span> <span class="n">n_estimators</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">model</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;HistGradientBoostingClassifier&#39;</span><span class="p">:</span>
+                <span class="n">clf</span><span class="o">.</span><span class="n">max_iter</span> <span class="o">=</span> <span class="n">nr_trees</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">clf</span><span class="o">.</span><span class="n">n_estimators</span> <span class="o">=</span> <span class="n">nr_trees</span>
+            
+            <span class="c1"># Fit and predict</span>
+            <span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">train_index</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="n">train_index</span><span class="p">])</span>
+            <span class="n">y_pred</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">test_index</span><span class="p">])</span>
+            <span class="k">for</span> <span class="n">j</span><span class="p">,</span><span class="n">index</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">test_index</span><span class="p">):</span>
+                <span class="n">predictions</span><span class="p">[</span><span class="n">nr_trees</span><span class="p">][</span><span class="n">index</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y_pred</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
+    
+    <span class="k">for</span> <span class="n">nr_trees</span> <span class="ow">in</span> <span class="n">n_estimators</span><span class="p">:</span>
+        <span class="c1"># Compute bias, variance, error</span>
+        <span class="n">bias_sq</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">([</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">x</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">))</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">/</span><span class="n">n_repeat</span> 
+                       <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">x</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">predictions</span><span class="p">[</span><span class="n">nr_trees</span><span class="p">])])</span>
+        <span class="n">var</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">([((</span><span class="mi">1</span> <span class="o">-</span> <span class="p">((</span><span class="n">x</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">))</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">))</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">/</span><span class="n">n_repeat</span> 
+                   <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">x</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">predictions</span><span class="p">[</span><span class="n">nr_trees</span><span class="p">])])</span>
+        <span class="n">error</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">([</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">x</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">))</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">/</span><span class="n">n_repeat</span>
+                     <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">x</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">predictions</span><span class="p">[</span><span class="n">nr_trees</span><span class="p">])])</span>
+
+        <span class="n">bias_scores</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bias_sq</span><span class="p">)</span>
+        <span class="n">var_scores</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">var</span><span class="p">)</span>
+        <span class="n">err_scores</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
 
     <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="o">*</span><span class="n">fig_scale</span><span class="p">,</span><span class="mi">3</span><span class="o">*</span><span class="n">fig_scale</span><span class="p">))</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="n">clf</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">n_estimators</span><span class="p">,</span> <span class="n">var_scores</span><span class="p">,</span><span class="n">label</span> <span class="o">=</span><span class="s2">&quot;variance&quot;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="o">*</span><span class="n">fig_scale</span> <span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">n_estimators</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">square</span><span class="p">(</span><span class="n">bias_scores</span><span class="p">),</span><span class="n">label</span> <span class="o">=</span><span class="s2">&quot;bias^2&quot;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="o">*</span><span class="n">fig_scale</span> <span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">n_estimators</span><span class="p">,</span> <span class="n">err_scores</span><span class="p">,</span><span class="n">label</span> <span class="o">=</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="o">*</span><span class="n">fig_scale</span>  <span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">n_estimators</span><span class="p">,</span> <span class="n">var_scores</span><span class="p">,</span><span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;variance&quot;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="o">*</span><span class="n">fig_scale</span> <span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">n_estimators</span><span class="p">,</span> <span class="n">bias_scores</span><span class="p">,</span><span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;bias^2&quot;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="o">*</span><span class="n">fig_scale</span> <span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">n_estimators</span><span class="p">,</span> <span class="n">err_scores</span><span class="p">,</span><span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="o">*</span><span class="n">fig_scale</span>  <span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">xscale</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">,</span><span class="n">base</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;n_estimators&quot;</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;best&quot;</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-
-<span class="n">rf</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">n_estimators</span><span class="o">=</span><span class="mi">512</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">plot_bias_variance_rf</span><span class="p">(</span><span class="n">rf</span><span class="p">,</span> <span class="n">cancer</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">cancer</span><span class="o">.</span><span class="n">target</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_bias_variance_rf</span><span class="p">(</span><span class="n">RandomForestClassifier</span><span class="p">,</span> <span class="n">cancer</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">cancer</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="n">warm_start</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1547,7 +1522,7 @@ title="Print to PDF"
 <img alt="../_images/05 - Ensemble Learning_23_0.png" src="../_images/05 - Ensemble Learning_23_0.png" />
 </div>
 </div>
-<div class="section" id="in-practice">
+<section id="in-practice">
 <h4>In practice<a class="headerlink" href="#in-practice" title="Permalink to this headline">#</a></h4>
 <ul class="simple">
 <li><p>Different implementations can be used. E.g. in scikit-learn:</p>
@@ -1580,9 +1555,9 @@ title="Print to PDF"
 <li><p>Easy to parallelize (set <code class="docutils literal notranslate"><span class="pre">n_jobs</span></code> to -1)</p></li>
 <li><p>Fix <code class="docutils literal notranslate"><span class="pre">random_state</span></code> (bootstrap samples) for reproducibility</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="out-of-bag-error">
+</section>
+</section>
+<section id="out-of-bag-error">
 <h3>Out-of-bag error<a class="headerlink" href="#out-of-bag-error" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>RandomForests don’t need cross-validation: you can use the out-of-bag (OOB) error</p></li>
@@ -1663,8 +1638,8 @@ title="Print to PDF"
 <img alt="../_images/05 - Ensemble Learning_26_0.png" src="../_images/05 - Ensemble Learning_26_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="feature-importance">
+</section>
+<section id="feature-importance">
 <h3>Feature importance<a class="headerlink" href="#feature-importance" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>RandomForests provide more reliable feature importances, based on many alternative hypotheses (trees)</p></li>
@@ -1681,8 +1656,8 @@ title="Print to PDF"
 <img alt="../_images/05 - Ensemble Learning_28_0.png" src="../_images/05 - Ensemble Learning_28_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="other-tips">
+</section>
+<section id="other-tips">
 <h3>Other tips<a class="headerlink" href="#other-tips" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Model calibration</p>
@@ -1704,8 +1679,8 @@ title="Print to PDF"
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="strength-and-weaknesses">
+</section>
+<section id="strength-and-weaknesses">
 <h3>Strength and weaknesses<a class="headerlink" href="#strength-and-weaknesses" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>RandomForest are among most widely used algorithms:</p>
@@ -1723,9 +1698,9 @@ title="Print to PDF"
 </ul>
 </li>
 </ul>
-</div>
-</div>
-<div class="section" id="adaptive-boosting-adaboost">
+</section>
+</section>
+<section id="adaptive-boosting-adaboost">
 <h2>Adaptive Boosting (AdaBoost)<a class="headerlink" href="#adaptive-boosting-adaboost" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Obtain different models by <em>reweighting</em> the training data every iteration</p>
@@ -1750,7 +1725,7 @@ $<span class="math notranslate nohighlight">\(f_I(\mathbf{x}) = \sum_{i=1}^I w_i
 $<span class="math notranslate nohighlight">\(\mathcal{L}_{Exp} = \sum_{n=1}^N e^{\varepsilon(f_I(\mathbf{x}))}\)</span>$</p></li>
 <li><p>By deriving <span class="math notranslate nohighlight">\(\frac{\partial \mathcal{L}}{\partial w_i}\)</span> you can find that optimal <span class="math notranslate nohighlight">\(w_{i} =  \frac{1}{2}\log(\frac{1-\varepsilon}{\varepsilon})\)</span></p></li>
 </ul>
-<div class="section" id="adaboost-algorithm">
+<section id="adaboost-algorithm">
 <h3>AdaBoost algorithm<a class="headerlink" href="#adaboost-algorithm" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Initialize sample weights: <span class="math notranslate nohighlight">\(s_{n,0} = \frac{1}{N}\)</span></p></li>
@@ -1778,8 +1753,8 @@ $<span class="math notranslate nohighlight">\(w_{i} =  \lambda\log(\frac{1-\vare
 </li>
 <li><p>Repeat for <span class="math notranslate nohighlight">\(I\)</span> iterations</p></li>
 </ul>
-</div>
-<div class="section" id="adaboost-variants">
+</section>
+<section id="adaboost-variants">
 <h3>AdaBoost variants<a class="headerlink" href="#adaboost-variants" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Discrete Adaboost: error rate <span class="math notranslate nohighlight">\(\varepsilon\)</span> is simply the error rate (1-Accuracy)</p></li>
@@ -1789,8 +1764,8 @@ $<span class="math notranslate nohighlight">\(w_{i} =  \lambda\log(\frac{1-\vare
 <li><p>LogitBoost: Minimizes logistic loss instead of exponential loss
 $<span class="math notranslate nohighlight">\(\mathcal{L}_{Logistic} = \sum_{n=1}^N log(1+e^{\varepsilon(f_I(\mathbf{x}))})\)</span>$</p></li>
 </ul>
-</div>
-<div class="section" id="adaboost-in-action">
+</section>
+<section id="adaboost-in-action">
 <h3>Adaboost in action<a class="headerlink" href="#adaboost-in-action" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Size of the samples represents sample weight</p></li>
@@ -1857,7 +1832,7 @@ $<span class="math notranslate nohighlight">\(\mathcal{L}_{Logistic} = \sum_{n=1
     <span class="k">return</span> <span class="n">estimator_list</span><span class="p">,</span> <span class="n">estimator_weight_list</span><span class="p">,</span> <span class="n">sample_weight_list</span><span class="p">,</span> <span class="n">estimator_error_list</span>
 
 <span class="k">def</span> <span class="nf">plot_decision_boundary</span><span class="p">(</span><span class="n">classifier</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">N</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">scatter_weights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">))</span> <span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="kc">None</span> <span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39;Utility function to plot decision boundary and scatter plot of data&#39;&#39;&#39;</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;Utility function to plot decision boundary and scatter plot of data&#39;&#39;&#39;</span>
     <span class="n">x_min</span><span class="p">,</span> <span class="n">x_max</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">-</span> <span class="mf">.1</span><span class="p">,</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">+</span> <span class="mf">.1</span>
     <span class="n">y_min</span><span class="p">,</span> <span class="n">y_max</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">-</span> <span class="mf">.1</span><span class="p">,</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">+</span> <span class="mf">.1</span>
 
@@ -1914,7 +1889,7 @@ $<span class="math notranslate nohighlight">\(\mathcal{L}_{Logistic} = \sum_{n=1
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "2e92552215494d548c143a8aabb34f89", "version_major": 2, "version_minor": 0}
+{"model_id": "ffb8ad05988c41c29fb3de1e5be70c52", "version_major": 2, "version_minor": 0}
 </script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
@@ -1928,9 +1903,12 @@ $<span class="math notranslate nohighlight">\(\mathcal{L}_{Logistic} = \sum_{n=1
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="../_images/05 - Ensemble Learning_36_0.png" src="../_images/05 - Ensemble Learning_36_0.png" />
 </div>
 </div>
-<div class="section" id="examples">
+</section>
+<section id="examples">
 <h3>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">#</a></h3>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
@@ -1951,8 +1929,8 @@ $<span class="math notranslate nohighlight">\(\mathcal{L}_{Logistic} = \sum_{n=1
 <img alt="../_images/05 - Ensemble Learning_38_0.png" src="../_images/05 - Ensemble Learning_38_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="bias-variance-analysis">
+</section>
+<section id="bias-variance-analysis">
 <h3>Bias-Variance analysis<a class="headerlink" href="#bias-variance-analysis" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>AdaBoost reduces bias (and a little variance)</p>
@@ -1964,9 +1942,7 @@ $<span class="math notranslate nohighlight">\(\mathcal{L}_{Logistic} = \sum_{n=1
 </ul>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Xc</span><span class="p">,</span> <span class="n">yc</span> <span class="o">=</span> <span class="n">cancer</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">cancer</span><span class="o">.</span><span class="n">target</span>
-<span class="n">ab</span> <span class="o">=</span> <span class="n">AdaBoostClassifier</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">n_estimators</span><span class="o">=</span><span class="mi">1024</span><span class="p">)</span>
-<span class="n">plot_bias_variance_rf</span><span class="p">(</span><span class="n">ab</span><span class="p">,</span> <span class="n">Xc</span><span class="p">,</span> <span class="n">yc</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_bias_variance_rf</span><span class="p">(</span><span class="n">AdaBoostClassifier</span><span class="p">,</span> <span class="n">cancer</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">cancer</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="n">warm_start</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1974,9 +1950,9 @@ $<span class="math notranslate nohighlight">\(\mathcal{L}_{Logistic} = \sum_{n=1
 <img alt="../_images/05 - Ensemble Learning_40_0.png" src="../_images/05 - Ensemble Learning_40_0.png" />
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="gradient-boosting">
+</section>
+</section>
+<section id="gradient-boosting">
 <h2>Gradient Boosting<a class="headerlink" href="#gradient-boosting" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Ensemble of models, each fixing the remaining mistakes of the previous ones</p>
@@ -2003,7 +1979,7 @@ $<span class="math notranslate nohighlight">\(g_i(\mathbf{x}) \approx r_{i} = - 
 </ul>
 </li>
 </ul>
-<div class="section" id="gradient-boosting-trees-regression">
+<section id="gradient-boosting-trees-regression">
 <h3>Gradient Boosting Trees (Regression)<a class="headerlink" href="#gradient-boosting-trees-regression" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Base models are regression trees, loss function is square loss: <span class="math notranslate nohighlight">\(\mathcal{L} = \frac{1}{2}(y_i - \hat{y}_i)^2\)</span></p></li>
@@ -2023,7 +1999,7 @@ $<span class="math notranslate nohighlight">\(r_i = -\frac{\partial \mathcal{L}}
 </li>
 <li><p>Early stopping (optional): stop when performance on validation set does not improve for <span class="math notranslate nohighlight">\(nr\)</span> iterations</p></li>
 </ul>
-<div class="section" id="gradient-boosting-regression-in-action">
+<section id="gradient-boosting-regression-in-action">
 <h4>Gradient Boosting Regression in action<a class="headerlink" href="#gradient-boosting-regression-in-action" title="Permalink to this headline">#</a></h4>
 <ul class="simple">
 <li><p>Residuals quickly drop to (near) zero</p></li>
@@ -2075,7 +2051,7 @@ $<span class="math notranslate nohighlight">\(r_i = -\frac{\partial \mathcal{L}}
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "4a493ed75b384538995db79ade85e283", "version_major": 2, "version_minor": 0}
+{"model_id": "dbaeb70a353843bc90e2f86329b091b3", "version_major": 2, "version_minor": 0}
 </script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
@@ -2088,10 +2064,13 @@ $<span class="math notranslate nohighlight">\(r_i = -\frac{\partial \mathcal{L}}
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="../_images/05 - Ensemble Learning_45_0.png" src="../_images/05 - Ensemble Learning_45_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="gradientboosting-algorithm-classification">
+</section>
+</section>
+<section id="gradientboosting-algorithm-classification">
 <h3>GradientBoosting Algorithm (Classification)<a class="headerlink" href="#gradientboosting-algorithm-classification" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Base models are <em>regression</em> trees, predict probability of positive class <span class="math notranslate nohighlight">\(p\)</span></p>
@@ -2116,7 +2095,7 @@ $<span class="math notranslate nohighlight">\(\frac{\partial \mathcal{L}}{\parti
 </li>
 <li><p>Early stopping (optional): stop when performance on validation set does not improve for <span class="math notranslate nohighlight">\(nr\)</span> iterations</p></li>
 </ul>
-<div class="section" id="gradient-boosting-classification-in-action">
+<section id="gradient-boosting-classification-in-action">
 <h4>Gradient Boosting Classification in action<a class="headerlink" href="#gradient-boosting-classification-in-action" title="Permalink to this headline">#</a></h4>
 <ul class="simple">
 <li><p>Size of the samples represents the residual weights: most quickly drop to (near) zero</p></li>
@@ -2133,7 +2112,7 @@ $<span class="math notranslate nohighlight">\(\frac{\partial \mathcal{L}}{\parti
 <span class="n">weight_scale</span> <span class="o">=</span> <span class="mi">1</span>
 
 <span class="k">def</span> <span class="nf">plot_gb_decision_boundary</span><span class="p">(</span><span class="n">gbmodel</span><span class="p">,</span> <span class="n">step</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">N</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">scatter_weights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">))</span> <span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">title</span> <span class="o">=</span> <span class="kc">None</span> <span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39;Utility function to plot decision boundary and scatter plot of data&#39;&#39;&#39;</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;Utility function to plot decision boundary and scatter plot of data&#39;&#39;&#39;</span>
     <span class="n">x_min</span><span class="p">,</span> <span class="n">x_max</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">-</span> <span class="mf">.1</span><span class="p">,</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">+</span> <span class="mf">.1</span>
     <span class="n">y_min</span><span class="p">,</span> <span class="n">y_max</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">-</span> <span class="mf">.1</span><span class="p">,</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">+</span> <span class="mf">.1</span>
 
@@ -2166,7 +2145,7 @@ $<span class="math notranslate nohighlight">\(\frac{\partial \mathcal{L}}{\parti
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "e7367664bd044784b0054560a409e5f0", "version_major": 2, "version_minor": 0}
+{"model_id": "e3447637397648f7a94a5d3b88d89ca1", "version_major": 2, "version_minor": 0}
 </script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
@@ -2180,9 +2159,12 @@ $<span class="math notranslate nohighlight">\(\frac{\partial \mathcal{L}}{\parti
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="../_images/05 - Ensemble Learning_49_0.png" src="../_images/05 - Ensemble Learning_49_0.png" />
 </div>
 </div>
-<div class="section" id="id1">
+</section>
+<section id="id1">
 <h4>Examples<a class="headerlink" href="#id1" title="Permalink to this headline">#</a></h4>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
@@ -2202,8 +2184,8 @@ $<span class="math notranslate nohighlight">\(\frac{\partial \mathcal{L}}{\parti
 <img alt="../_images/05 - Ensemble Learning_51_0.png" src="../_images/05 - Ensemble Learning_51_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="id2">
+</section>
+<section id="id2">
 <h4>Bias-variance analysis<a class="headerlink" href="#id2" title="Permalink to this headline">#</a></h4>
 <ul class="simple">
 <li><p>Gradient Boosting is very effective at reducing bias error</p></li>
@@ -2211,13 +2193,9 @@ $<span class="math notranslate nohighlight">\(\frac{\partial \mathcal{L}}{\parti
 </ul>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">HistGradientBoostingClassifier</span>
-
-<span class="c1"># Tried if HistGradientBoostingClassifier is faster. It&#39;s not.</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Note: I tried if HistGradientBoostingClassifier is faster. It&#39;s not.</span>
 <span class="c1"># We&#39;re training many small models here and the thread spawning likely causes too much overhead</span>
-<span class="c1"># gb = HistGradientBoostingClassifier(random_state=0, max_iter=512)</span>
-<span class="n">gb</span> <span class="o">=</span> <span class="n">GradientBoostingClassifier</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">n_estimators</span><span class="o">=</span><span class="mi">512</span><span class="p">)</span>
-<span class="n">plot_bias_variance_rf</span><span class="p">(</span><span class="n">gb</span><span class="p">,</span> <span class="n">Xc</span><span class="p">,</span> <span class="n">yc</span><span class="p">)</span>
+<span class="n">plot_bias_variance_rf</span><span class="p">(</span><span class="n">GradientBoostingClassifier</span><span class="p">,</span> <span class="n">cancer</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">cancer</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="n">warm_start</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -2225,8 +2203,8 @@ $<span class="math notranslate nohighlight">\(\frac{\partial \mathcal{L}}{\parti
 <img alt="../_images/05 - Ensemble Learning_53_0.png" src="../_images/05 - Ensemble Learning_53_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="id3">
+</section>
+<section id="id3">
 <h4>Feature importance<a class="headerlink" href="#id3" title="Permalink to this headline">#</a></h4>
 <ul class="simple">
 <li><p>Gradient Boosting also provide feature importances, based on many trees</p></li>
@@ -2244,8 +2222,8 @@ $<span class="math notranslate nohighlight">\(\frac{\partial \mathcal{L}}{\parti
 <img alt="../_images/05 - Ensemble Learning_55_0.png" src="../_images/05 - Ensemble Learning_55_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="gradient-boosting-strengths-and-weaknesses">
+</section>
+<section id="gradient-boosting-strengths-and-weaknesses">
 <h4>Gradient Boosting: strengths and weaknesses<a class="headerlink" href="#gradient-boosting-strengths-and-weaknesses" title="Permalink to this headline">#</a></h4>
 <ul class="simple">
 <li><p>Among the most powerful and widely used models</p></li>
@@ -2266,9 +2244,9 @@ $<span class="math notranslate nohighlight">\(\frac{\partial \mathcal{L}}{\parti
 <li><p><code class="docutils literal notranslate"><span class="pre">max_features</span></code>: can also be tuned, similar to random forests</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">n_iter_no_change</span></code>: early stopping: algorithm stops if improvement is less than a certain tolerance <code class="docutils literal notranslate"><span class="pre">tol</span></code> for more than <code class="docutils literal notranslate"><span class="pre">n_iter_no_change</span></code> iterations.</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="extreme-gradient-boosting-xgboost">
+</section>
+</section>
+<section id="extreme-gradient-boosting-xgboost">
 <h3>Extreme Gradient Boosting (XGBoost)<a class="headerlink" href="#extreme-gradient-boosting-xgboost" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Faster version of gradient boosting: allows more iterations on larger datasets</p></li>
@@ -2293,7 +2271,7 @@ $<span class="math notranslate nohighlight">\(\frac{\partial \mathcal{L}}{\parti
 <li><p>Column and row are randomly subsampled when computing splits</p></li>
 <li><p>Support for out-of-core computation (data compression in RAM, sharding,…)</p></li>
 </ul>
-<div class="section" id="xgboost-in-practice">
+<section id="xgboost-in-practice">
 <h4>XGBoost in practice<a class="headerlink" href="#xgboost-in-practice" title="Permalink to this headline">#</a></h4>
 <ul class="simple">
 <li><p>Not part of scikit-learn, but <code class="docutils literal notranslate"><span class="pre">HistGradientBoostingClassifier</span></code> is similar</p>
@@ -2315,9 +2293,9 @@ $<span class="math notranslate nohighlight">\(\frac{\partial \mathcal{L}}{\parti
 </ul>
 </li>
 </ul>
-</div>
-</div>
-<div class="section" id="lightgbm">
+</section>
+</section>
+<section id="lightgbm">
 <h3>LightGBM<a class="headerlink" href="#lightgbm" title="Permalink to this headline">#</a></h3>
 <p>Another fast boosting technique</p>
 <ul class="simple">
@@ -2331,8 +2309,8 @@ $<span class="math notranslate nohighlight">\(\frac{\partial \mathcal{L}}{\parti
 </li>
 <li><p>Does smarter encoding of categorical features</p></li>
 </ul>
-</div>
-<div class="section" id="catboost">
+</section>
+<section id="catboost">
 <h3>CatBoost<a class="headerlink" href="#catboost" title="Permalink to this headline">#</a></h3>
 <p>Another fast boosting technique</p>
 <ul class="simple">
@@ -2353,9 +2331,9 @@ $<span class="math notranslate nohighlight">\(\frac{\partial \mathcal{L}}{\parti
 </li>
 <li><p>Lots of tooling (e.g. GPU training)</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="stacking">
+</section>
+</section>
+<section id="stacking">
 <h2>Stacking<a class="headerlink" href="#stacking" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Choose <span class="math notranslate nohighlight">\(M\)</span> different base-models, generate predictions</p></li>
@@ -2369,8 +2347,8 @@ $<span class="math notranslate nohighlight">\(\frac{\partial \mathcal{L}}{\parti
 <li><p>Models need to be sufficiently different, be experts at different parts of the data</p></li>
 <li><p>Can be <em>very</em> accurate, but also very slow to predict</p></li>
 </ul>
-<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/stacking.png" alt="ml" style="width: 500px;"/></div>
-<div class="section" id="other-ensembling-techniques">
+<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/stacking.png" alt="ml" style="width: 500px;"/></section>
+<section id="other-ensembling-techniques">
 <h2>Other ensembling techniques<a class="headerlink" href="#other-ensembling-techniques" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Hyper-ensembles: same basic model but with different hyperparameter settings</p>
@@ -2387,12 +2365,12 @@ $<span class="math notranslate nohighlight">\(\frac{\partial \mathcal{L}}{\parti
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%HTML</span>
-<span class="p">&lt;</span><span class="nt">style</span><span class="p">&gt;</span><span class="w"></span>
-<span class="nt">td</span><span class="w"> </span><span class="p">{</span><span class="k">font-size</span><span class="p">:</span><span class="w"> </span><span class="mi">20</span><span class="kt">px</span><span class="p">}</span><span class="w"></span>
-<span class="nt">th</span><span class="w"> </span><span class="p">{</span><span class="k">font-size</span><span class="p">:</span><span class="w"> </span><span class="mi">20</span><span class="kt">px</span><span class="p">}</span><span class="w"></span>
-<span class="p">.</span><span class="nc">rendered_html</span><span class="w"> </span><span class="nt">table</span><span class="o">,</span><span class="w"> </span><span class="p">.</span><span class="nc">rendered_html</span><span class="w"> </span><span class="nt">td</span><span class="o">,</span><span class="w"> </span><span class="p">.</span><span class="nc">rendered_html</span><span class="w"> </span><span class="nt">th</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">font-size</span><span class="p">:</span><span class="w"> </span><span class="mi">20</span><span class="kt">px</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="p">&lt;</span><span class="nt">style</span><span class="p">&gt;</span>
+<span class="nt">td</span><span class="w"> </span><span class="p">{</span><span class="k">font-size</span><span class="p">:</span><span class="w"> </span><span class="mi">20</span><span class="kt">px</span><span class="p">}</span>
+<span class="nt">th</span><span class="w"> </span><span class="p">{</span><span class="k">font-size</span><span class="p">:</span><span class="w"> </span><span class="mi">20</span><span class="kt">px</span><span class="p">}</span>
+<span class="p">.</span><span class="nc">rendered_html</span><span class="w"> </span><span class="nt">table</span><span class="o">,</span><span class="w"> </span><span class="p">.</span><span class="nc">rendered_html</span><span class="w"> </span><span class="nt">td</span><span class="o">,</span><span class="w"> </span><span class="p">.</span><span class="nc">rendered_html</span><span class="w"> </span><span class="nt">th</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">font-size</span><span class="p">:</span><span class="w"> </span><span class="mi">20</span><span class="kt">px</span><span class="p">;</span>
+<span class="p">}</span>
 <span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
 </pre></div>
 </div>
@@ -2407,7 +2385,7 @@ th {font-size: 20px}
 </style>
 </div></div>
 </div>
-<div class="section" id="algorithm-overview">
+<section id="algorithm-overview">
 <h3>Algorithm overview<a class="headerlink" href="#algorithm-overview" title="Permalink to this headline">#</a></h3>
 <table class="colwidths-auto table">
 <thead>
@@ -2469,8 +2447,8 @@ th {font-size: 20px}
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="summary">
+</section>
+<section id="summary">
 <h3>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Ensembles of voting classifiers improve performance</p>
@@ -2519,9 +2497,9 @@ th {font-size: 20px}
 </ul>
 </li>
 </ul>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -2535,7 +2513,7 @@ th {font-size: 20px}
             mode: "python"
         },
         kernelOptions: {
-            name: "python3",
+            kernelName: "python3",
             path: "./notebooks"
         },
         predefinedOutput: true
@@ -2573,7 +2551,7 @@ th {font-size: 20px}
   
     By Joaquin Vanschoren<br/>
   
-      &copy; Copyright 2021. CC0 Licensed - Use as you like.<br/>
+      &copy; Copyright 2023. CC0 Licensed - Use as you like.<br/>
 </p>
         </footer>
     </div>

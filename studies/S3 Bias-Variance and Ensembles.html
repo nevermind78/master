@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Bias-Variance and Ensembles &#8212; ML Engineering</title>
     
   <!-- Loaded before other Sphinx assets -->
@@ -34,10 +35,13 @@
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
     <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
@@ -189,17 +193,17 @@ const thebe_selector_output = ".output, .cell_output"
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%202%20-%20Kernelization.html">
-   Lab 2: Kernelization
+  <a class="reference internal" href="../labs/Lab%202a%20-%20Kernelization.html">
+   Lab 2a: Kernelization
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%203a%20-%20Model%20Selection.html">
-   Lab 3a: Model selection
+  <a class="reference internal" href="../labs/Lab%202b%20-%20Model%20Selection.html">
+   Lab 2b: Model selection
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%203b%20-%20Ensembles.html">
+  <a class="reference internal" href="../labs/Lab%203%20-%20Ensembles.html">
    Lab 3b: Ensembles
   </a>
  </li>
@@ -268,11 +272,6 @@ const thebe_selector_output = ".output, .cell_output"
  <li class="toctree-l1">
   <a class="reference internal" href="../labs/Lab%201%20-%20Tutorial.html">
    Lab 1: Machine Learning with Python
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%203%20-%20Tutorial.html">
-   Lab 3 Tutorial: Model Selection in scikit-learn
   </a>
  </li>
  <li class="toctree-l1">
@@ -569,7 +568,7 @@ title="Print to PDF"
                 
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="bias-variance-and-ensembles">
+  <section class="tex2jax_ignore mathjax_ignore" id="bias-variance-and-ensembles">
 <h1>Bias-Variance and Ensembles<a class="headerlink" href="#bias-variance-and-ensembles" title="Permalink to this headline">#</a></h1>
 <p>Let’s do a deeper analysis of how RandomForests and Gradient Boosting reduce their prediction error. More specifically, we’ll decompose the prediction error into their <em>bias</em> and <em>variance</em> components, and see how these are reduced by different methods: RandomForests (bagging) and GradientBoosting (boosting).</p>
 <p>Although you can repeat this analysis with any classification dataset from OpenML, we’ll use the MAGIC telescope dataset (<a class="reference external" href="http://www.openml.org/d/1120">http://www.openml.org/d/1120</a>). The task is to classifying gamma rays: when high-energy particles hit the atmosphere, they produce chain reactions of other particles called ‘showers’. These are simulated and the resulting patterns are converted into 10 numeric features. You need to detect whether these are gamma rays or background radiation.</p>
@@ -609,7 +608,7 @@ title="Print to PDF"
 <img alt="../_images/S3 Bias-Variance and Ensembles_3_1.png" src="../_images/S3 Bias-Variance and Ensembles_3_1.png" />
 </div>
 </div>
-<div class="section" id="bias-variance-analysis">
+<section id="bias-variance-analysis">
 <h2>Bias-variance analysis<a class="headerlink" href="#bias-variance-analysis" title="Permalink to this headline">#</a></h2>
 <p>Here is a helper function to compute the bias-variance decomposition. It does 40 bootstraps, measures the bias,
 variance, and error in each data point, and then sums them all up:</p>
@@ -691,8 +690,8 @@ Gradient Boosting Bias: 26.421, Variance: 84.447, Error: 782.525
 </div>
 </div>
 <p>The bias-variance results show that RandomForest and Gradient Boosting have a very similar bias-variance profile! They seem to control both bias and variance quite well (although there is also room for improvement).</p>
-</div>
-<div class="section" id="bias-variance-and-ensemble-size">
+</section>
+<section id="bias-variance-and-ensemble-size">
 <h2>Bias, Variance, and ensemble size<a class="headerlink" href="#bias-variance-and-ensemble-size" title="Permalink to this headline">#</a></h2>
 <p>We now measure the bias and error component of both algorithms for increasing numbers of trees. We vary the number of trees on a log scale from 1 to 1024, and plot the bias error (squared), variance, and total error.</p>
 <div class="cell docutils container">
@@ -735,8 +734,8 @@ Gradient Boosting Bias: 26.421, Variance: 84.447, Error: 782.525
 <li><p>Boosting is a bias reduction technique. We can see that it reduces bias. In fact, the error goes down only because the bias component goes down. Variance actually increases a bit. This is because the ‘hard’ data points are misclassified by some of the models, but not all. Hence, it cannot perfectly eliminate the bias. At some point, the ensemble will start overfitting a bit.</p></li>
 <li><p>Bagging (RandomForest) reduces variance, and we see this in the plot. The variance is almost completely eliminated, but also note that the bias actually slightly increases. So, it also doesn’t perfectly eliminate variance, at some point the ensemble will start underfitting.</p></li>
 </ul>
-</div>
-<div class="section" id="validation-curves-for-gradient-boosting">
+</section>
+<section id="validation-curves-for-gradient-boosting">
 <h2>Validation curves for Gradient Boosting<a class="headerlink" href="#validation-curves-for-gradient-boosting" title="Permalink to this headline">#</a></h2>
 <p>For gradient boosting, we should still examine the effect of tree depth and learning rate on overall performance.</p>
 <p>A <em>validation curve</em> can help you understand <em>when</em> a model starts under- or overfitting. It plots both training and test set error as you change certain hyperparameters, such as the number of estimators (trees).</p>
@@ -812,8 +811,8 @@ We clearly get worse results using very shallow trees (stumps): green and dark b
 <p><strong>Learning rate</strong>:<br />
 A high learning rate means that the instance weights will get large updates, hence each individual tree will have a large impact on the next ones, and the individual trees will be more different from each other (more varied). This increases variance and the likelihood of overfitting, which can be bad for boosting since it doesn’t reduce variance well. Look at the red curve: the larger learning rate reduces error faster, but then rebounds as it starts overfitting. Looking at the training set error (dashed red line, lower than any other), it indeed looks like it is overfitting. On the other hand, the smaller learning rate causes a slower optimization (weights are updated only a little bit, each individual tree will have less impact on the next, and the trees will be much more similar to each other), but it reduces the chance of overfitting and ultimately leads to the best ensemble (light blue curve). In fact, it already find it best solution after 130 iterations, while all others need 500 iterations (or more).</p>
 <p>The best solution is thus to use slightly larger trees and a low learning rate.</p>
-</div>
-</div>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -827,7 +826,7 @@ A high learning rate means that the instance weights will get large updates, hen
             mode: "python"
         },
         kernelOptions: {
-            name: "python3",
+            kernelName: "python3",
             path: "./studies"
         },
         predefinedOutput: true
@@ -851,7 +850,7 @@ A high learning rate means that the instance weights will get large updates, hen
   
     By Joaquin Vanschoren<br/>
   
-      &copy; Copyright 2021. CC0 Licensed - Use as you like.<br/>
+      &copy; Copyright 2023. CC0 Licensed - Use as you like.<br/>
 </p>
         </footer>
     </div>
