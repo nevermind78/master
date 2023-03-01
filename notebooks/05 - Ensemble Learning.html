@@ -964,7 +964,7 @@ title="Print to PDF"
 <span class="c1"># Global imports and settings</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
 <span class="kn">from</span> <span class="nn">preamble</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="n">interactive</span> <span class="o">=</span> <span class="kc">False</span> <span class="c1"># Set to True for interactive plots</span>
+<span class="n">interactive</span> <span class="o">=</span> <span class="kc">True</span> <span class="c1"># Set to True for interactive plots</span>
 <span class="k">if</span> <span class="n">interactive</span><span class="p">:</span>
     <span class="n">fig_scale</span> <span class="o">=</span> <span class="mf">0.9</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">print_config</span><span class="p">)</span>
@@ -1035,7 +1035,7 @@ title="Print to PDF"
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "a775d307d05c4aeab6bf7cbbda6c1adf", "version_major": 2, "version_minor": 0}
+{"model_id": "c10b4cfb6d524bc5a93795bb6e274328", "version_major": 2, "version_minor": 0}
 </script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
@@ -1044,9 +1044,6 @@ title="Print to PDF"
     <span class="n">combine_voters</span><span class="p">(</span><span class="n">models</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">models</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/05 - Ensemble Learning_4_0.png" src="../_images/05 - Ensemble Learning_4_0.png" />
 </div>
 </div>
 <ul class="simple">
@@ -1107,7 +1104,7 @@ title="Print to PDF"
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "a3720d01f3fc4795a45479725ac566de", "version_major": 2, "version_minor": 0}
+{"model_id": "72dad09184fb4ffba65562d6de6de863", "version_major": 2, "version_minor": 0}
 </script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
@@ -1116,9 +1113,6 @@ title="Print to PDF"
     <span class="n">plot_depth</span><span class="p">(</span><span class="n">depth</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/05 - Ensemble Learning_8_0.png" src="../_images/05 - Ensemble Learning_8_0.png" />
 </div>
 </div>
 <section id="evaluation-loss-function-for-classification">
@@ -1414,7 +1408,7 @@ title="Print to PDF"
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "af5e970fcae44adf88fd64b4105264f0", "version_major": 2, "version_minor": 0}
+{"model_id": "9913e14f17d2413c8af78736bf86d757", "version_major": 2, "version_minor": 0}
 </script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
@@ -1423,9 +1417,6 @@ title="Print to PDF"
     <span class="n">run_forest_run</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">models</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/05 - Ensemble Learning_20_0.png" src="../_images/05 - Ensemble Learning_20_0.png" />
 </div>
 </div>
 </section>
@@ -1889,7 +1880,7 @@ $<span class="math notranslate nohighlight">\(\mathcal{L}_{Logistic} = \sum_{n=1
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "ffb8ad05988c41c29fb3de1e5be70c52", "version_major": 2, "version_minor": 0}
+{"model_id": "3185e10d20c54ccaa66d92dfccf63cc7", "version_major": 2, "version_minor": 0}
 </script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
@@ -1902,9 +1893,6 @@ $<span class="math notranslate nohighlight">\(\mathcal{L}_{Logistic} = \sum_{n=1
         <span class="n">plot_adaboost</span><span class="p">(</span><span class="n">iteration</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/05 - Ensemble Learning_36_0.png" src="../_images/05 - Ensemble Learning_36_0.png" />
 </div>
 </div>
 </section>
@@ -2051,7 +2039,7 @@ $<span class="math notranslate nohighlight">\(r_i = -\frac{\partial \mathcal{L}}
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "dbaeb70a353843bc90e2f86329b091b3", "version_major": 2, "version_minor": 0}
+{"model_id": "94f6e5e4ffba468d86e028888feef4c3", "version_major": 2, "version_minor": 0}
 </script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
@@ -2063,9 +2051,6 @@ $<span class="math notranslate nohighlight">\(r_i = -\frac{\partial \mathcal{L}}
         <span class="n">plot_gradient_boosting_step</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">axes</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/05 - Ensemble Learning_45_0.png" src="../_images/05 - Ensemble Learning_45_0.png" />
 </div>
 </div>
 </section>
@@ -2145,7 +2130,7 @@ $<span class="math notranslate nohighlight">\(\frac{\partial \mathcal{L}}{\parti
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "e3447637397648f7a94a5d3b88d89ca1", "version_major": 2, "version_minor": 0}
+{"model_id": "08435844c04a4ef4aba97b743e89496f", "version_major": 2, "version_minor": 0}
 </script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
@@ -2158,9 +2143,6 @@ $<span class="math notranslate nohighlight">\(\frac{\partial \mathcal{L}}{\parti
         <span class="n">plot_gboost</span><span class="p">(</span><span class="n">iteration</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/05 - Ensemble Learning_49_0.png" src="../_images/05 - Ensemble Learning_49_0.png" />
 </div>
 </div>
 </section>
@@ -2319,7 +2301,7 @@ $<span class="math notranslate nohighlight">\(\frac{\partial \mathcal{L}}{\parti
 <li><p>Uses bagged and smoothed version of target encoding</p></li>
 </ul>
 </li>
-<li><p>Uses symmetric trees: same split for all nodes on a given level aka</p>
+<li><p>Uses symmetric trees: same split for all nodes on a given level</p>
 <ul>
 <li><p>Can be much faster</p></li>
 </ul>
