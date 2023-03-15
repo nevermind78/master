@@ -208,7 +208,7 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../labs/Lab%203%20-%20Ensembles.html">
-   Lab 3b: Ensembles
+   Lab 3: Ensembles
   </a>
  </li>
  <li class="toctree-l1">
@@ -1119,6 +1119,9 @@ title="Print to PDF"
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="../_images/02 - Linear Models_4_0.png" src="../_images/02 - Linear Models_4_0.png" />
+</div>
 </div>
 <ul class="simple">
 <li><p>A <em>tensor</em> is an <em>k</em>-dimensional array of data, denoted by an italic capital: <span class="math notranslate nohighlight">\(T\)</span></p>
@@ -1251,6 +1254,10 @@ title="Print to PDF"
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "339fa49aa41b4d63a073c3c43ce4225d", "version_major": 2, "version_minor": 0}
+</script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
@@ -1337,6 +1344,12 @@ title="Print to PDF"
 <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="s2">&quot;model&quot;</span><span class="p">,</span> <span class="s2">&quot;training data&quot;</span><span class="p">],</span> <span class="n">loc</span><span class="o">=</span><span class="s2">&quot;best&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>w_1: 0.393906  w_0: -0.031804
+</pre></div>
+</div>
+<img alt="../_images/02 - Linear Models_14_1.png" src="../_images/02 - Linear Models_14_1.png" />
 </div>
 </div>
 <section id="linear-regression-aka-ordinary-least-squares">
@@ -1457,6 +1470,10 @@ title="Print to PDF"
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "8b93045240434a64aaff3ccc9c6da352", "version_major": 2, "version_minor": 0}
+</script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
@@ -1677,6 +1694,10 @@ title="Print to PDF"
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "dc31841205e44f2980fdbb7b6beb2a54", "version_major": 2, "version_minor": 0}
+</script></div>
 </div>
 <p><strong>Effect of learning rate decay</strong></p>
 <div class="cell tag_hide-input docutils container">
@@ -1691,6 +1712,10 @@ title="Print to PDF"
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "e1b8529835f640058ef838fa62d5b292", "version_major": 2, "version_minor": 0}
+</script></div>
 </div>
 <p>In two dimensions:
 <img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/01_gradient_descent_2D.png" alt="ml" style="width: 900px;"/></p>
@@ -1765,11 +1790,28 @@ title="Print to PDF"
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Weights (coefficients): [ -412.711   -52.243  -131.899   -12.004   -15.511    28.716    54.704
+   -49.535    26.582    37.062   -11.828   -18.058   -19.525    12.203
+  2980.781  1500.843   114.187   -16.97     40.961   -24.264    57.616
+  1278.121 -2239.869   222.825    -2.182    42.996   -13.398   -19.389
+    -2.575   -81.013     9.66      4.914    -0.812    -7.647    33.784
+   -11.446    68.508   -17.375    42.813     1.14 ]
+Bias (intercept): 30.934563673643297
+</pre></div>
+</div>
+</div>
 </div>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Training set score (R^2): </span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">lr</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_B_train</span><span class="p">,</span> <span class="n">y_B_train</span><span class="p">)))</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Test set score (R^2): </span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">lr</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_B_test</span><span class="p">,</span> <span class="n">y_B_test</span><span class="p">)))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Training set score (R^2): 0.95
+Test set score (R^2): 0.61
 </pre></div>
 </div>
 </div>
@@ -1829,6 +1871,17 @@ title="Print to PDF"
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Weights (coefficients): [-1.414 -1.557 -1.465 -0.127 -0.079  8.332  0.255 -4.941  3.899 -1.059
+ -1.584  1.051 -4.012  0.334  0.004 -0.849  0.745 -1.431 -1.63  -1.405
+ -0.045 -1.746 -1.467 -1.332 -1.692 -0.506  2.622 -2.092  0.195 -0.275
+  5.113 -1.671 -0.098  0.634 -0.61   0.04  -1.277 -2.913  3.395  0.792]
+Bias (intercept): 21.390525958610134
+Training set score: 0.89
+Test set score: 0.75
+</pre></div>
+</div>
+</div>
 </div>
 <p>Test set score is higher and training set score lower: less overfitting!</p>
 <ul class="simple">
@@ -1856,6 +1909,10 @@ title="Print to PDF"
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "5a74014569bb4409993c89c17e16a7ba", "version_major": 2, "version_minor": 0}
+</script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
@@ -1895,6 +1952,9 @@ title="Print to PDF"
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="../_images/02 - Linear Models_43_0.png" src="../_images/02 - Linear Models_43_0.png" />
+</div>
 </div>
 </section>
 </section>
@@ -1919,6 +1979,9 @@ title="Print to PDF"
 <span class="n">mglearn</span><span class="o">.</span><span class="n">plots</span><span class="o">.</span><span class="n">plot_ridge_n_samples</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/02 - Linear Models_45_0.png" src="../_images/02 - Linear Models_45_0.png" />
 </div>
 </div>
 </section>
@@ -1971,6 +2034,10 @@ title="Print to PDF"
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "81807baabef74e93a348195ca045c5db", "version_major": 2, "version_minor": 0}
+</script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
@@ -2044,6 +2111,10 @@ title="Print to PDF"
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "a460b9ee66ff452ca160626f0c6f03fd", "version_major": 2, "version_minor": 0}
+</script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
@@ -2110,6 +2181,10 @@ title="Print to PDF"
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "ca411c3348b7420992193f79522bf422", "version_major": 2, "version_minor": 0}
+</script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
@@ -2176,6 +2251,9 @@ title="Print to PDF"
 <span class="n">plot_loss_interpretation</span><span class="p">()</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/02 - Linear Models_60_0.png" src="../_images/02 - Linear Models_60_0.png" />
 </div>
 </div>
 </section>
@@ -2248,6 +2326,9 @@ For binary classification (2 classes), we aim to fit the following function:</p>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="../_images/02 - Linear Models_64_0.png" src="../_images/02 - Linear Models_64_0.png" />
+</div>
 </div>
 <ul class="simple">
 <li><p>There are many algorithms for linear classification, differing in loss function, regularization techniques, and optimization method</p></li>
@@ -2316,6 +2397,10 @@ For binary classification (2 classes), we aim to fit the following function:</p>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "31e1816e02b1460194d6058136273686", "version_major": 2, "version_minor": 0}
+</script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
@@ -2382,6 +2467,10 @@ For binary classification (2 classes), we aim to fit the following function:</p>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "373eed01780046309014708089d78713", "version_major": 2, "version_minor": 0}
+</script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
@@ -2428,6 +2517,9 @@ For binary classification (2 classes), we aim to fit the following function:</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/02 - Linear Models_73_0.png" src="../_images/02 - Linear Models_73_0.png" />
 </div>
 </div>
 </section>
@@ -2506,6 +2598,10 @@ For binary classification (2 classes), we aim to fit the following function:</p>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "ecd636a41857499292ff64709361c9a4", "version_major": 2, "version_minor": 0}
+</script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
@@ -2550,6 +2646,9 @@ For binary classification (2 classes), we aim to fit the following function:</p>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="../_images/02 - Linear Models_79_0.png" src="../_images/02 - Linear Models_79_0.png" />
+</div>
 </div>
 <ul class="simple">
 <li><p>Again, choose between L1 or L2 regularization (or elastic-net)</p></li>
@@ -2575,6 +2674,10 @@ For binary classification (2 classes), we aim to fit the following function:</p>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "24397a836a9649b7ade65be00aa85b05", "version_major": 2, "version_minor": 0}
+</script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
@@ -2690,6 +2793,10 @@ For binary classification (2 classes), we aim to fit the following function:</p>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "3b7cbe9dd2fa497e99607414294da5a4", "version_major": 2, "version_minor": 0}
+</script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
@@ -2799,6 +2906,9 @@ For binary classification (2 classes), we aim to fit the following function:</p>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="../_images/02 - Linear Models_92_0.png" src="../_images/02 - Linear Models_92_0.png" />
+</div>
 </div>
 </section>
 </section>
@@ -2879,6 +2989,9 @@ For binary classification (2 classes), we aim to fit the following function:</p>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="../_images/02 - Linear Models_96_0.png" src="../_images/02 - Linear Models_96_0.png" />
+</div>
 </div>
 </section>
 <section id="least-squares-svms">
@@ -2911,6 +3024,9 @@ For binary classification (2 classes), we aim to fit the following function:</p>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="../_images/02 - Linear Models_98_0.png" src="../_images/02 - Linear Models_98_0.png" />
+</div>
 </div>
 </section>
 <section id="effect-of-regularization-on-margin-and-support-vectors">
@@ -2933,6 +3049,9 @@ For binary classification (2 classes), we aim to fit the following function:</p>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="../_images/02 - Linear Models_100_0.png" src="../_images/02 - Linear Models_100_0.png" />
+</div>
 </div>
 <p>Same for non-linearly separable data</p>
 <div class="cell tag_hide-input docutils container">
@@ -2944,6 +3063,9 @@ For binary classification (2 classes), we aim to fit the following function:</p>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="../_images/02 - Linear Models_102_0.png" src="../_images/02 - Linear Models_102_0.png" />
+</div>
 </div>
 <p>Large C values can lead to overfitting (e.g. fitting noise), small values can lead to underfitting</p>
 <div class="cell tag_hide-input docutils container">
@@ -2951,6 +3073,9 @@ For binary classification (2 classes), we aim to fit the following function:</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mglearn</span><span class="o">.</span><span class="n">plots</span><span class="o">.</span><span class="n">plot_linear_svc_regularization</span><span class="p">()</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/02 - Linear Models_104_0.png" src="../_images/02 - Linear Models_104_0.png" />
 </div>
 </div>
 </section>
@@ -2998,6 +3123,16 @@ For binary classification (2 classes), we aim to fit the following function:</p>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Support vectors:
+[[-1.021  0.241]
+ [-0.467 -0.531]
+ [ 0.951  0.58 ]]
+Coefficients:
+[[-0.048 -0.569  0.617]]
+</pre></div>
+</div>
+</div>
 </div>
 </section>
 <section id="solving-svms-with-gradient-descent">
@@ -3031,6 +3166,9 @@ For binary classification (2 classes), we aim to fit the following function:</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/02 - Linear Models_108_0.png" src="../_images/02 - Linear Models_108_0.png" />
 </div>
 </div>
 </section>
@@ -3084,6 +3222,9 @@ For binary classification (2 classes), we aim to fit the following function:</p>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="../_images/02 - Linear Models_110_0.png" src="../_images/02 - Linear Models_110_0.png" />
+</div>
 </div>
 </section>
 </section>
@@ -3135,6 +3276,9 @@ For binary classification (2 classes), we aim to fit the following function:</p>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="../_images/02 - Linear Models_113_0.png" src="../_images/02 - Linear Models_113_0.png" />
+</div>
 </div>
 <ul class="simple">
 <li><p>Every binary classifiers makes a prediction, the one with the highest score (&gt;0) wins</p></li>
@@ -3153,6 +3297,9 @@ For binary classification (2 classes), we aim to fit the following function:</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Feature 1&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/02 - Linear Models_115_0.png" src="../_images/02 - Linear Models_115_0.png" />
 </div>
 </div>
 </section>
@@ -3190,6 +3337,15 @@ For binary classification (2 classes), we aim to fit the following function:</p>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style>
+td {font-size: 16px}
+th {font-size: 16px}
+.rendered_html table, .rendered_html td, .rendered_html th {
+    font-size: 16px;
+}
+</style>
+</div></div>
 </div>
 </section>
 </section>

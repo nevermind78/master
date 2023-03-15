@@ -208,7 +208,7 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../labs/Lab%203%20-%20Ensembles.html">
-   Lab 3b: Ensembles
+   Lab 3: Ensembles
   </a>
  </li>
  <li class="toctree-l1">
@@ -646,6 +646,11 @@ title="Print to PDF"
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id1">
+     SGD with learning rate schedules
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#momentum">
      Momentum
     </a>
@@ -765,7 +770,7 @@ title="Print to PDF"
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id1">
+  <a class="reference internal nav-link" href="#id2">
    Summary
   </a>
  </li>
@@ -921,6 +926,11 @@ title="Print to PDF"
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id1">
+     SGD with learning rate schedules
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#momentum">
      Momentum
     </a>
@@ -1040,7 +1050,7 @@ title="Print to PDF"
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id1">
+  <a class="reference internal nav-link" href="#id2">
    Summary
   </a>
  </li>
@@ -1083,7 +1093,7 @@ title="Print to PDF"
 <span class="kn">from</span> <span class="nn">preamble</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="n">interactive</span> <span class="o">=</span> <span class="kc">True</span> <span class="c1"># Set to True for interactive plots </span>
 <span class="k">if</span> <span class="n">interactive</span><span class="p">:</span>
-    <span class="n">fig_scale</span> <span class="o">=</span> <span class="mf">0.6</span>
+    <span class="n">fig_scale</span> <span class="o">=</span> <span class="mf">0.5</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">print_config</span><span class="p">)</span>
 <span class="k">else</span><span class="p">:</span> <span class="c1"># For printing</span>
     <span class="n">fig_scale</span> <span class="o">=</span> <span class="mf">0.4</span>
@@ -1312,7 +1322,7 @@ $<span class="math notranslate nohighlight">\(\color{blue}{h(\mathbf{x})} = \col
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "02c40e77b8714589b57527ce7f22a067", "version_major": 2, "version_minor": 0}
+{"model_id": "25b8ae831aa447b9a840fa9989faef7f", "version_major": 2, "version_minor": 0}
 </script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
@@ -1359,7 +1369,7 @@ $<span class="math notranslate nohighlight">\(\color{blue}{h(\mathbf{x})} = \col
 <li><p>Choose a <em>loss function</em> (e.g. log loss) to measure how well the model fits training data</p></li>
 <li><p>Choose an <em>optimizer</em> (typically an SGD variant) to update the weights</p></li>
 </ul>
-<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/09_overview.png" alt="ml" style="width: 500px;"/><section id="mini-batch-stochastic-gradient-descent-recap">
+<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/09_overview.png" alt="ml" style="width: 45%"/><section id="mini-batch-stochastic-gradient-descent-recap">
 <h3>Mini-batch Stochastic Gradient Descent (recap)<a class="headerlink" href="#mini-batch-stochastic-gradient-descent-recap" title="Permalink to this headline">#</a></h3>
 <ol class="simple">
 <li><p>Draw a batch of <em>batch_size</em> training data <span class="math notranslate nohighlight">\(\mathbf{X}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{y}\)</span></p></li>
@@ -1386,7 +1396,7 @@ $<span class="math notranslate nohighlight">\(\color{blue}{h(\mathbf{x})} = \col
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "1e602041d56b4359a650a5a17640a435", "version_major": 2, "version_minor": 0}
+{"model_id": "e69f549dd56f4ae7bc09216193a13ee2", "version_major": 2, "version_minor": 0}
 </script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
@@ -1428,7 +1438,7 @@ $<span class="math notranslate nohighlight">\(\color{blue}{h(\mathbf{x})} = \col
 <ul class="simple">
 <li><p>Tensor dot product for 2D inputs (<span class="math notranslate nohighlight">\(a\)</span> samples, <span class="math notranslate nohighlight">\(b\)</span> features, <span class="math notranslate nohighlight">\(c\)</span> hidden nodes)</p></li>
 </ul>
-<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/08_dot.png" alt="ml" style="width: 400px;"/></section>
+<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/08_dot.png" alt="ml" style="width: 40%"/></section>
 <section id="element-wise-operations">
 <h4>Element-wise operations<a class="headerlink" href="#element-wise-operations" title="Permalink to this headline">#</a></h4>
 <ul class="simple">
@@ -1468,7 +1478,7 @@ $<span class="math notranslate nohighlight">\(\color{blue}{h(\mathbf{x})} = \col
 <li><p>Update all weights in a layer at once (with learning rate <span class="math notranslate nohighlight">\(\eta\)</span>): <span class="math notranslate nohighlight">\(W_{(i+1)}^{(l)} = W_{(i)}^{(l)} - \eta \sum_{j} \frac{\partial \mathcal{L}(\mathbf{x}_j,y_j)}{\partial W_{(i)}^{(l)}}\)</span></p></li>
 <li><p>Repeat for next layer, iterating backwards (most efficient, avoids redundant calculations)</p></li>
 </ul>
-<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/01_gradient_descent.jpg" alt="ml" style="width: 500px;"/><section id="example">
+<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/01_gradient_descent.jpg" alt="ml" style="width: 40%"/><section id="example">
 <h4>Example<a class="headerlink" href="#example" title="Permalink to this headline">#</a></h4>
 <ul class="simple">
 <li><p>Imagine feeding a single data point, output is <span class="math notranslate nohighlight">\(\hat{y} = g(z) = g(w_0 + w_1 * a_1 + w_2 * a_2 +... + w_p * a_p)\)</span></p></li>
@@ -1639,14 +1649,14 @@ $<span class="math notranslate nohighlight">\(\frac{\partial \mathcal{L}}{\parti
 
 <span class="nd">@interact</span>
 <span class="k">def</span> <span class="nf">plot_activations</span><span class="p">(</span><span class="n">function</span><span class="o">=</span><span class="n">functions</span><span class="p">):</span>
-    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mf">1.5</span><span class="p">))</span>
     <span class="n">plot_activation</span><span class="p">(</span><span class="n">function</span><span class="p">,</span> <span class="n">ax</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "635af991d72a446ba0677c51e4bebdc1", "version_major": 2, "version_minor": 0}
+{"model_id": "75abc076a79a418392a36a7482c5b736", "version_major": 2, "version_minor": 0}
 </script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
@@ -1690,7 +1700,7 @@ $<span class="math notranslate nohighlight">\(\frac{\partial \mathcal{L}}{\parti
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "17ebd146f65c43b28ae5c02e077d1719", "version_major": 2, "version_minor": 0}
+{"model_id": "69a71ca4eda14f82b49d3832480356cd", "version_major": 2, "version_minor": 0}
 </script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
@@ -1759,7 +1769,7 @@ $<span class="math notranslate nohighlight">\(\frac{\partial \mathcal{L}}{\parti
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "799aaeca55ab4b44bb1553979b86c5fc", "version_major": 2, "version_minor": 0}
+{"model_id": "a1efe4b2b72446c3a7923cf0667a0688", "version_major": 2, "version_minor": 0}
 </script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
@@ -1801,7 +1811,7 @@ $<span class="math notranslate nohighlight">\(\text{softmax}(\mathbf{x},i) = \fr
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "5c91579ad2674ba58d1a3604f9d8ccf1", "version_major": 2, "version_minor": 0}
+{"model_id": "3afa1d39dc8f4706aeb4d3d3e58c3322", "version_major": 2, "version_minor": 0}
 </script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
@@ -1842,9 +1852,6 @@ $<span class="math notranslate nohighlight">\(\text{softmax}(\mathbf{x},i) = \fr
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<img alt="../_images/08 - Neural Networks_42_0.png" src="../_images/08 - Neural Networks_42_0.png" />
-</div>
 </div>
 <section id="weight-initialization-transfer-learning">
 <h3>Weight initialization: transfer learning<a class="headerlink" href="#weight-initialization-transfer-learning" title="Permalink to this headline">#</a></h3>
@@ -1865,11 +1872,9 @@ $<span class="math notranslate nohighlight">\(\text{softmax}(\mathbf{x},i) = \fr
 </ul>
 </li>
 </ul>
-<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/transfer_learning.png" alt="ml" style="width: 1000px;"/><div class="cell tag_hide-input docutils container">
+<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/transfer_learning.png" alt="ml" style="width: 1000px;"/><div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## Code adapted from Il Gu Yi: https://github.com/ilguyi/optimizers.numpy</span>
-<span class="kn">from</span> <span class="nn">matplotlib.colors</span> <span class="kn">import</span> <span class="n">LogNorm</span>
-<span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
 <span class="kn">import</span> <span class="nn">tensorflow_addons</span> <span class="k">as</span> <span class="nn">tfa</span>
 
 <span class="c1"># Toy surface</span>
@@ -1890,43 +1895,46 @@ $<span class="math notranslate nohighlight">\(\text{softmax}(\mathbf{x},i) = \fr
 <span class="c1">#adamax = tf.optimizers.Adamax(learning_rate=0.5, beta_1=0.9, beta_2=0.999) # AdaMax is still not supported in tensorflow-metal</span>
 <span class="c1">#adadelta = tf.optimizers.Adadelta(learning_rate=1.0)</span>
 <span class="n">rmsprop</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">optimizers</span><span class="o">.</span><span class="n">RMSprop</span><span class="p">(</span><span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
-<span class="n">rmsprop_momentum</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">optimizers</span><span class="o">.</span><span class="n">RMSprop</span><span class="p">(</span><span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">momentum</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span>
+<span class="c1">#rmsprop_momentum = tf.optimizers.RMSprop(learning_rate=0.1, momentum=0.9)</span>
 <span class="n">adam</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">optimizers</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">beta_1</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">beta_2</span><span class="o">=</span><span class="mf">0.999</span><span class="p">,</span> <span class="n">epsilon</span><span class="o">=</span><span class="mf">1e-8</span><span class="p">)</span>
 
-<span class="n">optimizers</span> <span class="o">=</span> <span class="p">[</span><span class="n">sgd</span><span class="p">,</span> <span class="n">sgd_decay</span><span class="p">,</span> <span class="n">momentum</span><span class="p">,</span> <span class="n">nesterov</span><span class="p">,</span> <span class="n">adagrad</span><span class="p">,</span> <span class="n">rmsprop</span><span class="p">,</span>  <span class="n">rmsprop_momentum</span><span class="p">,</span> <span class="n">adam</span><span class="p">,</span> <span class="n">sgd_cyclic</span><span class="p">]</span> <span class="c1">#, adamax]</span>
-<span class="n">opt_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;sgd&#39;</span><span class="p">,</span> <span class="s1">&#39;sgd_decay&#39;</span><span class="p">,</span> <span class="s1">&#39;momentum&#39;</span><span class="p">,</span> <span class="s1">&#39;nesterov&#39;</span><span class="p">,</span> <span class="s1">&#39;adagrad&#39;</span><span class="p">,</span> <span class="s1">&#39;rmsprop&#39;</span><span class="p">,</span> <span class="s1">&#39;rmsprop_mom&#39;</span><span class="p">,</span> <span class="s1">&#39;adam&#39;</span><span class="p">,</span> <span class="s1">&#39;sgd_cyclic&#39;</span><span class="p">]</span> <span class="c1">#,&#39;adamax&#39;]</span>
+<span class="n">optimizers</span> <span class="o">=</span> <span class="p">[</span><span class="n">sgd</span><span class="p">,</span> <span class="n">sgd_decay</span><span class="p">,</span> <span class="n">momentum</span><span class="p">,</span> <span class="n">nesterov</span><span class="p">,</span> <span class="n">adagrad</span><span class="p">,</span> <span class="n">rmsprop</span><span class="p">,</span> <span class="n">adam</span><span class="p">,</span> <span class="n">sgd_cyclic</span><span class="p">]</span> <span class="c1">#, adamax]</span>
+<span class="n">opt_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;sgd&#39;</span><span class="p">,</span> <span class="s1">&#39;sgd_decay&#39;</span><span class="p">,</span> <span class="s1">&#39;momentum&#39;</span><span class="p">,</span> <span class="s1">&#39;nesterov&#39;</span><span class="p">,</span> <span class="s1">&#39;adagrad&#39;</span><span class="p">,</span> <span class="s1">&#39;rmsprop&#39;</span><span class="p">,</span> <span class="s1">&#39;adam&#39;</span><span class="p">,</span> <span class="s1">&#39;sgd_cyclic&#39;</span><span class="p">]</span> <span class="c1">#,&#39;adamax&#39;]</span>
 <span class="n">cmap</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="s1">&#39;tab10&#39;</span><span class="p">)</span>
 <span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="n">cmap</span><span class="p">(</span><span class="n">x</span><span class="o">/</span><span class="mi">10</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)]</span>
 
 <span class="c1"># Training</span>
 <span class="n">all_paths</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="k">for</span> <span class="n">opt</span><span class="p">,</span> <span class="n">name</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">optimizers</span><span class="p">,</span> <span class="n">opt_names</span><span class="p">):</span>
-    <span class="n">x_init</span> <span class="o">=</span> <span class="mf">0.8</span>
-    <span class="n">x</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">compat</span><span class="o">.</span><span class="n">v1</span><span class="o">.</span><span class="n">get_variable</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span> <span class="n">initializer</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">constant</span><span class="p">(</span><span class="n">x_init</span><span class="p">))</span>
-    <span class="n">y_init</span> <span class="o">=</span> <span class="mf">1.6</span>
-    <span class="n">y</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">compat</span><span class="o">.</span><span class="n">v1</span><span class="o">.</span><span class="n">get_variable</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span> <span class="n">initializer</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">constant</span><span class="p">(</span><span class="n">y_init</span><span class="p">))</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="mf">0.8</span><span class="p">)</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="mf">1.6</span><span class="p">)</span>
 
     <span class="n">x_history</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">y_history</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">z_prev</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="n">loss_prev</span> <span class="o">=</span> <span class="mf">0.0</span>
     <span class="n">max_steps</span> <span class="o">=</span> <span class="mi">100</span>
     <span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_steps</span><span class="p">):</span>
         <span class="k">with</span> <span class="n">tf</span><span class="o">.</span><span class="n">GradientTape</span><span class="p">()</span> <span class="k">as</span> <span class="n">g</span><span class="p">:</span>
-            <span class="n">z</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+            <span class="n">loss</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
             <span class="n">x_history</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">numpy</span><span class="p">())</span>
             <span class="n">y_history</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">numpy</span><span class="p">())</span>
-            <span class="n">dz_dx</span><span class="p">,</span> <span class="n">dz_dy</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">])</span>
-            <span class="n">opt</span><span class="o">.</span><span class="n">apply_gradients</span><span class="p">(</span><span class="nb">zip</span><span class="p">([</span><span class="n">dz_dx</span><span class="p">,</span> <span class="n">dz_dy</span><span class="p">],</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">]))</span>
+            <span class="n">grads</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">loss</span><span class="p">,</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">])</span>
+            <span class="n">opt</span><span class="o">.</span><span class="n">apply_gradients</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">grads</span><span class="p">,</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">]))</span>
 
-    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">z_prev</span> <span class="o">-</span> <span class="n">z</span><span class="o">.</span><span class="n">numpy</span><span class="p">())</span> <span class="o">&lt;</span> <span class="mf">1e-6</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">loss_prev</span> <span class="o">-</span> <span class="n">loss</span><span class="o">.</span><span class="n">numpy</span><span class="p">())</span> <span class="o">&lt;</span> <span class="mf">1e-6</span><span class="p">:</span>
         <span class="k">break</span>
-    <span class="n">z_prev</span> <span class="o">=</span> <span class="n">z</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+    <span class="n">loss_prev</span> <span class="o">=</span> <span class="n">loss</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
     <span class="n">x_history</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">x_history</span><span class="p">)</span>
     <span class="n">y_history</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">y_history</span><span class="p">)</span>
     <span class="n">path</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">x_history</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">y_history</span><span class="p">,</span> <span class="mi">1</span><span class="p">)),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
     <span class="n">all_paths</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
-        
-<span class="c1"># Plotting</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plotting</span>
 <span class="n">number_of_points</span> <span class="o">=</span> <span class="mi">50</span>
 <span class="n">margin</span> <span class="o">=</span> <span class="mf">4.5</span>
 <span class="n">minima</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">3.</span><span class="p">,</span> <span class="mf">.5</span><span class="p">])</span>
@@ -1959,12 +1967,73 @@ $<span class="math notranslate nohighlight">\(\text{softmax}(\mathbf{x},i) = \fr
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2022-03-23 08:47:42.409992: I tensorflow/core/common_runtime/pluggable_device/pluggable_device_factory.cc:305] Could not identify NUMA node of platform GPU ID 0, defaulting to 0. Your kernel may not have been built with NUMA support.
-2022-03-23 08:47:42.410128: I tensorflow/core/common_runtime/pluggable_device/pluggable_device_factory.cc:271] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 0 MB memory) -&gt; physical PluggableDevice (device: 0, name: METAL, pci bus id: &lt;undefined&gt;)
-</pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Metal device set to: Apple M1 Pro
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">decimal</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">matplotlib.colors</span> <span class="kn">import</span> <span class="n">LogNorm</span>
+
+<span class="c1"># Training for momentum</span>
+<span class="n">all_lr_paths</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">lr_range</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.005</span> <span class="o">*</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">)]</span>
+<span class="k">for</span> <span class="n">lr</span> <span class="ow">in</span> <span class="n">lr_range</span><span class="p">:</span>
+    <span class="n">opt</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">optimizers</span><span class="o">.</span><span class="n">SGD</span><span class="p">(</span><span class="n">lr</span><span class="p">,</span> <span class="n">nesterov</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="n">x_init</span> <span class="o">=</span> <span class="mf">0.8</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">compat</span><span class="o">.</span><span class="n">v1</span><span class="o">.</span><span class="n">get_variable</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span> <span class="n">initializer</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">constant</span><span class="p">(</span><span class="n">x_init</span><span class="p">))</span>
+    <span class="n">y_init</span> <span class="o">=</span> <span class="mf">1.6</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">compat</span><span class="o">.</span><span class="n">v1</span><span class="o">.</span><span class="n">get_variable</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span> <span class="n">initializer</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">constant</span><span class="p">(</span><span class="n">y_init</span><span class="p">))</span>
+
+    <span class="n">x_history</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">y_history</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">z_prev</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="n">max_steps</span> <span class="o">=</span> <span class="mi">100</span>
+    <span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_steps</span><span class="p">):</span>
+        <span class="k">with</span> <span class="n">tf</span><span class="o">.</span><span class="n">GradientTape</span><span class="p">()</span> <span class="k">as</span> <span class="n">g</span><span class="p">:</span>
+            <span class="n">z</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+            <span class="n">x_history</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">numpy</span><span class="p">())</span>
+            <span class="n">y_history</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">numpy</span><span class="p">())</span>
+            <span class="n">dz_dx</span><span class="p">,</span> <span class="n">dz_dy</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">])</span>
+            <span class="n">opt</span><span class="o">.</span><span class="n">apply_gradients</span><span class="p">(</span><span class="nb">zip</span><span class="p">([</span><span class="n">dz_dx</span><span class="p">,</span> <span class="n">dz_dy</span><span class="p">],</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">]))</span>
+
+    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">z_prev</span> <span class="o">-</span> <span class="n">z</span><span class="o">.</span><span class="n">numpy</span><span class="p">())</span> <span class="o">&lt;</span> <span class="mf">1e-6</span><span class="p">:</span>
+        <span class="k">break</span>
+    <span class="n">z_prev</span> <span class="o">=</span> <span class="n">z</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+    <span class="n">x_history</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">x_history</span><span class="p">)</span>
+    <span class="n">y_history</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">y_history</span><span class="p">)</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">x_history</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">y_history</span><span class="p">,</span> <span class="mi">1</span><span class="p">)),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+    <span class="n">all_lr_paths</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+    
+<span class="c1"># Plotting</span>
+<span class="n">number_of_points</span> <span class="o">=</span> <span class="mi">50</span>
+<span class="n">margin</span> <span class="o">=</span> <span class="mf">4.5</span>
+<span class="n">minima</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">3.</span><span class="p">,</span> <span class="mf">.5</span><span class="p">])</span>
+<span class="n">minima_</span> <span class="o">=</span> <span class="n">minima</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">x_min</span> <span class="o">=</span> <span class="mf">0.</span> <span class="o">-</span> <span class="mi">2</span>
+<span class="n">x_max</span> <span class="o">=</span> <span class="mf">0.</span> <span class="o">+</span> <span class="mf">3.5</span>
+<span class="n">y_min</span> <span class="o">=</span> <span class="mf">0.</span> <span class="o">-</span> <span class="mf">3.5</span>
+<span class="n">y_max</span> <span class="o">=</span> <span class="mf">0.</span> <span class="o">+</span> <span class="mi">2</span>
+<span class="n">x_points</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">x_min</span><span class="p">,</span> <span class="n">x_max</span><span class="p">,</span> <span class="n">number_of_points</span><span class="p">)</span> 
+<span class="n">y_points</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">y_min</span><span class="p">,</span> <span class="n">y_max</span><span class="p">,</span> <span class="n">number_of_points</span><span class="p">)</span>
+<span class="n">x_mesh</span><span class="p">,</span> <span class="n">y_mesh</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">x_points</span><span class="p">,</span> <span class="n">y_points</span><span class="p">)</span>
+<span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">f</span><span class="p">(</span><span class="n">xps</span><span class="p">,</span> <span class="n">yps</span><span class="p">)</span> <span class="k">for</span> <span class="n">xps</span><span class="p">,</span> <span class="n">yps</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">x_mesh</span><span class="p">,</span> <span class="n">y_mesh</span><span class="p">)])</span>
+
+<span class="k">def</span> <span class="nf">plot_learning_rate_optimizers</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">iterations</span><span class="p">,</span> <span class="n">lr</span><span class="p">):</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">contour</span><span class="p">(</span><span class="n">x_mesh</span><span class="p">,</span> <span class="n">y_mesh</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">levels</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">logspace</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">norm</span><span class="o">=</span><span class="n">LogNorm</span><span class="p">(),</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">jet</span><span class="p">,</span> <span class="n">linewidths</span><span class="o">=</span><span class="n">fig_scale</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="o">*</span><span class="n">minima</span><span class="p">,</span> <span class="s1">&#39;r*&#39;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">20</span><span class="o">*</span><span class="n">fig_scale</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">path</span><span class="p">,</span> <span class="n">lrate</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">all_lr_paths</span><span class="p">,</span> <span class="n">lr_range</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">round</span><span class="p">(</span><span class="n">lrate</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span> <span class="o">==</span> <span class="n">lr</span><span class="p">:</span>
+            <span class="n">p</span> <span class="o">=</span> <span class="n">path</span><span class="p">[:,:</span><span class="n">iterations</span><span class="p">]</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([],</span> <span class="p">[],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Learning rate </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">lr</span><span class="p">),</span> <span class="n">lw</span><span class="o">=</span><span class="mi">3</span><span class="o">*</span><span class="n">fig_scale</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">)</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">quiver</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">,:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">,:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">:]</span><span class="o">-</span><span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">,:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">:]</span><span class="o">-</span><span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">,:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">scale_units</span><span class="o">=</span><span class="s1">&#39;xy&#39;</span><span class="p">,</span> <span class="n">angles</span><span class="o">=</span><span class="s1">&#39;xy&#39;</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">((</span><span class="n">x_min</span><span class="p">,</span> <span class="n">x_max</span><span class="p">))</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">((</span><span class="n">y_min</span><span class="p">,</span> <span class="n">y_max</span><span class="p">))</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;lower left&#39;</span><span class="p">,</span> <span class="n">prop</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;size&#39;</span><span class="p">:</span> <span class="mi">15</span><span class="o">*</span><span class="n">fig_scale</span><span class="p">})</span> 
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">([])</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">([])</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -2006,7 +2075,32 @@ $<span class="math notranslate nohighlight">\(\text{softmax}(\mathbf{x},i) = \fr
 <section id="sgd-with-learning-rate-schedules">
 <h3>SGD with learning rate schedules<a class="headerlink" href="#sgd-with-learning-rate-schedules" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
-<li><p>Using a constant learning <span class="math notranslate nohighlight">\(\eta\)</span> rate for weight updates <span class="math notranslate nohighlight">\(\mathbf{w}_{(s+1)} = \mathbf{w}_s-\eta\nabla \mathcal{L}(\mathbf{w}_s)\)</span> is not ideal</p></li>
+<li><p>Using a constant learning <span class="math notranslate nohighlight">\(\eta\)</span> rate for weight updates <span class="math notranslate nohighlight">\(\mathbf{w}_{(s+1)} = \mathbf{w}_s-\eta\nabla \mathcal{L}(\mathbf{w}_s)\)</span> is not ideal</p>
+<ul>
+<li><p>You would need to ‘magically’ know the right value</p></li>
+</ul>
+</li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ipywidgets</span> <span class="k">as</span> <span class="nn">widgets</span>
+<span class="kn">from</span> <span class="nn">ipywidgets</span> <span class="kn">import</span> <span class="n">interact</span><span class="p">,</span> <span class="n">interact_manual</span>
+
+<span class="nd">@interact</span>
+<span class="k">def</span> <span class="nf">plot_lr</span><span class="p">(</span><span class="n">iterations</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="n">learning_rate</span><span class="o">=</span><span class="p">(</span><span class="mf">0.005</span><span class="p">,</span><span class="mf">0.04</span><span class="p">,</span><span class="mf">0.005</span><span class="p">)):</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="o">*</span><span class="n">fig_scale</span><span class="p">,</span><span class="mi">4</span><span class="o">*</span><span class="n">fig_scale</span><span class="p">))</span>
+    <span class="n">plot_learning_rate_optimizers</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span><span class="n">iterations</span><span class="p">,</span><span class="nb">round</span><span class="p">(</span><span class="n">learning_rate</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
+    
+<span class="k">if</span> <span class="ow">not</span> <span class="n">interactive</span><span class="p">:</span>
+    <span class="n">plot_lr</span><span class="p">(</span><span class="n">iterations</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.02</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id1">
+<h3>SGD with learning rate schedules<a class="headerlink" href="#id1" title="Permalink to this headline">#</a></h3>
+<ul class="simple">
 <li><p>Learning rate decay/annealing with decay rate <span class="math notranslate nohighlight">\(k\)</span></p>
 <ul>
 <li><p>E.g. exponential (<span class="math notranslate nohighlight">\(\eta_{s+1} = \eta_{0}  e^{-ks}\)</span>), inverse-time (<span class="math notranslate nohighlight">\(\eta_{s+1} = \frac{\eta_{0}}{1+ks}\)</span>),…</p></li>
@@ -2028,10 +2122,6 @@ $<span class="math notranslate nohighlight">\(\text{softmax}(\mathbf{x},i) = \fr
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "d60ce719b6be4d07b1f55643d4c0c0f5", "version_major": 2, "version_minor": 0}
-</script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
@@ -2072,9 +2162,6 @@ $<span class="math notranslate nohighlight">\(\color{blue}{\mathbf{v}_{(s)}} = \
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<img alt="../_images/08 - Neural Networks_50_0.png" src="../_images/08 - Neural Networks_50_0.png" />
-</div>
 </div>
 <section id="momentum-in-practice">
 <h4>Momentum in practice<a class="headerlink" href="#momentum-in-practice" title="Permalink to this headline">#</a></h4>
@@ -2087,10 +2174,6 @@ $<span class="math notranslate nohighlight">\(\color{blue}{\mathbf{v}_{(s)}} = \
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "a70d94707d53454a9e71433425bb05ae", "version_major": 2, "version_minor": 0}
-</script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
@@ -2144,10 +2227,6 @@ $<span class="math notranslate nohighlight">\(w_{i,(s+1)} = w_{i,(s)}- \frac{\et
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "2eaa738b06894687a49ba575f1d382ec", "version_major": 2, "version_minor": 0}
-</script></div>
 </div>
 </section>
 <section id="adam-adaptive-moment-estimation">
@@ -2189,10 +2268,6 @@ $<span class="math notranslate nohighlight">\(w_{i,(s+1)} = w_{i,(s)}- \frac{\et
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "a0220f7816424f7da616aa514c4e15eb", "version_major": 2, "version_minor": 0}
-</script></div>
 </div>
 </section>
 <section id="sgd-optimizer-zoo">
@@ -2218,10 +2293,6 @@ $<span class="math notranslate nohighlight">\(w_{i,(s+1)} = w_{i,(s)}- \frac{\et
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "539792c9c3cc40d194a5eb53ecd8a9a8", "version_major": 2, "version_minor": 0}
-</script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
@@ -2287,9 +2358,6 @@ $<span class="math notranslate nohighlight">\(w_{i,(s+1)} = w_{i,(s)}- \frac{\et
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<img alt="../_images/08 - Neural Networks_65_0.png" src="../_images/08 - Neural Networks_65_0.png" />
-</div>
 </div>
 <section id="building-the-network">
 <h3>Building the network<a class="headerlink" href="#building-the-network" title="Permalink to this headline">#</a></h3>
@@ -2342,25 +2410,6 @@ $<span class="math notranslate nohighlight">\(w_{i,(s+1)} = w_{i,(s)}- \frac{\et
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">network</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Model: &quot;sequential&quot;
-_________________________________________________________________
- Layer (type)                Output Shape              Param #   
-=================================================================
- dense (Dense)               (None, 512)               401920    
-                                                                 
- dense_1 (Dense)             (None, 512)               262656    
-                                                                 
- dense_2 (Dense)             (None, 10)                5130      
-                                                                 
-=================================================================
-Total params: 669,706
-Trainable params: 669,706
-Non-trainable params: 0
-_________________________________________________________________
 </pre></div>
 </div>
 </div>
@@ -2492,12 +2541,6 @@ _________________________________________________________________
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2022-03-23 08:47:49.310828: W tensorflow/core/platform/profile_utils/cpu_utils.cc:128] Failed to get CPU frequency: 0 Hz
-2022-03-23 08:47:49.469330: I tensorflow/core/grappler/optimizers/custom_graph_optimizer_registry.cc:112] Plugin optimizer for device_type GPU is enabled.
-</pre></div>
-</div>
-</div>
 </div>
 </section>
 <section id="predictions-and-evaluations">
@@ -2520,29 +2563,11 @@ _________________________________________________________________
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2022-03-23 08:48:26.734645: I tensorflow/core/grappler/optimizers/custom_graph_optimizer_registry.cc:112] Plugin optimizer for device_type GPU is enabled.
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0.007654  0.0000028 0.7707164 0.0006719 0.0179828 0.        0.2029032
- 0.        0.0000689 0.       ]
-</pre></div>
-</div>
-<img alt="../_images/08 - Neural Networks_77_2.png" src="../_images/08 - Neural Networks_77_2.png" />
-</div>
 </div>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">test_loss</span><span class="p">,</span> <span class="n">test_acc</span> <span class="o">=</span> <span class="n">network</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">Xf_test</span><span class="p">,</span> <span class="n">yf_test</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Test accuracy:&#39;</span><span class="p">,</span> <span class="n">test_acc</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2022-03-23 08:48:27.430055: I tensorflow/core/grappler/optimizers/custom_graph_optimizer_registry.cc:112] Plugin optimizer for device_type GPU is enabled.
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Test accuracy: 0.8764000535011292
 </pre></div>
 </div>
 </div>
@@ -2629,9 +2654,6 @@ _________________________________________________________________
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<img alt="../_images/08 - Neural Networks_81_0.png" src="../_images/08 - Neural Networks_81_0.png" />
-</div>
 </div>
 <section id="early-stopping">
 <h3>Early stopping<a class="headerlink" href="#early-stopping" title="Permalink to this headline">#</a></h3>
@@ -2659,9 +2681,6 @@ _________________________________________________________________
                       <span class="n">validation_data</span><span class="o">=</span><span class="p">(</span><span class="n">x_val</span><span class="p">,</span> <span class="n">y_val</span><span class="p">),</span> <span class="n">callbacks</span><span class="o">=</span><span class="p">[</span><span class="n">plot_losses</span><span class="p">,</span> <span class="n">earlystop</span><span class="p">])</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/08 - Neural Networks_83_0.png" src="../_images/08 - Neural Networks_83_0.png" />
 </div>
 </div>
 </section>
@@ -2696,9 +2715,6 @@ _________________________________________________________________
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<img alt="../_images/08 - Neural Networks_85_0.png" src="../_images/08 - Neural Networks_85_0.png" />
-</div>
 </div>
 <section id="information-bottleneck">
 <h4>Information bottleneck<a class="headerlink" href="#information-bottleneck" title="Permalink to this headline">#</a></h4>
@@ -2725,9 +2741,6 @@ _________________________________________________________________
                       <span class="n">validation_data</span><span class="o">=</span><span class="p">(</span><span class="n">x_val</span><span class="p">,</span> <span class="n">y_val</span><span class="p">),</span> <span class="n">callbacks</span><span class="o">=</span><span class="p">[</span><span class="n">plot_losses</span><span class="p">,</span> <span class="n">earlystop5</span><span class="p">])</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/08 - Neural Networks_87_0.png" src="../_images/08 - Neural Networks_87_0.png" />
 </div>
 </div>
 </section>
@@ -2761,9 +2774,6 @@ _________________________________________________________________
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<img alt="../_images/08 - Neural Networks_90_0.png" src="../_images/08 - Neural Networks_90_0.png" />
-</div>
 </div>
 </section>
 </section>
@@ -2787,9 +2797,6 @@ _________________________________________________________________
                 <span class="n">show_activations</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/08 - Neural Networks_92_0.png" src="../_images/08 - Neural Networks_92_0.png" />
 </div>
 </div>
 <section id="dropout-layers">
@@ -2819,9 +2826,6 @@ _________________________________________________________________
                       <span class="n">validation_data</span><span class="o">=</span><span class="p">(</span><span class="n">x_val</span><span class="p">,</span> <span class="n">y_val</span><span class="p">),</span> <span class="n">callbacks</span><span class="o">=</span><span class="p">[</span><span class="n">plot_losses</span><span class="p">])</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/08 - Neural Networks_94_0.png" src="../_images/08 - Neural Networks_94_0.png" />
 </div>
 </div>
 </section>
@@ -2882,9 +2886,6 @@ _________________________________________________________________
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<img alt="../_images/08 - Neural Networks_98_0.png" src="../_images/08 - Neural Networks_98_0.png" />
-</div>
 </div>
 </section>
 </section>
@@ -2910,8 +2911,8 @@ _________________________________________________________________
 </div>
 </section>
 </section>
-<section id="id1">
-<h2>Summary<a class="headerlink" href="#id1" title="Permalink to this headline">#</a></h2>
+<section id="id2">
+<h2>Summary<a class="headerlink" href="#id2" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Neural architectures</p></li>
 <li><p>Training neural nets</p>

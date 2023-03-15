@@ -208,7 +208,7 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../labs/Lab%203%20-%20Ensembles.html">
-   Lab 3b: Ensembles
+   Lab 3: Ensembles
   </a>
  </li>
  <li class="toctree-l1">
@@ -625,8 +625,8 @@ title="Print to PDF"
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#sampling-from-higher-dimensional-distributions">
-     Sampling from higher-dimensional distributions
+    <a class="reference internal nav-link" href="#stochastic-processes-sampling-from-higher-dimensional-distributions">
+     Stochastic processes &amp; sampling from higher-dimensional distributions
     </a>
     <ul class="nav section-nav flex-column">
      <li class="toc-h4 nav-item toc-entry">
@@ -674,6 +674,11 @@ title="Print to PDF"
      Gaussian Processes in practice (with GPy)
     </a>
     <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#effect-of-different-kernels">
+       Effect of different kernels
+      </a>
+     </li>
      <li class="toc-h4 nav-item toc-entry">
       <a class="reference internal nav-link" href="#gaussian-processes-with-scikit-learn">
        Gaussian Processes with scikit-learn
@@ -851,8 +856,8 @@ title="Print to PDF"
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#sampling-from-higher-dimensional-distributions">
-     Sampling from higher-dimensional distributions
+    <a class="reference internal nav-link" href="#stochastic-processes-sampling-from-higher-dimensional-distributions">
+     Stochastic processes &amp; sampling from higher-dimensional distributions
     </a>
     <ul class="nav section-nav flex-column">
      <li class="toc-h4 nav-item toc-entry">
@@ -900,6 +905,11 @@ title="Print to PDF"
      Gaussian Processes in practice (with GPy)
     </a>
     <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#effect-of-different-kernels">
+       Effect of different kernels
+      </a>
+     </li>
      <li class="toc-h4 nav-item toc-entry">
       <a class="reference internal nav-link" href="#gaussian-processes-with-scikit-learn">
        Gaussian Processes with scikit-learn
@@ -970,7 +980,10 @@ title="Print to PDF"
 <span class="kn">from</span> <span class="nn">preamble</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="n">interactive</span> <span class="o">=</span> <span class="kc">True</span> <span class="c1"># Set to True for interactive plots</span>
 <span class="k">if</span> <span class="n">interactive</span><span class="p">:</span>
-    <span class="n">fig_scale</span> <span class="o">=</span> <span class="mf">0.7</span>
+    <span class="n">fig_scale</span> <span class="o">=</span> <span class="mf">0.61</span>
+    <span class="n">print_config</span><span class="p">[</span><span class="s1">&#39;font.size&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">7</span>
+    <span class="n">print_config</span><span class="p">[</span><span class="s1">&#39;xtick.labelsize&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">5</span>
+    <span class="n">print_config</span><span class="p">[</span><span class="s1">&#39;ytick.labelsize&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">5</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">print_config</span><span class="p">)</span>
 <span class="k">else</span><span class="p">:</span> <span class="c1"># For printing</span>
     <span class="n">fig_scale</span> <span class="o">=</span> <span class="mf">0.28</span>
@@ -983,14 +996,14 @@ title="Print to PDF"
 <h1>Lecture 7. Bayesian Learning<a class="headerlink" href="#lecture-7-bayesian-learning" title="Permalink to this headline">#</a></h1>
 <p><strong>Learning in an uncertain world</strong></p>
 <p>Joaquin Vanschoren</p>
-<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/frequentists_vs_bayesians.png" alt="ml" style="width: 400px;"/>
+<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/frequentists_vs_bayesians.png" alt="ml" style="width: 40%"/>
 XKCD, Randall Monroe<section id="bayes-rule">
 <h2>Bayes’ rule<a class="headerlink" href="#bayes-rule" title="Permalink to this headline">#</a></h2>
 <p>Rule for updating the probability of a hypothesis <span class="math notranslate nohighlight">\(c\)</span> given data <span class="math notranslate nohighlight">\(x\)</span></p>
-<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/06_bayes_rule.png" alt="ml" style="width: 700px;"/>
+<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/06_bayes_rule.png" alt="ml" style="width: 60%"/>
 <p><span class="math notranslate nohighlight">\(P(c|x)\)</span> is the posterior probability of class <span class="math notranslate nohighlight">\(c\)</span> given data <span class="math notranslate nohighlight">\(x\)</span>.<br />
 <span class="math notranslate nohighlight">\(P(c)\)</span> is the <em>prior</em> probability of class <span class="math notranslate nohighlight">\(c\)</span>: what you believed before you saw the data <span class="math notranslate nohighlight">\(x\)</span><br />
-<span class="math notranslate nohighlight">\(P(x|c)\)</span> is the <em>likelihood</em> of data point <span class="math notranslate nohighlight">\(x\)</span> given that the class is <span class="math notranslate nohighlight">\(c\)</span> (computed from your dataset)<br />
+<span class="math notranslate nohighlight">\(P(x|c)\)</span> is the <em>likelihood</em> of data point <span class="math notranslate nohighlight">\(x\)</span> given that the class is <span class="math notranslate nohighlight">\(c\)</span> (computed from your data)<br />
 <span class="math notranslate nohighlight">\(P(x)\)</span> is the prior probability of the data (<em>marginal likelihood</em>): the likelihood of the data <span class="math notranslate nohighlight">\(x\)</span> under any circumstance (no matter what the class is)</p>
 <section id="example-exploding-sun">
 <h3>Example: exploding sun<a class="headerlink" href="#example-exploding-sun" title="Permalink to this headline">#</a></h3>
@@ -1027,6 +1040,7 @@ P(C|pos) &amp;= \frac{P(pos|C)P(C)}{P(pos)} \\
  &amp;= \frac{0.96*0.015}{0.96*0.015+0.04*0.985} \\
  &amp;= 0.268
  \end{aligned}\end{split}\]</div>
+<p>2023 update: With 760M cases, <span class="math notranslate nohighlight">\(P(C|pos)=0.718\)</span></p>
 </section>
 </section>
 <section id="bayesian-models">
@@ -1108,7 +1122,7 @@ P(C|pos) &amp;= \frac{P(pos|C)P(C)}{P(pos)} \\
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "e0a36b290ecb4ab1820baa96dc01bb50", "version_major": 2, "version_minor": 0}
+{"model_id": "1ef5590a78124b7485c33d004dc49978", "version_major": 2, "version_minor": 0}
 </script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
@@ -1138,7 +1152,7 @@ P(C|pos) &amp;= \frac{P(pos|C)P(C)}{P(pos)} \\
 </ul>
 </li>
 </ul>
-<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/06_discriminative_generative.png" alt="ml" style="width: 500px"/></section>
+<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/06_discriminative_generative.png" alt="ml" style="width: 40%"/></section>
 <section id="naive-bayes">
 <h3>Naive Bayes<a class="headerlink" href="#naive-bayes" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
@@ -1163,7 +1177,7 @@ P(C|pos) &amp;= \frac{P(pos|C)P(C)}{P(pos)} \\
 <li><p>GaussianNB: Computes mean <span class="math notranslate nohighlight">\(\mu_c\)</span> and standard deviation <span class="math notranslate nohighlight">\(\sigma_c\)</span> of the feature values per class: <span class="math notranslate nohighlight">\(p(x=v \mid c)=\frac{1}{\sqrt{2\pi\sigma^2_c}}\,e^{ -\frac{(v-\mu_c)^2}{2\sigma^2_c} }\)</span></p></li>
 <li><p>We can now make predictions using Bayes’ theorem: <span class="math notranslate nohighlight">\(p(c \mid \mathbf{x}) = \frac{p(\mathbf{x} \mid c) \ p(c)}{p(\mathbf{x})}\)</span></p></li>
 </ul>
-<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/06_nb.png" alt="ml" style="width: 450px;"/><ul class="simple">
+<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/06_nb.png" alt="ml" style="width: 40%;"/><ul class="simple">
 <li><p>What do the predictions of Gaussian Naive Bayes look like?</p></li>
 </ul>
 <div class="cell tag_hide-input docutils container">
@@ -1207,7 +1221,7 @@ P(C|pos) &amp;= \frac{P(pos|C)P(C)}{P(pos)} \\
 <li><p>If an edge <span class="math notranslate nohighlight">\((A, B)\)</span> connects random variables A and B, then <span class="math notranslate nohighlight">\(P(B|A)\)</span> is a factor in the joint probability distribution. We must know <span class="math notranslate nohighlight">\(P(B|A)\)</span> for all values of <span class="math notranslate nohighlight">\(B\)</span> and <span class="math notranslate nohighlight">\(A\)</span></p></li>
 <li><p>The graph structure can be designed manually or learned (hard!)</p></li>
 </ul>
-<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/06_bayesian_network.jpeg" alt="ml" style="width: 500px;"/>
+<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/06_bayesian_network.jpeg" alt="ml" style="width: 40%;"/>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### GP implementation (based on example by Neil Lawrence http://inverseprobability.com/mlai2015/)</span>
@@ -1340,7 +1354,7 @@ P(C|pos) &amp;= \frac{P(pos|C)P(C)}{P(pos)} \\
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "977d05dc11e54072948dcaae8ff93490", "version_major": 2, "version_minor": 0}
+{"model_id": "fd6a120b2f654b8e8619c2d1c6ea4eb9", "version_major": 2, "version_minor": 0}
 </script></div>
 </div>
 </section>
@@ -1465,7 +1479,7 @@ P(C|pos) &amp;= \frac{P(pos|C)P(C)}{P(pos)} \\
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "3971844e0578490a9cf8386ae96d5783", "version_major": 2, "version_minor": 0}
+{"model_id": "4280986bb684421d9c2185be4993fa39", "version_major": 2, "version_minor": 0}
 </script></div>
 </div>
 </section>
@@ -1487,7 +1501,7 @@ P(C|pos) &amp;= \frac{P(pos|C)P(C)}{P(pos)} \\
 </ul>
 <div class="math notranslate nohighlight">
 \[y = \mathcal{N}(\mathbf{wx}, \sigma^2)\]</div>
-<p>We have an uncertainty predictions, but it is the same for all predictions</p>
+<p>We have an uncertainty prediction, but it is the same for all predictions</p>
 <ul class="simple">
 <li><p>You would expect to be more certain nearby your training points</p></li>
 </ul>
@@ -1520,7 +1534,7 @@ P(C|pos) &amp;= \frac{P(pos|C)P(C)}{P(pos)} \\
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "5a76003d9de449538ee94bd3d61a8ab6", "version_major": 2, "version_minor": 0}
+{"model_id": "25f177f45b614f07be138fc391dd57dd", "version_major": 2, "version_minor": 0}
 </script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
@@ -1587,7 +1601,7 @@ $<span class="math notranslate nohighlight">\(w_i \sim \mathcal{N}(0,\alpha)\)</
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "850924eb23b04786ace2fd9f769d1fc1", "version_major": 2, "version_minor": 0}
+{"model_id": "99296055da8543d4b98290585fd5056d", "version_major": 2, "version_minor": 0}
 </script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
@@ -1670,7 +1684,7 @@ $<span class="math notranslate nohighlight">\(w_i \sim \mathcal{N}(0,\alpha)\)</
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "31f217755b664f6c81345b85bd2cf9cc", "version_major": 2, "version_minor": 0}
+{"model_id": "b4db5d6e967a4c7b98d0c5ee9f79e623", "version_major": 2, "version_minor": 0}
 </script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
@@ -1709,7 +1723,7 @@ $<span class="math notranslate nohighlight">\(w_i \sim \mathcal{N}(0,\alpha)\)</
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "62af27bc1353422aa7cbbe6eca58db38", "version_major": 2, "version_minor": 0}
+{"model_id": "24b3fd860add433fae5ff7ab3c42d44f", "version_major": 2, "version_minor": 0}
 </script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
@@ -1758,7 +1772,7 @@ $<span class="math notranslate nohighlight">\(w_i \sim \mathcal{N}(0,\alpha)\)</
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "59e0d345c66e4b9698ccafcf70745b52", "version_major": 2, "version_minor": 0}
+{"model_id": "b12c7dacba2e4871931ac68a0350f3a7", "version_major": 2, "version_minor": 0}
 </script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
@@ -1780,8 +1794,8 @@ $<span class="math notranslate nohighlight">\(w_i \sim \mathcal{N}(0,\alpha)\)</
 </div>
 </div>
 </section>
-<section id="sampling-from-higher-dimensional-distributions">
-<h3>Sampling from higher-dimensional distributions<a class="headerlink" href="#sampling-from-higher-dimensional-distributions" title="Permalink to this headline">#</a></h3>
+<section id="stochastic-processes-sampling-from-higher-dimensional-distributions">
+<h3>Stochastic processes &amp; sampling from higher-dimensional distributions<a class="headerlink" href="#stochastic-processes-sampling-from-higher-dimensional-distributions" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Instead of sampling <span class="math notranslate nohighlight">\(\mathbf{w}\)</span> and then multiplying by <span class="math notranslate nohighlight">\(\boldsymbol{\Phi}\)</span>, we can also generate examples of <span class="math notranslate nohighlight">\(f(x)\)</span> directly.</p></li>
 <li><p><span class="math notranslate nohighlight">\(\mathbf{f}\)</span> with <span class="math notranslate nohighlight">\(n\)</span> values can be sampled from an <span class="math notranslate nohighlight">\(n\)</span>-dimensional Gaussian distribution with zero mean and covariance matrix <span class="math notranslate nohighlight">\(\mathbf{K} = \alpha \boldsymbol{\Phi}\boldsymbol{\Phi}^\top\)</span>:</p>
@@ -1880,7 +1894,7 @@ $<span class="math notranslate nohighlight">\(w_i \sim \mathcal{N}(0,\alpha)\)</
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "9258e0692ab244cda62da513c3f9c3a8", "version_major": 2, "version_minor": 0}
+{"model_id": "a922eaab73cc447a8ffb369f6cbc5770", "version_major": 2, "version_minor": 0}
 </script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
@@ -1919,7 +1933,7 @@ $<span class="math notranslate nohighlight">\(
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "30520afb91a4482ca844abb4a349edfa", "version_major": 2, "version_minor": 0}
+{"model_id": "a319d3a265ce41119f7ca4f7efea045f", "version_major": 2, "version_minor": 0}
 </script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
@@ -1976,7 +1990,7 @@ k(\mathbf{x}, \mathbf{x}^\prime) = \alpha \exp\left( -\frac{\left\Vert \mathbf{x
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "cdf649ebf14346479becb838f12ca25f", "version_major": 2, "version_minor": 0}
+{"model_id": "7442a31e23bc425d954c8afb038be744", "version_major": 2, "version_minor": 0}
 </script></div>
 </div>
 <section id="computing-the-posterior-p-mathbf-y-mathbf-x">
@@ -1993,6 +2007,7 @@ E(\boldsymbol{\theta}) = \frac{1}{2} \log |\mathbf{K}| + \frac{1}{2} \mathbf{y}^
 <li><p>The model parameters (e.g. noise variance <span class="math notranslate nohighlight">\(\sigma^2\)</span>) and the kernel parameters (e.g. lengthscale, variance) can be embedded in the covariance function and learned from data.</p></li>
 <li><p>Good news: This loss function can be optimized using linear algebra (Cholesky Decomposition)</p></li>
 <li><p>Bad news: This is cubic in the number of data points AND the number of features: <span class="math notranslate nohighlight">\(\mathcal{O}(n^3 d^3)\)</span></p></li>
+<li><p><a class="reference external" href="http://inverseprobability.com/talks/notes/gaussian-processes.html">Read more on the derivation</a></p></li>
 </ul>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">GP</span><span class="p">():</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sigma2</span><span class="p">,</span> <span class="n">kernel</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
@@ -2092,7 +2107,7 @@ $</p>
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "0be80f1e68e348dc9e75089aa4b994db", "version_major": 2, "version_minor": 0}
+{"model_id": "14741ef10ccc46508fc633dc6fb285cf", "version_major": 2, "version_minor": 0}
 </script></div>
 </div>
 <p>Remember that our prediction is the sum of the mean and the variance: <span class="math notranslate nohighlight">\(P(\mathbf{y}|x_{test} , \mathbf{X}) = \mathcal{N}(\mathbf{\mu,\Sigma})\)</span></p>
@@ -2114,7 +2129,7 @@ $</p>
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "9c52beea5dd74c529d63df78faed26fd", "version_major": 2, "version_minor": 0}
+{"model_id": "09c52330890e423086652cf2295aaf8a", "version_major": 2, "version_minor": 0}
 </script></div>
 </div>
 <p>The values on the diagonal of the covariance matrix give us the variance, so we can simply plot the mean and 95% confidence interval</p>
@@ -2132,7 +2147,7 @@ $</p>
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "628024316a7c42768e1abca5390e5719", "version_major": 2, "version_minor": 0}
+{"model_id": "e6ef7cc7355c48fd8504cd8c0cad3523", "version_major": 2, "version_minor": 0}
 </script></div>
 </div>
 </section>
@@ -2150,9 +2165,9 @@ $</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">kernel</span> <span class="o">=</span> <span class="n">GPy</span><span class="o">.</span><span class="n">kern</span><span class="o">.</span><span class="n">RBF</span><span class="p">(</span><span class="n">input_dim</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">variance</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span> <span class="n">lengthscale</span><span class="o">=</span><span class="mf">1.</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>- Other kernels:
-</pre></div>
-</div>
+<ul class="simple">
+<li><p>Other kernels:</p></li>
+</ul>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span>GPy.kern.BasisFuncKernel?
 </pre></div>
 </div>
@@ -2165,11 +2180,13 @@ $</p>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">GPy</span>
+<span class="n">custom_kernel</span> <span class="o">=</span> <span class="n">GPy</span><span class="o">.</span><span class="n">kern</span><span class="o">.</span><span class="n">RBF</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">GPy</span><span class="o">.</span><span class="n">kern</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">GPy</span><span class="o">.</span><span class="n">kern</span><span class="o">.</span><span class="n">RatQuad</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>
+
 <span class="n">figure</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="o">*</span><span class="n">fig_scale</span><span class="p">,</span><span class="mi">7</span><span class="o">*</span><span class="n">fig_scale</span><span class="p">),</span> <span class="n">tight_layout</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">kerns</span> <span class="o">=</span> <span class="p">[</span><span class="n">GPy</span><span class="o">.</span><span class="n">kern</span><span class="o">.</span><span class="n">RBF</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">GPy</span><span class="o">.</span><span class="n">kern</span><span class="o">.</span><span class="n">Exponential</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">GPy</span><span class="o">.</span><span class="n">kern</span><span class="o">.</span><span class="n">Matern32</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> 
-         <span class="n">GPy</span><span class="o">.</span><span class="n">kern</span><span class="o">.</span><span class="n">Matern52</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">GPy</span><span class="o">.</span><span class="n">kern</span><span class="o">.</span><span class="n">Brownian</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span><span class="n">GPy</span><span class="o">.</span><span class="n">kern</span><span class="o">.</span><span class="n">Bias</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> 
+         <span class="n">GPy</span><span class="o">.</span><span class="n">kern</span><span class="o">.</span><span class="n">Matern52</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">GPy</span><span class="o">.</span><span class="n">kern</span><span class="o">.</span><span class="n">Brownian</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span><span class="n">GPy</span><span class="o">.</span><span class="n">kern</span><span class="o">.</span><span class="n">RatQuad</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> 
          <span class="n">GPy</span><span class="o">.</span><span class="n">kern</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">GPy</span><span class="o">.</span><span class="n">kern</span><span class="o">.</span><span class="n">PeriodicExponential</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">GPy</span><span class="o">.</span><span class="n">kern</span><span class="o">.</span><span class="n">White</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> 
-         <span class="n">GPy</span><span class="o">.</span><span class="n">kern</span><span class="o">.</span><span class="n">Poly</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">GPy</span><span class="o">.</span><span class="n">kern</span><span class="o">.</span><span class="n">MLP</span><span class="p">(</span><span class="mi">1</span><span class="p">)]</span>
+         <span class="n">GPy</span><span class="o">.</span><span class="n">kern</span><span class="o">.</span><span class="n">Poly</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">GPy</span><span class="o">.</span><span class="n">kern</span><span class="o">.</span><span class="n">MLP</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">custom_kernel</span><span class="p">]</span>
  
 <span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">a</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">kerns</span><span class="p">,</span> <span class="n">axes</span><span class="o">.</span><span class="n">flatten</span><span class="p">()):</span>
     <span class="n">k</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">a</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
@@ -2184,7 +2201,44 @@ $</p>
 <img alt="../_images/07 - Bayesian Learning_71_0.png" src="../_images/07 - Bayesian Learning_71_0.png" />
 </div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">Matern</span></code> is a generalized RBF kernel that can scale between RBF and Exponential</p>
+<p><code class="docutils literal notranslate"><span class="pre">Matern</span></code> is a generalized RBF kernel that can scale between RBF and Exponential. <code class="docutils literal notranslate"><span class="pre">Sum</span></code> is RBF + Linear * RatQuad</p>
+<section id="effect-of-different-kernels">
+<h4>Effect of different kernels<a class="headerlink" href="#effect-of-different-kernels" title="Permalink to this headline">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">copy</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">Xr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mf">5.</span><span class="p">,</span><span class="mf">5.</span><span class="p">,(</span><span class="mi">10</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+<span class="n">Yr</span> <span class="o">=</span> <span class="n">Xr</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">Xr</span><span class="o">*</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="mf">0.05</span>
+
+<span class="c1"># I need to make a deep copy since I will be training the kernels</span>
+<span class="n">kerneldict</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="p">)</span> <span class="p">:</span> <span class="n">k</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">kerns</span><span class="p">)}</span>
+
+<span class="nd">@interact</span>
+<span class="k">def</span> <span class="nf">plot_kernels</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="n">kerneldict</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
+    
+    <span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s2">&quot;lines.markersize&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">})</span>
+    <span class="n">figure</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="o">*</span><span class="n">fig_scale</span><span class="p">,</span><span class="mi">5</span><span class="o">*</span><span class="n">fig_scale</span><span class="p">),</span> <span class="n">tight_layout</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">gridspec_kw</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;width_ratios&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">]})</span>
+    <span class="n">kerneldict</span><span class="p">[</span><span class="n">kernel</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">x</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
+    
+    <span class="n">m</span> <span class="o">=</span> <span class="n">GPy</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">GPRegression</span><span class="p">(</span><span class="n">Xr</span><span class="p">,</span><span class="n">Yr</span><span class="p">,</span><span class="n">kerneldict</span><span class="p">[</span><span class="n">kernel</span><span class="p">])</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">optimize_restarts</span><span class="p">(</span><span class="n">num_restarts</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    
+    <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">kernel</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get_xaxis</span><span class="p">()</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get_yaxis</span><span class="p">()</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+    
+<span class="k">if</span> <span class="ow">not</span> <span class="n">interactive</span><span class="p">:</span>
+    <span class="n">plot_kernels</span><span class="p">(</span><span class="s2">&quot;sum&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "37a1c4b0e0ef4a6baabdc9c5fdbb9087", "version_major": 2, "version_minor": 0}
+</script></div>
+</div>
 <p>Build the untrained GP. The shaded region corresponds to ~95% confidence intervals (i.e. +/- 2 standard deviation)</p>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
@@ -2200,11 +2254,11 @@ $</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/07 - Bayesian Learning_74_0.png" src="../_images/07 - Bayesian Learning_74_0.png" />
+<img alt="../_images/07 - Bayesian Learning_76_0.png" src="../_images/07 - Bayesian Learning_76_0.png" />
 </div>
 </div>
-<p>Train the model (optimize the parameters): maximize the likelihood of the data.<br />
-Best to optimize with a few restarts: the optimizer may converges to the high-noise solution. The optimizer is then restarted with a few random initialization of the parameter values.</p>
+<p>Train the model (optimize the kernel parameters): maximize the likelihood of the data.<br />
+Best to optimize with a few restarts: the optimizer may converges to the high-noise solution. The optimizer is then restarted with a few random initializations of the parameter values.</p>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">m</span><span class="o">.</span><span class="n">optimize_restarts</span><span class="p">(</span><span class="n">num_restarts</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
@@ -2213,7 +2267,7 @@ Best to optimize with a few restarts: the optimizer may converges to the high-no
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/07 - Bayesian Learning_76_0.png" src="../_images/07 - Bayesian Learning_76_0.png" />
+<img alt="../_images/07 - Bayesian Learning_78_0.png" src="../_images/07 - Bayesian Learning_78_0.png" />
 </div>
 </div>
 <p>You can also show results in 2D</p>
@@ -2234,7 +2288,7 @@ Best to optimize with a few restarts: the optimizer may converges to the high-no
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/07 - Bayesian Learning_78_0.png" src="../_images/07 - Bayesian Learning_78_0.png" />
+<img alt="../_images/07 - Bayesian Learning_80_0.png" src="../_images/07 - Bayesian Learning_80_0.png" />
 </div>
 </div>
 <p>We can plot 2D slices using the <code class="docutils literal notranslate"><span class="pre">fixed_inputs</span></code> argument to the plot function.<br />
@@ -2243,7 +2297,7 @@ Best to optimize with a few restarts: the optimizer may converges to the high-no
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">slices</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">]</span>
 <span class="n">figure</span> <span class="o">=</span> <span class="n">GPy</span><span class="o">.</span><span class="n">plotting</span><span class="o">.</span><span class="n">plotting_library</span><span class="p">()</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-<span class="n">figure</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">(</span><span class="mi">9</span><span class="o">*</span><span class="n">fig_scale</span><span class="p">,</span><span class="mi">6</span><span class="o">*</span><span class="n">fig_scale</span><span class="p">)</span>
+<span class="n">figure</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">(</span><span class="mi">8</span><span class="o">*</span><span class="n">fig_scale</span><span class="p">,</span><span class="mi">5</span><span class="o">*</span><span class="n">fig_scale</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span> <span class="n">slices</span><span class="p">):</span>
     <span class="c1"># Use fixed_inputs=[(0,y)] for vertical slices</span>
     <span class="n">canvas</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">figure</span><span class="o">=</span><span class="n">figure</span><span class="p">,</span> <span class="n">fixed_inputs</span><span class="o">=</span><span class="p">[(</span><span class="mi">1</span><span class="p">,</span><span class="n">y</span><span class="p">)],</span> <span class="n">row</span><span class="o">=</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="n">plot_data</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
@@ -2251,9 +2305,10 @@ Best to optimize with a few restarts: the optimizer may converges to the high-no
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/07 - Bayesian Learning_80_0.png" src="../_images/07 - Bayesian Learning_80_0.png" />
+<img alt="../_images/07 - Bayesian Learning_82_0.png" src="../_images/07 - Bayesian Learning_82_0.png" />
 </div>
 </div>
+</section>
 <section id="gaussian-processes-with-scikit-learn">
 <h4>Gaussian Processes with scikit-learn<a class="headerlink" href="#gaussian-processes-with-scikit-learn" title="Permalink to this headline">#</a></h4>
 <ul class="simple">
@@ -2339,7 +2394,7 @@ Best to optimize with a few restarts: the optimizer may converges to the high-no
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/07 - Bayesian Learning_83_0.png" src="../_images/07 - Bayesian Learning_83_0.png" />
+<img alt="../_images/07 - Bayesian Learning_85_0.png" src="../_images/07 - Bayesian Learning_85_0.png" />
 </div>
 </div>
 <p>Example with noisy data</p>
@@ -2384,7 +2439,7 @@ Best to optimize with a few restarts: the optimizer may converges to the high-no
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/07 - Bayesian Learning_85_0.png" src="../_images/07 - Bayesian Learning_85_0.png" />
+<img alt="../_images/07 - Bayesian Learning_87_0.png" src="../_images/07 - Bayesian Learning_87_0.png" />
 </div>
 </div>
 </section>
@@ -2413,7 +2468,7 @@ Best to optimize with a few restarts: the optimizer may converges to the high-no
 <li><p>You can prove that a Gaussian process is equivalent to a neural network with one layer and an infinite number of nodes</p></li>
 <li><p>You can build <em>deep Gaussian Processes</em> by constructing layers of GPs</p></li>
 </ul>
-<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/06_deep_gps.png" alt="ml" style="width: 1000px;"/></section>
+<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/06_deep_gps.png" alt="ml" style="width: 70%;"/></section>
 </section>
 <section id="bayesian-optimization">
 <h2>Bayesian optimization<a class="headerlink" href="#bayesian-optimization" title="Permalink to this headline">#</a></h2>
@@ -2464,7 +2519,7 @@ Best to optimize with a few restarts: the optimizer may converges to the high-no
 <img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/03_Bayesian_optimization.png" alt="ml" style="width: 800px;"/>
 <p>Shahriari et al. Taking the Human Out of the Loop: A Review of Bayesian Optimization</p>
 <p>In 2 dimensions:</p>
-<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/05_2dbo.png" alt="ml" style="width: 800px;"/></section>
+<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/05_2dbo.png" alt="ml" style="width: 80%"/></section>
 <section id="surrogate-models">
 <h3>Surrogate models<a class="headerlink" href="#surrogate-models" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
