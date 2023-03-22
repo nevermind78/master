@@ -1322,7 +1322,7 @@ $<span class="math notranslate nohighlight">\(\color{blue}{h(\mathbf{x})} = \col
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "25b8ae831aa447b9a840fa9989faef7f", "version_major": 2, "version_minor": 0}
+{"model_id": "6e714549351f4a4384b552a3ce9001c5", "version_major": 2, "version_minor": 0}
 </script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
@@ -1396,7 +1396,7 @@ $<span class="math notranslate nohighlight">\(\color{blue}{h(\mathbf{x})} = \col
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "e69f549dd56f4ae7bc09216193a13ee2", "version_major": 2, "version_minor": 0}
+{"model_id": "99e8344a62254234a493fe5f7c7d24ae", "version_major": 2, "version_minor": 0}
 </script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
@@ -1656,7 +1656,7 @@ $<span class="math notranslate nohighlight">\(\frac{\partial \mathcal{L}}{\parti
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "75abc076a79a418392a36a7482c5b736", "version_major": 2, "version_minor": 0}
+{"model_id": "d7e4c582b27c4374ae93619d966c677f", "version_major": 2, "version_minor": 0}
 </script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
@@ -1700,7 +1700,7 @@ $<span class="math notranslate nohighlight">\(\frac{\partial \mathcal{L}}{\parti
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "69a71ca4eda14f82b49d3832480356cd", "version_major": 2, "version_minor": 0}
+{"model_id": "e385ecff5f274474bbcbdbb22b2516a3", "version_major": 2, "version_minor": 0}
 </script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
@@ -1769,7 +1769,7 @@ $<span class="math notranslate nohighlight">\(\frac{\partial \mathcal{L}}{\parti
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "a1efe4b2b72446c3a7923cf0667a0688", "version_major": 2, "version_minor": 0}
+{"model_id": "2342848de15d4210966ffd69e968c58c", "version_major": 2, "version_minor": 0}
 </script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
@@ -1811,7 +1811,7 @@ $<span class="math notranslate nohighlight">\(\text{softmax}(\mathbf{x},i) = \fr
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "3afa1d39dc8f4706aeb4d3d3e58c3322", "version_major": 2, "version_minor": 0}
+{"model_id": "fbee27df9e004b58ba922a993fb4ac90", "version_major": 2, "version_minor": 0}
 </script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
@@ -1851,6 +1851,9 @@ $<span class="math notranslate nohighlight">\(\text{softmax}(\mathbf{x},i) = \fr
 <span class="n">draw_neural_net</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">random_weights</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/08 - Neural Networks_42_0.png" src="../_images/08 - Neural Networks_42_0.png" />
 </div>
 </div>
 <section id="weight-initialization-transfer-learning">
@@ -1928,6 +1931,15 @@ $<span class="math notranslate nohighlight">\(\text{softmax}(\mathbf{x},i) = \fr
     <span class="n">y_history</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">y_history</span><span class="p">)</span>
     <span class="n">path</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">x_history</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">y_history</span><span class="p">,</span> <span class="mi">1</span><span class="p">)),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
     <span class="n">all_paths</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Metal device set to: Apple M1 Pro
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2023-03-22 00:11:08.250129: I tensorflow/core/common_runtime/pluggable_device/pluggable_device_factory.cc:306] Could not identify NUMA node of platform GPU ID 0, defaulting to 0. Your kernel may not have been built with NUMA support.
+2023-03-22 00:11:08.250578: I tensorflow/core/common_runtime/pluggable_device/pluggable_device_factory.cc:272] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 0 MB memory) -&gt; physical PluggableDevice (device: 0, name: METAL, pci bus id: &lt;undefined&gt;)
 </pre></div>
 </div>
 </div>
@@ -2096,6 +2108,10 @@ $<span class="math notranslate nohighlight">\(\text{softmax}(\mathbf{x},i) = \fr
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "8a6ebd43a9ef46248260ae29ef78d322", "version_major": 2, "version_minor": 0}
+</script></div>
 </div>
 </section>
 <section id="id1">
@@ -2122,6 +2138,10 @@ $<span class="math notranslate nohighlight">\(\text{softmax}(\mathbf{x},i) = \fr
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "c3aee58f21684382a23063fba60b2e00", "version_major": 2, "version_minor": 0}
+</script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
@@ -2162,6 +2182,9 @@ $<span class="math notranslate nohighlight">\(\color{blue}{\mathbf{v}_{(s)}} = \
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="../_images/08 - Neural Networks_54_0.png" src="../_images/08 - Neural Networks_54_0.png" />
+</div>
 </div>
 <section id="momentum-in-practice">
 <h4>Momentum in practice<a class="headerlink" href="#momentum-in-practice" title="Permalink to this headline">#</a></h4>
@@ -2174,6 +2197,10 @@ $<span class="math notranslate nohighlight">\(\color{blue}{\mathbf{v}_{(s)}} = \
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "e50bf825960c4be0a55d2e81f417cb8c", "version_major": 2, "version_minor": 0}
+</script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
@@ -2227,6 +2254,10 @@ $<span class="math notranslate nohighlight">\(w_{i,(s+1)} = w_{i,(s)}- \frac{\et
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "1cfa0fe0d3f346a392800c2aa4dca657", "version_major": 2, "version_minor": 0}
+</script></div>
 </div>
 </section>
 <section id="adam-adaptive-moment-estimation">
@@ -2268,6 +2299,10 @@ $<span class="math notranslate nohighlight">\(w_{i,(s+1)} = w_{i,(s)}- \frac{\et
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "5e30aed1858d48278eed4b2b7ccd4133", "version_major": 2, "version_minor": 0}
+</script></div>
 </div>
 </section>
 <section id="sgd-optimizer-zoo">
@@ -2293,6 +2328,10 @@ $<span class="math notranslate nohighlight">\(w_{i,(s+1)} = w_{i,(s)}- \frac{\et
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "5df4f16e15b14abd9a40a80dd8385c39", "version_major": 2, "version_minor": 0}
+</script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
@@ -2358,6 +2397,9 @@ $<span class="math notranslate nohighlight">\(w_{i,(s+1)} = w_{i,(s)}- \frac{\et
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="../_images/08 - Neural Networks_69_0.png" src="../_images/08 - Neural Networks_69_0.png" />
+</div>
 </div>
 <section id="building-the-network">
 <h3>Building the network<a class="headerlink" href="#building-the-network" title="Permalink to this headline">#</a></h3>
@@ -2410,6 +2452,25 @@ $<span class="math notranslate nohighlight">\(w_{i,(s+1)} = w_{i,(s)}- \frac{\et
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">network</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Model: &quot;sequential&quot;
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #   
+=================================================================
+ dense (Dense)               (None, 512)               401920    
+                                                                 
+ dense_1 (Dense)             (None, 512)               262656    
+                                                                 
+ dense_2 (Dense)             (None, 10)                5130      
+                                                                 
+=================================================================
+Total params: 669,706
+Trainable params: 669,706
+Non-trainable params: 0
+_________________________________________________________________
 </pre></div>
 </div>
 </div>
@@ -2541,6 +2602,12 @@ $<span class="math notranslate nohighlight">\(w_{i,(s+1)} = w_{i,(s)}- \frac{\et
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2023-03-22 00:11:19.453607: W tensorflow/core/platform/profile_utils/cpu_utils.cc:128] Failed to get CPU frequency: 0 Hz
+2023-03-22 00:11:19.721562: I tensorflow/core/grappler/optimizers/custom_graph_optimizer_registry.cc:114] Plugin optimizer for device_type GPU is enabled.
+</pre></div>
+</div>
+</div>
 </div>
 </section>
 <section id="predictions-and-evaluations">
@@ -2563,11 +2630,29 @@ $<span class="math notranslate nohighlight">\(w_{i,(s+1)} = w_{i,(s)}- \frac{\et
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2023-03-22 00:12:06.468465: I tensorflow/core/grappler/optimizers/custom_graph_optimizer_registry.cc:114] Plugin optimizer for device_type GPU is enabled.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0.0988096 0.0003385 0.6747018 0.0004403 0.017712  0.        0.2071131
+ 0.0000004 0.0008842 0.       ]
+</pre></div>
+</div>
+<img alt="../_images/08 - Neural Networks_81_2.png" src="../_images/08 - Neural Networks_81_2.png" />
+</div>
 </div>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">test_loss</span><span class="p">,</span> <span class="n">test_acc</span> <span class="o">=</span> <span class="n">network</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">Xf_test</span><span class="p">,</span> <span class="n">yf_test</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Test accuracy:&#39;</span><span class="p">,</span> <span class="n">test_acc</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2023-03-22 00:12:07.401243: I tensorflow/core/grappler/optimizers/custom_graph_optimizer_registry.cc:114] Plugin optimizer for device_type GPU is enabled.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Test accuracy: 0.8699000477790833
 </pre></div>
 </div>
 </div>
@@ -2654,6 +2739,9 @@ $<span class="math notranslate nohighlight">\(w_{i,(s+1)} = w_{i,(s)}- \frac{\et
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="../_images/08 - Neural Networks_85_0.png" src="../_images/08 - Neural Networks_85_0.png" />
+</div>
 </div>
 <section id="early-stopping">
 <h3>Early stopping<a class="headerlink" href="#early-stopping" title="Permalink to this headline">#</a></h3>
@@ -2681,6 +2769,9 @@ $<span class="math notranslate nohighlight">\(w_{i,(s+1)} = w_{i,(s)}- \frac{\et
                       <span class="n">validation_data</span><span class="o">=</span><span class="p">(</span><span class="n">x_val</span><span class="p">,</span> <span class="n">y_val</span><span class="p">),</span> <span class="n">callbacks</span><span class="o">=</span><span class="p">[</span><span class="n">plot_losses</span><span class="p">,</span> <span class="n">earlystop</span><span class="p">])</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/08 - Neural Networks_87_0.png" src="../_images/08 - Neural Networks_87_0.png" />
 </div>
 </div>
 </section>
@@ -2715,6 +2806,9 @@ $<span class="math notranslate nohighlight">\(w_{i,(s+1)} = w_{i,(s)}- \frac{\et
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="../_images/08 - Neural Networks_89_0.png" src="../_images/08 - Neural Networks_89_0.png" />
+</div>
 </div>
 <section id="information-bottleneck">
 <h4>Information bottleneck<a class="headerlink" href="#information-bottleneck" title="Permalink to this headline">#</a></h4>
@@ -2741,6 +2835,9 @@ $<span class="math notranslate nohighlight">\(w_{i,(s+1)} = w_{i,(s)}- \frac{\et
                       <span class="n">validation_data</span><span class="o">=</span><span class="p">(</span><span class="n">x_val</span><span class="p">,</span> <span class="n">y_val</span><span class="p">),</span> <span class="n">callbacks</span><span class="o">=</span><span class="p">[</span><span class="n">plot_losses</span><span class="p">,</span> <span class="n">earlystop5</span><span class="p">])</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/08 - Neural Networks_91_0.png" src="../_images/08 - Neural Networks_91_0.png" />
 </div>
 </div>
 </section>
@@ -2774,6 +2871,9 @@ $<span class="math notranslate nohighlight">\(w_{i,(s+1)} = w_{i,(s)}- \frac{\et
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="../_images/08 - Neural Networks_94_0.png" src="../_images/08 - Neural Networks_94_0.png" />
+</div>
 </div>
 </section>
 </section>
@@ -2797,6 +2897,9 @@ $<span class="math notranslate nohighlight">\(w_{i,(s+1)} = w_{i,(s)}- \frac{\et
                 <span class="n">show_activations</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/08 - Neural Networks_96_0.png" src="../_images/08 - Neural Networks_96_0.png" />
 </div>
 </div>
 <section id="dropout-layers">
@@ -2826,6 +2929,9 @@ $<span class="math notranslate nohighlight">\(w_{i,(s+1)} = w_{i,(s)}- \frac{\et
                       <span class="n">validation_data</span><span class="o">=</span><span class="p">(</span><span class="n">x_val</span><span class="p">,</span> <span class="n">y_val</span><span class="p">),</span> <span class="n">callbacks</span><span class="o">=</span><span class="p">[</span><span class="n">plot_losses</span><span class="p">])</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/08 - Neural Networks_98_0.png" src="../_images/08 - Neural Networks_98_0.png" />
 </div>
 </div>
 </section>
@@ -2885,6 +2991,9 @@ $<span class="math notranslate nohighlight">\(w_{i,(s+1)} = w_{i,(s)}- \frac{\et
                       <span class="n">validation_data</span><span class="o">=</span><span class="p">(</span><span class="n">x_val</span><span class="p">,</span> <span class="n">y_val</span><span class="p">),</span> <span class="n">callbacks</span><span class="o">=</span><span class="p">[</span><span class="n">plot_losses</span><span class="p">])</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/08 - Neural Networks_102_0.png" src="../_images/08 - Neural Networks_102_0.png" />
 </div>
 </div>
 </section>

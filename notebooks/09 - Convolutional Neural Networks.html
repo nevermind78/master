@@ -208,7 +208,7 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../labs/Lab%203%20-%20Ensembles.html">
-   Lab 3b: Ensembles
+   Lab 3: Ensembles
   </a>
  </li>
  <li class="toctree-l1">
@@ -1114,7 +1114,7 @@ title="Print to PDF"
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "d228e35fe8c741e78f49238a239afc5d", "version_major": 2, "version_minor": 0}
+{"model_id": "301a287b1b9c47ca9330db92da69827c", "version_major": 2, "version_minor": 0}
 </script></div>
 </div>
 <div class="cell docutils container">
@@ -1199,7 +1199,7 @@ title="Print to PDF"
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "68a07fb0b1cf4dd9b7f1ed7d4d87be4d", "version_major": 2, "version_minor": 0}
+{"model_id": "4621ca6ddf7148cfb9160774a592543a", "version_major": 2, "version_minor": 0}
 </script></div>
 </div>
 <div class="cell docutils container">
@@ -1256,7 +1256,9 @@ title="Print to PDF"
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "0e4df97c1b9c4e8b882472b2cd407c4b", "version_major": 2, "version_minor": 0}
+{"model_id": "adad0b75b4bf440392054fddaffc6a28", "version_major": 2, "version_minor": 0}
+</script><script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "adad0b75b4bf440392054fddaffc6a28", "version_major": 2, "version_minor": 0}
 </script></div>
 </div>
 <div class="cell docutils container">
@@ -1310,7 +1312,7 @@ title="Print to PDF"
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "67cea1abb845453f9ad50205a03a6b85", "version_major": 2, "version_minor": 0}
+{"model_id": "36e03ee749134e75a662bde03cc27b08", "version_major": 2, "version_minor": 0}
 </script></div>
 </div>
 <div class="cell docutils container">
@@ -1456,7 +1458,7 @@ title="Print to PDF"
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "08921668ab1c45f7abe8297a345f4d87", "version_major": 2, "version_minor": 0}
+{"model_id": "be13b6ae4c974fe790174ffcff1b5dc2", "version_major": 2, "version_minor": 0}
 </script></div>
 </div>
 <div class="cell docutils container">
@@ -2419,6 +2421,11 @@ _________________________________________________________________
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1/1 [==============================] - 0s 86ms/step
+</pre></div>
+</div>
+</div>
 </div>
 <ul class="simple">
 <li><p>To extract the activations, we create a new model that outputs the trained layers</p>
@@ -2510,7 +2517,10 @@ _________________________________________________________________
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/09 - Convolutional Neural Networks_95_0.png" src="../_images/09 - Convolutional Neural Networks_95_0.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1/1 [==============================] - 0s 10ms/step
+</pre></div>
+</div>
+<img alt="../_images/09 - Convolutional Neural Networks_95_1.png" src="../_images/09 - Convolutional Neural Networks_95_1.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -2868,6 +2878,59 @@ _________________________________________________________________
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">KeyboardInterrupt</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">62</span><span class="p">],</span> <span class="n">line</span> <span class="mi">3</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="n">patterns1</span> <span class="o">=</span> <span class="n">visualize_filter</span><span class="p">(</span><span class="s1">&#39;block1_conv1&#39;</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">patterns2</span> <span class="o">=</span> <span class="n">visualize_filter</span><span class="p">(</span><span class="s1">&#39;block2_conv1&#39;</span><span class="p">)</span>
+<span class="ne">----&gt; </span><span class="mi">3</span> <span class="n">patterns3</span> <span class="o">=</span> <span class="n">visualize_filter</span><span class="p">(</span><span class="s1">&#39;block3_conv1&#39;</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">patterns4</span> <span class="o">=</span> <span class="n">visualize_filter</span><span class="p">(</span><span class="s1">&#39;block4_conv1&#39;</span><span class="p">)</span>
+
+<span class="nn">Cell In[55], line 59,</span> in <span class="ni">visualize_filter</span><span class="nt">(layer_name)</span>
+<span class="g g-Whitespace">     </span><span class="mi">56</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">8</span><span class="p">):</span>  <span class="c1"># iterate over the rows of our results grid</span>
+<span class="g g-Whitespace">     </span><span class="mi">57</span>     <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">8</span><span class="p">):</span>  <span class="c1"># iterate over the columns of our results grid</span>
+<span class="g g-Whitespace">     </span><span class="mi">58</span>         <span class="c1"># Generate the pattern for filter `i + (j * 8)` in `layer_name`</span>
+<span class="ne">---&gt; </span><span class="mi">59</span>         <span class="n">filter_img</span> <span class="o">=</span> <span class="n">generate_pattern</span><span class="p">(</span><span class="n">layer_name</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="p">(</span><span class="n">j</span> <span class="o">*</span> <span class="mi">8</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="n">size</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">61</span>         <span class="c1"># Put the result in the square `(i, j)` of the results grid</span>
+<span class="g g-Whitespace">     </span><span class="mi">62</span>         <span class="n">horizontal_start</span> <span class="o">=</span> <span class="n">i</span> <span class="o">*</span> <span class="n">size</span> <span class="o">+</span> <span class="n">i</span> <span class="o">*</span> <span class="n">margin</span>
+
+<span class="nn">Cell In[55], line 43,</span> in <span class="ni">generate_pattern</span><span class="nt">(layer_name, filter_index, size)</span>
+<span class="g g-Whitespace">     </span><span class="mi">41</span> <span class="n">step</span> <span class="o">=</span> <span class="mf">1.</span>
+<span class="g g-Whitespace">     </span><span class="mi">42</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">40</span><span class="p">):</span>
+<span class="ne">---&gt; </span><span class="mi">43</span>     <span class="n">loss_value</span><span class="p">,</span> <span class="n">grads_value</span> <span class="o">=</span> <span class="n">iterate</span><span class="p">([</span><span class="n">input_img_data</span><span class="p">])</span>
+<span class="g g-Whitespace">     </span><span class="mi">44</span>     <span class="n">input_img_data</span> <span class="o">+=</span> <span class="n">grads_value</span> <span class="o">*</span> <span class="n">step</span>
+<span class="g g-Whitespace">     </span><span class="mi">46</span> <span class="n">img</span> <span class="o">=</span> <span class="n">input_img_data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="nn">File ~/miniconda3/lib/python3.10/site-packages/keras/backend.py:4577,</span> in <span class="ni">GraphExecutionFunction.__call__</span><span class="nt">(self, inputs)</span>
+<span class="g g-Whitespace">   </span><span class="mi">4567</span> <span class="k">if</span> <span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">4568</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_callable_fn</span> <span class="ow">is</span> <span class="kc">None</span>
+<span class="g g-Whitespace">   </span><span class="mi">4569</span>     <span class="ow">or</span> <span class="n">feed_arrays</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_feed_arrays</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">4573</span>     <span class="ow">or</span> <span class="n">session</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_session</span>
+<span class="g g-Whitespace">   </span><span class="mi">4574</span> <span class="p">):</span>
+<span class="g g-Whitespace">   </span><span class="mi">4575</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_make_callable</span><span class="p">(</span><span class="n">feed_arrays</span><span class="p">,</span> <span class="n">feed_symbols</span><span class="p">,</span> <span class="n">symbol_vals</span><span class="p">,</span> <span class="n">session</span><span class="p">)</span>
+<span class="ne">-&gt; </span><span class="mi">4577</span> <span class="n">fetched</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_callable_fn</span><span class="p">(</span><span class="o">*</span><span class="n">array_vals</span><span class="p">,</span> <span class="n">run_metadata</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">run_metadata</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">4578</span> <span class="bp">self</span><span class="o">.</span><span class="n">_call_fetch_callbacks</span><span class="p">(</span><span class="n">fetched</span><span class="p">[</span><span class="o">-</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_fetches</span><span class="p">)</span> <span class="p">:])</span>
+<span class="g g-Whitespace">   </span><span class="mi">4579</span> <span class="n">output_structure</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">nest</span><span class="o">.</span><span class="n">pack_sequence_as</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">4580</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_outputs_structure</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">4581</span>     <span class="n">fetched</span><span class="p">[:</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">outputs</span><span class="p">)],</span>
+<span class="g g-Whitespace">   </span><span class="mi">4582</span>     <span class="n">expand_composites</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">4583</span> <span class="p">)</span>
+
+<span class="nn">File ~/miniconda3/lib/python3.10/site-packages/tensorflow/python/client/session.py:1481,</span> in <span class="ni">BaseSession._Callable.__call__</span><span class="nt">(self, *args, **kwargs)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1479</span> <span class="k">try</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1480</span>   <span class="n">run_metadata_ptr</span> <span class="o">=</span> <span class="n">tf_session</span><span class="o">.</span><span class="n">TF_NewBuffer</span><span class="p">()</span> <span class="k">if</span> <span class="n">run_metadata</span> <span class="k">else</span> <span class="kc">None</span>
+<span class="ne">-&gt; </span><span class="mi">1481</span>   <span class="n">ret</span> <span class="o">=</span> <span class="n">tf_session</span><span class="o">.</span><span class="n">TF_SessionRunCallable</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_session</span><span class="o">.</span><span class="n">_session</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1482</span>                                          <span class="bp">self</span><span class="o">.</span><span class="n">_handle</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1483</span>                                          <span class="n">run_metadata_ptr</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1484</span>   <span class="k">if</span> <span class="n">run_metadata</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1485</span>     <span class="n">proto_data</span> <span class="o">=</span> <span class="n">tf_session</span><span class="o">.</span><span class="n">TF_GetBuffer</span><span class="p">(</span><span class="n">run_metadata_ptr</span><span class="p">)</span>
+
+<span class="ne">KeyboardInterrupt</span>: 
+</pre></div>
+</div>
+</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2877,9 +2940,6 @@ _________________________________________________________________
 <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">((</span><span class="n">patterns1</span> <span class="o">*</span> <span class="mi">255</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">));</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/09 - Convolutional Neural Networks_120_0.png" src="../_images/09 - Convolutional Neural Networks_120_0.png" />
 </div>
 </div>
 <p>Filters in 2nd block of convolution layers: simple textures (combined edges and colors)</p>
@@ -2892,9 +2952,6 @@ _________________________________________________________________
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<img alt="../_images/09 - Convolutional Neural Networks_122_0.png" src="../_images/09 - Convolutional Neural Networks_122_0.png" />
-</div>
 </div>
 <p>Filters in 3rd block of convolution layers: more natural textures</p>
 <div class="cell docutils container">
@@ -2906,9 +2963,6 @@ _________________________________________________________________
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<img alt="../_images/09 - Convolutional Neural Networks_124_0.png" src="../_images/09 - Convolutional Neural Networks_124_0.png" />
-</div>
 </div>
 <p>Filters in 4th block of convolution layers: feathers, eyes, leaves,…</p>
 <div class="cell docutils container">
@@ -2919,9 +2973,6 @@ _________________________________________________________________
 <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">((</span><span class="n">patterns4</span> <span class="o">*</span> <span class="mi">255</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">));</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/09 - Convolutional Neural Networks_126_0.png" src="../_images/09 - Convolutional Neural Networks_126_0.png" />
 </div>
 </div>
 </section>
@@ -2959,9 +3010,6 @@ _________________________________________________________________
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_activations</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="n">activations2</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/09 - Convolutional Neural Networks_129_0.png" src="../_images/09 - Convolutional Neural Networks_129_0.png" />
 </div>
 </div>
 <p>More realistic example:</p>
@@ -3077,11 +3125,6 @@ _________________________________________________________________
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Predicted: [(&#39;n02504458&#39;, &#39;African_elephant&#39;, 0.90988594), (&#39;n01871265&#39;, &#39;tusker&#39;, 0.085724816), (&#39;n02504013&#39;, &#39;Indian_elephant&#39;, 0.0043471307)]
-</pre></div>
-</div>
-</div>
 </div>
 <p>Visualize the class activation map</p>
 <div class="cell docutils container">
@@ -3093,9 +3136,6 @@ _________________________________________________________________
 <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/09 - Convolutional Neural Networks_138_0.png" src="../_images/09 - Convolutional Neural Networks_138_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -3123,11 +3163,6 @@ _________________________________________________________________
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
-</pre></div>
-</div>
-</div>
 </div>
 <p>Superimposed on the original image</p>
 <div class="cell docutils container">
@@ -3142,9 +3177,6 @@ _________________________________________________________________
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/09 - Convolutional Neural Networks_141_0.png" src="../_images/09 - Convolutional Neural Networks_141_0.png" />
 </div>
 </div>
 </section>
@@ -3176,57 +3208,6 @@ _________________________________________________________________
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">conv_base</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Model: &quot;vgg16&quot;
-_________________________________________________________________
- Layer (type)                Output Shape              Param #   
-=================================================================
- input_2 (InputLayer)        [(None, 150, 150, 3)]     0         
-                                                                 
- block1_conv1 (Conv2D)       (None, 150, 150, 64)      1792      
-                                                                 
- block1_conv2 (Conv2D)       (None, 150, 150, 64)      36928     
-                                                                 
- block1_pool (MaxPooling2D)  (None, 75, 75, 64)        0         
-                                                                 
- block2_conv1 (Conv2D)       (None, 75, 75, 128)       73856     
-                                                                 
- block2_conv2 (Conv2D)       (None, 75, 75, 128)       147584    
-                                                                 
- block2_pool (MaxPooling2D)  (None, 37, 37, 128)       0         
-                                                                 
- block3_conv1 (Conv2D)       (None, 37, 37, 256)       295168    
-                                                                 
- block3_conv2 (Conv2D)       (None, 37, 37, 256)       590080    
-                                                                 
- block3_conv3 (Conv2D)       (None, 37, 37, 256)       590080    
-                                                                 
- block3_pool (MaxPooling2D)  (None, 18, 18, 256)       0         
-                                                                 
- block4_conv1 (Conv2D)       (None, 18, 18, 512)       1180160   
-                                                                 
- block4_conv2 (Conv2D)       (None, 18, 18, 512)       2359808   
-                                                                 
- block4_conv3 (Conv2D)       (None, 18, 18, 512)       2359808   
-                                                                 
- block4_pool (MaxPooling2D)  (None, 9, 9, 512)         0         
-                                                                 
- block5_conv1 (Conv2D)       (None, 9, 9, 512)         2359808   
-                                                                 
- block5_conv2 (Conv2D)       (None, 9, 9, 512)         2359808   
-                                                                 
- block5_conv3 (Conv2D)       (None, 9, 9, 512)         2359808   
-                                                                 
- block5_pool (MaxPooling2D)  (None, 4, 4, 512)         0         
-                                                                 
-=================================================================
-Total params: 14,714,688
-Trainable params: 14,714,688
-Non-trainable params: 0
-_________________________________________________________________
 </pre></div>
 </div>
 </div>
@@ -3358,12 +3339,6 @@ _________________________________________________________________
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Max val_acc 0.90500003
-</pre></div>
-</div>
-<img alt="../_images/09 - Convolutional Neural Networks_153_1.png" src="../_images/09 - Convolutional Neural Networks_153_1.png" />
-</div>
 </div>
 </section>
 <section id="fast-feature-extraction-with-data-augmentation">
@@ -3402,27 +3377,6 @@ _________________________________________________________________
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Model: &quot;sequential&quot;
-_________________________________________________________________
- Layer (type)                Output Shape              Param #   
-=================================================================
- vgg16 (Functional)          (None, 4, 4, 512)         14714688  
-                                                                 
- flatten (Flatten)           (None, 8192)              0         
-                                                                 
- dense (Dense)               (None, 256)               2097408   
-                                                                 
- dense_1 (Dense)             (None, 1)                 257       
-                                                                 
-=================================================================
-Total params: 16,812,353
-Trainable params: 2,097,665
-Non-trainable params: 14,714,688
-_________________________________________________________________
 </pre></div>
 </div>
 </div>
@@ -3467,12 +3421,6 @@ _________________________________________________________________
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Found 20 images belonging to 2 classes.
-Found 20 images belonging to 2 classes.
-</pre></div>
-</div>
-</div>
 </div>
 <p>Uncomment to train from scratch (slow!)</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">history</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit_generator</span><span class="p">(</span>
@@ -3508,12 +3456,6 @@ Found 20 images belonging to 2 classes.
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;epochs&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Max val_acc 0.906
-</pre></div>
-</div>
-<img alt="../_images/09 - Convolutional Neural Networks_161_1.png" src="../_images/09 - Convolutional Neural Networks_161_1.png" />
 </div>
 </div>
 </section>
@@ -3551,57 +3493,6 @@ Found 20 images belonging to 2 classes.
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">conv_base</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Model: &quot;vgg16&quot;
-_________________________________________________________________
- Layer (type)                Output Shape              Param #   
-=================================================================
- input_2 (InputLayer)        [(None, 150, 150, 3)]     0         
-                                                                 
- block1_conv1 (Conv2D)       (None, 150, 150, 64)      1792      
-                                                                 
- block1_conv2 (Conv2D)       (None, 150, 150, 64)      36928     
-                                                                 
- block1_pool (MaxPooling2D)  (None, 75, 75, 64)        0         
-                                                                 
- block2_conv1 (Conv2D)       (None, 75, 75, 128)       73856     
-                                                                 
- block2_conv2 (Conv2D)       (None, 75, 75, 128)       147584    
-                                                                 
- block2_pool (MaxPooling2D)  (None, 37, 37, 128)       0         
-                                                                 
- block3_conv1 (Conv2D)       (None, 37, 37, 256)       295168    
-                                                                 
- block3_conv2 (Conv2D)       (None, 37, 37, 256)       590080    
-                                                                 
- block3_conv3 (Conv2D)       (None, 37, 37, 256)       590080    
-                                                                 
- block3_pool (MaxPooling2D)  (None, 18, 18, 256)       0         
-                                                                 
- block4_conv1 (Conv2D)       (None, 18, 18, 512)       1180160   
-                                                                 
- block4_conv2 (Conv2D)       (None, 18, 18, 512)       2359808   
-                                                                 
- block4_conv3 (Conv2D)       (None, 18, 18, 512)       2359808   
-                                                                 
- block4_pool (MaxPooling2D)  (None, 9, 9, 512)         0         
-                                                                 
- block5_conv1 (Conv2D)       (None, 9, 9, 512)         2359808   
-                                                                 
- block5_conv2 (Conv2D)       (None, 9, 9, 512)         2359808   
-                                                                 
- block5_conv3 (Conv2D)       (None, 9, 9, 512)         2359808   
-                                                                 
- block5_pool (MaxPooling2D)  (None, 4, 4, 512)         0         
-                                                                 
-=================================================================
-Total params: 14,714,688
-Trainable params: 7,079,424
-Non-trainable params: 7,635,264
-_________________________________________________________________
 </pre></div>
 </div>
 </div>
@@ -3653,12 +3544,6 @@ _________________________________________________________________
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Max val_acc 0.90800005
-</pre></div>
-</div>
-<img alt="../_images/09 - Convolutional Neural Networks_169_1.png" src="../_images/09 - Convolutional Neural Networks_169_1.png" />
-</div>
 </div>
 <ul class="simple">
 <li><p>We can smooth the learning curves using a running average</p></li>
@@ -3687,19 +3572,13 @@ _________________________________________________________________
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Max val_acc 0.9039536851123335
-</pre></div>
-</div>
-<img alt="../_images/09 - Convolutional Neural Networks_171_1.png" src="../_images/09 - Convolutional Neural Networks_171_1.png" />
-</div>
 </div>
 </section>
 </section>
 <section id="take-aways">
 <h2>Take-aways<a class="headerlink" href="#take-aways" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
-<li><p>Convnets are ideal for attacking visual-classification problems.</p></li>
+<li><p>Convnets are ideal for addressing image-related problems.</p></li>
 <li><p>They learn a hierarchy of modular patterns and concepts to represent the visual world.</p></li>
 <li><p>Representations are easy to inspect</p></li>
 <li><p>Data augmentation helps fight overfitting</p></li>
