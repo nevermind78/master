@@ -1,48 +1,59 @@
 
+
 <!DOCTYPE html>
 
-<html>
+
+<html lang="en" >
+
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>Lab 6 Tutorial: Deep Learning with TensorFlow &#8212; ML Engineering</title>
-    
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  <link href="../_static/styles/theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
 
-    
-  <link rel="stylesheet"
-    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
-    
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d" />
 
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../_static/togglebutton.js"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script src="../_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
 const thebe_selector = ".thebe,.cell"
@@ -52,62 +63,94 @@ const thebe_selector_output = ".output, .cell_output"
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'labs/Lab 6 - Tutorial';</script>
     <link rel="shortcut icon" href="../_static/favicon.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Lab 7 Tutorial: Deep Learning for text" href="Lab%207%20-%20Tutorial.html" />
     <link rel="prev" title="Lab 4 Tutorial: Data engineering pipelines" href="Lab%204%20-%20Tutorial.html" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
-    
-
-    <!-- Google Analytics -->
-    
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
-<!-- Checkboxes to toggle the left sidebar -->
-<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
-<label class="overlay overlay-navbar" for="__navigation">
-    <div class="visually-hidden">Toggle navigation sidebar</div>
-</label>
-<!-- Checkboxes to toggle the in-page toc -->
-<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
-<label class="overlay overlay-pagetoc" for="__page-toc">
-    <div class="visually-hidden">Toggle in-page Table of Contents</div>
-</label>
-<!-- Headers at the top -->
-<div class="announcement header-item noprint"></div>
-<div class="header header-item noprint"></div>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
-    
-    <div class="container-fluid" id="banner"></div>
-
-    
-
-    <div class="container-xl">
-      <div class="row">
-          
-<!-- Sidebar -->
-<div class="bd-sidebar noprint" id="site-navigation">
-    <div class="bd-sidebar__content">
-        <div class="bd-sidebar__top"><div class="navbar-brand-box">
-    <a class="navbar-brand text-wrap" href="../index.html">
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
       
-        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+      <div class="bd-sidebar-primary bd-sidebar">
         
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+    
+    
       
-      
-      <img src="../_static/banner.jpeg" class="logo" alt="logo">
-      
-      
-      <h1 class="site-logo" id="site-title">ML Engineering</h1>
-      
-    </a>
-</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
-  <i class="icon fas fa-search"></i>
-  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
-    <div class="bd-toc-item active">
+    
+    
+    <img src="../_static/banner.jpeg" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../_static/banner.jpeg" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
@@ -117,701 +160,329 @@ const thebe_selector_output = ".output, .cell_output"
             </li>
         </ul>
         <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="Lab%200%20-%20Prerequisites.html">
-   Prerequisites
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="Lab%200%20-%20Prerequisites.html">Prerequisites</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Lectures
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Lectures</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../notebooks/01%20-%20Introduction.html">
-   Lecture 1: Introduction
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../notebooks/02%20-%20Linear%20Models.html">
-   Lecture 2: Linear models
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../notebooks/03%20-%20Kernelization.html">
-   Lecture 3: Kernelization
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../notebooks/04%20-%20Model%20Selection.html">
-   Lecture 4: Model Selection
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../notebooks/05%20-%20Ensemble%20Learning.html">
-   Lecture 5. Ensemble Learning
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../notebooks/06%20-%20Data%20Preprocessing.html">
-   Lecture 6. Data preprocessing
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../notebooks/07%20-%20Bayesian%20Learning.html">
-   Lecture 7. Bayesian Learning
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../notebooks/08%20-%20Neural%20Networks.html">
-   Lecture 8. Neural Networks
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../notebooks/09%20-%20Convolutional%20Neural%20Networks.html">
-   Lecture 9: Convolutional Neural Networks
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../notebooks/10%20-%20Neural%20Networks%20for%20text.html">
-   Lecture 10. Neural Networks for text
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/01%20-%20Introduction.html">Lecture 1: Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/02%20-%20Linear%20Models.html">Lecture 2: Linear models</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/03%20-%20Kernelization.html">Lecture 3: Kernelization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/04%20-%20Model%20Selection.html">Lecture 4: Model Selection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/05%20-%20Ensemble%20Learning.html">Lecture 5. Ensemble Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/06%20-%20Data%20Preprocessing.html">Lecture 6. Data preprocessing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/07%20-%20Bayesian%20Learning.html">Lecture 7. Bayesian Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/08%20-%20Neural%20Networks.html">Lecture 8. Neural Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/09%20-%20Convolutional%20Neural%20Networks.html">Lecture 9: Convolutional Neural Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/10%20-%20Neural%20Networks%20for%20text.html">Lecture 10. Neural Networks for text</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Labs
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Labs</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="Lab%201a%20-%20Linear%20Models%20for%20Regression.html">
-   Lab 1a: Linear regression
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Lab%201b%20-%20Linear%20Models%20for%20Classification.html">
-   Lab 1b: Linear classification
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Lab%202a%20-%20Kernelization.html">
-   Lab 2a: Kernelization
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Lab%202b%20-%20Model%20Selection.html">
-   Lab 2b: Model selection
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Lab%203%20-%20Ensembles.html">
-   Lab 3b: Ensembles
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Lab%204%20-%20Pipelines.html">
-   Lab 4:  Data preprocessing
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Lab%205%20-%20Bayesian%20learning.html">
-   Lab 5: Bayesian models
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Lab%206%20-%20Neural%20Networks.html">
-   Lab 6: Neural networks
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Lab%207a%20-%20Convolutional%20Neural%20Networks.html">
-   Lab 7a: Convolutional neural nets
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Lab%207b%20-%20Neural%20Networks%20for%20text.html">
-   Lab 7b: Neural Networks for text
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Lab%208%20-%20AutoML.html">
-   Lab 8: AutoML
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="Lab%201a%20-%20Linear%20Models%20for%20Regression.html">Lab 1a: Linear regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Lab%201b%20-%20Linear%20Models%20for%20Classification.html">Lab 1b: Linear classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Lab%202a%20-%20Kernelization.html">Lab 2a: Kernelization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Lab%202b%20-%20Model%20Selection.html">Lab 2b: Model selection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Lab%203%20-%20Ensembles.html">Lab 3: Ensembles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Lab%204%20-%20Pipelines.html">Lab 4:  Data preprocessing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Lab%205%20-%20Bayesian%20learning.html">Lab 5: Bayesian models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Lab%206%20-%20Neural%20Networks.html">Lab 6: Neural networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Lab%207a%20-%20Convolutional%20Neural%20Networks.html">Lab 7a: Convolutional neural nets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Lab%207b%20-%20Neural%20Networks%20for%20text.html">Lab 7b: Neural Networks for text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Lab%208%20-%20AutoML.html">Lab 8: AutoML</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Tutorials
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
 <ul class="current nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../notebooks/Tutorial%201%20-%20Python.html">
-   Python for data analysis
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../notebooks/Tutorial%202%20-%20Python%20for%20Data%20Analysis.html">
-   Python for scientific computing
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../notebooks/Tutorial%203%20-%20Machine%20Learning%20in%20Python.html">
-   Machine Learning in Python
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../notebooks/Tutorial%204%20-%20Decision%20Trees.html">
-   Recap: Decision Trees
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../notebooks/Tutorial%205%20-%20Nearest%20Neighbors.html">
-   Recap: k-Nearest Neighbor
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Lab%201%20-%20Tutorial.html">
-   Lab 1: Machine Learning with Python
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Lab%204%20-%20Tutorial.html">
-   Lab 4 Tutorial: Data engineering pipelines
-  </a>
- </li>
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
-   Lab 6 Tutorial: Deep Learning with TensorFlow
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Lab%207%20-%20Tutorial.html">
-   Lab 7 Tutorial: Deep Learning for text
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/Tutorial%201%20-%20Python.html">Python for data analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/Tutorial%202%20-%20Python%20for%20Data%20Analysis.html">Python for scientific computing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/Tutorial%203%20-%20Machine%20Learning%20in%20Python.html">Machine Learning in Python</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/Tutorial%204%20-%20Decision%20Trees.html">Recap: Decision Trees</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/Tutorial%205%20-%20Nearest%20Neighbors.html">Recap: k-Nearest Neighbor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Lab%201%20-%20Tutorial.html">Lab 1: Machine Learning with Python</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="Lab%204%20-%20Tutorial.html">Lab 4 Tutorial: Data engineering pipelines</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Lab 6 Tutorial: Deep Learning with TensorFlow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Lab%207%20-%20Tutorial.html">Lab 7 Tutorial: Deep Learning for text</a></li>
 </ul>
 
     </div>
 </nav></div>
-        <div class="bd-sidebar__bottom">
-             <!-- To handle the deprecated key -->
-            
-        </div>
     </div>
-    <div id="rtd-footer-container"></div>
-</div>
-
-
-          
-
-
-          
-<!-- A tiny helper pixel to detect if we've scrolled -->
-<div class="sbt-scroll-pixel-helper"></div>
-<!-- Main content -->
-<div class="col py-0 content-container">
-    
-    <div class="header-article row sticky-top noprint">
-        
-
-
-
-<div class="col py-1 d-flex header-article-main">
-    <div class="header-article__left">
-        
-        <label for="__navigation"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="right"
-title="Toggle navigation"
->
   
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-bars"></i>
-  </span>
-
-</label>
-
-        
-    </div>
-    <div class="header-article__right">
-<div class="menu-dropdown menu-dropdown-launch-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Launch interactive content">
-      <i class="fas fa-rocket"></i>
-  </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="https://mybinder.org/v2/gh/ml-course/master/master?urlpath=tree/labs/Lab 6 - Tutorial.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Launch on Binder"
->
   
-
-<span class="headerbtn__icon-container">
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
   
-    <img src="../_static/images/logo_binder.svg">
-  </span>
-<span class="headerbtn__text-container">Binder</span>
-</a>
+  <div id="rtd-footer-container"></div>
 
-      </li>
+
+      </div>
       
-      <li>
-        <a href="https://colab.research.google.com/github/ml-course/master/blob/master/labs/Lab 6 - Tutorial.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Launch on Colab"
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/ml-course/master/blob/master/labs/Lab 6 - Tutorial.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onColab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   
     <img src="../_static/images/logo_colab.png">
   </span>
-<span class="headerbtn__text-container">Colab</span>
+<span class="btn__text-container">Colab</span>
 </a>
-
-      </li>
+</li>
       
-    </ul>
-  </div>
+  </ul>
 </div>
 
-<button onclick="toggleFullScreen()"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="bottom"
-title="Fullscreen mode"
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/ml-course/master" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/ml-course/master/issues/new?title=Issue%20on%20page%20%2Flabs/Lab 6 - Tutorial.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/labs/Lab 6 - Tutorial.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
   <i class="fas fa-expand"></i>
   </span>
 
 </button>
 
-<div class="menu-dropdown menu-dropdown-repository-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Source repositories">
-      <i class="fab fa-github"></i>
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
   </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="https://github.com/ml-course/master"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Source repository"
->
-  
+`);
+</script>
 
-<span class="headerbtn__icon-container">
-  <i class="fab fa-github"></i>
-  </span>
-<span class="headerbtn__text-container">repository</span>
-</a>
-
-      </li>
-      
-      <li>
-        <a href="https://github.com/ml-course/master/issues/new?title=Issue%20on%20page%20%2Flabs/Lab 6 - Tutorial.html&body=Your%20issue%20content%20here."
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Open an issue"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-lightbulb"></i>
-  </span>
-<span class="headerbtn__text-container">open issue</span>
-</a>
-
-      </li>
-      
-    </ul>
-  </div>
-</div>
-
-<div class="menu-dropdown menu-dropdown-download-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Download this page">
-      <i class="fas fa-download"></i>
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
   </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="../_sources/labs/Lab 6 - Tutorial.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Download source file"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-file"></i>
-  </span>
-<span class="headerbtn__text-container">.ipynb</span>
-</a>
-
-      </li>
-      
-      <li>
-        
-<button onclick="printPdf(this)"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="left"
-title="Print to PDF"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-file-pdf"></i>
-  </span>
-<span class="headerbtn__text-container">.pdf</span>
-</button>
-
-      </li>
-      
-    </ul>
-  </div>
-</div>
-<label for="__page-toc"
-  class="headerbtn headerbtn-page-toc"
-  
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-list"></i>
-  </span>
-
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
 </label>
-
+</div></div>
+      
     </div>
+  
 </div>
-
-<!-- Table of contents -->
-<div class="col-md-3 bd-toc show noprint">
-    <div class="tocsection onthispage pt-5 pb-3">
-        <i class="fas fa-list"></i> Contents
-    </div>
-    <nav id="bd-toc-nav" aria-label="Page">
-        <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#running-example">
-   Running example
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#preprocessing">
-     Preprocessing
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#reshaping">
-       Reshaping
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#rescaling">
-       Rescaling
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#label-formatting">
-       Label formatting
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#train-test-splits">
-     Train-test splits
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#building-sequential-networks">
-     Building Sequential networks
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#the-input-layer">
-       The input layer
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#activation-layers">
-       Activation layers
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#model-summary">
-       Model summary
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#choosing-loss-optimizer-metrics">
-     Choosing loss, optimizer, metrics
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#training-fitting">
-     Training (fitting)
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#repeated-fitting">
-       Repeated fitting
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#tracking-progress">
-       Tracking progress
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#predictions-and-evaluations">
-     Predictions and evaluations
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#checking-the-learning-curve">
-   Checking the learning curve
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#early-stopping">
-     Early stopping
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#regularization">
-   Regularization
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#weight-regularization-weight-decay">
-     Weight regularization (weight decay)
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#dropout">
-     Dropout
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#batch-normalization">
-     Batch Normalization
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#combining-multiple-regularizers">
-       Combining multiple regularizers
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#tuning-multiple-hyperparameters">
-     Tuning multiple hyperparameters
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#further-reading">
-     Further reading
-    </a>
-   </li>
-  </ul>
- </li>
-</ul>
-
-    </nav>
 </div>
-    </div>
-    <div class="article row">
-        <div class="col pl-md-3 pl-lg-5 content-container">
-            <!-- Table of contents that is only displayed when printing the page -->
-            <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Lab 6 Tutorial: Deep Learning with TensorFlow</h1>
-                <!-- Table of contents -->
-                <div id="print-main-content">
-                    <div id="jb-print-toc">
-                        
-                        <div>
-                            <h2> Contents </h2>
-                        </div>
-                        <nav aria-label="Page">
-                            <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#running-example">
-   Running example
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#preprocessing">
-     Preprocessing
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#reshaping">
-       Reshaping
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#rescaling">
-       Rescaling
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#label-formatting">
-       Label formatting
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#train-test-splits">
-     Train-test splits
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#building-sequential-networks">
-     Building Sequential networks
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#the-input-layer">
-       The input layer
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#activation-layers">
-       Activation layers
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#model-summary">
-       Model summary
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#choosing-loss-optimizer-metrics">
-     Choosing loss, optimizer, metrics
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#training-fitting">
-     Training (fitting)
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#repeated-fitting">
-       Repeated fitting
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#tracking-progress">
-       Tracking progress
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#predictions-and-evaluations">
-     Predictions and evaluations
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#checking-the-learning-curve">
-   Checking the learning curve
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#early-stopping">
-     Early stopping
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#regularization">
-   Regularization
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#weight-regularization-weight-decay">
-     Weight regularization (weight decay)
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#dropout">
-     Dropout
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#batch-normalization">
-     Batch Normalization
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#combining-multiple-regularizers">
-       Combining multiple regularizers
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#tuning-multiple-hyperparameters">
-     Tuning multiple hyperparameters
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#further-reading">
-     Further reading
-    </a>
-   </li>
-  </ul>
- </li>
-</ul>
+              
+              
 
-                        </nav>
-                    </div>
-                </div>
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Lab 6 Tutorial: Deep Learning with TensorFlow</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
             </div>
-            <main id="main-content" role="main">
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#running-example">Running example</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#preprocessing">Preprocessing</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#reshaping">Reshaping</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#rescaling">Rescaling</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#label-formatting">Label formatting</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#train-test-splits">Train-test splits</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#building-sequential-networks">Building Sequential networks</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#the-input-layer">The input layer</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#activation-layers">Activation layers</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#model-summary">Model summary</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#choosing-loss-optimizer-metrics">Choosing loss, optimizer, metrics</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#training-fitting">Training (fitting)</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#repeated-fitting">Repeated fitting</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#tracking-progress">Tracking progress</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#predictions-and-evaluations">Predictions and evaluations</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#checking-the-learning-curve">Checking the learning curve</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#early-stopping">Early stopping</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#regularization">Regularization</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#weight-regularization-weight-decay">Weight regularization (weight decay)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dropout">Dropout</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#batch-normalization">Batch Normalization</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#combining-multiple-regularizers">Combining multiple regularizers</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tuning-multiple-hyperparameters">Tuning multiple hyperparameters</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#further-reading">Further reading</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
                 
-              <div>
-                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
   <section class="tex2jax_ignore mathjax_ignore" id="lab-6-tutorial-deep-learning-with-tensorflow">
-<h1>Lab 6 Tutorial: Deep Learning with TensorFlow<a class="headerlink" href="#lab-6-tutorial-deep-learning-with-tensorflow" title="Permalink to this headline">#</a></h1>
+<h1>Lab 6 Tutorial: Deep Learning with TensorFlow<a class="headerlink" href="#lab-6-tutorial-deep-learning-with-tensorflow" title="Permalink to this heading">#</a></h1>
 <p><strong>Using the Keras API</strong></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -831,7 +502,7 @@ title="Print to PDF"
 </div>
 </div>
 <section id="running-example">
-<h2>Running example<a class="headerlink" href="#running-example" title="Permalink to this headline">#</a></h2>
+<h2>Running example<a class="headerlink" href="#running-example" title="Permalink to this heading">#</a></h2>
 <p>We use the Fashion-MNIST dataset, which consists of 28x28 pixel images of 10 classes of fashion items.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -856,7 +527,7 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Lab 6 - Tutorial_3_0.png" src="../_images/Lab 6 - Tutorial_3_0.png" />
+<img alt="../_images/4118c5319b369f4157f7ce2c59336b087fdc8d6ae913c7db5cb27b2c1757380b.png" src="../_images/4118c5319b369f4157f7ce2c59336b087fdc8d6ae913c7db5cb27b2c1757380b.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -872,9 +543,9 @@ title="Print to PDF"
 </div>
 </div>
 <section id="preprocessing">
-<h3>Preprocessing<a class="headerlink" href="#preprocessing" title="Permalink to this headline">#</a></h3>
+<h3>Preprocessing<a class="headerlink" href="#preprocessing" title="Permalink to this heading">#</a></h3>
 <section id="reshaping">
-<h4>Reshaping<a class="headerlink" href="#reshaping" title="Permalink to this headline">#</a></h4>
+<h4>Reshaping<a class="headerlink" href="#reshaping" title="Permalink to this heading">#</a></h4>
 <p>To be able to feed this data through the network, the shape of the data must match the shape of the input layer.
 For normal dense layers, this will be a ‘flattened’ array. You can use:</p>
 <ul class="simple">
@@ -894,7 +565,7 @@ For normal dense layers, this will be a ‘flattened’ array. You can use:</p>
 </div>
 </section>
 <section id="rescaling">
-<h4>Rescaling<a class="headerlink" href="#rescaling" title="Permalink to this headline">#</a></h4>
+<h4>Rescaling<a class="headerlink" href="#rescaling" title="Permalink to this heading">#</a></h4>
 <p>Rescaling the data will help training a lot, and lead to faster convergence.
 You can use min-max scaling to [0,1] or standardization (mean 0, standard deviation 1).
 Note: We’re using a simple division by the maximum possible value. This won’t cause data leakage.</p>
@@ -907,7 +578,7 @@ Note: We’re using a simple division by the maximum possible value. This won’
 </div>
 </section>
 <section id="label-formatting">
-<h4>Label formatting<a class="headerlink" href="#label-formatting" title="Permalink to this headline">#</a></h4>
+<h4>Label formatting<a class="headerlink" href="#label-formatting" title="Permalink to this heading">#</a></h4>
 <p>For multi-class classification, our output layer will usually have one output node per class. Therefore, we need to on-hot-encode the labels. E.g. class ‘4’ becomes [0,0,0,0,1,0,…]</p>
 <ul class="simple">
 <li><p>Keras has a helper function <a class="reference external" href="https://www.tensorflow.org/api_docs/python/tf/keras/utils/to_categorical">to_categorical</a> to do this</p></li>
@@ -935,7 +606,7 @@ Note: We’re using a simple division by the maximum possible value. This won’
 </section>
 </section>
 <section id="train-test-splits">
-<h3>Train-test splits<a class="headerlink" href="#train-test-splits" title="Permalink to this headline">#</a></h3>
+<h3>Train-test splits<a class="headerlink" href="#train-test-splits" title="Permalink to this heading">#</a></h3>
 <p>Usually, simple hold-outs are used. This is valid if the datasets are large enough, and you take into account the usual concerns, such as stratification and grouping. For smaller datasets, you can use cross-validation as well, but you may get high variance in the per-fold results as neural networks may not always converge.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -956,7 +627,7 @@ Note: We’re using a simple division by the maximum possible value. This won’
 </div>
 </section>
 <section id="building-sequential-networks">
-<h3>Building Sequential networks<a class="headerlink" href="#building-sequential-networks" title="Permalink to this headline">#</a></h3>
+<h3>Building Sequential networks<a class="headerlink" href="#building-sequential-networks" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p><a class="reference external" href="https://www.tensorflow.org/api_docs/python/tf/keras/Sequential">Sequential</a> models are the simplest kind of neural nets. They consist of a series of layers, one after the other.</p></li>
 <li><p>There exist <a class="reference external" href="https://www.tensorflow.org/api_docs/python/tf/keras/layers">many types of layers</a></p></li>
@@ -1005,7 +676,7 @@ Note: We’re using a simple division by the maximum possible value. This won’
 </div>
 </div>
 <section id="the-input-layer">
-<h4>The input layer<a class="headerlink" href="#the-input-layer" title="Permalink to this headline">#</a></h4>
+<h4>The input layer<a class="headerlink" href="#the-input-layer" title="Permalink to this heading">#</a></h4>
 <p>Note that the input layer can be defined by ‘input_shape’. Alternatively, you could also add an explicit input layer.
 In this case, the data is a flattened array of 28*28 inputs.</p>
 <div class="cell docutils container">
@@ -1020,7 +691,7 @@ In this case, the data is a flattened array of 28*28 inputs.</p>
 </div>
 </section>
 <section id="activation-layers">
-<h4>Activation layers<a class="headerlink" href="#activation-layers" title="Permalink to this headline">#</a></h4>
+<h4>Activation layers<a class="headerlink" href="#activation-layers" title="Permalink to this heading">#</a></h4>
 <p>You can specify most activation functions, initializers, and regularizers as keyword strings.
 If you need more control, you can specify the activation as an activation layer. The Dense layer will then use a linear activation, and the next layers applied your preferred activation.</p>
 <div class="cell docutils container">
@@ -1036,7 +707,7 @@ If you need more control, you can specify the activation as an activation layer.
 </div>
 </section>
 <section id="model-summary">
-<h4>Model summary<a class="headerlink" href="#model-summary" title="Permalink to this headline">#</a></h4>
+<h4>Model summary<a class="headerlink" href="#model-summary" title="Permalink to this heading">#</a></h4>
 <ul class="simple">
 <li><p>‘model.summary()’ prints a layer-wise summary of the model</p>
 <ul>
@@ -1086,7 +757,7 @@ _________________________________________________________________
 </section>
 </section>
 <section id="choosing-loss-optimizer-metrics">
-<h3>Choosing loss, optimizer, metrics<a class="headerlink" href="#choosing-loss-optimizer-metrics" title="Permalink to this headline">#</a></h3>
+<h3>Choosing loss, optimizer, metrics<a class="headerlink" href="#choosing-loss-optimizer-metrics" title="Permalink to this heading">#</a></h3>
 <p>‘model.compile()’ specifies how the model should be trained, i.e. which loss function and optimizer to use and which evaluation metrics to report.</p>
 <ul class="simple">
 <li><p><strong>Loss function</strong> <a class="reference external" href="https://www.tensorflow.org/api_docs/python/tf/keras/losses">See overview</a></p>
@@ -1133,7 +804,7 @@ _________________________________________________________________
 </div>
 </section>
 <section id="training-fitting">
-<h3>Training (fitting)<a class="headerlink" href="#training-fitting" title="Permalink to this headline">#</a></h3>
+<h3>Training (fitting)<a class="headerlink" href="#training-fitting" title="Permalink to this heading">#</a></h3>
 <p>The ‘fit’ function trains the network and returns a history of the training and validation loss and all metrics per epoch.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">network</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">64</span><span class="p">)</span>
 </pre></div>
@@ -1158,7 +829,7 @@ _________________________________________________________________
 </li>
 </ul>
 <section id="repeated-fitting">
-<h4>Repeated fitting<a class="headerlink" href="#repeated-fitting" title="Permalink to this headline">#</a></h4>
+<h4>Repeated fitting<a class="headerlink" href="#repeated-fitting" title="Permalink to this heading">#</a></h4>
 <p>Calling ‘model.fit’ multiple times does not recreate the model from scratch (like scikit-learn does), it just continues training with the stored weights. To train from scratch, e.g. with different hyperparameters, you need to recreate the model, e.g. by wrapping it as a create_model function.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1175,7 +846,7 @@ _________________________________________________________________
 </div>
 </section>
 <section id="tracking-progress">
-<h4>Tracking progress<a class="headerlink" href="#tracking-progress" title="Permalink to this headline">#</a></h4>
+<h4>Tracking progress<a class="headerlink" href="#tracking-progress" title="Permalink to this heading">#</a></h4>
 <p>Calling ‘fit’ will print out the progress for every epoch, and returns a ‘history’ object which all losses and evaluation metrics.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1249,7 +920,7 @@ Epoch 3/3
 </section>
 </section>
 <section id="predictions-and-evaluations">
-<h3>Predictions and evaluations<a class="headerlink" href="#predictions-and-evaluations" title="Permalink to this headline">#</a></h3>
+<h3>Predictions and evaluations<a class="headerlink" href="#predictions-and-evaluations" title="Permalink to this heading">#</a></h3>
 <p>We can now call <code class="docutils literal notranslate"><span class="pre">predict</span></code> to generate predictions, and <code class="docutils literal notranslate"><span class="pre">evaluate</span></code> the trained model on the entire test set</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">network</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
 <span class="n">test_loss</span><span class="p">,</span> <span class="n">test_acc</span> <span class="o">=</span> <span class="n">network</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
@@ -1284,7 +955,7 @@ Epoch 3/3
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[]
 </pre></div>
 </div>
-<img alt="../_images/Lab 6 - Tutorial_43_3.png" src="../_images/Lab 6 - Tutorial_43_3.png" />
+<img alt="../_images/f7397c4f8b24294fe8d7a4555f56263f8d40f8ee7d8aaf8b846f5293f0f6a7b0.png" src="../_images/f7397c4f8b24294fe8d7a4555f56263f8d40f8ee7d8aaf8b846f5293f0f6a7b0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1304,7 +975,7 @@ Test accuracy: 0.8653000593185425
 </section>
 </section>
 <section id="checking-the-learning-curve">
-<h2>Checking the learning curve<a class="headerlink" href="#checking-the-learning-curve" title="Permalink to this headline">#</a></h2>
+<h2>Checking the learning curve<a class="headerlink" href="#checking-the-learning-curve" title="Permalink to this heading">#</a></h2>
 <p>There are several ways to check the learning curve</p>
 <ul class="simple">
 <li><p>Wait until the training is finished, then plot the results in the returned history</p></li>
@@ -1378,11 +1049,11 @@ Test accuracy: 0.8653000593185425
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Lab 6 - Tutorial_47_0.png" src="../_images/Lab 6 - Tutorial_47_0.png" />
+<img alt="../_images/d6ec08e2bec209f7de4f2771368f15ac905b89b9416dd91dd153f1c779f11107.png" src="../_images/d6ec08e2bec209f7de4f2771368f15ac905b89b9416dd91dd153f1c779f11107.png" />
 </div>
 </div>
 <section id="early-stopping">
-<h3>Early stopping<a class="headerlink" href="#early-stopping" title="Permalink to this headline">#</a></h3>
+<h3>Early stopping<a class="headerlink" href="#early-stopping" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Stop training when the validation loss (or validation accuracy) no longer improves</p></li>
 <li><p>Loss can be bumpy: use a moving average or wait for <span class="math notranslate nohighlight">\(k\)</span> steps without improvement</p></li>
@@ -1403,13 +1074,13 @@ Test accuracy: 0.8653000593185425
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Lab 6 - Tutorial_49_0.png" src="../_images/Lab 6 - Tutorial_49_0.png" />
+<img alt="../_images/d339edd9f30630090cb95840b3f95c2cbaf33662c42974038b2e426fb16f47de.png" src="../_images/d339edd9f30630090cb95840b3f95c2cbaf33662c42974038b2e426fb16f47de.png" />
 </div>
 </div>
 </section>
 </section>
 <section id="regularization">
-<h2>Regularization<a class="headerlink" href="#regularization" title="Permalink to this headline">#</a></h2>
+<h2>Regularization<a class="headerlink" href="#regularization" title="Permalink to this heading">#</a></h2>
 <p>There are several ways that we can regularize our models it they are overfitting:</p>
 <ul class="simple">
 <li><p>Get more data</p></li>
@@ -1419,7 +1090,7 @@ Test accuracy: 0.8653000593185425
 <li><p>Batch normalization also has a regularization effect</p></li>
 </ul>
 <section id="weight-regularization-weight-decay">
-<h3>Weight regularization (weight decay)<a class="headerlink" href="#weight-regularization-weight-decay" title="Permalink to this headline">#</a></h3>
+<h3>Weight regularization (weight decay)<a class="headerlink" href="#weight-regularization-weight-decay" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Weight regularization can be applied to layers using a <a class="reference external" href="https://www.tensorflow.org/api_docs/python/tf/keras/regularizers">kernel regularizer</a></p></li>
 </ul>
@@ -1439,12 +1110,12 @@ Test accuracy: 0.8653000593185425
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Lab 6 - Tutorial_51_0.png" src="../_images/Lab 6 - Tutorial_51_0.png" />
+<img alt="../_images/134170c47169922f89d08e1e1d0aed264082652f73d34c9b4b96d7474fc12e7d.png" src="../_images/134170c47169922f89d08e1e1d0aed264082652f73d34c9b4b96d7474fc12e7d.png" />
 </div>
 </div>
 </section>
 <section id="dropout">
-<h3>Dropout<a class="headerlink" href="#dropout" title="Permalink to this headline">#</a></h3>
+<h3>Dropout<a class="headerlink" href="#dropout" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Dropout randomly sets a number of layer activations to 0. This avoids that non-significant patterns are ‘memorized’ by the model.</p></li>
 <li><p>It is added to the model via a <a class="reference external" href="https://www.tensorflow.org/api_docs/python/tf/keras/layers/Dropout">Dropout layer</a></p></li>
@@ -1467,12 +1138,12 @@ Test accuracy: 0.8653000593185425
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Lab 6 - Tutorial_53_0.png" src="../_images/Lab 6 - Tutorial_53_0.png" />
+<img alt="../_images/34c2e35d71142ca146014dbc38cfc3ed726b4b5c9c59d1197f2339366cd4b39a.png" src="../_images/34c2e35d71142ca146014dbc38cfc3ed726b4b5c9c59d1197f2339366cd4b39a.png" />
 </div>
 </div>
 </section>
 <section id="batch-normalization">
-<h3>Batch Normalization<a class="headerlink" href="#batch-normalization" title="Permalink to this headline">#</a></h3>
+<h3>Batch Normalization<a class="headerlink" href="#batch-normalization" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Batch normalization normalizes the activations of the previous layer within each batch</p>
 <ul>
@@ -1506,11 +1177,11 @@ Test accuracy: 0.8653000593185425
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Lab 6 - Tutorial_56_0.png" src="../_images/Lab 6 - Tutorial_56_0.png" />
+<img alt="../_images/c11b26f3c78b7c2085d3c29ac42b13c39493d24ab6dc5f5b67fc6abacdc0c1a6.png" src="../_images/c11b26f3c78b7c2085d3c29ac42b13c39493d24ab6dc5f5b67fc6abacdc0c1a6.png" />
 </div>
 </div>
 <section id="combining-multiple-regularizers">
-<h4>Combining multiple regularizers<a class="headerlink" href="#combining-multiple-regularizers" title="Permalink to this headline">#</a></h4>
+<h4>Combining multiple regularizers<a class="headerlink" href="#combining-multiple-regularizers" title="Permalink to this heading">#</a></h4>
 <p>There is some debate about whether it makes sense to combine multiple regularizers, and in which order. What works (or not) depends on the structure and size of the network and the dataset at hand.</p>
 <p>For instance, since Batch Normalization already does some regularization, Dropout may not be needed. However, in this case (see below), the combination does help. Sometimes it helps do use Dropout after Batch Normalization only in the deepest layers.</p>
 <p>BatchNormalization is sometimes done before the Dense layer, but in general it works better if it is applied after the dense layer. Likewise, dropout can be applied before or after Batch Normalization. Using Dropout before Batch Normalization, however, will include 0’s in the normalization statistics, which is not ideal.
@@ -1536,13 +1207,13 @@ Test accuracy: 0.8653000593185425
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Lab 6 - Tutorial_58_0.png" src="../_images/Lab 6 - Tutorial_58_0.png" />
+<img alt="../_images/421504886f6f5c05815071b87aa80799d736fd3787160113fa41f6882a54648e.png" src="../_images/421504886f6f5c05815071b87aa80799d736fd3787160113fa41f6882a54648e.png" />
 </div>
 </div>
 </section>
 </section>
 <section id="tuning-multiple-hyperparameters">
-<h3>Tuning multiple hyperparameters<a class="headerlink" href="#tuning-multiple-hyperparameters" title="Permalink to this headline">#</a></h3>
+<h3>Tuning multiple hyperparameters<a class="headerlink" href="#tuning-multiple-hyperparameters" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Keras has an associated tuning library, <a class="reference external" href="https://www.tensorflow.org/tutorials/keras/keras_tuner">keras-tuner</a>, with several tuning techniques:</p></li>
 </ul>
@@ -1669,7 +1340,7 @@ INFO:tensorflow:Reloading Tuner from ./lab7/tuner0.json
 </div>
 </section>
 <section id="further-reading">
-<h3>Further reading<a class="headerlink" href="#further-reading" title="Permalink to this headline">#</a></h3>
+<h3>Further reading<a class="headerlink" href="#further-reading" title="Permalink to this heading">#</a></h3>
 <p><a class="reference external" href="https://www.tensorflow.org/learn">https://www.tensorflow.org/learn</a></p>
 <p><a class="reference external" href="http://playground.tensorflow.org">http://playground.tensorflow.org</a></p>
 <p><a class="reference external" href="https://www.tensorflow.org/tensorboard">https://www.tensorflow.org/tensorboard</a></p>
@@ -1689,7 +1360,7 @@ INFO:tensorflow:Reloading Tuner from ./lab7/tuner0.json
             mode: "python"
         },
         kernelOptions: {
-            kernelName: "python3",
+            name: "python3",
             path: "./labs"
         },
         predefinedOutput: true
@@ -1697,50 +1368,136 @@ INFO:tensorflow:Reloading Tuner from ./lab7/tuner0.json
     </script>
     <script>kernelName = 'python3'</script>
 
-              </div>
+                </article>
               
-            </main>
-            <footer class="footer-article noprint">
-                
-    <!-- Previous / next buttons -->
-<div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="Lab%204%20-%20Tutorial.html" title="previous page">
-        <i class="fas fa-angle-left"></i>
-        <div class="prev-next-info">
-            <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Lab 4 Tutorial: Data engineering pipelines</p>
-        </div>
+
+              
+              
+                <footer class="bd-footer-article">
+                  <!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="Lab%204%20-%20Tutorial.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Lab 4 Tutorial: Data engineering pipelines</p>
+      </div>
     </a>
-    <a class='right-next' id="next-link" href="Lab%207%20-%20Tutorial.html" title="next page">
-    <div class="prev-next-info">
+    <a class="right-next"
+       href="Lab%207%20-%20Tutorial.html"
+       title="next page">
+      <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
         <p class="prev-next-title">Lab 7 Tutorial: Deep Learning for text</p>
-    </div>
-    <i class="fas fa-angle-right"></i>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
-            </footer>
-        </div>
-    </div>
-    <div class="footer-content row">
-        <footer class="col footer"><p>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#running-example">Running example</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#preprocessing">Preprocessing</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#reshaping">Reshaping</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#rescaling">Rescaling</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#label-formatting">Label formatting</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#train-test-splits">Train-test splits</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#building-sequential-networks">Building Sequential networks</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#the-input-layer">The input layer</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#activation-layers">Activation layers</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#model-summary">Model summary</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#choosing-loss-optimizer-metrics">Choosing loss, optimizer, metrics</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#training-fitting">Training (fitting)</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#repeated-fitting">Repeated fitting</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#tracking-progress">Tracking progress</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#predictions-and-evaluations">Predictions and evaluations</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#checking-the-learning-curve">Checking the learning curve</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#early-stopping">Early stopping</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#regularization">Regularization</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#weight-regularization-weight-decay">Weight regularization (weight decay)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dropout">Dropout</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#batch-normalization">Batch Normalization</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#combining-multiple-regularizers">Combining multiple regularizers</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tuning-multiple-hyperparameters">Tuning multiple hyperparameters</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#further-reading">Further reading</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            <div class="bd-footer-content__inner">
+<div class="bd-footer-content__inner container">
   
-    By Joaquin Vanschoren<br/>
-  
-      &copy; Copyright 2023. CC0 Licensed - Use as you like.<br/>
-</p>
-        </footer>
-    </div>
+  <div class="footer-item">
     
-</div>
+<p class="component-author">
+By Joaquin Vanschoren
+</p>
 
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2023. CC0 Licensed - Use as you like.
+      <br/>
+    
+  </p>
 
-      </div>
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div></div>
+          </footer>
+        
+
+      </main>
     </div>
+  </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d"></script>
 
-
+  <footer class="bd-footer">
+  </footer>
   </body>
 </html>

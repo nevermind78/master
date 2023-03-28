@@ -1,48 +1,59 @@
 
+
 <!DOCTYPE html>
 
-<html>
+
+<html lang="en" >
+
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>Streetview with linear models &#8212; ML Engineering</title>
-    
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  <link href="../_static/styles/theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
 
-    
-  <link rel="stylesheet"
-    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
-    
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d" />
 
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../_static/togglebutton.js"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script src="../_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
 const thebe_selector = ".thebe,.cell"
@@ -50,60 +61,92 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'studies/S10 Streetview with linear models';</script>
     <link rel="shortcut icon" href="../_static/favicon.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
-    
-
-    <!-- Google Analytics -->
-    
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
-<!-- Checkboxes to toggle the left sidebar -->
-<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
-<label class="overlay overlay-navbar" for="__navigation">
-    <div class="visually-hidden">Toggle navigation sidebar</div>
-</label>
-<!-- Checkboxes to toggle the in-page toc -->
-<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
-<label class="overlay overlay-pagetoc" for="__page-toc">
-    <div class="visually-hidden">Toggle in-page Table of Contents</div>
-</label>
-<!-- Headers at the top -->
-<div class="announcement header-item noprint"></div>
-<div class="header header-item noprint"></div>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
-    
-    <div class="container-fluid" id="banner"></div>
-
-    
-
-    <div class="container-xl">
-      <div class="row">
-          
-<!-- Sidebar -->
-<div class="bd-sidebar noprint" id="site-navigation">
-    <div class="bd-sidebar__content">
-        <div class="bd-sidebar__top"><div class="navbar-brand-box">
-    <a class="navbar-brand text-wrap" href="../index.html">
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
       
-        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+      <div class="bd-sidebar-primary bd-sidebar">
         
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+    
+    
       
-      
-      <img src="../_static/banner.jpeg" class="logo" alt="logo">
-      
-      
-      <h1 class="site-logo" id="site-title">ML Engineering</h1>
-      
-    </a>
-</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
-  <i class="icon fas fa-search"></i>
-  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
-    <div class="bd-toc-item active">
+    
+    
+    <img src="../_static/banner.jpeg" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../_static/banner.jpeg" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
@@ -113,507 +156,300 @@ const thebe_selector_output = ".output, .cell_output"
             </li>
         </ul>
         <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%200%20-%20Prerequisites.html">
-   Prerequisites
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="../labs/Lab%200%20-%20Prerequisites.html">Prerequisites</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Lectures
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Lectures</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../notebooks/01%20-%20Introduction.html">
-   Lecture 1: Introduction
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../notebooks/02%20-%20Linear%20Models.html">
-   Lecture 2: Linear models
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../notebooks/03%20-%20Kernelization.html">
-   Lecture 3: Kernelization
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../notebooks/04%20-%20Model%20Selection.html">
-   Lecture 4: Model Selection
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../notebooks/05%20-%20Ensemble%20Learning.html">
-   Lecture 5. Ensemble Learning
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../notebooks/06%20-%20Data%20Preprocessing.html">
-   Lecture 6. Data preprocessing
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../notebooks/07%20-%20Bayesian%20Learning.html">
-   Lecture 7. Bayesian Learning
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../notebooks/08%20-%20Neural%20Networks.html">
-   Lecture 8. Neural Networks
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../notebooks/09%20-%20Convolutional%20Neural%20Networks.html">
-   Lecture 9: Convolutional Neural Networks
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../notebooks/10%20-%20Neural%20Networks%20for%20text.html">
-   Lecture 10. Neural Networks for text
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/01%20-%20Introduction.html">Lecture 1: Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/02%20-%20Linear%20Models.html">Lecture 2: Linear models</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/03%20-%20Kernelization.html">Lecture 3: Kernelization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/04%20-%20Model%20Selection.html">Lecture 4: Model Selection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/05%20-%20Ensemble%20Learning.html">Lecture 5. Ensemble Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/06%20-%20Data%20Preprocessing.html">Lecture 6. Data preprocessing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/07%20-%20Bayesian%20Learning.html">Lecture 7. Bayesian Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/08%20-%20Neural%20Networks.html">Lecture 8. Neural Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/09%20-%20Convolutional%20Neural%20Networks.html">Lecture 9: Convolutional Neural Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/10%20-%20Neural%20Networks%20for%20text.html">Lecture 10. Neural Networks for text</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Labs
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Labs</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%201a%20-%20Linear%20Models%20for%20Regression.html">
-   Lab 1a: Linear regression
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%201b%20-%20Linear%20Models%20for%20Classification.html">
-   Lab 1b: Linear classification
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%202a%20-%20Kernelization.html">
-   Lab 2a: Kernelization
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%202b%20-%20Model%20Selection.html">
-   Lab 2b: Model selection
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%203%20-%20Ensembles.html">
-   Lab 3b: Ensembles
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%204%20-%20Pipelines.html">
-   Lab 4:  Data preprocessing
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%205%20-%20Bayesian%20learning.html">
-   Lab 5: Bayesian models
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%206%20-%20Neural%20Networks.html">
-   Lab 6: Neural networks
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%207a%20-%20Convolutional%20Neural%20Networks.html">
-   Lab 7a: Convolutional neural nets
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%207b%20-%20Neural%20Networks%20for%20text.html">
-   Lab 7b: Neural Networks for text
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%208%20-%20AutoML.html">
-   Lab 8: AutoML
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="../labs/Lab%201a%20-%20Linear%20Models%20for%20Regression.html">Lab 1a: Linear regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../labs/Lab%201b%20-%20Linear%20Models%20for%20Classification.html">Lab 1b: Linear classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../labs/Lab%202a%20-%20Kernelization.html">Lab 2a: Kernelization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../labs/Lab%202b%20-%20Model%20Selection.html">Lab 2b: Model selection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../labs/Lab%203%20-%20Ensembles.html">Lab 3: Ensembles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../labs/Lab%204%20-%20Pipelines.html">Lab 4:  Data preprocessing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../labs/Lab%205%20-%20Bayesian%20learning.html">Lab 5: Bayesian models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../labs/Lab%206%20-%20Neural%20Networks.html">Lab 6: Neural networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../labs/Lab%207a%20-%20Convolutional%20Neural%20Networks.html">Lab 7a: Convolutional neural nets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../labs/Lab%207b%20-%20Neural%20Networks%20for%20text.html">Lab 7b: Neural Networks for text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../labs/Lab%208%20-%20AutoML.html">Lab 8: AutoML</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Tutorials
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../notebooks/Tutorial%201%20-%20Python.html">
-   Python for data analysis
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../notebooks/Tutorial%202%20-%20Python%20for%20Data%20Analysis.html">
-   Python for scientific computing
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../notebooks/Tutorial%203%20-%20Machine%20Learning%20in%20Python.html">
-   Machine Learning in Python
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../notebooks/Tutorial%204%20-%20Decision%20Trees.html">
-   Recap: Decision Trees
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../notebooks/Tutorial%205%20-%20Nearest%20Neighbors.html">
-   Recap: k-Nearest Neighbor
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%201%20-%20Tutorial.html">
-   Lab 1: Machine Learning with Python
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%204%20-%20Tutorial.html">
-   Lab 4 Tutorial: Data engineering pipelines
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%206%20-%20Tutorial.html">
-   Lab 6 Tutorial: Deep Learning with TensorFlow
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%207%20-%20Tutorial.html">
-   Lab 7 Tutorial: Deep Learning for text
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/Tutorial%201%20-%20Python.html">Python for data analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/Tutorial%202%20-%20Python%20for%20Data%20Analysis.html">Python for scientific computing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/Tutorial%203%20-%20Machine%20Learning%20in%20Python.html">Machine Learning in Python</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/Tutorial%204%20-%20Decision%20Trees.html">Recap: Decision Trees</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/Tutorial%205%20-%20Nearest%20Neighbors.html">Recap: k-Nearest Neighbor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../labs/Lab%201%20-%20Tutorial.html">Lab 1: Machine Learning with Python</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="../labs/Lab%204%20-%20Tutorial.html">Lab 4 Tutorial: Data engineering pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../labs/Lab%206%20-%20Tutorial.html">Lab 6 Tutorial: Deep Learning with TensorFlow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../labs/Lab%207%20-%20Tutorial.html">Lab 7 Tutorial: Deep Learning for text</a></li>
 </ul>
 
     </div>
 </nav></div>
-        <div class="bd-sidebar__bottom">
-             <!-- To handle the deprecated key -->
-            
-        </div>
     </div>
-    <div id="rtd-footer-container"></div>
-</div>
-
-
-          
-
-
-          
-<!-- A tiny helper pixel to detect if we've scrolled -->
-<div class="sbt-scroll-pixel-helper"></div>
-<!-- Main content -->
-<div class="col py-0 content-container">
-    
-    <div class="header-article row sticky-top noprint">
-        
-
-
-
-<div class="col py-1 d-flex header-article-main">
-    <div class="header-article__left">
-        
-        <label for="__navigation"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="right"
-title="Toggle navigation"
->
   
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-bars"></i>
-  </span>
-
-</label>
-
-        
-    </div>
-    <div class="header-article__right">
-<div class="menu-dropdown menu-dropdown-launch-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Launch interactive content">
-      <i class="fas fa-rocket"></i>
-  </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="https://mybinder.org/v2/gh/ml-course/master/master?urlpath=tree/studies/S10 Streetview with linear models.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Launch on Binder"
->
   
-
-<span class="headerbtn__icon-container">
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
   
-    <img src="../_static/images/logo_binder.svg">
-  </span>
-<span class="headerbtn__text-container">Binder</span>
-</a>
+  <div id="rtd-footer-container"></div>
 
-      </li>
+
+      </div>
       
-      <li>
-        <a href="https://colab.research.google.com/github/ml-course/master/blob/master/studies/S10 Streetview with linear models.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Launch on Colab"
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/ml-course/master/blob/master/studies/S10 Streetview with linear models.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onColab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   
     <img src="../_static/images/logo_colab.png">
   </span>
-<span class="headerbtn__text-container">Colab</span>
+<span class="btn__text-container">Colab</span>
 </a>
-
-      </li>
+</li>
       
-    </ul>
-  </div>
+  </ul>
 </div>
 
-<button onclick="toggleFullScreen()"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="bottom"
-title="Fullscreen mode"
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/ml-course/master" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/ml-course/master/issues/new?title=Issue%20on%20page%20%2Fstudies/S10 Streetview with linear models.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/studies/S10 Streetview with linear models.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
   <i class="fas fa-expand"></i>
   </span>
 
 </button>
 
-<div class="menu-dropdown menu-dropdown-repository-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Source repositories">
-      <i class="fab fa-github"></i>
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
   </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="https://github.com/ml-course/master"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Source repository"
->
-  
+`);
+</script>
 
-<span class="headerbtn__icon-container">
-  <i class="fab fa-github"></i>
-  </span>
-<span class="headerbtn__text-container">repository</span>
-</a>
-
-      </li>
-      
-      <li>
-        <a href="https://github.com/ml-course/master/issues/new?title=Issue%20on%20page%20%2Fstudies/S10 Streetview with linear models.html&body=Your%20issue%20content%20here."
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Open an issue"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-lightbulb"></i>
-  </span>
-<span class="headerbtn__text-container">open issue</span>
-</a>
-
-      </li>
-      
-    </ul>
-  </div>
-</div>
-
-<div class="menu-dropdown menu-dropdown-download-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Download this page">
-      <i class="fas fa-download"></i>
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
   </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="../_sources/studies/S10 Streetview with linear models.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Download source file"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-file"></i>
-  </span>
-<span class="headerbtn__text-container">.ipynb</span>
-</a>
-
-      </li>
-      
-      <li>
-        
-<button onclick="printPdf(this)"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="left"
-title="Print to PDF"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-file-pdf"></i>
-  </span>
-<span class="headerbtn__text-container">.pdf</span>
-</button>
-
-      </li>
-      
-    </ul>
-  </div>
-</div>
-<label for="__page-toc"
-  class="headerbtn headerbtn-page-toc"
-  
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-list"></i>
-  </span>
-
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
 </label>
-
+</div></div>
+      
     </div>
+  
 </div>
-
-<!-- Table of contents -->
-<div class="col-md-3 bd-toc show noprint">
-    <div class="tocsection onthispage pt-5 pb-3">
-        <i class="fas fa-list"></i> Contents
-    </div>
-    <nav id="bd-toc-nav" aria-label="Page">
-        <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#quick-benchmark">
-   Quick benchmark
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#learning-curves">
-   Learning curves
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#data-representation">
-   Data representation
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#regularization">
-   Regularization
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#misclassifications">
-   Misclassifications
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#interpreting-models">
-   Interpreting models
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#final-notes">
-     Final notes
-    </a>
-   </li>
-  </ul>
- </li>
-</ul>
-
-    </nav>
 </div>
-    </div>
-    <div class="article row">
-        <div class="col pl-md-3 pl-lg-5 content-container">
-            <!-- Table of contents that is only displayed when printing the page -->
-            <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Streetview with linear models</h1>
-                <!-- Table of contents -->
-                <div id="print-main-content">
-                    <div id="jb-print-toc">
-                        
-                        <div>
-                            <h2> Contents </h2>
-                        </div>
-                        <nav aria-label="Page">
-                            <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#quick-benchmark">
-   Quick benchmark
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#learning-curves">
-   Learning curves
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#data-representation">
-   Data representation
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#regularization">
-   Regularization
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#misclassifications">
-   Misclassifications
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#interpreting-models">
-   Interpreting models
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#final-notes">
-     Final notes
-    </a>
-   </li>
-  </ul>
- </li>
-</ul>
+              
+              
 
-                        </nav>
-                    </div>
-                </div>
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Streetview with linear models</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
             </div>
-            <main id="main-content" role="main">
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-benchmark">Quick benchmark</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-curves">Learning curves</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-representation">Data representation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#regularization">Regularization</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#misclassifications">Misclassifications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interpreting-models">Interpreting models</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#final-notes">Final notes</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
                 
-              <div>
-                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
   <section class="tex2jax_ignore mathjax_ignore" id="streetview-with-linear-models">
-<h1>Streetview with linear models<a class="headerlink" href="#streetview-with-linear-models" title="Permalink to this headline">#</a></h1>
+<h1>Streetview with linear models<a class="headerlink" href="#streetview-with-linear-models" title="Permalink to this heading">#</a></h1>
 <p>The <a class="reference external" href="https://www.openml.org/d/41081">Street View House Numbers Dataset</a> contains 32-by-32 RGB images centered around a single digit of a house number appearing in Google Street View. Many of the images do contain some distractors at the sides. Your goal is to build a model that recognizes the correct digit. Here’s, we’ll use quite simple models and learn why they are not sufficient for this task.</p>
 <p>We first download the data from OpenML. Then, we select a few images, and show them together with their correct classification</p>
 <div class="cell docutils container">
@@ -665,11 +501,11 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/S10 Streetview with linear models_3_0.png" src="../_images/S10 Streetview with linear models_3_0.png" />
+<img alt="../_images/4ca9d681ed2bc8151df0aef5a632e4ea2210def27a9b7c4ecfff24515ed6a2f2.png" src="../_images/4ca9d681ed2bc8151df0aef5a632e4ea2210def27a9b7c4ecfff24515ed6a2f2.png" />
 </div>
 </div>
 <section id="quick-benchmark">
-<h2>Quick benchmark<a class="headerlink" href="#quick-benchmark" title="Permalink to this headline">#</a></h2>
+<h2>Quick benchmark<a class="headerlink" href="#quick-benchmark" title="Permalink to this heading">#</a></h2>
 <p>First, we’ll try the default Logistic Regression and Linear SVMs. We’ll also throw in k-Nearest Neighbors as a point of reference. To see whether or models are overfitting, we also evaluate the training set error. This can be done using <code class="docutils literal notranslate"><span class="pre">cross_validate</span></code> instead of  <code class="docutils literal notranslate"><span class="pre">cross_val_scores</span></code></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -719,7 +555,7 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/S10 Streetview with linear models_7_0.png" src="../_images/S10 Streetview with linear models_7_0.png" />
+<img alt="../_images/c34984f2fd05e034a29fc18bf30aa5c7cbcedb52a543a8e94fa10ea0acd82d01.png" src="../_images/c34984f2fd05e034a29fc18bf30aa5c7cbcedb52a543a8e94fa10ea0acd82d01.png" />
 </div>
 </div>
 <p>The plot above shows the scores as bar plots and the variance as error bars. The error bars are hardly noticeable, so the models generated in the 3-fold cross-validation are very stable.</p>
@@ -728,7 +564,7 @@ title="Print to PDF"
 <p>The main thing to address right now is the overfitting issue. We can try to add more data or tune the hyperparameters. We can first check the learning curves to see if simply adding more data will help.</p>
 </section>
 <section id="learning-curves">
-<h2>Learning curves<a class="headerlink" href="#learning-curves" title="Permalink to this headline">#</a></h2>
+<h2>Learning curves<a class="headerlink" href="#learning-curves" title="Permalink to this heading">#</a></h2>
 <p>We draw a learning curve by increasingly adding 1% of data to the training set. We put in a time limit to stop the learning curve when the algorithm becomes too slow.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -819,14 +655,14 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/S10 Streetview with linear models_11_0.png" src="../_images/S10 Streetview with linear models_11_0.png" />
-<img alt="../_images/S10 Streetview with linear models_11_1.png" src="../_images/S10 Streetview with linear models_11_1.png" />
-<img alt="../_images/S10 Streetview with linear models_11_2.png" src="../_images/S10 Streetview with linear models_11_2.png" />
+<img alt="../_images/f255b4709828c6531a50e1d68f373faf2553aeab0814da58a6521d617b280089.png" src="../_images/f255b4709828c6531a50e1d68f373faf2553aeab0814da58a6521d617b280089.png" />
+<img alt="../_images/32cc344f2511cef37d86ad9d76779008831b93d7385c310563d7ea05695f7948.png" src="../_images/32cc344f2511cef37d86ad9d76779008831b93d7385c310563d7ea05695f7948.png" />
+<img alt="../_images/155d18e9f85c8c71b22c342de9920f182a27bf9f0a751f5167cd5ef0eb442664.png" src="../_images/155d18e9f85c8c71b22c342de9920f182a27bf9f0a751f5167cd5ef0eb442664.png" />
 </div>
 </div>
 </section>
 <section id="data-representation">
-<h2>Data representation<a class="headerlink" href="#data-representation" title="Permalink to this headline">#</a></h2>
+<h2>Data representation<a class="headerlink" href="#data-representation" title="Permalink to this heading">#</a></h2>
 <p>The data is very high-dimensional, which slows down the algorithms. However, we probably don’t really
 need the color information. In addition, especially for kNN we may get better results if we standardize
 or normalize the data first. Let’s try that.</p>
@@ -876,11 +712,11 @@ or normalize the data first. Let’s try that.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/S10 Streetview with linear models_15_0.png" src="../_images/S10 Streetview with linear models_15_0.png" />
+<img alt="../_images/7bb4b9838bb514137fa0f62d863dad93018c36f1860d394e16adf587a591933c.png" src="../_images/7bb4b9838bb514137fa0f62d863dad93018c36f1860d394e16adf587a591933c.png" />
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Gray range: [ 8.988 , 174.621 ]
 </pre></div>
 </div>
-<img alt="../_images/S10 Streetview with linear models_15_2.png" src="../_images/S10 Streetview with linear models_15_2.png" />
+<img alt="../_images/7bb4b9838bb514137fa0f62d863dad93018c36f1860d394e16adf587a591933c.png" src="../_images/7bb4b9838bb514137fa0f62d863dad93018c36f1860d394e16adf587a591933c.png" />
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Standardized range: [ -2.439222354928997 , 2.5362443526132585 ]
 </pre></div>
 </div>
@@ -914,7 +750,7 @@ but the other way around as well. This may throw off our models.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/S10 Streetview with linear models_18_0.png" src="../_images/S10 Streetview with linear models_18_0.png" />
+<img alt="../_images/4ada688b71dd68b09f8ba66b314ef0e62cbf4cf45f40a6f88992410570f73c88.png" src="../_images/4ada688b71dd68b09f8ba66b314ef0e62cbf4cf45f40a6f88992410570f73c88.png" />
 </div>
 </div>
 <p>The grayscale images lead to a slightly better performance for all models. This indicates that to classify the numbers, information about the color is not necessary. The training time (not shown here), has reduced significantly, since there
@@ -955,14 +791,14 @@ Maybe we should reduce the number of features further. This can be done with dim
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/S10 Streetview with linear models_21_0.png" src="../_images/S10 Streetview with linear models_21_0.png" />
+<img alt="../_images/29c5c6672a81259806d93eed517376fc757bd21ac428359278bf72c7476c18d9.png" src="../_images/29c5c6672a81259806d93eed517376fc757bd21ac428359278bf72c7476c18d9.png" />
 </div>
 </div>
 <p>PCA significant increases the performance of Logistic Regression,
 and there is a clear optimum for the number of components. The effect on Linear SVM models is mixed, but for certain sets of components the improvement can be significant. Also kNN can be improved slightly. In all cases the optimum is around 90 (around 200 for LinearSVC), significantly less than the original 1024.</p>
 </section>
 <section id="regularization">
-<h2>Regularization<a class="headerlink" href="#regularization" title="Permalink to this headline">#</a></h2>
+<h2>Regularization<a class="headerlink" href="#regularization" title="Permalink to this heading">#</a></h2>
 <p>Another way to avoid overfitting is to tune the amount of regulization during model training.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1031,9 +867,7 @@ and there is a clear optimum for the number of components. The effect on Linear 
 </div>
 </div>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "8a89741ef5d94d8eb621b8b0da3f14f9", "version_major": 2, "version_minor": 0}
-</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "8a89741ef5d94d8eb621b8b0da3f14f9", "version_major": 2, "version_minor": 0}</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
 </pre></div>
 </div>
 </div>
@@ -1045,7 +879,7 @@ and there is a clear optimum for the number of components. The effect on Linear 
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/S10 Streetview with linear models_26_0.png" src="../_images/S10 Streetview with linear models_26_0.png" />
+<img alt="../_images/c705fe47f7fbc600c81749a3be9f41181a02059f8c5750c2bf05c7d29d621d0f.png" src="../_images/c705fe47f7fbc600c81749a3be9f41181a02059f8c5750c2bf05c7d29d621d0f.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1059,9 +893,7 @@ and there is a clear optimum for the number of components. The effect on Linear 
 </div>
 </div>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "0768c2bc75614b00aaf8f6bce5aa4a4c", "version_major": 2, "version_minor": 0}
-</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "0768c2bc75614b00aaf8f6bce5aa4a4c", "version_major": 2, "version_minor": 0}</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
 </pre></div>
 </div>
 </div>
@@ -1073,7 +905,7 @@ and there is a clear optimum for the number of components. The effect on Linear 
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/S10 Streetview with linear models_28_0.png" src="../_images/S10 Streetview with linear models_28_0.png" />
+<img alt="../_images/66cb74e8a77a3558b8382208758970345c8fc1479b2dc2065f042bac08f147a6.png" src="../_images/66cb74e8a77a3558b8382208758970345c8fc1479b2dc2065f042bac08f147a6.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1126,7 +958,7 @@ the linear kernel with a non-linear RBF kernel.</p>
 <p>The RBF SVM performs a lot better than the linear SVM, and even better than the kNN.</p>
 </section>
 <section id="misclassifications">
-<h2>Misclassifications<a class="headerlink" href="#misclassifications" title="Permalink to this headline">#</a></h2>
+<h2>Misclassifications<a class="headerlink" href="#misclassifications" title="Permalink to this heading">#</a></h2>
 <p>It’s always good to study the misclassifications of a model. Let’s see if the different models misclassify the same or different types of images.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1163,9 +995,9 @@ the linear kernel with a non-linear RBF kernel.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/S10 Streetview with linear models_34_0.png" src="../_images/S10 Streetview with linear models_34_0.png" />
-<img alt="../_images/S10 Streetview with linear models_34_1.png" src="../_images/S10 Streetview with linear models_34_1.png" />
-<img alt="../_images/S10 Streetview with linear models_34_2.png" src="../_images/S10 Streetview with linear models_34_2.png" />
+<img alt="../_images/61cf908effa833026feb9b89b0de3ad7bfbdcb3b1e99ad22501e3bab3e1e8336.png" src="../_images/61cf908effa833026feb9b89b0de3ad7bfbdcb3b1e99ad22501e3bab3e1e8336.png" />
+<img alt="../_images/b792e8172ddf51cd82dc37fd324bb8624627092865ebc7e511b33e13f91209a5.png" src="../_images/b792e8172ddf51cd82dc37fd324bb8624627092865ebc7e511b33e13f91209a5.png" />
+<img alt="../_images/f73e7591c532e8d6f3700cd47c25b83afdc75d256a3d44d4ef4cce1a67ec888a.png" src="../_images/f73e7591c532e8d6f3700cd47c25b83afdc75d256a3d44d4ef4cce1a67ec888a.png" />
 </div>
 </div>
 <p>The linear models misclassify the same imges, but the classifications are not always the same. The kNN sometimes makes different mistakes. A lot of the misclassified images have dark backgrounds.</p>
@@ -1197,7 +1029,7 @@ the linear kernel with a non-linear RBF kernel.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/S10 Streetview with linear models_36_0.png" src="../_images/S10 Streetview with linear models_36_0.png" />
+<img alt="../_images/4fc623e311a3439ddddbec9623c4fc8383c9fa86d11b9b084d6aeae60c50fc92.png" src="../_images/4fc623e311a3439ddddbec9623c4fc8383c9fa86d11b9b084d6aeae60c50fc92.png" />
 </div>
 </div>
 <p>Looking at the confusion matrices for the first 1000 predictions,
@@ -1206,7 +1038,7 @@ This imbalance can cause the models to be biased towards predicting ‘1’ more
 confused are 3-5, 2-3, and 5-6.</p>
 </section>
 <section id="interpreting-models">
-<h2>Interpreting models<a class="headerlink" href="#interpreting-models" title="Permalink to this headline">#</a></h2>
+<h2>Interpreting models<a class="headerlink" href="#interpreting-models" title="Permalink to this heading">#</a></h2>
 <p>A useful property of linear models is that we can interpret what the model has leaerned by looking at which coefficients get higher weights. In this case the coefficients are the weights for each pixel, so we can plot them as pixels to see what the model is paying attention to. Since linear models are binary and trained in a one-vs-all manner, we get coefficients for every class.</p>
 <p>Let’s start by training the linear regression with the optimized hyperparameters on all the data and plotting the coefficients.</p>
 <div class="cell docutils container">
@@ -1244,7 +1076,7 @@ confused are 3-5, 2-3, and 5-6.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/S10 Streetview with linear models_41_0.png" src="../_images/S10 Streetview with linear models_41_0.png" />
+<img alt="../_images/bb9773ffb31369ebae813a655ae308d9f5847ebc825059b43b2c53010597ecae.png" src="../_images/bb9773ffb31369ebae813a655ae308d9f5847ebc825059b43b2c53010597ecae.png" />
 </div>
 </div>
 <p>We can sort of recognize the number that needs to be recognized in the plotted coefficients. The 1,2,3 are quite clear. Overall, the ‘edges’ of a number seem to get a higher weights than pixels ‘inside’ the numbers. The models still pay a lot of attention to the background, which is probably why they are are so easily confused.</p>
@@ -1258,16 +1090,16 @@ confused are 3-5, 2-3, and 5-6.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/S10 Streetview with linear models_43_0.png" src="../_images/S10 Streetview with linear models_43_0.png" />
-<img alt="../_images/S10 Streetview with linear models_43_1.png" src="../_images/S10 Streetview with linear models_43_1.png" />
-<img alt="../_images/S10 Streetview with linear models_43_2.png" src="../_images/S10 Streetview with linear models_43_2.png" />
-<img alt="../_images/S10 Streetview with linear models_43_3.png" src="../_images/S10 Streetview with linear models_43_3.png" />
-<img alt="../_images/S10 Streetview with linear models_43_4.png" src="../_images/S10 Streetview with linear models_43_4.png" />
-<img alt="../_images/S10 Streetview with linear models_43_5.png" src="../_images/S10 Streetview with linear models_43_5.png" />
-<img alt="../_images/S10 Streetview with linear models_43_6.png" src="../_images/S10 Streetview with linear models_43_6.png" />
-<img alt="../_images/S10 Streetview with linear models_43_7.png" src="../_images/S10 Streetview with linear models_43_7.png" />
-<img alt="../_images/S10 Streetview with linear models_43_8.png" src="../_images/S10 Streetview with linear models_43_8.png" />
-<img alt="../_images/S10 Streetview with linear models_43_9.png" src="../_images/S10 Streetview with linear models_43_9.png" />
+<img alt="../_images/9a38ee8176858e08b97ab39179561c57d3c4092d5f30822d010fff3a98426f87.png" src="../_images/9a38ee8176858e08b97ab39179561c57d3c4092d5f30822d010fff3a98426f87.png" />
+<img alt="../_images/543f8039760d84cf6ba835a74aad9618cfbdf2ef6ab9e1f0578628da6e877b0c.png" src="../_images/543f8039760d84cf6ba835a74aad9618cfbdf2ef6ab9e1f0578628da6e877b0c.png" />
+<img alt="../_images/2b3759fb55d144124e5732bc36ba5815e7856e2ebef1b3034c86490cbadc413c.png" src="../_images/2b3759fb55d144124e5732bc36ba5815e7856e2ebef1b3034c86490cbadc413c.png" />
+<img alt="../_images/38e16e30e660fd1a40ae73d709dec19b99d250a110dba7ed5a165e83eeadcdd4.png" src="../_images/38e16e30e660fd1a40ae73d709dec19b99d250a110dba7ed5a165e83eeadcdd4.png" />
+<img alt="../_images/382b1bb2a9ad15529eb819f26db8f5cf75f8094b0326bc1937fe538a290bfa24.png" src="../_images/382b1bb2a9ad15529eb819f26db8f5cf75f8094b0326bc1937fe538a290bfa24.png" />
+<img alt="../_images/ed9fe34951ef2cd052602c0cae4fba14b6147b0cddf4daf297cf3c26cf8d62b7.png" src="../_images/ed9fe34951ef2cd052602c0cae4fba14b6147b0cddf4daf297cf3c26cf8d62b7.png" />
+<img alt="../_images/843239f9a782708152dceba96a736fa47cbf418b97def86a0936a63e66a335d4.png" src="../_images/843239f9a782708152dceba96a736fa47cbf418b97def86a0936a63e66a335d4.png" />
+<img alt="../_images/f352454e92cf3950ccc6bc43f2b85f42870e88f199a5d208adbe438339a2ff42.png" src="../_images/f352454e92cf3950ccc6bc43f2b85f42870e88f199a5d208adbe438339a2ff42.png" />
+<img alt="../_images/3620dbc6f19190df0041aab12c50cdfbcdbbbad6136ac6166626e07293695113.png" src="../_images/3620dbc6f19190df0041aab12c50cdfbcdbbbad6136ac6166626e07293695113.png" />
+<img alt="../_images/b65aaa06228ab68cd6c436e3fc8c04547eb82b5c4c13ecb7df887482cb85028f.png" src="../_images/b65aaa06228ab68cd6c436e3fc8c04547eb82b5c4c13ecb7df887482cb85028f.png" />
 </div>
 </div>
 <p>The ‘clearest’ numbers appear around C=4.64e-4, slightly up from C=1e-4. This makes sense since more data means less overfitting, so we can allow a bit less regularization. Looking at the extremes, we see that for small C values, the models are regularized too much and hence underfitting. The figures for all the numbers are almost identical. For larger C values, the models quickly overfit and the pixel weights seem mostly random. Replacing Logistic regression with a linear SVM yields almost identical results.</p>
@@ -1291,20 +1123,20 @@ confused are 3-5, 2-3, and 5-6.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/S10 Streetview with linear models_46_0.png" src="../_images/S10 Streetview with linear models_46_0.png" />
-<img alt="../_images/S10 Streetview with linear models_46_1.png" src="../_images/S10 Streetview with linear models_46_1.png" />
-<img alt="../_images/S10 Streetview with linear models_46_2.png" src="../_images/S10 Streetview with linear models_46_2.png" />
-<img alt="../_images/S10 Streetview with linear models_46_3.png" src="../_images/S10 Streetview with linear models_46_3.png" />
-<img alt="../_images/S10 Streetview with linear models_46_4.png" src="../_images/S10 Streetview with linear models_46_4.png" />
-<img alt="../_images/S10 Streetview with linear models_46_5.png" src="../_images/S10 Streetview with linear models_46_5.png" />
-<img alt="../_images/S10 Streetview with linear models_46_6.png" src="../_images/S10 Streetview with linear models_46_6.png" />
-<img alt="../_images/S10 Streetview with linear models_46_7.png" src="../_images/S10 Streetview with linear models_46_7.png" />
-<img alt="../_images/S10 Streetview with linear models_46_8.png" src="../_images/S10 Streetview with linear models_46_8.png" />
-<img alt="../_images/S10 Streetview with linear models_46_9.png" src="../_images/S10 Streetview with linear models_46_9.png" />
+<img alt="../_images/3f193f857ab69d12b7d3ca25c149ac155a13370fb1c80e785a32ec38d130bf2c.png" src="../_images/3f193f857ab69d12b7d3ca25c149ac155a13370fb1c80e785a32ec38d130bf2c.png" />
+<img alt="../_images/060fd2fd2576ce331207b999338ebfe870394c4a01c212eb509c8322c3d82cf4.png" src="../_images/060fd2fd2576ce331207b999338ebfe870394c4a01c212eb509c8322c3d82cf4.png" />
+<img alt="../_images/1ddb5d9bd72db2aa68a44b064c1c250c14ab4723fb7c97f54ac97690f6a4bdc8.png" src="../_images/1ddb5d9bd72db2aa68a44b064c1c250c14ab4723fb7c97f54ac97690f6a4bdc8.png" />
+<img alt="../_images/afe50e76d00477d50c25d103efce9f11d1aaec77adb080923acfe5fb137360d9.png" src="../_images/afe50e76d00477d50c25d103efce9f11d1aaec77adb080923acfe5fb137360d9.png" />
+<img alt="../_images/68ca34d304b6da3074736d905dba209bcc08e7061e1c9593496573fbe19abdff.png" src="../_images/68ca34d304b6da3074736d905dba209bcc08e7061e1c9593496573fbe19abdff.png" />
+<img alt="../_images/41a78c49cf765b21cb14dad83798db53f8147f96daf38da9427fac6005912ffd.png" src="../_images/41a78c49cf765b21cb14dad83798db53f8147f96daf38da9427fac6005912ffd.png" />
+<img alt="../_images/0aab9a37d42ba9be929e3190659fa6a0bb6809da273540218fdfdeee5fc8fc2e.png" src="../_images/0aab9a37d42ba9be929e3190659fa6a0bb6809da273540218fdfdeee5fc8fc2e.png" />
+<img alt="../_images/ad508febfa0e508a81112fd9298db5d81d5de2df7d592539b92d391ca875ba43.png" src="../_images/ad508febfa0e508a81112fd9298db5d81d5de2df7d592539b92d391ca875ba43.png" />
+<img alt="../_images/3b499726462b2896824e74589068e8a7f23fbf502edeeddce9a156cc0c283330.png" src="../_images/3b499726462b2896824e74589068e8a7f23fbf502edeeddce9a156cc0c283330.png" />
+<img alt="../_images/b96f1c4d9b15be61a8fd0889b66fd32bb23fc38a4533506bdeeeb45d6b277348.png" src="../_images/b96f1c4d9b15be61a8fd0889b66fd32bb23fc38a4533506bdeeeb45d6b277348.png" />
 </div>
 </div>
 <section id="final-notes">
-<h3>Final notes<a class="headerlink" href="#final-notes" title="Permalink to this headline">#</a></h3>
+<h3>Final notes<a class="headerlink" href="#final-notes" title="Permalink to this heading">#</a></h3>
 <p>None of the linear models does a particularly good job classifying the images. There are several problems with the representation used:</p>
 <ul class="simple">
 <li><p>Numbers can be dark on a light background, or vice versa</p>
@@ -1336,7 +1168,7 @@ confused are 3-5, 2-3, and 5-6.</p>
             mode: "python"
         },
         kernelOptions: {
-            kernelName: "python3",
+            name: "python3",
             path: "./studies"
         },
         predefinedOutput: true
@@ -1344,36 +1176,89 @@ confused are 3-5, 2-3, and 5-6.</p>
     </script>
     <script>kernelName = 'python3'</script>
 
-              </div>
+                </article>
               
-            </main>
-            <footer class="footer-article noprint">
-                
-    <!-- Previous / next buttons -->
-<div class='prev-next-area'>
+
+              
+              
+                <footer class="bd-footer-article">
+                  <!-- Previous / next buttons -->
+<div class="prev-next-area">
 </div>
-            </footer>
-        </div>
-    </div>
-    <div class="footer-content row">
-        <footer class="col footer"><p>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-benchmark">Quick benchmark</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-curves">Learning curves</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-representation">Data representation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#regularization">Regularization</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#misclassifications">Misclassifications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interpreting-models">Interpreting models</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#final-notes">Final notes</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            <div class="bd-footer-content__inner">
+<div class="bd-footer-content__inner container">
   
-    By Joaquin Vanschoren<br/>
-  
-      &copy; Copyright 2023. CC0 Licensed - Use as you like.<br/>
-</p>
-        </footer>
-    </div>
+  <div class="footer-item">
     
-</div>
+<p class="component-author">
+By Joaquin Vanschoren
+</p>
 
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2023. CC0 Licensed - Use as you like.
+      <br/>
+    
+  </p>
 
-      </div>
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div></div>
+          </footer>
+        
+
+      </main>
     </div>
+  </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d"></script>
 
-
+  <footer class="bd-footer">
+  </footer>
   </body>
 </html>

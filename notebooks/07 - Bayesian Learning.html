@@ -1,48 +1,59 @@
 
+
 <!DOCTYPE html>
 
-<html>
+
+<html lang="en" >
+
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>Lecture 7. Bayesian Learning &#8212; ML Engineering</title>
-    
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  <link href="../_static/styles/theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
 
-    
-  <link rel="stylesheet"
-    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
-    
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d" />
 
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../_static/togglebutton.js"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script src="../_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
 const thebe_selector = ".thebe,.cell"
@@ -52,62 +63,94 @@ const thebe_selector_output = ".output, .cell_output"
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/07 - Bayesian Learning';</script>
     <link rel="shortcut icon" href="../_static/favicon.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Lecture 8. Neural Networks" href="08%20-%20Neural%20Networks.html" />
     <link rel="prev" title="Lecture 6. Data preprocessing" href="06%20-%20Data%20Preprocessing.html" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
-    
-
-    <!-- Google Analytics -->
-    
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
-<!-- Checkboxes to toggle the left sidebar -->
-<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
-<label class="overlay overlay-navbar" for="__navigation">
-    <div class="visually-hidden">Toggle navigation sidebar</div>
-</label>
-<!-- Checkboxes to toggle the in-page toc -->
-<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
-<label class="overlay overlay-pagetoc" for="__page-toc">
-    <div class="visually-hidden">Toggle in-page Table of Contents</div>
-</label>
-<!-- Headers at the top -->
-<div class="announcement header-item noprint"></div>
-<div class="header header-item noprint"></div>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
-    
-    <div class="container-fluid" id="banner"></div>
-
-    
-
-    <div class="container-xl">
-      <div class="row">
-          
-<!-- Sidebar -->
-<div class="bd-sidebar noprint" id="site-navigation">
-    <div class="bd-sidebar__content">
-        <div class="bd-sidebar__top"><div class="navbar-brand-box">
-    <a class="navbar-brand text-wrap" href="../index.html">
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
       
-        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+      <div class="bd-sidebar-primary bd-sidebar">
         
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+    
+    
       
-      
-      <img src="../_static/banner.jpeg" class="logo" alt="logo">
-      
-      
-      <h1 class="site-logo" id="site-title">ML Engineering</h1>
-      
-    </a>
-</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
-  <i class="icon fas fa-search"></i>
-  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
-    <div class="bd-toc-item active">
+    
+    
+    <img src="../_static/banner.jpeg" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../_static/banner.jpeg" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
@@ -117,856 +160,350 @@ const thebe_selector_output = ".output, .cell_output"
             </li>
         </ul>
         <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%200%20-%20Prerequisites.html">
-   Prerequisites
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="../labs/Lab%200%20-%20Prerequisites.html">Prerequisites</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Lectures
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Lectures</span></p>
 <ul class="current nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="01%20-%20Introduction.html">
-   Lecture 1: Introduction
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="02%20-%20Linear%20Models.html">
-   Lecture 2: Linear models
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="03%20-%20Kernelization.html">
-   Lecture 3: Kernelization
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="04%20-%20Model%20Selection.html">
-   Lecture 4: Model Selection
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="05%20-%20Ensemble%20Learning.html">
-   Lecture 5. Ensemble Learning
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="06%20-%20Data%20Preprocessing.html">
-   Lecture 6. Data preprocessing
-  </a>
- </li>
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
-   Lecture 7. Bayesian Learning
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="08%20-%20Neural%20Networks.html">
-   Lecture 8. Neural Networks
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="09%20-%20Convolutional%20Neural%20Networks.html">
-   Lecture 9: Convolutional Neural Networks
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="10%20-%20Neural%20Networks%20for%20text.html">
-   Lecture 10. Neural Networks for text
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="01%20-%20Introduction.html">Lecture 1: Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02%20-%20Linear%20Models.html">Lecture 2: Linear models</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="03%20-%20Kernelization.html">Lecture 3: Kernelization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04%20-%20Model%20Selection.html">Lecture 4: Model Selection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05%20-%20Ensemble%20Learning.html">Lecture 5. Ensemble Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06%20-%20Data%20Preprocessing.html">Lecture 6. Data preprocessing</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Lecture 7. Bayesian Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="08%20-%20Neural%20Networks.html">Lecture 8. Neural Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="09%20-%20Convolutional%20Neural%20Networks.html">Lecture 9: Convolutional Neural Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="10%20-%20Neural%20Networks%20for%20text.html">Lecture 10. Neural Networks for text</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Labs
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Labs</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%201a%20-%20Linear%20Models%20for%20Regression.html">
-   Lab 1a: Linear regression
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%201b%20-%20Linear%20Models%20for%20Classification.html">
-   Lab 1b: Linear classification
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%202a%20-%20Kernelization.html">
-   Lab 2a: Kernelization
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%202b%20-%20Model%20Selection.html">
-   Lab 2b: Model selection
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%203%20-%20Ensembles.html">
-   Lab 3: Ensembles
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%204%20-%20Pipelines.html">
-   Lab 4:  Data preprocessing
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%205%20-%20Bayesian%20learning.html">
-   Lab 5: Bayesian models
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%206%20-%20Neural%20Networks.html">
-   Lab 6: Neural networks
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%207a%20-%20Convolutional%20Neural%20Networks.html">
-   Lab 7a: Convolutional neural nets
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%207b%20-%20Neural%20Networks%20for%20text.html">
-   Lab 7b: Neural Networks for text
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%208%20-%20AutoML.html">
-   Lab 8: AutoML
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="../labs/Lab%201a%20-%20Linear%20Models%20for%20Regression.html">Lab 1a: Linear regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../labs/Lab%201b%20-%20Linear%20Models%20for%20Classification.html">Lab 1b: Linear classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../labs/Lab%202a%20-%20Kernelization.html">Lab 2a: Kernelization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../labs/Lab%202b%20-%20Model%20Selection.html">Lab 2b: Model selection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../labs/Lab%203%20-%20Ensembles.html">Lab 3: Ensembles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../labs/Lab%204%20-%20Pipelines.html">Lab 4:  Data preprocessing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../labs/Lab%205%20-%20Bayesian%20learning.html">Lab 5: Bayesian models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../labs/Lab%206%20-%20Neural%20Networks.html">Lab 6: Neural networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../labs/Lab%207a%20-%20Convolutional%20Neural%20Networks.html">Lab 7a: Convolutional neural nets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../labs/Lab%207b%20-%20Neural%20Networks%20for%20text.html">Lab 7b: Neural Networks for text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../labs/Lab%208%20-%20AutoML.html">Lab 8: AutoML</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Tutorials
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="Tutorial%201%20-%20Python.html">
-   Python for data analysis
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Tutorial%202%20-%20Python%20for%20Data%20Analysis.html">
-   Python for scientific computing
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Tutorial%203%20-%20Machine%20Learning%20in%20Python.html">
-   Machine Learning in Python
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Tutorial%204%20-%20Decision%20Trees.html">
-   Recap: Decision Trees
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Tutorial%205%20-%20Nearest%20Neighbors.html">
-   Recap: k-Nearest Neighbor
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%201%20-%20Tutorial.html">
-   Lab 1: Machine Learning with Python
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%204%20-%20Tutorial.html">
-   Lab 4 Tutorial: Data engineering pipelines
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%206%20-%20Tutorial.html">
-   Lab 6 Tutorial: Deep Learning with TensorFlow
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%207%20-%20Tutorial.html">
-   Lab 7 Tutorial: Deep Learning for text
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial%201%20-%20Python.html">Python for data analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial%202%20-%20Python%20for%20Data%20Analysis.html">Python for scientific computing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial%203%20-%20Machine%20Learning%20in%20Python.html">Machine Learning in Python</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="Tutorial%204%20-%20Decision%20Trees.html">Recap: Decision Trees</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="Tutorial%205%20-%20Nearest%20Neighbors.html">Recap: k-Nearest Neighbor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../labs/Lab%201%20-%20Tutorial.html">Lab 1: Machine Learning with Python</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="../labs/Lab%204%20-%20Tutorial.html">Lab 4 Tutorial: Data engineering pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../labs/Lab%206%20-%20Tutorial.html">Lab 6 Tutorial: Deep Learning with TensorFlow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../labs/Lab%207%20-%20Tutorial.html">Lab 7 Tutorial: Deep Learning for text</a></li>
 </ul>
 
     </div>
 </nav></div>
-        <div class="bd-sidebar__bottom">
-             <!-- To handle the deprecated key -->
-            
-        </div>
     </div>
-    <div id="rtd-footer-container"></div>
-</div>
-
-
-          
-
-
-          
-<!-- A tiny helper pixel to detect if we've scrolled -->
-<div class="sbt-scroll-pixel-helper"></div>
-<!-- Main content -->
-<div class="col py-0 content-container">
-    
-    <div class="header-article row sticky-top noprint">
-        
-
-
-
-<div class="col py-1 d-flex header-article-main">
-    <div class="header-article__left">
-        
-        <label for="__navigation"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="right"
-title="Toggle navigation"
->
   
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-bars"></i>
-  </span>
-
-</label>
-
-        
-    </div>
-    <div class="header-article__right">
-<div class="menu-dropdown menu-dropdown-launch-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Launch interactive content">
-      <i class="fas fa-rocket"></i>
-  </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="https://mybinder.org/v2/gh/ml-course/master/master?urlpath=tree/notebooks/07 - Bayesian Learning.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Launch on Binder"
->
   
-
-<span class="headerbtn__icon-container">
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
   
-    <img src="../_static/images/logo_binder.svg">
-  </span>
-<span class="headerbtn__text-container">Binder</span>
-</a>
+  <div id="rtd-footer-container"></div>
 
-      </li>
+
+      </div>
       
-      <li>
-        <a href="https://colab.research.google.com/github/ml-course/master/blob/master/notebooks/07 - Bayesian Learning.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Launch on Colab"
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/ml-course/master/blob/master/notebooks/07 - Bayesian Learning.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onColab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   
     <img src="../_static/images/logo_colab.png">
   </span>
-<span class="headerbtn__text-container">Colab</span>
+<span class="btn__text-container">Colab</span>
 </a>
-
-      </li>
+</li>
       
-    </ul>
-  </div>
+  </ul>
 </div>
 
-<button onclick="toggleFullScreen()"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="bottom"
-title="Fullscreen mode"
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/ml-course/master" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/ml-course/master/issues/new?title=Issue%20on%20page%20%2Fnotebooks/07 - Bayesian Learning.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/notebooks/07 - Bayesian Learning.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
   <i class="fas fa-expand"></i>
   </span>
 
 </button>
 
-<div class="menu-dropdown menu-dropdown-repository-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Source repositories">
-      <i class="fab fa-github"></i>
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
   </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="https://github.com/ml-course/master"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Source repository"
->
-  
+`);
+</script>
 
-<span class="headerbtn__icon-container">
-  <i class="fab fa-github"></i>
-  </span>
-<span class="headerbtn__text-container">repository</span>
-</a>
-
-      </li>
-      
-      <li>
-        <a href="https://github.com/ml-course/master/issues/new?title=Issue%20on%20page%20%2Fnotebooks/07 - Bayesian Learning.html&body=Your%20issue%20content%20here."
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Open an issue"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-lightbulb"></i>
-  </span>
-<span class="headerbtn__text-container">open issue</span>
-</a>
-
-      </li>
-      
-    </ul>
-  </div>
-</div>
-
-<div class="menu-dropdown menu-dropdown-download-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Download this page">
-      <i class="fas fa-download"></i>
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
   </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="../_sources/notebooks/07 - Bayesian Learning.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Download source file"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-file"></i>
-  </span>
-<span class="headerbtn__text-container">.ipynb</span>
-</a>
-
-      </li>
-      
-      <li>
-        
-<button onclick="printPdf(this)"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="left"
-title="Print to PDF"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-file-pdf"></i>
-  </span>
-<span class="headerbtn__text-container">.pdf</span>
-</button>
-
-      </li>
-      
-    </ul>
-  </div>
-</div>
-<label for="__page-toc"
-  class="headerbtn headerbtn-page-toc"
-  
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-list"></i>
-  </span>
-
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
 </label>
-
+</div></div>
+      
     </div>
+  
 </div>
-
-<!-- Table of contents -->
-<div class="col-md-3 bd-toc show noprint">
-    <div class="tocsection onthispage pt-5 pb-3">
-        <i class="fas fa-list"></i> Contents
-    </div>
-    <nav id="bd-toc-nav" aria-label="Page">
-        <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#bayes-rule">
-   Bayes’ rule
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#example-exploding-sun">
-     Example: exploding sun
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#example-covid-test">
-     Example: COVID test
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#bayesian-models">
-   Bayesian models
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#generative-models">
-     Generative models
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#naive-bayes">
-     Naive Bayes
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#on-categorical-data">
-       On categorical data
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#on-numeric-data">
-       On numeric data
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#bayesian-networks">
-     Bayesian Networks
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#gaussian-processes">
-     Gaussian processes
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#probabilistic-interpretation-of-regression">
-   Probabilistic interpretation of regression
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#example-olympic-marathon-data">
-     Example: Olympic marathon data
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#polynomial-regression-recap">
-     Polynomial regression (recap)
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#kernelized-regression-recap">
-     Kernelized regression (recap)
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#probabilistic-interpretation">
-     Probabilistic interpretation
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#how-to-learn-probabilities">
-   How to learn probabilities?
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#gaussian-prior-p-w">
-     Gaussian prior
-     <span class="math notranslate nohighlight">
-      \(P(w)\)
-     </span>
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#sampling-from-the-prior-weight-space">
-     Sampling from the prior (weight space)
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#learning-gaussian-distributions">
-     Learning Gaussian distributions
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#understanding-covariances">
-     Understanding covariances
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#stochastic-processes-sampling-from-higher-dimensional-distributions">
-     Stochastic processes &amp; sampling from higher-dimensional distributions
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#noisy-functions">
-       Noisy functions
-      </a>
-     </li>
-    </ul>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#gaussian-process">
-   Gaussian Process
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#computing-the-posterior-p-mathbf-y-mathbf-x">
-     Computing the posterior
-     <span class="math notranslate nohighlight">
-      \(P(\mathbf{y}|\mathbf{X})\)
-     </span>
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#making-predictions">
-     Making predictions
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#conditional-density-p-mathbf-y-x-test-mathbf-x">
-     Conditional Density
-     <span class="math notranslate nohighlight">
-      \(P(\mathbf{y}|x_{test} , \mathbf{X})\)
-     </span>
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#gaussian-process-example">
-     Gaussian process example
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#gaussian-processes-in-practice-with-gpy">
-     Gaussian Processes in practice (with GPy)
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#effect-of-different-kernels">
-       Effect of different kernels
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#gaussian-processes-with-scikit-learn">
-       Gaussian Processes with scikit-learn
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#gaussian-processes-conclusions">
-     Gaussian processes: Conclusions
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#gaussian-processes-and-neural-networks">
-     Gaussian processes and neural networks
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#bayesian-optimization">
-   Bayesian optimization
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#example-see-figure">
-     Example (see figure):
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#surrogate-models">
-     Surrogate models
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#acquisition-functions">
-     Acquisition Functions
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#bayesian-optimization-conclusions">
-     Bayesian Optimization: conclusions
-    </a>
-   </li>
-  </ul>
- </li>
-</ul>
-
-    </nav>
 </div>
-    </div>
-    <div class="article row">
-        <div class="col pl-md-3 pl-lg-5 content-container">
-            <!-- Table of contents that is only displayed when printing the page -->
-            <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Lecture 7. Bayesian Learning</h1>
-                <!-- Table of contents -->
-                <div id="print-main-content">
-                    <div id="jb-print-toc">
-                        
-                        <div>
-                            <h2> Contents </h2>
-                        </div>
-                        <nav aria-label="Page">
-                            <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#bayes-rule">
-   Bayes’ rule
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#example-exploding-sun">
-     Example: exploding sun
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#example-covid-test">
-     Example: COVID test
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#bayesian-models">
-   Bayesian models
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#generative-models">
-     Generative models
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#naive-bayes">
-     Naive Bayes
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#on-categorical-data">
-       On categorical data
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#on-numeric-data">
-       On numeric data
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#bayesian-networks">
-     Bayesian Networks
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#gaussian-processes">
-     Gaussian processes
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#probabilistic-interpretation-of-regression">
-   Probabilistic interpretation of regression
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#example-olympic-marathon-data">
-     Example: Olympic marathon data
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#polynomial-regression-recap">
-     Polynomial regression (recap)
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#kernelized-regression-recap">
-     Kernelized regression (recap)
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#probabilistic-interpretation">
-     Probabilistic interpretation
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#how-to-learn-probabilities">
-   How to learn probabilities?
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#gaussian-prior-p-w">
-     Gaussian prior
-     <span class="math notranslate nohighlight">
-      \(P(w)\)
-     </span>
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#sampling-from-the-prior-weight-space">
-     Sampling from the prior (weight space)
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#learning-gaussian-distributions">
-     Learning Gaussian distributions
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#understanding-covariances">
-     Understanding covariances
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#stochastic-processes-sampling-from-higher-dimensional-distributions">
-     Stochastic processes &amp; sampling from higher-dimensional distributions
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#noisy-functions">
-       Noisy functions
-      </a>
-     </li>
-    </ul>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#gaussian-process">
-   Gaussian Process
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#computing-the-posterior-p-mathbf-y-mathbf-x">
-     Computing the posterior
-     <span class="math notranslate nohighlight">
-      \(P(\mathbf{y}|\mathbf{X})\)
-     </span>
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#making-predictions">
-     Making predictions
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#conditional-density-p-mathbf-y-x-test-mathbf-x">
-     Conditional Density
-     <span class="math notranslate nohighlight">
-      \(P(\mathbf{y}|x_{test} , \mathbf{X})\)
-     </span>
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#gaussian-process-example">
-     Gaussian process example
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#gaussian-processes-in-practice-with-gpy">
-     Gaussian Processes in practice (with GPy)
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#effect-of-different-kernels">
-       Effect of different kernels
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#gaussian-processes-with-scikit-learn">
-       Gaussian Processes with scikit-learn
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#gaussian-processes-conclusions">
-     Gaussian processes: Conclusions
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#gaussian-processes-and-neural-networks">
-     Gaussian processes and neural networks
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#bayesian-optimization">
-   Bayesian optimization
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#example-see-figure">
-     Example (see figure):
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#surrogate-models">
-     Surrogate models
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#acquisition-functions">
-     Acquisition Functions
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#bayesian-optimization-conclusions">
-     Bayesian Optimization: conclusions
-    </a>
-   </li>
-  </ul>
- </li>
-</ul>
+              
+              
 
-                        </nav>
-                    </div>
-                </div>
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Lecture 7. Bayesian Learning</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
             </div>
-            <main id="main-content" role="main">
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bayes-rule">Bayes’ rule</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-exploding-sun">Example: exploding sun</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-covid-test">Example: COVID test</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bayesian-models">Bayesian models</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#generative-models">Generative models</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#naive-bayes">Naive Bayes</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#on-categorical-data">On categorical data</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#on-numeric-data">On numeric data</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bayesian-networks">Bayesian Networks</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gaussian-processes">Gaussian processes</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#probabilistic-interpretation-of-regression">Probabilistic interpretation of regression</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-olympic-marathon-data">Example: Olympic marathon data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#polynomial-regression-recap">Polynomial regression (recap)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kernelized-regression-recap">Kernelized regression (recap)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#probabilistic-interpretation">Probabilistic interpretation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-learn-probabilities">How to learn probabilities?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gaussian-prior-p-w">Gaussian prior <span class="math notranslate nohighlight">\(P(w)\)</span></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sampling-from-the-prior-weight-space">Sampling from the prior (weight space)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-gaussian-distributions">Learning Gaussian distributions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#understanding-covariances">Understanding covariances</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stochastic-processes-sampling-from-higher-dimensional-distributions">Stochastic processes &amp; sampling from higher-dimensional distributions</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#noisy-functions">Noisy functions</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gaussian-process">Gaussian Process</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#computing-the-posterior-p-mathbf-y-mathbf-x">Computing the posterior <span class="math notranslate nohighlight">\(P(\mathbf{y}|\mathbf{X})\)</span></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#making-predictions">Making predictions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#conditional-density-p-mathbf-y-x-test-mathbf-x">Conditional Density <span class="math notranslate nohighlight">\(P(\mathbf{y}|x_{test} , \mathbf{X})\)</span></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gaussian-process-example">Gaussian process example</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gaussian-processes-in-practice-with-gpy">Gaussian Processes in practice (with GPy)</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#effect-of-different-kernels">Effect of different kernels</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#gaussian-processes-with-scikit-learn">Gaussian Processes with scikit-learn</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gaussian-processes-conclusions">Gaussian processes: Conclusions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gaussian-processes-and-neural-networks">Gaussian processes and neural networks</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bayesian-optimization">Bayesian optimization</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-see-figure">Example (see figure):</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#surrogate-models">Surrogate models</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#acquisition-functions">Acquisition Functions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bayesian-optimization-conclusions">Bayesian Optimization: conclusions</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
                 
-              <div>
-                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
   <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Auto-setup when running on Google Colab</span>
 <span class="kn">import</span> <span class="nn">os</span>
@@ -991,14 +528,15 @@ title="Print to PDF"
 </pre></div>
 </div>
 </div>
+</details>
 </div>
 <section class="tex2jax_ignore mathjax_ignore" id="lecture-7-bayesian-learning">
-<h1>Lecture 7. Bayesian Learning<a class="headerlink" href="#lecture-7-bayesian-learning" title="Permalink to this headline">#</a></h1>
+<h1>Lecture 7. Bayesian Learning<a class="headerlink" href="#lecture-7-bayesian-learning" title="Permalink to this heading">#</a></h1>
 <p><strong>Learning in an uncertain world</strong></p>
 <p>Joaquin Vanschoren</p>
 <img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/frequentists_vs_bayesians.png" alt="ml" style="width: 40%"/>
 XKCD, Randall Monroe<section id="bayes-rule">
-<h2>Bayes’ rule<a class="headerlink" href="#bayes-rule" title="Permalink to this headline">#</a></h2>
+<h2>Bayes’ rule<a class="headerlink" href="#bayes-rule" title="Permalink to this heading">#</a></h2>
 <p>Rule for updating the probability of a hypothesis <span class="math notranslate nohighlight">\(c\)</span> given data <span class="math notranslate nohighlight">\(x\)</span></p>
 <img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/06_bayes_rule.png" alt="ml" style="width: 60%"/>
 <p><span class="math notranslate nohighlight">\(P(c|x)\)</span> is the posterior probability of class <span class="math notranslate nohighlight">\(c\)</span> given data <span class="math notranslate nohighlight">\(x\)</span>.<br />
@@ -1006,7 +544,7 @@ XKCD, Randall Monroe<section id="bayes-rule">
 <span class="math notranslate nohighlight">\(P(x|c)\)</span> is the <em>likelihood</em> of data point <span class="math notranslate nohighlight">\(x\)</span> given that the class is <span class="math notranslate nohighlight">\(c\)</span> (computed from your data)<br />
 <span class="math notranslate nohighlight">\(P(x)\)</span> is the prior probability of the data (<em>marginal likelihood</em>): the likelihood of the data <span class="math notranslate nohighlight">\(x\)</span> under any circumstance (no matter what the class is)</p>
 <section id="example-exploding-sun">
-<h3>Example: exploding sun<a class="headerlink" href="#example-exploding-sun" title="Permalink to this headline">#</a></h3>
+<h3>Example: exploding sun<a class="headerlink" href="#example-exploding-sun" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Let’s compute the probability that the sun has exploded</p></li>
 <li><p>Prior <span class="math notranslate nohighlight">\(P(exploded)\)</span>: the sun has an estimated lifespan of 10 billion years,
@@ -1025,7 +563,7 @@ P(exploded|yes) &amp;= \frac{P(yes|exploded)P(exploded)}{P(yes)} \\
 </ul>
 </section>
 <section id="example-covid-test">
-<h3>Example: COVID test<a class="headerlink" href="#example-covid-test" title="Permalink to this headline">#</a></h3>
+<h3>Example: COVID test<a class="headerlink" href="#example-covid-test" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>What is the probability of having COVID-19 if a 96% accurate test returns positive? Assume a false positive rate of 4%</p></li>
 <li><p>Prior <span class="math notranslate nohighlight">\(P(C): 0.015\)</span> (117M cases, 7.9B people)</p></li>
@@ -1044,7 +582,7 @@ P(C|pos) &amp;= \frac{P(pos|C)P(C)}{P(pos)} \\
 </section>
 </section>
 <section id="bayesian-models">
-<h2>Bayesian models<a class="headerlink" href="#bayesian-models" title="Permalink to this headline">#</a></h2>
+<h2>Bayesian models<a class="headerlink" href="#bayesian-models" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Learn the joint distribution <span class="math notranslate nohighlight">\(P(x,y)=P(x|y)P(y)\)</span>.</p>
 <ul>
@@ -1060,6 +598,11 @@ P(C|pos) &amp;= \frac{P(pos|C)P(C)}{P(pos)} \\
 </li>
 </ul>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="k">as</span> <span class="nn">stats</span>
 <span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">cm</span>
@@ -1120,12 +663,16 @@ P(C|pos) &amp;= \frac{P(pos|C)P(C)}{P(pos)} \\
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "1ef5590a78124b7485c33d004dc49978", "version_major": 2, "version_minor": 0}
-</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "1ef5590a78124b7485c33d004dc49978", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="ow">not</span> <span class="n">interactive</span><span class="p">:</span>
     <span class="n">mean</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
@@ -1139,9 +686,10 @@ P(C|pos) &amp;= \frac{P(pos|C)P(C)}{P(pos)} \\
 </pre></div>
 </div>
 </div>
+</details>
 </div>
 <section id="generative-models">
-<h3>Generative models<a class="headerlink" href="#generative-models" title="Permalink to this headline">#</a></h3>
+<h3>Generative models<a class="headerlink" href="#generative-models" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>The joint distribution represents the training data for a particular output (e.g. a class)</p></li>
 <li><p>You can sample a <em>new</em> point <span class="math notranslate nohighlight">\(\textbf{x}\)</span> with high predicted likelihood <span class="math notranslate nohighlight">\(P(x,c)\)</span>: that new point will be very similar to the training points</p></li>
@@ -1154,7 +702,7 @@ P(C|pos) &amp;= \frac{P(pos|C)P(C)}{P(pos)} \\
 </ul>
 <img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/06_discriminative_generative.png" alt="ml" style="width: 40%"/></section>
 <section id="naive-bayes">
-<h3>Naive Bayes<a class="headerlink" href="#naive-bayes" title="Permalink to this headline">#</a></h3>
+<h3>Naive Bayes<a class="headerlink" href="#naive-bayes" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Predict the probability that a point belongs to a certain class, using Bayes’ Theorem</p></li>
 </ul>
@@ -1167,11 +715,11 @@ P(C|pos) &amp;= \frac{P(pos|C)P(C)}{P(pos)} \\
 <li><p>Very fast: only needs to extract statistics from each feature.</p></li>
 </ul>
 <section id="on-categorical-data">
-<h4>On categorical data<a class="headerlink" href="#on-categorical-data" title="Permalink to this headline">#</a></h4>
+<h4>On categorical data<a class="headerlink" href="#on-categorical-data" title="Permalink to this heading">#</a></h4>
 <p>What’s the probability that your friend will play golf if the weather is sunny?</p>
 <img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/06_bayes_example.png" alt="ml" style="width: 1200px;"/></section>
 <section id="on-numeric-data">
-<h4>On numeric data<a class="headerlink" href="#on-numeric-data" title="Permalink to this headline">#</a></h4>
+<h4>On numeric data<a class="headerlink" href="#on-numeric-data" title="Permalink to this heading">#</a></h4>
 <ul class="simple">
 <li><p>We need to fit a distribution (e.g. Gaussian) over the data points</p></li>
 <li><p>GaussianNB: Computes mean <span class="math notranslate nohighlight">\(\mu_c\)</span> and standard deviation <span class="math notranslate nohighlight">\(\sigma_c\)</span> of the feature values per class: <span class="math notranslate nohighlight">\(p(x=v \mid c)=\frac{1}{\sqrt{2\pi\sigma^2_c}}\,e^{ -\frac{(v-\mu_c)^2}{2\sigma^2_c} }\)</span></p></li>
@@ -1181,6 +729,11 @@ P(C|pos) &amp;= \frac{P(pos|C)P(C)}{P(pos)} \\
 <li><p>What do the predictions of Gaussian Naive Bayes look like?</p></li>
 </ul>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.naive_bayes</span> <span class="kn">import</span> <span class="n">GaussianNB</span>
 
@@ -1191,8 +744,9 @@ P(C|pos) &amp;= \frac{P(pos|C)P(C)}{P(pos)} \\
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<img alt="../_images/07 - Bayesian Learning_14_0.png" src="../_images/07 - Bayesian Learning_14_0.png" />
+<img alt="../_images/a7cf7a838f348a1bc5c1411520085c0253660e6e51805ef1cdacd64c82ee7085.png" src="../_images/a7cf7a838f348a1bc5c1411520085c0253660e6e51805ef1cdacd64c82ee7085.png" />
 </div>
 </div>
 <p>Other Naive Bayes classifiers:</p>
@@ -1214,7 +768,7 @@ P(C|pos) &amp;= \frac{P(pos|C)P(C)}{P(pos)} \\
 </section>
 </section>
 <section id="bayesian-networks">
-<h3>Bayesian Networks<a class="headerlink" href="#bayesian-networks" title="Permalink to this headline">#</a></h3>
+<h3>Bayesian Networks<a class="headerlink" href="#bayesian-networks" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>What if we know that some variables are not independent?</p></li>
 <li><p>A <em>Bayesian Network</em> is a directed acyclic graph representing variables as nodes and conditional dependencies as edges.</p></li>
@@ -1223,6 +777,11 @@ P(C|pos) &amp;= \frac{P(pos|C)P(C)}{P(pos)} \\
 </ul>
 <img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/06_bayesian_network.jpeg" alt="ml" style="width: 40%;"/>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### GP implementation (based on example by Neil Lawrence http://inverseprobability.com/mlai2015/)</span>
 
@@ -1331,14 +890,20 @@ P(C|pos) &amp;= \frac{P(pos|C)P(C)}{P(pos)} \\
 </pre></div>
 </div>
 </div>
+</details>
 </div>
 </section>
 <section id="gaussian-processes">
-<h3>Gaussian processes<a class="headerlink" href="#gaussian-processes" title="Permalink to this headline">#</a></h3>
+<h3>Gaussian processes<a class="headerlink" href="#gaussian-processes" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Model the data as a Gaussian distribution, conditioned on the training points</p></li>
 </ul>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nd">@interact</span>
 <span class="k">def</span> <span class="nf">plot_sin</span><span class="p">(</span><span class="n">nr_points</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">1</span><span class="p">)):</span>
@@ -1352,15 +917,14 @@ P(C|pos) &amp;= \frac{P(pos|C)P(C)}{P(pos)} \\
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "fd6a120b2f654b8e8619c2d1c6ea4eb9", "version_major": 2, "version_minor": 0}
-</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "fd6a120b2f654b8e8619c2d1c6ea4eb9", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 </section>
 </section>
 <section id="probabilistic-interpretation-of-regression">
-<h2>Probabilistic interpretation of regression<a class="headerlink" href="#probabilistic-interpretation-of-regression" title="Permalink to this headline">#</a></h2>
+<h2>Probabilistic interpretation of regression<a class="headerlink" href="#probabilistic-interpretation-of-regression" title="Permalink to this heading">#</a></h2>
 <p>Linear regression (recap):</p>
 <div class="math notranslate nohighlight">
 \[y = f(\mathbf{x}_i) = \mathbf{x}_i\mathbf{w} + b \]</div>
@@ -1383,6 +947,11 @@ P(C|pos) &amp;= \frac{P(pos|C)P(C)}{P(pos)} \\
 1 &amp; x_N 
 \end{bmatrix}\end{split}\]</div>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pods</span>
 <span class="n">data</span> <span class="o">=</span> <span class="n">pods</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">olympic_marathon_men</span><span class="p">()</span>
@@ -1398,11 +967,17 @@ P(C|pos) &amp;= \frac{P(pos|C)P(C)}{P(pos)} \\
 </pre></div>
 </div>
 </div>
+</details>
 </div>
 <section id="example-olympic-marathon-data">
-<h3>Example: Olympic marathon data<a class="headerlink" href="#example-olympic-marathon-data" title="Permalink to this headline">#</a></h3>
+<h3>Example: Olympic marathon data<a class="headerlink" href="#example-olympic-marathon-data" title="Permalink to this heading">#</a></h3>
 <p>We learned: <span class="math notranslate nohighlight">\( y= w_1 x + w_0 = -0.013 x + 28.895\)</span></p>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x_test</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">1890</span><span class="p">,</span> <span class="mi">2020</span><span class="p">,</span> <span class="mi">130</span><span class="p">)[:,</span> <span class="kc">None</span><span class="p">]</span>
 
@@ -1416,17 +991,23 @@ P(C|pos) &amp;= \frac{P(pos|C)P(C)}{P(pos)} \\
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<img alt="../_images/07 - Bayesian Learning_23_0.png" src="../_images/07 - Bayesian Learning_23_0.png" />
+<img alt="../_images/fdd8a6328f8549bc8428b40dc92d84fa4dcac3e8d2e98090edb3056902daf045.png" src="../_images/fdd8a6328f8549bc8428b40dc92d84fa4dcac3e8d2e98090edb3056902daf045.png" />
 </div>
 </div>
 </section>
 <section id="polynomial-regression-recap">
-<h3>Polynomial regression (recap)<a class="headerlink" href="#polynomial-regression-recap" title="Permalink to this headline">#</a></h3>
+<h3>Polynomial regression (recap)<a class="headerlink" href="#polynomial-regression-recap" title="Permalink to this heading">#</a></h3>
 <p>We can fit a 2nd degree polynomial by using a basis expansion (adding more <em>basis functions</em>):</p>
 <div class="math notranslate nohighlight">
 \[\mathbf{\Phi} = \left[ \mathbf{1} \quad \mathbf{x} \quad \mathbf{x}^2\right]\]</div>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Phi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">),</span> <span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">])</span>
 <span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">Phi</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">Phi</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">Phi</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>
@@ -1440,15 +1021,21 @@ P(C|pos) &amp;= \frac{P(pos|C)P(C)}{P(pos)} \\
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<img alt="../_images/07 - Bayesian Learning_25_0.png" src="../_images/07 - Bayesian Learning_25_0.png" />
+<img alt="../_images/336ce83665046ff4eabd42238118f2112e736524481ef2b8d6426ec676d1529b.png" src="../_images/336ce83665046ff4eabd42238118f2112e736524481ef2b8d6426ec676d1529b.png" />
 </div>
 </div>
 </section>
 <section id="kernelized-regression-recap">
-<h3>Kernelized regression (recap)<a class="headerlink" href="#kernelized-regression-recap" title="Permalink to this headline">#</a></h3>
+<h3>Kernelized regression (recap)<a class="headerlink" href="#kernelized-regression-recap" title="Permalink to this heading">#</a></h3>
 <p>We can also kernelize the model and learn a dual coefficient per data point</p>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.kernel_ridge</span> <span class="kn">import</span> <span class="n">KernelRidge</span>
 
@@ -1477,14 +1064,13 @@ P(C|pos) &amp;= \frac{P(pos|C)P(C)}{P(pos)} \\
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "4280986bb684421d9c2185be4993fa39", "version_major": 2, "version_minor": 0}
-</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "4280986bb684421d9c2185be4993fa39", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 </section>
 <section id="probabilistic-interpretation">
-<h3>Probabilistic interpretation<a class="headerlink" href="#probabilistic-interpretation" title="Permalink to this headline">#</a></h3>
+<h3>Probabilistic interpretation<a class="headerlink" href="#probabilistic-interpretation" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>These models do not give us any indication of the (un)certainty of the predictions</p></li>
 <li><p>Assume that the data is inherently uncertain. This can be modeled explictly by introducing a <a class="reference external" href="http://en.wikipedia.org/wiki/Slack_variable">slack variable</a>, <span class="math notranslate nohighlight">\(\epsilon_i\)</span>, known as noise.</p></li>
@@ -1506,6 +1092,11 @@ P(C|pos) &amp;= \frac{P(pos|C)P(C)}{P(pos)} \\
 <li><p>You would expect to be more certain nearby your training points</p></li>
 </ul>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">BayesianRidge</span>
 
@@ -1532,23 +1123,28 @@ P(C|pos) &amp;= \frac{P(pos|C)P(C)}{P(pos)} \\
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "25f177f45b614f07be138fc391dd57dd", "version_major": 2, "version_minor": 0}
-</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "25f177f45b614f07be138fc391dd57dd", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="ow">not</span> <span class="n">interactive</span><span class="p">:</span>
     <span class="n">plot_regression</span><span class="p">(</span><span class="n">sigma</span><span class="o">=</span><span class="mf">0.001</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
+</details>
 </div>
 </section>
 </section>
 <section id="how-to-learn-probabilities">
-<h2>How to learn probabilities?<a class="headerlink" href="#how-to-learn-probabilities" title="Permalink to this headline">#</a></h2>
+<h2>How to learn probabilities?<a class="headerlink" href="#how-to-learn-probabilities" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Maximum Likelihood Estimation (MLE): Maximize <span class="math notranslate nohighlight">\(P(\textbf{X}|\textbf{w})\)</span></p>
 <ul>
@@ -1578,7 +1174,7 @@ $<span class="math notranslate nohighlight">\(P(y|x_{test},\textbf{X}) = \int_w 
 </li>
 </ul>
 <section id="gaussian-prior-p-w">
-<h3>Gaussian prior <span class="math notranslate nohighlight">\(P(w)\)</span><a class="headerlink" href="#gaussian-prior-p-w" title="Permalink to this headline">#</a></h3>
+<h3>Gaussian prior <span class="math notranslate nohighlight">\(P(w)\)</span><a class="headerlink" href="#gaussian-prior-p-w" title="Permalink to this heading">#</a></h3>
 <p>In the Bayesian approach, we assume a <em>prior (Gaussian) distribution</em> for the parameters, <span class="math notranslate nohighlight">\(\mathbf{w} \sim \mathcal{N}(\mathbf{0}, \alpha \mathbf{I})\)</span>:</p>
 <ul class="simple">
 <li><p>With zero mean (<span class="math notranslate nohighlight">\(\mu\)</span>=0) and covariance matrix <span class="math notranslate nohighlight">\(\alpha \mathbf{I}\)</span>. For 2D: <span class="math notranslate nohighlight">\( \alpha \mathbf{I} = \begin{bmatrix}
@@ -1589,6 +1185,11 @@ $<span class="math notranslate nohighlight">\(P(y|x_{test},\textbf{X}) = \int_w 
 <p>I.e, <span class="math notranslate nohighlight">\(w_i\)</span> is drawn from a Gaussian density with variance <span class="math notranslate nohighlight">\(\alpha\)</span>
 $<span class="math notranslate nohighlight">\(w_i \sim \mathcal{N}(0,\alpha)\)</span>$</p>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nd">@interact</span>
 <span class="k">def</span> <span class="nf">interact_prior</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mf">0.1</span><span class="p">),</span><span class="n">contour</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
@@ -1599,22 +1200,27 @@ $<span class="math notranslate nohighlight">\(w_i \sim \mathcal{N}(0,\alpha)\)</
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "99296055da8543d4b98290585fd5056d", "version_major": 2, "version_minor": 0}
-</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "99296055da8543d4b98290585fd5056d", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="ow">not</span> <span class="n">interactive</span><span class="p">:</span>
     <span class="n">interact_prior</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span><span class="n">contour</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
+</details>
 </div>
 </section>
 <section id="sampling-from-the-prior-weight-space">
-<h3>Sampling from the prior (weight space)<a class="headerlink" href="#sampling-from-the-prior-weight-space" title="Permalink to this headline">#</a></h3>
+<h3>Sampling from the prior (weight space)<a class="headerlink" href="#sampling-from-the-prior-weight-space" title="Permalink to this heading">#</a></h3>
 <p>We can sample from the prior distribution to see what form we are imposing on the functions <em>a priori</em> (before seeing any data).</p>
 <ul class="simple">
 <li><p>Draw <span class="math notranslate nohighlight">\(w\)</span> (left) independently from a Gaussian density <span class="math notranslate nohighlight">\(\mathbf{w} \sim \mathcal{N}(\mathbf{0}, \alpha\mathbf{I})\)</span></p>
@@ -1629,6 +1235,11 @@ $<span class="math notranslate nohighlight">\(w_i \sim \mathcal{N}(0,\alpha)\)</
 </li>
 </ul>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">alpha</span> <span class="o">=</span> <span class="mf">4.</span> <span class="c1"># set prior variance on w</span>
 <span class="n">degree</span> <span class="o">=</span> <span class="mi">5</span> <span class="c1"># set the order of the polynomial basis set</span>
@@ -1682,22 +1293,27 @@ $<span class="math notranslate nohighlight">\(w_i \sim \mathcal{N}(0,\alpha)\)</
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "b4db5d6e967a4c7b98d0c5ee9f79e623", "version_major": 2, "version_minor": 0}
-</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "b4db5d6e967a4c7b98d0c5ee9f79e623", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="ow">not</span> <span class="n">interactive</span><span class="p">:</span>
     <span class="n">plot_function_space</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">degree</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">random</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
+</details>
 </div>
 </section>
 <section id="learning-gaussian-distributions">
-<h3>Learning Gaussian distributions<a class="headerlink" href="#learning-gaussian-distributions" title="Permalink to this headline">#</a></h3>
+<h3>Learning Gaussian distributions<a class="headerlink" href="#learning-gaussian-distributions" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>We assume that our data is Gaussian distributed: <span class="math notranslate nohighlight">\(P(y|x_{test},\textbf{X}) = \mathcal{N}(\mathbf{\mu,\Sigma})\)</span></p></li>
 <li><p>Example with learned mean <span class="math notranslate nohighlight">\([m,m]\)</span> and covariance
@@ -1711,6 +1327,11 @@ $<span class="math notranslate nohighlight">\(w_i \sim \mathcal{N}(0,\alpha)\)</
 </li>
 </ul>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nd">@interact</span>
 <span class="k">def</span> <span class="nf">interact_prior</span><span class="p">(</span><span class="n">x_test</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mf">0.5</span><span class="p">),</span><span class="n">m</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">0.1</span><span class="p">),</span><span class="n">alpha</span><span class="o">=</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mf">0.1</span><span class="p">),</span><span class="n">beta</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">0.1</span><span class="p">),</span><span class="n">contour</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
@@ -1721,12 +1342,16 @@ $<span class="math notranslate nohighlight">\(w_i \sim \mathcal{N}(0,\alpha)\)</
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "24b3fd860add433fae5ff7ab3c42d44f", "version_major": 2, "version_minor": 0}
-</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "24b3fd860add433fae5ff7ab3c42d44f", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="ow">not</span> <span class="n">interactive</span><span class="p">:</span>
     <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">figaspect</span><span class="p">(</span><span class="mf">0.3</span><span class="p">)</span><span class="o">*</span><span class="n">fig_scale</span><span class="o">*</span><span class="mi">2</span><span class="p">)</span>
@@ -1746,10 +1371,11 @@ $<span class="math notranslate nohighlight">\(w_i \sim \mathcal{N}(0,\alpha)\)</
 </pre></div>
 </div>
 </div>
+</details>
 </div>
 </section>
 <section id="understanding-covariances">
-<h3>Understanding covariances<a class="headerlink" href="#understanding-covariances" title="Permalink to this headline">#</a></h3>
+<h3>Understanding covariances<a class="headerlink" href="#understanding-covariances" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>If two variables <span class="math notranslate nohighlight">\(x_i\)</span> covariate strongly, knowing about <span class="math notranslate nohighlight">\(x_1\)</span> tells us a lot about <span class="math notranslate nohighlight">\(x_2\)</span></p></li>
 <li><p>If covariance is 0, knowing <span class="math notranslate nohighlight">\(x_1\)</span> tells us nothing about <span class="math notranslate nohighlight">\(x_2\)</span> (the conditional and marginal distributions are the same)</p></li>
@@ -1760,6 +1386,11 @@ $<span class="math notranslate nohighlight">\(w_i \sim \mathcal{N}(0,\alpha)\)</
 \end{bmatrix}\)</span>:</p></li>
 </ul>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nd">@interact</span>
 <span class="k">def</span> <span class="nf">interact_covariance</span><span class="p">(</span><span class="n">x1</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mf">0.5</span><span class="p">),</span><span class="n">x2</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mf">0.5</span><span class="p">),</span><span class="n">beta</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">0.9</span><span class="p">,</span><span class="mf">0.9</span><span class="p">,</span><span class="mf">0.1</span><span class="p">)):</span>
@@ -1770,12 +1401,16 @@ $<span class="math notranslate nohighlight">\(w_i \sim \mathcal{N}(0,\alpha)\)</
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "b12c7dacba2e4871931ac68a0350f3a7", "version_major": 2, "version_minor": 0}
-</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "b12c7dacba2e4871931ac68a0350f3a7", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="ow">not</span> <span class="n">interactive</span><span class="p">:</span>
     <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">figaspect</span><span class="p">(</span><span class="mf">0.3</span><span class="p">)</span><span class="o">*</span><span class="n">fig_scale</span><span class="o">*</span><span class="mi">2</span><span class="p">)</span>
@@ -1792,10 +1427,11 @@ $<span class="math notranslate nohighlight">\(w_i \sim \mathcal{N}(0,\alpha)\)</
 </pre></div>
 </div>
 </div>
+</details>
 </div>
 </section>
 <section id="stochastic-processes-sampling-from-higher-dimensional-distributions">
-<h3>Stochastic processes &amp; sampling from higher-dimensional distributions<a class="headerlink" href="#stochastic-processes-sampling-from-higher-dimensional-distributions" title="Permalink to this headline">#</a></h3>
+<h3>Stochastic processes &amp; sampling from higher-dimensional distributions<a class="headerlink" href="#stochastic-processes-sampling-from-higher-dimensional-distributions" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Instead of sampling <span class="math notranslate nohighlight">\(\mathbf{w}\)</span> and then multiplying by <span class="math notranslate nohighlight">\(\boldsymbol{\Phi}\)</span>, we can also generate examples of <span class="math notranslate nohighlight">\(f(x)\)</span> directly.</p></li>
 <li><p><span class="math notranslate nohighlight">\(\mathbf{f}\)</span> with <span class="math notranslate nohighlight">\(n\)</span> values can be sampled from an <span class="math notranslate nohighlight">\(n\)</span>-dimensional Gaussian distribution with zero mean and covariance matrix <span class="math notranslate nohighlight">\(\mathbf{K} = \alpha \boldsymbol{\Phi}\boldsymbol{\Phi}^\top\)</span>:</p>
@@ -1807,6 +1443,11 @@ $<span class="math notranslate nohighlight">\(w_i \sim \mathcal{N}(0,\alpha)\)</
 <div class="math notranslate nohighlight">
 \[\mathbf{f} \sim \mathcal{N}(\mathbf{0},\mathbf{K})\]</div>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">matplotlib.ticker</span> <span class="kn">import</span> <span class="n">MaxNLocator</span>
 
@@ -1892,38 +1533,54 @@ $<span class="math notranslate nohighlight">\(w_i \sim \mathcal{N}(0,\alpha)\)</
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "a922eaab73cc447a8ffb369f6cbc5770", "version_major": 2, "version_minor": 0}
-</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "a922eaab73cc447a8ffb369f6cbc5770", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="ow">not</span> <span class="n">interactive</span><span class="p">:</span>
     <span class="n">plot_process</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">dimensions</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">phi</span><span class="o">=</span><span class="s2">&quot;Polynomial&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
+</details>
 </div>
 <p>Repeat for 40 dimensions, with <span class="math notranslate nohighlight">\(\boldsymbol{\Phi}\)</span> the polynomial transform:</p>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_process</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">dimensions</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">phi</span><span class="o">=</span><span class="s2">&quot;Polynomial&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<img alt="../_images/07 - Bayesian Learning_50_0.png" src="../_images/07 - Bayesian Learning_50_0.png" />
+<img alt="../_images/8cf0b90c63e3d8483e88d2f3c60d9d7c7654aad39ca2426033926cd89a21d036.png" src="../_images/8cf0b90c63e3d8483e88d2f3c60d9d7c7654aad39ca2426033926cd89a21d036.png" />
 </div>
 </div>
 <p><a class="reference external" href="https://pymc3-testing.readthedocs.io/en/rtd-docs/notebooks/GP-covariances.html">More examples of covariances</a></p>
 <section id="noisy-functions">
-<h4>Noisy functions<a class="headerlink" href="#noisy-functions" title="Permalink to this headline">#</a></h4>
+<h4>Noisy functions<a class="headerlink" href="#noisy-functions" title="Permalink to this heading">#</a></h4>
 <p>We normally add Gaussian noise to obtain our observations:
 $<span class="math notranslate nohighlight">\(
 \mathbf{y} = \mathbf{f} + \boldsymbol{\epsilon}
 \)</span>$</p>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nd">@interact</span>
 <span class="k">def</span> <span class="nf">plot_covm_noise</span><span class="p">(</span><span class="n">sigma</span><span class="o">=</span><span class="p">(</span><span class="mf">0.01</span><span class="p">,</span><span class="mf">0.1</span><span class="p">,</span><span class="mf">0.01</span><span class="p">)):</span>
@@ -1931,24 +1588,29 @@ $<span class="math notranslate nohighlight">\(
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "a319d3a265ce41119f7ca4f7efea045f", "version_major": 2, "version_minor": 0}
-</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "a319d3a265ce41119f7ca4f7efea045f", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="ow">not</span> <span class="n">interactive</span><span class="p">:</span>
     <span class="n">plot_process</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">dimensions</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">phi</span><span class="o">=</span><span class="s2">&quot;Polynomial&quot;</span><span class="p">,</span> <span class="n">sigma2</span><span class="o">=</span><span class="mf">0.02</span><span class="p">,</span> <span class="n">noise</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
+</details>
 </div>
 </section>
 </section>
 </section>
 <section id="gaussian-process">
-<h2>Gaussian Process<a class="headerlink" href="#gaussian-process" title="Permalink to this headline">#</a></h2>
+<h2>Gaussian Process<a class="headerlink" href="#gaussian-process" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Usually, we want our functions to be <em>smooth</em>: if two points are similar/nearby, the predictions should be similar.</p>
 <ul>
@@ -1978,6 +1640,11 @@ k(\mathbf{x}, \mathbf{x}^\prime) = \alpha \exp\left( -\frac{\left\Vert \mathbf{x
 <li><p>We now want to condition it on our training data: <span class="math notranslate nohighlight">\(P(y|x_{test},\textbf{X}) = \mathcal{N}(\mathbf{\mu,\Sigma})\)</span></p></li>
 </ul>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nd">@interact</span>
 <span class="k">def</span> <span class="nf">plot_gprocess</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mf">0.1</span><span class="p">),</span> <span class="n">lengthscale</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="n">dimensions</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="n">nr_samples</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">21</span><span class="p">,</span><span class="mi">5</span><span class="p">)):</span>
@@ -1988,13 +1655,12 @@ k(\mathbf{x}, \mathbf{x}^\prime) = \alpha \exp\left( -\frac{\left\Vert \mathbf{x
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "7442a31e23bc425d954c8afb038be744", "version_major": 2, "version_minor": 0}
-</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "7442a31e23bc425d954c8afb038be744", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <section id="computing-the-posterior-p-mathbf-y-mathbf-x">
-<h3>Computing the posterior <span class="math notranslate nohighlight">\(P(\mathbf{y}|\mathbf{X})\)</span><a class="headerlink" href="#computing-the-posterior-p-mathbf-y-mathbf-x" title="Permalink to this headline">#</a></h3>
+<h3>Computing the posterior <span class="math notranslate nohighlight">\(P(\mathbf{y}|\mathbf{X})\)</span><a class="headerlink" href="#computing-the-posterior-p-mathbf-y-mathbf-x" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Assuming that <span class="math notranslate nohighlight">\(P(X)\)</span> is a Gaussian density with a covariance given by kernel matrix <span class="math notranslate nohighlight">\(\mathbf{K}\)</span>, the model likelihood becomes:
 $<span class="math notranslate nohighlight">\(
@@ -2041,7 +1707,7 @@ E(\boldsymbol{\theta}) = \frac{1}{2} \log |\mathbf{K}| + \frac{1}{2} \mathbf{y}^
 </div>
 </section>
 <section id="making-predictions">
-<h3>Making predictions<a class="headerlink" href="#making-predictions" title="Permalink to this headline">#</a></h3>
+<h3>Making predictions<a class="headerlink" href="#making-predictions" title="Permalink to this heading">#</a></h3>
 <p>The model makes predictions for <span class="math notranslate nohighlight">\(\mathbf{f}\)</span> that are unaffected by future values of <span class="math notranslate nohighlight">\(\mathbf{f}^*\)</span>.<br />
 If we think of <span class="math notranslate nohighlight">\(\mathbf{f}^*\)</span> as test points, we can still write down a joint probability density over the training observations, <span class="math notranslate nohighlight">\(\mathbf{f}\)</span> and the test observations, <span class="math notranslate nohighlight">\(\mathbf{f}^*\)</span>.</p>
 <p>This joint probability density will be Gaussian, with a covariance matrix given by our kernel function, <span class="math notranslate nohighlight">\(k(\mathbf{x}_i, \mathbf{x}_j)\)</span>.
@@ -2058,7 +1724,7 @@ $<span class="math notranslate nohighlight">\(
 \)</span>$</p>
 </section>
 <section id="conditional-density-p-mathbf-y-x-test-mathbf-x">
-<h3>Conditional Density <span class="math notranslate nohighlight">\(P(\mathbf{y}|x_{test} , \mathbf{X})\)</span><a class="headerlink" href="#conditional-density-p-mathbf-y-x-test-mathbf-x" title="Permalink to this headline">#</a></h3>
+<h3>Conditional Density <span class="math notranslate nohighlight">\(P(\mathbf{y}|x_{test} , \mathbf{X})\)</span><a class="headerlink" href="#conditional-density-p-mathbf-y-x-test-mathbf-x" title="Permalink to this heading">#</a></h3>
 <p>Finally, we need to define <em>conditional</em> distributions to answer particular questions of interest</p>
 <p>We will need the <em>conditional density</em> for making predictions.
 $<span class="math notranslate nohighlight">\(
@@ -2073,18 +1739,29 @@ $</p>
 \mathbf{C}_f = \mathbf{K}_{*,*} - \mathbf{K}_*^\top \left[\mathbf{K} + \sigma^2 \mathbf{I}\right]^{-1} \mathbf{K}_\ast.
 \)</span></p>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">GP</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sigma2</span><span class="p">,</span> <span class="n">exponentiated_quadratic</span><span class="p">,</span> <span class="n">variance</span><span class="o">=</span><span class="n">variance</span><span class="p">,</span> <span class="n">lengthscale</span><span class="o">=</span><span class="n">lengthscale</span><span class="p">)</span>
 <span class="n">mu_f</span><span class="p">,</span> <span class="n">C_f</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">posterior_f</span><span class="p">(</span><span class="n">x_pred</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
+</details>
 </div>
 </section>
 <section id="gaussian-process-example">
-<h3>Gaussian process example<a class="headerlink" href="#gaussian-process-example" title="Permalink to this headline">#</a></h3>
+<h3>Gaussian process example<a class="headerlink" href="#gaussian-process-example" title="Permalink to this heading">#</a></h3>
 <p>We can now get the mean and covariance learned on our dataset, and sample from this distribution!</p>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">shuffled_olympics</span><span class="p">():</span>
     <span class="n">data</span> <span class="o">=</span> <span class="n">pods</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">olympic_marathon_men</span><span class="p">()</span>
@@ -2105,10 +1782,9 @@ $</p>
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "14741ef10ccc46508fc633dc6fb285cf", "version_major": 2, "version_minor": 0}
-</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "14741ef10ccc46508fc633dc6fb285cf", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <p>Remember that our prediction is the sum of the mean and the variance: <span class="math notranslate nohighlight">\(P(\mathbf{y}|x_{test} , \mathbf{X}) = \mathcal{N}(\mathbf{\mu,\Sigma})\)</span></p>
 <ul class="simple">
@@ -2116,6 +1792,11 @@ $</p>
 <li><p>The Gaussian process learned the covariance and the hyperparameters</p></li>
 </ul>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nd">@interact</span>
 <span class="k">def</span> <span class="nf">plot_gp_olympics_mean</span><span class="p">(</span><span class="n">nr_points</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">27</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="n">add_mean</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
@@ -2127,13 +1808,17 @@ $</p>
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "09c52330890e423086652cf2295aaf8a", "version_major": 2, "version_minor": 0}
-</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "09c52330890e423086652cf2295aaf8a", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <p>The values on the diagonal of the covariance matrix give us the variance, so we can simply plot the mean and 95% confidence interval</p>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nd">@interact</span>
 <span class="k">def</span> <span class="nf">plot_gp_olympics_stdev</span><span class="p">(</span><span class="n">nr_points</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">27</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="n">lengthscale</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">1</span><span class="p">)):</span>
@@ -2145,14 +1830,13 @@ $</p>
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "e6ef7cc7355c48fd8504cd8c0cad3523", "version_major": 2, "version_minor": 0}
-</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "e6ef7cc7355c48fd8504cd8c0cad3523", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 </section>
 <section id="gaussian-processes-in-practice-with-gpy">
-<h3>Gaussian Processes in practice (with GPy)<a class="headerlink" href="#gaussian-processes-in-practice-with-gpy" title="Permalink to this headline">#</a></h3>
+<h3>Gaussian Processes in practice (with GPy)<a class="headerlink" href="#gaussian-processes-in-practice-with-gpy" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">GPyRegression</span></code></p></li>
 <li><p>Generate a kernel first</p>
@@ -2178,6 +1862,11 @@ $</p>
 </pre></div>
 </div>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">GPy</span>
 <span class="n">custom_kernel</span> <span class="o">=</span> <span class="n">GPy</span><span class="o">.</span><span class="n">kern</span><span class="o">.</span><span class="n">RBF</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">GPy</span><span class="o">.</span><span class="n">kern</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">GPy</span><span class="o">.</span><span class="n">kern</span><span class="o">.</span><span class="n">RatQuad</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>
@@ -2197,13 +1886,14 @@ $</p>
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<img alt="../_images/07 - Bayesian Learning_71_0.png" src="../_images/07 - Bayesian Learning_71_0.png" />
+<img alt="../_images/3b95908f719a01e81753272491093bc8e96c70943123fc1d47f0df51ad93bcc1.png" src="../_images/3b95908f719a01e81753272491093bc8e96c70943123fc1d47f0df51ad93bcc1.png" />
 </div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">Matern</span></code> is a generalized RBF kernel that can scale between RBF and Exponential. <code class="docutils literal notranslate"><span class="pre">Sum</span></code> is RBF + Linear * RatQuad</p>
 <section id="effect-of-different-kernels">
-<h4>Effect of different kernels<a class="headerlink" href="#effect-of-different-kernels" title="Permalink to this headline">#</a></h4>
+<h4>Effect of different kernels<a class="headerlink" href="#effect-of-different-kernels" title="Permalink to this heading">#</a></h4>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">copy</span>
@@ -2235,12 +1925,15 @@ $</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "37a1c4b0e0ef4a6baabdc9c5fdbb9087", "version_major": 2, "version_minor": 0}
-</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "37a1c4b0e0ef4a6baabdc9c5fdbb9087", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <p>Build the untrained GP. The shaded region corresponds to ~95% confidence intervals (i.e. +/- 2 standard deviation)</p>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Generate noisy sine data</span>
 <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mf">5.</span><span class="p">,</span><span class="mf">5.</span><span class="p">,(</span><span class="mi">10</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
@@ -2253,25 +1946,37 @@ $</p>
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<img alt="../_images/07 - Bayesian Learning_76_0.png" src="../_images/07 - Bayesian Learning_76_0.png" />
+<img alt="../_images/8534f14632a88ef70a68f3db86acdad39227777f7321c6e80197649bbb4adf51.png" src="../_images/8534f14632a88ef70a68f3db86acdad39227777f7321c6e80197649bbb4adf51.png" />
 </div>
 </div>
 <p>Train the model (optimize the kernel parameters): maximize the likelihood of the data.<br />
 Best to optimize with a few restarts: the optimizer may converges to the high-noise solution. The optimizer is then restarted with a few random initializations of the parameter values.</p>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">m</span><span class="o">.</span><span class="n">optimize_restarts</span><span class="p">(</span><span class="n">num_restarts</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 <span class="n">fig</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<img alt="../_images/07 - Bayesian Learning_78_0.png" src="../_images/07 - Bayesian Learning_78_0.png" />
+<img alt="../_images/209b5aba4893e9ca67d6ade74b9dca838e9e84304ff4eed7d24c8d401740a788.png" src="../_images/209b5aba4893e9ca67d6ade74b9dca838e9e84304ff4eed7d24c8d401740a788.png" />
 </div>
 </div>
 <p>You can also show results in 2D</p>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># sample inputs and outputs</span>
 <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mf">3.</span><span class="p">,</span><span class="mf">3.</span><span class="p">,(</span><span class="mi">50</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
@@ -2287,13 +1992,19 @@ Best to optimize with a few restarts: the optimizer may converges to the high-no
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<img alt="../_images/07 - Bayesian Learning_80_0.png" src="../_images/07 - Bayesian Learning_80_0.png" />
+<img alt="../_images/b6923292ff2159c3307434c4bb1581c5a80b6ad29a4da8968371fc66a7878869.png" src="../_images/b6923292ff2159c3307434c4bb1581c5a80b6ad29a4da8968371fc66a7878869.png" />
 </div>
 </div>
 <p>We can plot 2D slices using the <code class="docutils literal notranslate"><span class="pre">fixed_inputs</span></code> argument to the plot function.<br />
 <code class="docutils literal notranslate"><span class="pre">fixed_inputs</span></code> is a list of tuples containing which of the inputs to fix, and to which value.</p>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">slices</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">]</span>
 <span class="n">figure</span> <span class="o">=</span> <span class="n">GPy</span><span class="o">.</span><span class="n">plotting</span><span class="o">.</span><span class="n">plotting_library</span><span class="p">()</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
@@ -2304,13 +2015,14 @@ Best to optimize with a few restarts: the optimizer may converges to the high-no
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<img alt="../_images/07 - Bayesian Learning_82_0.png" src="../_images/07 - Bayesian Learning_82_0.png" />
+<img alt="../_images/c98f19c405d421649e31dc14123ac4612b71bd710a90245b0ecbe02144b9b22c.png" src="../_images/c98f19c405d421649e31dc14123ac4612b71bd710a90245b0ecbe02144b9b22c.png" />
 </div>
 </div>
 </section>
 <section id="gaussian-processes-with-scikit-learn">
-<h4>Gaussian Processes with scikit-learn<a class="headerlink" href="#gaussian-processes-with-scikit-learn" title="Permalink to this headline">#</a></h4>
+<h4>Gaussian Processes with scikit-learn<a class="headerlink" href="#gaussian-processes-with-scikit-learn" title="Permalink to this heading">#</a></h4>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">GaussianProcessRegressor</span></code></p></li>
 <li><p>Hyperparameters:</p>
@@ -2349,6 +2061,11 @@ Best to optimize with a few restarts: the optimizer may converges to the high-no
 </div>
 <p>Example</p>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.gaussian_process</span> <span class="kn">import</span> <span class="n">GaussianProcessRegressor</span>
 <span class="kn">from</span> <span class="nn">sklearn.gaussian_process.kernels</span> <span class="kn">import</span> <span class="n">RBF</span><span class="p">,</span> <span class="n">ConstantKernel</span> <span class="k">as</span> <span class="n">C</span>
@@ -2393,12 +2110,18 @@ Best to optimize with a few restarts: the optimizer may converges to the high-no
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<img alt="../_images/07 - Bayesian Learning_85_0.png" src="../_images/07 - Bayesian Learning_85_0.png" />
+<img alt="../_images/e2fc8229bd9f6e9a02c7750a1261a40130a96889a448e6fa6da50467298d0199.png" src="../_images/e2fc8229bd9f6e9a02c7750a1261a40130a96889a448e6fa6da50467298d0199.png" />
 </div>
 </div>
 <p>Example with noisy data</p>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">9.9</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
 <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">atleast_2d</span><span class="p">(</span><span class="n">X</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
@@ -2438,14 +2161,15 @@ Best to optimize with a few restarts: the optimizer may converges to the high-no
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<img alt="../_images/07 - Bayesian Learning_87_0.png" src="../_images/07 - Bayesian Learning_87_0.png" />
+<img alt="../_images/9192f34dcfee2a213046866de9425526f7a7e4315ff6fe0c38bc3d291dc3c55c.png" src="../_images/9192f34dcfee2a213046866de9425526f7a7e4315ff6fe0c38bc3d291dc3c55c.png" />
 </div>
 </div>
 </section>
 </section>
 <section id="gaussian-processes-conclusions">
-<h3>Gaussian processes: Conclusions<a class="headerlink" href="#gaussian-processes-conclusions" title="Permalink to this headline">#</a></h3>
+<h3>Gaussian processes: Conclusions<a class="headerlink" href="#gaussian-processes-conclusions" title="Permalink to this heading">#</a></h3>
 <p>Advantages:</p>
 <ul class="simple">
 <li><p>The prediction is probabilistic (Gaussian) so that one can compute empirical confidence intervals.</p></li>
@@ -2463,7 +2187,7 @@ Best to optimize with a few restarts: the optimizer may converges to the high-no
 </ul>
 </section>
 <section id="gaussian-processes-and-neural-networks">
-<h3>Gaussian processes and neural networks<a class="headerlink" href="#gaussian-processes-and-neural-networks" title="Permalink to this headline">#</a></h3>
+<h3>Gaussian processes and neural networks<a class="headerlink" href="#gaussian-processes-and-neural-networks" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>You can prove that a Gaussian process is equivalent to a neural network with one layer and an infinite number of nodes</p></li>
 <li><p>You can build <em>deep Gaussian Processes</em> by constructing layers of GPs</p></li>
@@ -2471,7 +2195,7 @@ Best to optimize with a few restarts: the optimizer may converges to the high-no
 <img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/06_deep_gps.png" alt="ml" style="width: 70%;"/></section>
 </section>
 <section id="bayesian-optimization">
-<h2>Bayesian optimization<a class="headerlink" href="#bayesian-optimization" title="Permalink to this headline">#</a></h2>
+<h2>Bayesian optimization<a class="headerlink" href="#bayesian-optimization" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>The incremental updates you can do with Bayesian models allow a more effective way to optimize functions</p>
 <ul>
@@ -2490,7 +2214,7 @@ Best to optimize with a few restarts: the optimizer may converges to the high-no
 <li><p>With every new evaluation, we update the surrogate model and repeat</p></li>
 </ul>
 <section id="example-see-figure">
-<h3>Example (see figure):<a class="headerlink" href="#example-see-figure" title="Permalink to this headline">#</a></h3>
+<h3>Example (see figure):<a class="headerlink" href="#example-see-figure" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Consider only 1 continuous hyperparameter (X-axis)</p>
 <ul>
@@ -2521,7 +2245,7 @@ Best to optimize with a few restarts: the optimizer may converges to the high-no
 <p>In 2 dimensions:</p>
 <img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/05_2dbo.png" alt="ml" style="width: 80%"/></section>
 <section id="surrogate-models">
-<h3>Surrogate models<a class="headerlink" href="#surrogate-models" title="Permalink to this headline">#</a></h3>
+<h3>Surrogate models<a class="headerlink" href="#surrogate-models" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Surrogate model can be anything as long as it can do regression and is probabilistic</p></li>
 </ul>
@@ -2547,7 +2271,7 @@ Best to optimize with a few restarts: the optimizer may converges to the high-no
 </ul>
 </section>
 <section id="acquisition-functions">
-<h3>Acquisition Functions<a class="headerlink" href="#acquisition-functions" title="Permalink to this headline">#</a></h3>
+<h3>Acquisition Functions<a class="headerlink" href="#acquisition-functions" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>When we have trained the surrogate model, we ask it to predict a number of samples</p>
 <ul>
@@ -2571,7 +2295,7 @@ $<span class="math notranslate nohighlight">\(EI(X) := \mathbb{E}\left[ \max\{0,
 </ul>
 </section>
 <section id="bayesian-optimization-conclusions">
-<h3>Bayesian Optimization: conclusions<a class="headerlink" href="#bayesian-optimization-conclusions" title="Permalink to this headline">#</a></h3>
+<h3>Bayesian Optimization: conclusions<a class="headerlink" href="#bayesian-optimization-conclusions" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>More efficient way to optimize hyperparameters</p></li>
 <li><p>More similar to what humans would do</p></li>
@@ -2599,7 +2323,7 @@ $<span class="math notranslate nohighlight">\(EI(X) := \mathbb{E}\left[ \max\{0,
             mode: "python"
         },
         kernelOptions: {
-            kernelName: "python3",
+            name: "python3",
             path: "./notebooks"
         },
         predefinedOutput: true
@@ -2607,50 +2331,153 @@ $<span class="math notranslate nohighlight">\(EI(X) := \mathbb{E}\left[ \max\{0,
     </script>
     <script>kernelName = 'python3'</script>
 
-              </div>
+                </article>
               
-            </main>
-            <footer class="footer-article noprint">
-                
-    <!-- Previous / next buttons -->
-<div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="06%20-%20Data%20Preprocessing.html" title="previous page">
-        <i class="fas fa-angle-left"></i>
-        <div class="prev-next-info">
-            <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Lecture 6. Data preprocessing</p>
-        </div>
+
+              
+              
+                <footer class="bd-footer-article">
+                  <!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="06%20-%20Data%20Preprocessing.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Lecture 6. Data preprocessing</p>
+      </div>
     </a>
-    <a class='right-next' id="next-link" href="08%20-%20Neural%20Networks.html" title="next page">
-    <div class="prev-next-info">
+    <a class="right-next"
+       href="08%20-%20Neural%20Networks.html"
+       title="next page">
+      <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
         <p class="prev-next-title">Lecture 8. Neural Networks</p>
-    </div>
-    <i class="fas fa-angle-right"></i>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
-            </footer>
-        </div>
-    </div>
-    <div class="footer-content row">
-        <footer class="col footer"><p>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bayes-rule">Bayes’ rule</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-exploding-sun">Example: exploding sun</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-covid-test">Example: COVID test</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bayesian-models">Bayesian models</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#generative-models">Generative models</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#naive-bayes">Naive Bayes</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#on-categorical-data">On categorical data</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#on-numeric-data">On numeric data</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bayesian-networks">Bayesian Networks</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gaussian-processes">Gaussian processes</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#probabilistic-interpretation-of-regression">Probabilistic interpretation of regression</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-olympic-marathon-data">Example: Olympic marathon data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#polynomial-regression-recap">Polynomial regression (recap)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kernelized-regression-recap">Kernelized regression (recap)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#probabilistic-interpretation">Probabilistic interpretation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-learn-probabilities">How to learn probabilities?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gaussian-prior-p-w">Gaussian prior <span class="math notranslate nohighlight">\(P(w)\)</span></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sampling-from-the-prior-weight-space">Sampling from the prior (weight space)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-gaussian-distributions">Learning Gaussian distributions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#understanding-covariances">Understanding covariances</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stochastic-processes-sampling-from-higher-dimensional-distributions">Stochastic processes &amp; sampling from higher-dimensional distributions</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#noisy-functions">Noisy functions</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gaussian-process">Gaussian Process</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#computing-the-posterior-p-mathbf-y-mathbf-x">Computing the posterior <span class="math notranslate nohighlight">\(P(\mathbf{y}|\mathbf{X})\)</span></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#making-predictions">Making predictions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#conditional-density-p-mathbf-y-x-test-mathbf-x">Conditional Density <span class="math notranslate nohighlight">\(P(\mathbf{y}|x_{test} , \mathbf{X})\)</span></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gaussian-process-example">Gaussian process example</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gaussian-processes-in-practice-with-gpy">Gaussian Processes in practice (with GPy)</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#effect-of-different-kernels">Effect of different kernels</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#gaussian-processes-with-scikit-learn">Gaussian Processes with scikit-learn</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gaussian-processes-conclusions">Gaussian processes: Conclusions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gaussian-processes-and-neural-networks">Gaussian processes and neural networks</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bayesian-optimization">Bayesian optimization</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-see-figure">Example (see figure):</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#surrogate-models">Surrogate models</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#acquisition-functions">Acquisition Functions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bayesian-optimization-conclusions">Bayesian Optimization: conclusions</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            <div class="bd-footer-content__inner">
+<div class="bd-footer-content__inner container">
   
-    By Joaquin Vanschoren<br/>
-  
-      &copy; Copyright 2023. CC0 Licensed - Use as you like.<br/>
-</p>
-        </footer>
-    </div>
+  <div class="footer-item">
     
-</div>
+<p class="component-author">
+By Joaquin Vanschoren
+</p>
 
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2023. CC0 Licensed - Use as you like.
+      <br/>
+    
+  </p>
 
-      </div>
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div></div>
+          </footer>
+        
+
+      </main>
     </div>
+  </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d"></script>
 
-
+  <footer class="bd-footer">
+  </footer>
   </body>
 </html>

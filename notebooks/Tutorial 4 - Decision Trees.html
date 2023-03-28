@@ -1,48 +1,59 @@
 
+
 <!DOCTYPE html>
 
-<html>
+
+<html lang="en" >
+
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>Recap: Decision Trees &#8212; ML Engineering</title>
-    
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  <link href="../_static/styles/theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
 
-    
-  <link rel="stylesheet"
-    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
-    
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d" />
 
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../_static/togglebutton.js"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script src="../_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
 const thebe_selector = ".thebe,.cell"
@@ -52,62 +63,94 @@ const thebe_selector_output = ".output, .cell_output"
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/Tutorial 4 - Decision Trees';</script>
     <link rel="shortcut icon" href="../_static/favicon.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Recap: k-Nearest Neighbor" href="Tutorial%205%20-%20Nearest%20Neighbors.html" />
     <link rel="prev" title="Machine Learning in Python" href="Tutorial%203%20-%20Machine%20Learning%20in%20Python.html" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
-    
-
-    <!-- Google Analytics -->
-    
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
-<!-- Checkboxes to toggle the left sidebar -->
-<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
-<label class="overlay overlay-navbar" for="__navigation">
-    <div class="visually-hidden">Toggle navigation sidebar</div>
-</label>
-<!-- Checkboxes to toggle the in-page toc -->
-<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
-<label class="overlay overlay-pagetoc" for="__page-toc">
-    <div class="visually-hidden">Toggle in-page Table of Contents</div>
-</label>
-<!-- Headers at the top -->
-<div class="announcement header-item noprint"></div>
-<div class="header header-item noprint"></div>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
-    
-    <div class="container-fluid" id="banner"></div>
-
-    
-
-    <div class="container-xl">
-      <div class="row">
-          
-<!-- Sidebar -->
-<div class="bd-sidebar noprint" id="site-navigation">
-    <div class="bd-sidebar__content">
-        <div class="bd-sidebar__top"><div class="navbar-brand-box">
-    <a class="navbar-brand text-wrap" href="../index.html">
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
       
-        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+      <div class="bd-sidebar-primary bd-sidebar">
         
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+    
+    
       
-      
-      <img src="../_static/banner.jpeg" class="logo" alt="logo">
-      
-      
-      <h1 class="site-logo" id="site-title">ML Engineering</h1>
-      
-    </a>
-</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
-  <i class="icon fas fa-search"></i>
-  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
-    <div class="bd-toc-item active">
+    
+    
+    <img src="../_static/banner.jpeg" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../_static/banner.jpeg" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
@@ -117,593 +160,316 @@ const thebe_selector_output = ".output, .cell_output"
             </li>
         </ul>
         <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%200%20-%20Prerequisites.html">
-   Prerequisites
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="../labs/Lab%200%20-%20Prerequisites.html">Prerequisites</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Lectures
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Lectures</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="01%20-%20Introduction.html">
-   Lecture 1: Introduction
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="02%20-%20Linear%20Models.html">
-   Lecture 2: Linear models
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="03%20-%20Kernelization.html">
-   Lecture 3: Kernelization
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="04%20-%20Model%20Selection.html">
-   Lecture 4: Model Selection
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="05%20-%20Ensemble%20Learning.html">
-   Lecture 5. Ensemble Learning
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="06%20-%20Data%20Preprocessing.html">
-   Lecture 6. Data preprocessing
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="07%20-%20Bayesian%20Learning.html">
-   Lecture 7. Bayesian Learning
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="08%20-%20Neural%20Networks.html">
-   Lecture 8. Neural Networks
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="09%20-%20Convolutional%20Neural%20Networks.html">
-   Lecture 9: Convolutional Neural Networks
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="10%20-%20Neural%20Networks%20for%20text.html">
-   Lecture 10. Neural Networks for text
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="01%20-%20Introduction.html">Lecture 1: Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02%20-%20Linear%20Models.html">Lecture 2: Linear models</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="03%20-%20Kernelization.html">Lecture 3: Kernelization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04%20-%20Model%20Selection.html">Lecture 4: Model Selection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05%20-%20Ensemble%20Learning.html">Lecture 5. Ensemble Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06%20-%20Data%20Preprocessing.html">Lecture 6. Data preprocessing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07%20-%20Bayesian%20Learning.html">Lecture 7. Bayesian Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="08%20-%20Neural%20Networks.html">Lecture 8. Neural Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="09%20-%20Convolutional%20Neural%20Networks.html">Lecture 9: Convolutional Neural Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="10%20-%20Neural%20Networks%20for%20text.html">Lecture 10. Neural Networks for text</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Labs
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Labs</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%201a%20-%20Linear%20Models%20for%20Regression.html">
-   Lab 1a: Linear regression
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%201b%20-%20Linear%20Models%20for%20Classification.html">
-   Lab 1b: Linear classification
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%202a%20-%20Kernelization.html">
-   Lab 2a: Kernelization
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%202b%20-%20Model%20Selection.html">
-   Lab 2b: Model selection
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%203%20-%20Ensembles.html">
-   Lab 3b: Ensembles
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%204%20-%20Pipelines.html">
-   Lab 4:  Data preprocessing
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%205%20-%20Bayesian%20learning.html">
-   Lab 5: Bayesian models
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%206%20-%20Neural%20Networks.html">
-   Lab 6: Neural networks
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%207a%20-%20Convolutional%20Neural%20Networks.html">
-   Lab 7a: Convolutional neural nets
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%207b%20-%20Neural%20Networks%20for%20text.html">
-   Lab 7b: Neural Networks for text
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%208%20-%20AutoML.html">
-   Lab 8: AutoML
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="../labs/Lab%201a%20-%20Linear%20Models%20for%20Regression.html">Lab 1a: Linear regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../labs/Lab%201b%20-%20Linear%20Models%20for%20Classification.html">Lab 1b: Linear classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../labs/Lab%202a%20-%20Kernelization.html">Lab 2a: Kernelization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../labs/Lab%202b%20-%20Model%20Selection.html">Lab 2b: Model selection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../labs/Lab%203%20-%20Ensembles.html">Lab 3: Ensembles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../labs/Lab%204%20-%20Pipelines.html">Lab 4:  Data preprocessing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../labs/Lab%205%20-%20Bayesian%20learning.html">Lab 5: Bayesian models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../labs/Lab%206%20-%20Neural%20Networks.html">Lab 6: Neural networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../labs/Lab%207a%20-%20Convolutional%20Neural%20Networks.html">Lab 7a: Convolutional neural nets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../labs/Lab%207b%20-%20Neural%20Networks%20for%20text.html">Lab 7b: Neural Networks for text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../labs/Lab%208%20-%20AutoML.html">Lab 8: AutoML</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Tutorials
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
 <ul class="current nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="Tutorial%201%20-%20Python.html">
-   Python for data analysis
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Tutorial%202%20-%20Python%20for%20Data%20Analysis.html">
-   Python for scientific computing
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Tutorial%203%20-%20Machine%20Learning%20in%20Python.html">
-   Machine Learning in Python
-  </a>
- </li>
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
-   Recap: Decision Trees
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Tutorial%205%20-%20Nearest%20Neighbors.html">
-   Recap: k-Nearest Neighbor
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%201%20-%20Tutorial.html">
-   Lab 1: Machine Learning with Python
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%204%20-%20Tutorial.html">
-   Lab 4 Tutorial: Data engineering pipelines
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%206%20-%20Tutorial.html">
-   Lab 6 Tutorial: Deep Learning with TensorFlow
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%207%20-%20Tutorial.html">
-   Lab 7 Tutorial: Deep Learning for text
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial%201%20-%20Python.html">Python for data analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial%202%20-%20Python%20for%20Data%20Analysis.html">Python for scientific computing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial%203%20-%20Machine%20Learning%20in%20Python.html">Machine Learning in Python</a></li>
+
+
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Recap: Decision Trees</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="Tutorial%205%20-%20Nearest%20Neighbors.html">Recap: k-Nearest Neighbor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../labs/Lab%201%20-%20Tutorial.html">Lab 1: Machine Learning with Python</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="../labs/Lab%204%20-%20Tutorial.html">Lab 4 Tutorial: Data engineering pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../labs/Lab%206%20-%20Tutorial.html">Lab 6 Tutorial: Deep Learning with TensorFlow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../labs/Lab%207%20-%20Tutorial.html">Lab 7 Tutorial: Deep Learning for text</a></li>
 </ul>
 
     </div>
 </nav></div>
-        <div class="bd-sidebar__bottom">
-             <!-- To handle the deprecated key -->
-            
-        </div>
     </div>
-    <div id="rtd-footer-container"></div>
-</div>
-
-
-          
-
-
-          
-<!-- A tiny helper pixel to detect if we've scrolled -->
-<div class="sbt-scroll-pixel-helper"></div>
-<!-- Main content -->
-<div class="col py-0 content-container">
-    
-    <div class="header-article row sticky-top noprint">
-        
-
-
-
-<div class="col py-1 d-flex header-article-main">
-    <div class="header-article__left">
-        
-        <label for="__navigation"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="right"
-title="Toggle navigation"
->
   
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-bars"></i>
-  </span>
-
-</label>
-
-        
-    </div>
-    <div class="header-article__right">
-<div class="menu-dropdown menu-dropdown-launch-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Launch interactive content">
-      <i class="fas fa-rocket"></i>
-  </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="https://mybinder.org/v2/gh/ml-course/master/master?urlpath=tree/notebooks/Tutorial 4 - Decision Trees.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Launch on Binder"
->
   
-
-<span class="headerbtn__icon-container">
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
   
-    <img src="../_static/images/logo_binder.svg">
-  </span>
-<span class="headerbtn__text-container">Binder</span>
-</a>
+  <div id="rtd-footer-container"></div>
 
-      </li>
+
+      </div>
       
-      <li>
-        <a href="https://colab.research.google.com/github/ml-course/master/blob/master/notebooks/Tutorial 4 - Decision Trees.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Launch on Colab"
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/ml-course/master/blob/master/notebooks/Tutorial 4 - Decision Trees.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onColab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   
     <img src="../_static/images/logo_colab.png">
   </span>
-<span class="headerbtn__text-container">Colab</span>
+<span class="btn__text-container">Colab</span>
 </a>
-
-      </li>
+</li>
       
-    </ul>
-  </div>
+  </ul>
 </div>
 
-<button onclick="toggleFullScreen()"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="bottom"
-title="Fullscreen mode"
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/ml-course/master" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/ml-course/master/issues/new?title=Issue%20on%20page%20%2Fnotebooks/Tutorial 4 - Decision Trees.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/notebooks/Tutorial 4 - Decision Trees.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
   <i class="fas fa-expand"></i>
   </span>
 
 </button>
 
-<div class="menu-dropdown menu-dropdown-repository-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Source repositories">
-      <i class="fab fa-github"></i>
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
   </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="https://github.com/ml-course/master"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Source repository"
->
-  
+`);
+</script>
 
-<span class="headerbtn__icon-container">
-  <i class="fab fa-github"></i>
-  </span>
-<span class="headerbtn__text-container">repository</span>
-</a>
-
-      </li>
-      
-      <li>
-        <a href="https://github.com/ml-course/master/issues/new?title=Issue%20on%20page%20%2Fnotebooks/Tutorial 4 - Decision Trees.html&body=Your%20issue%20content%20here."
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Open an issue"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-lightbulb"></i>
-  </span>
-<span class="headerbtn__text-container">open issue</span>
-</a>
-
-      </li>
-      
-    </ul>
-  </div>
-</div>
-
-<div class="menu-dropdown menu-dropdown-download-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Download this page">
-      <i class="fas fa-download"></i>
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
   </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="../_sources/notebooks/Tutorial 4 - Decision Trees.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Download source file"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-file"></i>
-  </span>
-<span class="headerbtn__text-container">.ipynb</span>
-</a>
-
-      </li>
-      
-      <li>
-        
-<button onclick="printPdf(this)"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="left"
-title="Print to PDF"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-file-pdf"></i>
-  </span>
-<span class="headerbtn__text-container">.pdf</span>
-</button>
-
-      </li>
-      
-    </ul>
-  </div>
-</div>
-<label for="__page-toc"
-  class="headerbtn headerbtn-page-toc"
-  
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-list"></i>
-  </span>
-
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
 </label>
-
+</div></div>
+      
     </div>
+  
 </div>
-
-<!-- Table of contents -->
-<div class="col-md-3 bd-toc show noprint">
-    <div class="tocsection onthispage pt-5 pb-3">
-        <i class="fas fa-list"></i> Contents
-    </div>
-    <nav id="bd-toc-nav" aria-label="Page">
-        <ul class="visible nav section-nav flex-column">
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#">
-   Recap: Decision Trees
-  </a>
- </li>
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#installation-note">
-   Installation note
-  </a>
-  <ul class="visible nav section-nav flex-column">
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#decision-tree-classification">
-     Decision Tree classification
-    </a>
-   </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#heuristics">
-     Heuristics
-    </a>
-   </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#example">
-     Example
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#heuristics-in-scikit-learn">
-       Heuristics in scikit-learn
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#handling-many-valued-features">
-     Handling many-valued features
-    </a>
-   </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#overfitting-controlling-complexity-of-decision-trees">
-     Overfitting: Controlling complexity of Decision Trees
-    </a>
-   </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#decision-tree-regression">
-     Decision tree regression
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#in-scikit-learn">
-       In scikit-learn
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#model-trees">
-     Model trees
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#strengths-weaknesses-and-parameters">
-       Strengths, weaknesses and parameters
-      </a>
-     </li>
-    </ul>
-   </li>
-  </ul>
- </li>
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#on-under-and-overfitting">
-   On under- and overfitting
-  </a>
-  <ul class="visible nav section-nav flex-column">
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#algorithm-overview">
-     Algorithm overview
-    </a>
-   </li>
-  </ul>
- </li>
-</ul>
-
-    </nav>
 </div>
-    </div>
-    <div class="article row">
-        <div class="col pl-md-3 pl-lg-5 content-container">
-            <!-- Table of contents that is only displayed when printing the page -->
-            <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Recap: Decision Trees</h1>
-                <!-- Table of contents -->
-                <div id="print-main-content">
-                    <div id="jb-print-toc">
-                        
-                        <div>
-                            <h2> Contents </h2>
-                        </div>
-                        <nav aria-label="Page">
-                            <ul class="visible nav section-nav flex-column">
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#">
-   Recap: Decision Trees
-  </a>
- </li>
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#installation-note">
-   Installation note
-  </a>
-  <ul class="visible nav section-nav flex-column">
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#decision-tree-classification">
-     Decision Tree classification
-    </a>
-   </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#heuristics">
-     Heuristics
-    </a>
-   </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#example">
-     Example
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#heuristics-in-scikit-learn">
-       Heuristics in scikit-learn
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#handling-many-valued-features">
-     Handling many-valued features
-    </a>
-   </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#overfitting-controlling-complexity-of-decision-trees">
-     Overfitting: Controlling complexity of Decision Trees
-    </a>
-   </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#decision-tree-regression">
-     Decision tree regression
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#in-scikit-learn">
-       In scikit-learn
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#model-trees">
-     Model trees
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#strengths-weaknesses-and-parameters">
-       Strengths, weaknesses and parameters
-      </a>
-     </li>
-    </ul>
-   </li>
-  </ul>
- </li>
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#on-under-and-overfitting">
-   On under- and overfitting
-  </a>
-  <ul class="visible nav section-nav flex-column">
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#algorithm-overview">
-     Algorithm overview
-    </a>
-   </li>
-  </ul>
- </li>
-</ul>
+              
+              
 
-                        </nav>
-                    </div>
-                </div>
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Recap: Decision Trees</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
             </div>
-            <main id="main-content" role="main">
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Recap: Decision Trees</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#installation-note">Installation note</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#decision-tree-classification">Decision Tree classification</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#heuristics">Heuristics</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example">Example</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#heuristics-in-scikit-learn">Heuristics in scikit-learn</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#handling-many-valued-features">Handling many-valued features</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overfitting-controlling-complexity-of-decision-trees">Overfitting: Controlling complexity of Decision Trees</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#decision-tree-regression">Decision tree regression</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#in-scikit-learn">In scikit-learn</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-trees">Model trees</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#strengths-weaknesses-and-parameters">Strengths, weaknesses and parameters</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#on-under-and-overfitting">On under- and overfitting</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#algorithm-overview">Algorithm overview</a></li>
+</ul>
+</li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
                 
-              <div>
-                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
   <section id="recap-decision-trees">
-<h1>Recap: Decision Trees<a class="headerlink" href="#recap-decision-trees" title="Permalink to this headline">#</a></h1>
+<h1>Recap: Decision Trees<a class="headerlink" href="#recap-decision-trees" title="Permalink to this heading">#</a></h1>
 <ul class="simple">
 <li><p>Representation: Assume we can represent the concept we want to learn with a <em>decision tree</em></p>
 <ul>
@@ -745,7 +511,7 @@ title="Print to PDF"
 </div>
 </section>
 <section id="installation-note">
-<h1>Installation note<a class="headerlink" href="#installation-note" title="Permalink to this headline">#</a></h1>
+<h1>Installation note<a class="headerlink" href="#installation-note" title="Permalink to this heading">#</a></h1>
 <p>To plot the decision trees in this notebook, you’ll need to install the graphviz executable:</p>
 <ul class="simple">
 <li><p>OS X: use homebrew: <code class="docutils literal notranslate"><span class="pre">brew</span> <span class="pre">install</span> <span class="pre">graphviz</span></code></p></li>
@@ -754,7 +520,7 @@ title="Print to PDF"
 </ul>
 <p>And the python package: <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">graphviz</span></code></p>
 <section id="decision-tree-classification">
-<h2>Decision Tree classification<a class="headerlink" href="#decision-tree-classification" title="Permalink to this headline">#</a></h2>
+<h2>Decision Tree classification<a class="headerlink" href="#decision-tree-classification" title="Permalink to this heading">#</a></h2>
 <p>Where would you make the first split?</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -771,7 +537,7 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Tutorial 4 - Decision Trees_4_0.png" src="../_images/Tutorial 4 - Decision Trees_4_0.png" />
+<img alt="../_images/79abb5c953e78869e70e1441f5d2ecde9d22930d86cd3ed3c1d1f605c8604aa1.png" src="../_images/79abb5c953e78869e70e1441f5d2ecde9d22930d86cd3ed3c1d1f605c8604aa1.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -789,7 +555,7 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Tutorial 4 - Decision Trees_5_0.png" src="../_images/Tutorial 4 - Decision Trees_5_0.png" />
+<img alt="../_images/7122bd764faba206dedf5e8abb634329e96662f9024fe34f2643b9591709e22e.png" src="../_images/7122bd764faba206dedf5e8abb634329e96662f9024fe34f2643b9591709e22e.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -799,7 +565,7 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Tutorial 4 - Decision Trees_6_0.png" src="../_images/Tutorial 4 - Decision Trees_6_0.png" />
+<img alt="../_images/b89f707a982d47fc62ad10318482deab62069862ebe686a0ce84c43972c2562d.png" src="../_images/b89f707a982d47fc62ad10318482deab62069862ebe686a0ce84c43972c2562d.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -809,12 +575,12 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Tutorial 4 - Decision Trees_7_0.png" src="../_images/Tutorial 4 - Decision Trees_7_0.png" />
+<img alt="../_images/81b74fe273d4c156bd0afd0df6165918b0375f6d4271a468a0af4fccb7016efe.png" src="../_images/81b74fe273d4c156bd0afd0df6165918b0375f6d4271a468a0af4fccb7016efe.png" />
 </div>
 </div>
 </section>
 <section id="heuristics">
-<h2>Heuristics<a class="headerlink" href="#heuristics" title="Permalink to this headline">#</a></h2>
+<h2>Heuristics<a class="headerlink" href="#heuristics" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>We start from a dataset of <span class="math notranslate nohighlight">\(n\)</span> points <span class="math notranslate nohighlight">\(D = \{(x_i,y_i)\}_{i=1}^{n}\)</span> where <span class="math notranslate nohighlight">\(y_i\)</span> is one of <span class="math notranslate nohighlight">\(k\)</span> classes</p></li>
 <li><p>Consider splits between adjacent data point of different class, for every variable</p></li>
@@ -872,9 +638,7 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "a9441d526ddb409faa1fe627b5d4bee3", "version_major": 2, "version_minor": 0}
-</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "a9441d526ddb409faa1fe627b5d4bee3", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -938,7 +702,7 @@ $<span class="math notranslate nohighlight">\( G(X,X_i) = E(X) - \sum_{l=1}^L \f
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Tutorial 4 - Decision Trees_14_0.png" src="../_images/Tutorial 4 - Decision Trees_14_0.png" />
+<img alt="../_images/5e1d906f58256a7c6c8a1d3065554317a4f2c7739438763bf178fedc005729ce.png" src="../_images/5e1d906f58256a7c6c8a1d3065554317a4f2c7739438763bf178fedc005729ce.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -966,9 +730,9 @@ th {font-size: 20px}
 </div>
 </section>
 <section id="example">
-<h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">#</a></h2>
+<h2>Example<a class="headerlink" href="#example" title="Permalink to this heading">#</a></h2>
 <p>Compute information gain for a dataset with categorical features:</p>
-<table class="colwidths-auto table">
+<table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p>Ex.</p></th>
 <th class="head"><p>1</p></th>
@@ -1012,7 +776,7 @@ th {font-size: 20px}
 \[G(X,X_{a2})?\]</div>
 <div class="math notranslate nohighlight">
 \[G(X,X_{a1})?\]</div>
-<table class="colwidths-auto table">
+<table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p>Ex.</p></th>
 <th class="head"><p>1</p></th>
@@ -1052,7 +816,7 @@ th {font-size: 20px}
 </table>
 <p><span class="math notranslate nohighlight">\(E(X)\)</span> = <span class="math notranslate nohighlight">\(-(\frac{1}{2}*log_2(\frac{1}{2})+\frac{1}{2}*log_2(\frac{1}{2})) = 1\)</span> (classes have equal probabilities)<br />
 <span class="math notranslate nohighlight">\(G(X, X_{a2})\)</span> = 0 (after split, classes still have equal probabilities, entropy stays 1)</p>
-<table class="colwidths-auto table">
+<table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p>Ex.</p></th>
 <th class="head"><p>1</p></th>
@@ -1098,7 +862,7 @@ th {font-size: 20px}
 \[G(X, X_{a1}) = 1 - \frac{1}{2} 0.9183 - \frac{1}{2} 0.9183 = 0.0817 \]</div>
 <p>hence we split on a1</p>
 <section id="heuristics-in-scikit-learn">
-<h3>Heuristics in scikit-learn<a class="headerlink" href="#heuristics-in-scikit-learn" title="Permalink to this headline">#</a></h3>
+<h3>Heuristics in scikit-learn<a class="headerlink" href="#heuristics-in-scikit-learn" title="Permalink to this heading">#</a></h3>
 <p>The splitting criterion can be set with the <code class="docutils literal notranslate"><span class="pre">criterion</span></code> option in <code class="docutils literal notranslate"><span class="pre">DecisionTreeClassifier</span></code></p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">gini</span></code> (default): gini impurity index</p></li>
@@ -1120,13 +884,13 @@ th {font-size: 20px}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Tutorial 4 - Decision Trees_20_0.png" src="../_images/Tutorial 4 - Decision Trees_20_0.png" />
+<img alt="../_images/bf476c9535c6d0b221f1d6b09a57cee7cbacb577641841267d91a20d8e6ae206.png" src="../_images/bf476c9535c6d0b221f1d6b09a57cee7cbacb577641841267d91a20d8e6ae206.png" />
 </div>
 </div>
 </section>
 </section>
 <section id="handling-many-valued-features">
-<h2>Handling many-valued features<a class="headerlink" href="#handling-many-valued-features" title="Permalink to this headline">#</a></h2>
+<h2>Handling many-valued features<a class="headerlink" href="#handling-many-valued-features" title="Permalink to this heading">#</a></h2>
 <p>What happens when a categorical feature has (almost) as many values as examples?</p>
 <ul class="simple">
 <li><p>Information Gain will select it</p></li>
@@ -1138,7 +902,7 @@ $<span class="math notranslate nohighlight">\( GainRatio(X,X_i) = \frac{Gain(X,X
 <p>SplitInfo will be big if <span class="math notranslate nohighlight">\(X_i\)</span> fragments the data into many small subsets, resulting in a smaller Gain Ratio.</p>
 </section>
 <section id="overfitting-controlling-complexity-of-decision-trees">
-<h2>Overfitting: Controlling complexity of Decision Trees<a class="headerlink" href="#overfitting-controlling-complexity-of-decision-trees" title="Permalink to this headline">#</a></h2>
+<h2>Overfitting: Controlling complexity of Decision Trees<a class="headerlink" href="#overfitting-controlling-complexity-of-decision-trees" title="Permalink to this heading">#</a></h2>
 <p>Decision trees can very easily overfit the data. Regularization strategies:</p>
 <ul class="simple">
 <li><p>Pre-pruning: stop creation of new leafs at some point</p>
@@ -1185,7 +949,7 @@ $<span class="math notranslate nohighlight">\( GainRatio(X,X_i) = \frac{Gain(X,X
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x29c5f2580&gt;
 </pre></div>
 </div>
-<img alt="../_images/Tutorial 4 - Decision Trees_24_1.png" src="../_images/Tutorial 4 - Decision Trees_24_1.png" />
+<img alt="../_images/9622dc9d39ac9b5047c7781922129c1dc5509168f6fe01aaa2560693de2e691d.png" src="../_images/9622dc9d39ac9b5047c7781922129c1dc5509168f6fe01aaa2560693de2e691d.png" />
 </div>
 </div>
 <p>Decision Trees are easy to interpet</p>
@@ -1207,7 +971,7 @@ $<span class="math notranslate nohighlight">\( GainRatio(X,X_i) = \frac{Gain(X,X
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Tutorial 4 - Decision Trees_26_0.svg" src="../_images/Tutorial 4 - Decision Trees_26_0.svg" /></div>
+<img alt="../_images/9e10752e46ddc1cfaa1bc0b269fa172c3938cbab7f718de525cc7cf84263c226.svg" src="../_images/9e10752e46ddc1cfaa1bc0b269fa172c3938cbab7f718de525cc7cf84263c226.svg" /></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">DecisionTreeClassifier</span></code> also returns <em>feature importances</em></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">tree</span><span class="o">.</span><span class="n">feature_importances_</span>
@@ -1250,12 +1014,12 @@ $<span class="math notranslate nohighlight">\( GainRatio(X,X_i) = \frac{Gain(X,X
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Tutorial 4 - Decision Trees_29_0.png" src="../_images/Tutorial 4 - Decision Trees_29_0.png" />
+<img alt="../_images/2ff700e1c1351debfcadd4cbee11b7c48067e2a231f045f9e95b40606b1f55f3.png" src="../_images/2ff700e1c1351debfcadd4cbee11b7c48067e2a231f045f9e95b40606b1f55f3.png" />
 </div>
 </div>
 </section>
 <section id="decision-tree-regression">
-<h2>Decision tree regression<a class="headerlink" href="#decision-tree-regression" title="Permalink to this headline">#</a></h2>
+<h2>Decision tree regression<a class="headerlink" href="#decision-tree-regression" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Heuristic: <em>Minimal quadratic distance</em></p></li>
 <li><p>Consider splits at every data point for every variable (or halfway between)</p></li>
@@ -1275,7 +1039,7 @@ $<span class="math notranslate nohighlight">\( GainRatio(X,X_i) = \frac{Gain(X,X
 \[ \hat{c}_1 = \text{avg}(y_i | x_{i} \in R_1(j,s)) \quad and \quad \hat{c}_2 = \text{avg}(y_i | x_{i} \in R_2(j,s)) \]</div>
 <p>with <span class="math notranslate nohighlight">\(x_i\)</span> being the i-th example in the data, with target value <span class="math notranslate nohighlight">\(y_i\)</span></p>
 <section id="in-scikit-learn">
-<h3>In scikit-learn<a class="headerlink" href="#in-scikit-learn" title="Permalink to this headline">#</a></h3>
+<h3>In scikit-learn<a class="headerlink" href="#in-scikit-learn" title="Permalink to this heading">#</a></h3>
 <p>Regression is done with  <code class="docutils literal notranslate"><span class="pre">DecisionTreeRegressor</span></code></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1321,7 +1085,7 @@ $<span class="math notranslate nohighlight">\( GainRatio(X,X_i) = \frac{Gain(X,X
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Tutorial 4 - Decision Trees_33_0.png" src="../_images/Tutorial 4 - Decision Trees_33_0.png" />
+<img alt="../_images/25dc394c00bdc1e3520bd1a7942e844335debd1a7ed5436a206048b756ad48ed.png" src="../_images/25dc394c00bdc1e3520bd1a7942e844335debd1a7ed5436a206048b756ad48ed.png" />
 </div>
 </div>
 <p>Note that decision trees do not extrapolate well.</p>
@@ -1340,7 +1104,7 @@ $<span class="math notranslate nohighlight">\( GainRatio(X,X_i) = \frac{Gain(X,X
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Tutorial 4 - Decision Trees_35_0.png" src="../_images/Tutorial 4 - Decision Trees_35_0.png" />
+<img alt="../_images/886b68ced330c9a5e5b4657a3a30a57773cef8a1160c94086b080bddedfb992c.png" src="../_images/886b68ced330c9a5e5b4657a3a30a57773cef8a1160c94086b080bddedfb992c.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1385,13 +1149,13 @@ $<span class="math notranslate nohighlight">\( GainRatio(X,X_i) = \frac{Gain(X,X
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Tutorial 4 - Decision Trees_37_0.png" src="../_images/Tutorial 4 - Decision Trees_37_0.png" />
+<img alt="../_images/671fc3260a76e47712bc4a6b6e29c79ec2a5c5410d3dced2332fb72168b8013a.png" src="../_images/671fc3260a76e47712bc4a6b6e29c79ec2a5c5410d3dced2332fb72168b8013a.png" />
 </div>
 </div>
 </section>
 </section>
 <section id="model-trees">
-<h2>Model trees<a class="headerlink" href="#model-trees" title="Permalink to this headline">#</a></h2>
+<h2>Model trees<a class="headerlink" href="#model-trees" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Instead of predicting a single value per leaf (e.g. mean value for regression), you can build a model on all the points remaining in a leaf</p>
 <ul>
@@ -1401,7 +1165,7 @@ $<span class="math notranslate nohighlight">\( GainRatio(X,X_i) = \frac{Gain(X,X
 <li><p>Can learn more complex concepts, extrapolates better. Overfits easily.</p></li>
 </ul>
 <img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/04_model_trees.png" alt="ml" style="float: left; width: 60%;"/><section id="strengths-weaknesses-and-parameters">
-<h3>Strengths, weaknesses and parameters<a class="headerlink" href="#strengths-weaknesses-and-parameters" title="Permalink to this headline">#</a></h3>
+<h3>Strengths, weaknesses and parameters<a class="headerlink" href="#strengths-weaknesses-and-parameters" title="Permalink to this heading">#</a></h3>
 <p>Decision trees:</p>
 <ul class="simple">
 <li><p>Work well with features on completely different scales, or a mix of binary and continuous features</p>
@@ -1421,7 +1185,7 @@ $<span class="math notranslate nohighlight">\( GainRatio(X,X_i) = \frac{Gain(X,X
 </section>
 </section>
 <section id="on-under-and-overfitting">
-<h1>On under- and overfitting<a class="headerlink" href="#on-under-and-overfitting" title="Permalink to this headline">#</a></h1>
+<h1>On under- and overfitting<a class="headerlink" href="#on-under-and-overfitting" title="Permalink to this heading">#</a></h1>
 <ul class="simple">
 <li><p>Let’s study which types of errors are made by decision trees</p></li>
 <li><p>Deep trees have high variance but low bias</p>
@@ -1498,12 +1262,12 @@ $<span class="math notranslate nohighlight">\( GainRatio(X,X_i) = \frac{Gain(X,X
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Tutorial 4 - Decision Trees_41_0.png" src="../_images/Tutorial 4 - Decision Trees_41_0.png" />
+<img alt="../_images/898513c722ceabba61a419f8422084ef84bfec8c813d8109539e35f987a041b5.png" src="../_images/898513c722ceabba61a419f8422084ef84bfec8c813d8109539e35f987a041b5.png" />
 </div>
 </div>
 <section id="algorithm-overview">
-<h2>Algorithm overview<a class="headerlink" href="#algorithm-overview" title="Permalink to this headline">#</a></h2>
-<table class="colwidths-auto table">
+<h2>Algorithm overview<a class="headerlink" href="#algorithm-overview" title="Permalink to this heading">#</a></h2>
+<table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p>Name</p></th>
 <th class="head"><p>Representation</p></th>
@@ -1548,7 +1312,7 @@ $<span class="math notranslate nohighlight">\( GainRatio(X,X_i) = \frac{Gain(X,X
             mode: "python"
         },
         kernelOptions: {
-            kernelName: "python3",
+            name: "python3",
             path: "./notebooks"
         },
         predefinedOutput: true
@@ -1556,50 +1320,123 @@ $<span class="math notranslate nohighlight">\( GainRatio(X,X_i) = \frac{Gain(X,X
     </script>
     <script>kernelName = 'python3'</script>
 
-              </div>
+                </article>
               
-            </main>
-            <footer class="footer-article noprint">
-                
-    <!-- Previous / next buttons -->
-<div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="Tutorial%203%20-%20Machine%20Learning%20in%20Python.html" title="previous page">
-        <i class="fas fa-angle-left"></i>
-        <div class="prev-next-info">
-            <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Machine Learning in Python</p>
-        </div>
+
+              
+              
+                <footer class="bd-footer-article">
+                  <!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="Tutorial%203%20-%20Machine%20Learning%20in%20Python.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Machine Learning in Python</p>
+      </div>
     </a>
-    <a class='right-next' id="next-link" href="Tutorial%205%20-%20Nearest%20Neighbors.html" title="next page">
-    <div class="prev-next-info">
+    <a class="right-next"
+       href="Tutorial%205%20-%20Nearest%20Neighbors.html"
+       title="next page">
+      <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
         <p class="prev-next-title">Recap: k-Nearest Neighbor</p>
-    </div>
-    <i class="fas fa-angle-right"></i>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
-            </footer>
-        </div>
-    </div>
-    <div class="footer-content row">
-        <footer class="col footer"><p>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Recap: Decision Trees</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#installation-note">Installation note</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#decision-tree-classification">Decision Tree classification</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#heuristics">Heuristics</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example">Example</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#heuristics-in-scikit-learn">Heuristics in scikit-learn</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#handling-many-valued-features">Handling many-valued features</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overfitting-controlling-complexity-of-decision-trees">Overfitting: Controlling complexity of Decision Trees</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#decision-tree-regression">Decision tree regression</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#in-scikit-learn">In scikit-learn</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-trees">Model trees</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#strengths-weaknesses-and-parameters">Strengths, weaknesses and parameters</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#on-under-and-overfitting">On under- and overfitting</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#algorithm-overview">Algorithm overview</a></li>
+</ul>
+</li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            <div class="bd-footer-content__inner">
+<div class="bd-footer-content__inner container">
   
-    By Joaquin Vanschoren<br/>
-  
-      &copy; Copyright 2023. CC0 Licensed - Use as you like.<br/>
-</p>
-        </footer>
-    </div>
+  <div class="footer-item">
     
-</div>
+<p class="component-author">
+By Joaquin Vanschoren
+</p>
 
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2023. CC0 Licensed - Use as you like.
+      <br/>
+    
+  </p>
 
-      </div>
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div></div>
+          </footer>
+        
+
+      </main>
     </div>
+  </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d"></script>
 
-
+  <footer class="bd-footer">
+  </footer>
   </body>
 </html>

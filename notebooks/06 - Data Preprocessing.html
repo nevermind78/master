@@ -1,48 +1,59 @@
 
+
 <!DOCTYPE html>
 
-<html>
+
+<html lang="en" >
+
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>Lecture 6. Data preprocessing &#8212; ML Engineering</title>
-    
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  <link href="../_static/styles/theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
 
-    
-  <link rel="stylesheet"
-    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
-    
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d" />
 
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../_static/togglebutton.js"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script src="../_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
 const thebe_selector = ".thebe,.cell"
@@ -52,62 +63,94 @@ const thebe_selector_output = ".output, .cell_output"
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/06 - Data Preprocessing';</script>
     <link rel="shortcut icon" href="../_static/favicon.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Lecture 7. Bayesian Learning" href="07%20-%20Bayesian%20Learning.html" />
     <link rel="prev" title="Lecture 5. Ensemble Learning" href="05%20-%20Ensemble%20Learning.html" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
-    
-
-    <!-- Google Analytics -->
-    
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
-<!-- Checkboxes to toggle the left sidebar -->
-<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
-<label class="overlay overlay-navbar" for="__navigation">
-    <div class="visually-hidden">Toggle navigation sidebar</div>
-</label>
-<!-- Checkboxes to toggle the in-page toc -->
-<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
-<label class="overlay overlay-pagetoc" for="__page-toc">
-    <div class="visually-hidden">Toggle in-page Table of Contents</div>
-</label>
-<!-- Headers at the top -->
-<div class="announcement header-item noprint"></div>
-<div class="header header-item noprint"></div>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
-    
-    <div class="container-fluid" id="banner"></div>
-
-    
-
-    <div class="container-xl">
-      <div class="row">
-          
-<!-- Sidebar -->
-<div class="bd-sidebar noprint" id="site-navigation">
-    <div class="bd-sidebar__content">
-        <div class="bd-sidebar__top"><div class="navbar-brand-box">
-    <a class="navbar-brand text-wrap" href="../index.html">
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
       
-        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+      <div class="bd-sidebar-primary bd-sidebar">
         
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+    
+    
       
-      
-      <img src="../_static/banner.jpeg" class="logo" alt="logo">
-      
-      
-      <h1 class="site-logo" id="site-title">ML Engineering</h1>
-      
-    </a>
-</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
-  <i class="icon fas fa-search"></i>
-  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
-    <div class="bd-toc-item active">
+    
+    
+    <img src="../_static/banner.jpeg" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../_static/banner.jpeg" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
@@ -117,1124 +160,387 @@ const thebe_selector_output = ".output, .cell_output"
             </li>
         </ul>
         <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%200%20-%20Prerequisites.html">
-   Prerequisites
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="../labs/Lab%200%20-%20Prerequisites.html">Prerequisites</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Lectures
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Lectures</span></p>
 <ul class="current nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="01%20-%20Introduction.html">
-   Lecture 1: Introduction
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="02%20-%20Linear%20Models.html">
-   Lecture 2: Linear models
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="03%20-%20Kernelization.html">
-   Lecture 3: Kernelization
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="04%20-%20Model%20Selection.html">
-   Lecture 4: Model Selection
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="05%20-%20Ensemble%20Learning.html">
-   Lecture 5. Ensemble Learning
-  </a>
- </li>
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
-   Lecture 6. Data preprocessing
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="07%20-%20Bayesian%20Learning.html">
-   Lecture 7. Bayesian Learning
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="08%20-%20Neural%20Networks.html">
-   Lecture 8. Neural Networks
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="09%20-%20Convolutional%20Neural%20Networks.html">
-   Lecture 9: Convolutional Neural Networks
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="10%20-%20Neural%20Networks%20for%20text.html">
-   Lecture 10. Neural Networks for text
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="01%20-%20Introduction.html">Lecture 1: Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02%20-%20Linear%20Models.html">Lecture 2: Linear models</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="03%20-%20Kernelization.html">Lecture 3: Kernelization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04%20-%20Model%20Selection.html">Lecture 4: Model Selection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05%20-%20Ensemble%20Learning.html">Lecture 5. Ensemble Learning</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Lecture 6. Data preprocessing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07%20-%20Bayesian%20Learning.html">Lecture 7. Bayesian Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="08%20-%20Neural%20Networks.html">Lecture 8. Neural Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="09%20-%20Convolutional%20Neural%20Networks.html">Lecture 9: Convolutional Neural Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="10%20-%20Neural%20Networks%20for%20text.html">Lecture 10. Neural Networks for text</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Labs
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Labs</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%201a%20-%20Linear%20Models%20for%20Regression.html">
-   Lab 1a: Linear regression
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%201b%20-%20Linear%20Models%20for%20Classification.html">
-   Lab 1b: Linear classification
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%202a%20-%20Kernelization.html">
-   Lab 2a: Kernelization
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%202b%20-%20Model%20Selection.html">
-   Lab 2b: Model selection
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%203%20-%20Ensembles.html">
-   Lab 3: Ensembles
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%204%20-%20Pipelines.html">
-   Lab 4:  Data preprocessing
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%205%20-%20Bayesian%20learning.html">
-   Lab 5: Bayesian models
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%206%20-%20Neural%20Networks.html">
-   Lab 6: Neural networks
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%207a%20-%20Convolutional%20Neural%20Networks.html">
-   Lab 7a: Convolutional neural nets
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%207b%20-%20Neural%20Networks%20for%20text.html">
-   Lab 7b: Neural Networks for text
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%208%20-%20AutoML.html">
-   Lab 8: AutoML
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="../labs/Lab%201a%20-%20Linear%20Models%20for%20Regression.html">Lab 1a: Linear regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../labs/Lab%201b%20-%20Linear%20Models%20for%20Classification.html">Lab 1b: Linear classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../labs/Lab%202a%20-%20Kernelization.html">Lab 2a: Kernelization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../labs/Lab%202b%20-%20Model%20Selection.html">Lab 2b: Model selection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../labs/Lab%203%20-%20Ensembles.html">Lab 3: Ensembles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../labs/Lab%204%20-%20Pipelines.html">Lab 4:  Data preprocessing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../labs/Lab%205%20-%20Bayesian%20learning.html">Lab 5: Bayesian models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../labs/Lab%206%20-%20Neural%20Networks.html">Lab 6: Neural networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../labs/Lab%207a%20-%20Convolutional%20Neural%20Networks.html">Lab 7a: Convolutional neural nets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../labs/Lab%207b%20-%20Neural%20Networks%20for%20text.html">Lab 7b: Neural Networks for text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../labs/Lab%208%20-%20AutoML.html">Lab 8: AutoML</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Tutorials
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="Tutorial%201%20-%20Python.html">
-   Python for data analysis
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Tutorial%202%20-%20Python%20for%20Data%20Analysis.html">
-   Python for scientific computing
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Tutorial%203%20-%20Machine%20Learning%20in%20Python.html">
-   Machine Learning in Python
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Tutorial%204%20-%20Decision%20Trees.html">
-   Recap: Decision Trees
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Tutorial%205%20-%20Nearest%20Neighbors.html">
-   Recap: k-Nearest Neighbor
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%201%20-%20Tutorial.html">
-   Lab 1: Machine Learning with Python
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%204%20-%20Tutorial.html">
-   Lab 4 Tutorial: Data engineering pipelines
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%206%20-%20Tutorial.html">
-   Lab 6 Tutorial: Deep Learning with TensorFlow
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%207%20-%20Tutorial.html">
-   Lab 7 Tutorial: Deep Learning for text
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial%201%20-%20Python.html">Python for data analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial%202%20-%20Python%20for%20Data%20Analysis.html">Python for scientific computing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial%203%20-%20Machine%20Learning%20in%20Python.html">Machine Learning in Python</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="Tutorial%204%20-%20Decision%20Trees.html">Recap: Decision Trees</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="Tutorial%205%20-%20Nearest%20Neighbors.html">Recap: k-Nearest Neighbor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../labs/Lab%201%20-%20Tutorial.html">Lab 1: Machine Learning with Python</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="../labs/Lab%204%20-%20Tutorial.html">Lab 4 Tutorial: Data engineering pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../labs/Lab%206%20-%20Tutorial.html">Lab 6 Tutorial: Deep Learning with TensorFlow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../labs/Lab%207%20-%20Tutorial.html">Lab 7 Tutorial: Deep Learning for text</a></li>
 </ul>
 
     </div>
 </nav></div>
-        <div class="bd-sidebar__bottom">
-             <!-- To handle the deprecated key -->
-            
-        </div>
     </div>
-    <div id="rtd-footer-container"></div>
-</div>
-
-
-          
-
-
-          
-<!-- A tiny helper pixel to detect if we've scrolled -->
-<div class="sbt-scroll-pixel-helper"></div>
-<!-- Main content -->
-<div class="col py-0 content-container">
-    
-    <div class="header-article row sticky-top noprint">
-        
-
-
-
-<div class="col py-1 d-flex header-article-main">
-    <div class="header-article__left">
-        
-        <label for="__navigation"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="right"
-title="Toggle navigation"
->
   
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-bars"></i>
-  </span>
-
-</label>
-
-        
-    </div>
-    <div class="header-article__right">
-<div class="menu-dropdown menu-dropdown-launch-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Launch interactive content">
-      <i class="fas fa-rocket"></i>
-  </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="https://mybinder.org/v2/gh/ml-course/master/master?urlpath=tree/notebooks/06 - Data Preprocessing.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Launch on Binder"
->
   
-
-<span class="headerbtn__icon-container">
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
   
-    <img src="../_static/images/logo_binder.svg">
-  </span>
-<span class="headerbtn__text-container">Binder</span>
-</a>
+  <div id="rtd-footer-container"></div>
 
-      </li>
+
+      </div>
       
-      <li>
-        <a href="https://colab.research.google.com/github/ml-course/master/blob/master/notebooks/06 - Data Preprocessing.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Launch on Colab"
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/ml-course/master/blob/master/notebooks/06 - Data Preprocessing.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onColab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   
     <img src="../_static/images/logo_colab.png">
   </span>
-<span class="headerbtn__text-container">Colab</span>
+<span class="btn__text-container">Colab</span>
 </a>
-
-      </li>
+</li>
       
-    </ul>
-  </div>
+  </ul>
 </div>
 
-<button onclick="toggleFullScreen()"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="bottom"
-title="Fullscreen mode"
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/ml-course/master" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/ml-course/master/issues/new?title=Issue%20on%20page%20%2Fnotebooks/06 - Data Preprocessing.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/notebooks/06 - Data Preprocessing.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
   <i class="fas fa-expand"></i>
   </span>
 
 </button>
 
-<div class="menu-dropdown menu-dropdown-repository-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Source repositories">
-      <i class="fab fa-github"></i>
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
   </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="https://github.com/ml-course/master"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Source repository"
->
-  
+`);
+</script>
 
-<span class="headerbtn__icon-container">
-  <i class="fab fa-github"></i>
-  </span>
-<span class="headerbtn__text-container">repository</span>
-</a>
-
-      </li>
-      
-      <li>
-        <a href="https://github.com/ml-course/master/issues/new?title=Issue%20on%20page%20%2Fnotebooks/06 - Data Preprocessing.html&body=Your%20issue%20content%20here."
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Open an issue"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-lightbulb"></i>
-  </span>
-<span class="headerbtn__text-container">open issue</span>
-</a>
-
-      </li>
-      
-    </ul>
-  </div>
-</div>
-
-<div class="menu-dropdown menu-dropdown-download-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Download this page">
-      <i class="fas fa-download"></i>
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
   </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="../_sources/notebooks/06 - Data Preprocessing.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Download source file"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-file"></i>
-  </span>
-<span class="headerbtn__text-container">.ipynb</span>
-</a>
-
-      </li>
-      
-      <li>
-        
-<button onclick="printPdf(this)"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="left"
-title="Print to PDF"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-file-pdf"></i>
-  </span>
-<span class="headerbtn__text-container">.pdf</span>
-</button>
-
-      </li>
-      
-    </ul>
-  </div>
-</div>
-<label for="__page-toc"
-  class="headerbtn headerbtn-page-toc"
-  
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-list"></i>
-  </span>
-
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
 </label>
-
+</div></div>
+      
     </div>
+  
 </div>
-
-<!-- Table of contents -->
-<div class="col-md-3 bd-toc show noprint">
-    <div class="tocsection onthispage pt-5 pb-3">
-        <i class="fas fa-list"></i> Contents
-    </div>
-    <nav id="bd-toc-nav" aria-label="Page">
-        <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#data-transformations">
-   Data transformations
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#scaling">
-   Scaling
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#why-do-we-need-scaling">
-     Why do we need scaling?
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#standard-scaling-standardization">
-     Standard scaling (standardization)
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#min-max-scaling">
-     Min-max scaling
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#robust-scaling">
-     Robust scaling
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#normalization">
-     Normalization
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#maximum-absolute-scaler">
-     Maximum Absolute scaler
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#power-transformations">
-     Power transformations
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#categorical-feature-encoding">
-   Categorical feature encoding
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#ordinal-encoding">
-     Ordinal encoding
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#one-hot-encoding-dummy-encoding">
-     One-hot encoding (dummy encoding)
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#target-encoding">
-     Target encoding
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#example">
-       Example
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#in-practice-scikit-learn">
-     In practice (scikit-learn)
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#applying-data-transformations">
-   Applying data transformations
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id1">
-     In practice (scikit-learn)
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#test-set-distortion">
-     Test set distortion
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#data-leakage">
-     Data leakage
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#pipelines">
-     Pipelines
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id2">
-       In practice (scikit-learn)
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#pipeline-selection">
-       Pipeline selection
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#example-tune-multiple-steps-at-once">
-       Example: Tune multiple steps at once
-      </a>
-     </li>
-    </ul>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#automatic-feature-selection">
-   Automatic Feature Selection
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#example-bike-sharing">
-     Example: bike sharing
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#unsupervised-feature-selection">
-     Unsupervised feature selection
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#covariance-based-feature-selection">
-       Covariance based feature selection
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#supervised-feature-selection-overview">
-     Supervised feature selection: overview
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#univariate-statistics-f-test">
-     Univariate statistics (F-test)
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#f-statistic">
-       F-statistic
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#mutual-information">
-       Mutual information
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#model-based-feature-selection">
-     Model-based Feature Selection
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#relief-model-based-selection-with-knn">
-       Relief: Model-based selection with kNN
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#iterative-model-based-feature-selection">
-       Iterative Model-based Feature Selection
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#sequential-feature-selection-wrapping">
-     Sequential feature selection (Wrapping)
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#permutation-feature-importance">
-     Permutation feature importance
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#comparison">
-     Comparison
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id3">
-     In practice (scikit-learn)
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#feature-engineering">
-   Feature Engineering
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#polynomials">
-     Polynomials
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#binning">
-     Binning
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#binning-interaction-features">
-     Binning + interaction features
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#categorical-feature-interactions">
-     Categorical feature interactions
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#missing-value-imputation">
-   Missing value imputation
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#overview">
-     Overview
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#mean-imputation">
-     Mean imputation
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#knn-imputation">
-     kNN imputation
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#iterative-model-based-imputation">
-     Iterative (model-based) Imputation
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#matrix-factorization">
-     Matrix Factorization
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#soft-thresholded-singular-value-decomposition-svd">
-     Soft-thresholded Singular Value Decomposition (SVD)
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id4">
-     Comparison
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id5">
-     In practice (scikit-learn)
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#in-practice-fancyimpute">
-     In practice (fancyimpute)
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#handling-imbalanced-data">
-   Handling imbalanced data
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#random-undersampling">
-     Random Undersampling
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#model-based-undersampling">
-     Model-based Undersampling
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#random-oversampling">
-     Random Oversampling
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#synthetic-minority-oversampling-technique-smote">
-     Synthetic Minority Oversampling Technique (SMOTE)
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#combined-techniques">
-     Combined techniques
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#ensemble-resampling">
-     Ensemble Resampling
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id6">
-     Comparison
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#in-practice-imblearn">
-     In practice (imblearn)
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#real-world-data">
-     Real-world data
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#summary">
-   Summary
-  </a>
- </li>
-</ul>
-
-    </nav>
 </div>
-    </div>
-    <div class="article row">
-        <div class="col pl-md-3 pl-lg-5 content-container">
-            <!-- Table of contents that is only displayed when printing the page -->
-            <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Lecture 6. Data preprocessing</h1>
-                <!-- Table of contents -->
-                <div id="print-main-content">
-                    <div id="jb-print-toc">
-                        
-                        <div>
-                            <h2> Contents </h2>
-                        </div>
-                        <nav aria-label="Page">
-                            <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#data-transformations">
-   Data transformations
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#scaling">
-   Scaling
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#why-do-we-need-scaling">
-     Why do we need scaling?
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#standard-scaling-standardization">
-     Standard scaling (standardization)
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#min-max-scaling">
-     Min-max scaling
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#robust-scaling">
-     Robust scaling
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#normalization">
-     Normalization
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#maximum-absolute-scaler">
-     Maximum Absolute scaler
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#power-transformations">
-     Power transformations
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#categorical-feature-encoding">
-   Categorical feature encoding
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#ordinal-encoding">
-     Ordinal encoding
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#one-hot-encoding-dummy-encoding">
-     One-hot encoding (dummy encoding)
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#target-encoding">
-     Target encoding
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#example">
-       Example
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#in-practice-scikit-learn">
-     In practice (scikit-learn)
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#applying-data-transformations">
-   Applying data transformations
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id1">
-     In practice (scikit-learn)
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#test-set-distortion">
-     Test set distortion
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#data-leakage">
-     Data leakage
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#pipelines">
-     Pipelines
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id2">
-       In practice (scikit-learn)
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#pipeline-selection">
-       Pipeline selection
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#example-tune-multiple-steps-at-once">
-       Example: Tune multiple steps at once
-      </a>
-     </li>
-    </ul>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#automatic-feature-selection">
-   Automatic Feature Selection
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#example-bike-sharing">
-     Example: bike sharing
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#unsupervised-feature-selection">
-     Unsupervised feature selection
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#covariance-based-feature-selection">
-       Covariance based feature selection
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#supervised-feature-selection-overview">
-     Supervised feature selection: overview
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#univariate-statistics-f-test">
-     Univariate statistics (F-test)
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#f-statistic">
-       F-statistic
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#mutual-information">
-       Mutual information
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#model-based-feature-selection">
-     Model-based Feature Selection
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#relief-model-based-selection-with-knn">
-       Relief: Model-based selection with kNN
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#iterative-model-based-feature-selection">
-       Iterative Model-based Feature Selection
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#sequential-feature-selection-wrapping">
-     Sequential feature selection (Wrapping)
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#permutation-feature-importance">
-     Permutation feature importance
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#comparison">
-     Comparison
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id3">
-     In practice (scikit-learn)
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#feature-engineering">
-   Feature Engineering
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#polynomials">
-     Polynomials
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#binning">
-     Binning
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#binning-interaction-features">
-     Binning + interaction features
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#categorical-feature-interactions">
-     Categorical feature interactions
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#missing-value-imputation">
-   Missing value imputation
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#overview">
-     Overview
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#mean-imputation">
-     Mean imputation
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#knn-imputation">
-     kNN imputation
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#iterative-model-based-imputation">
-     Iterative (model-based) Imputation
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#matrix-factorization">
-     Matrix Factorization
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#soft-thresholded-singular-value-decomposition-svd">
-     Soft-thresholded Singular Value Decomposition (SVD)
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id4">
-     Comparison
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id5">
-     In practice (scikit-learn)
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#in-practice-fancyimpute">
-     In practice (fancyimpute)
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#handling-imbalanced-data">
-   Handling imbalanced data
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#random-undersampling">
-     Random Undersampling
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#model-based-undersampling">
-     Model-based Undersampling
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#random-oversampling">
-     Random Oversampling
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#synthetic-minority-oversampling-technique-smote">
-     Synthetic Minority Oversampling Technique (SMOTE)
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#combined-techniques">
-     Combined techniques
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#ensemble-resampling">
-     Ensemble Resampling
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id6">
-     Comparison
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#in-practice-imblearn">
-     In practice (imblearn)
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#real-world-data">
-     Real-world data
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#summary">
-   Summary
-  </a>
- </li>
-</ul>
+              
+              
 
-                        </nav>
-                    </div>
-                </div>
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Lecture 6. Data preprocessing</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
             </div>
-            <main id="main-content" role="main">
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-transformations">Data transformations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scaling">Scaling</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-do-we-need-scaling">Why do we need scaling?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#standard-scaling-standardization">Standard scaling (standardization)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#min-max-scaling">Min-max scaling</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#robust-scaling">Robust scaling</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#normalization">Normalization</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#maximum-absolute-scaler">Maximum Absolute scaler</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#power-transformations">Power transformations</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#categorical-feature-encoding">Categorical feature encoding</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ordinal-encoding">Ordinal encoding</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#one-hot-encoding-dummy-encoding">One-hot encoding (dummy encoding)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#target-encoding">Target encoding</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#example">Example</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#in-practice-scikit-learn">In practice (scikit-learn)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#applying-data-transformations">Applying data transformations</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">In practice (scikit-learn)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#test-set-distortion">Test set distortion</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-leakage">Data leakage</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pipelines">Pipelines</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">In practice (scikit-learn)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pipeline-selection">Pipeline selection</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#example-tune-multiple-steps-at-once">Example: Tune multiple steps at once</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#automatic-feature-selection">Automatic Feature Selection</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-bike-sharing">Example: bike sharing</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unsupervised-feature-selection">Unsupervised feature selection</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#covariance-based-feature-selection">Covariance based feature selection</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#supervised-feature-selection-overview">Supervised feature selection: overview</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#univariate-statistics-f-test">Univariate statistics (F-test)</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#f-statistic">F-statistic</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mutual-information">Mutual information</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#model-based-feature-selection">Model-based Feature Selection</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#relief-model-based-selection-with-knn">Relief: Model-based selection with kNN</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#iterative-model-based-feature-selection">Iterative Model-based Feature Selection</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sequential-feature-selection-wrapping">Sequential feature selection (Wrapping)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#permutation-feature-importance">Permutation feature importance</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#comparison">Comparison</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">In practice (scikit-learn)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#feature-engineering">Feature Engineering</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#polynomials">Polynomials</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#binning">Binning</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#binning-interaction-features">Binning + interaction features</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#categorical-feature-interactions">Categorical feature interactions</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#missing-value-imputation">Missing value imputation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mean-imputation">Mean imputation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#knn-imputation">kNN imputation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#iterative-model-based-imputation">Iterative (model-based) Imputation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#matrix-factorization">Matrix Factorization</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#soft-thresholded-singular-value-decomposition-svd">Soft-thresholded Singular Value Decomposition (SVD)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Comparison</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">In practice (scikit-learn)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#in-practice-fancyimpute">In practice (fancyimpute)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#handling-imbalanced-data">Handling imbalanced data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#random-undersampling">Random Undersampling</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#model-based-undersampling">Model-based Undersampling</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#random-oversampling">Random Oversampling</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#synthetic-minority-oversampling-technique-smote">Synthetic Minority Oversampling Technique (SMOTE)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#combined-techniques">Combined techniques</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ensemble-resampling">Ensemble Resampling</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Comparison</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#in-practice-imblearn">In practice (imblearn)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#real-world-data">Real-world data</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
                 
-              <div>
-                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
   <section class="tex2jax_ignore mathjax_ignore" id="lecture-6-data-preprocessing">
-<h1>Lecture 6. Data preprocessing<a class="headerlink" href="#lecture-6-data-preprocessing" title="Permalink to this headline">#</a></h1>
+<h1>Lecture 6. Data preprocessing<a class="headerlink" href="#lecture-6-data-preprocessing" title="Permalink to this heading">#</a></h1>
 <p><strong>Real-world machine learning pipelines</strong></p>
 <p>Joaquin Vanschoren</p>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Auto-setup when running on Google Colab</span>
 <span class="kn">import</span> <span class="nn">os</span>
@@ -1256,9 +562,10 @@ title="Print to PDF"
 </pre></div>
 </div>
 </div>
+</details>
 </div>
 <section id="data-transformations">
-<h2>Data transformations<a class="headerlink" href="#data-transformations" title="Permalink to this headline">#</a></h2>
+<h2>Data transformations<a class="headerlink" href="#data-transformations" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Machine learning models make a lot of assumptions about the data</p></li>
 <li><p>In reality, these assumptions are often violated</p></li>
@@ -1283,7 +590,7 @@ title="Print to PDF"
 </ul>
 </section>
 <section id="scaling">
-<h2>Scaling<a class="headerlink" href="#scaling" title="Permalink to this headline">#</a></h2>
+<h2>Scaling<a class="headerlink" href="#scaling" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Use when different numeric features have different scales (different range of values)</p>
 <ul>
@@ -1294,6 +601,11 @@ title="Print to PDF"
 <li><p>Different methods exist</p></li>
 </ul>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">fetch_openml</span>
 <span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">LabelEncoder</span><span class="p">,</span> <span class="n">MinMaxScaler</span><span class="p">,</span> <span class="n">StandardScaler</span><span class="p">,</span> <span class="n">RobustScaler</span><span class="p">,</span> <span class="n">Normalizer</span><span class="p">,</span> <span class="n">MaxAbsScaler</span>
@@ -1346,21 +658,26 @@ title="Print to PDF"
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "c86b204540794b838558e4ac893759c3", "version_major": 2, "version_minor": 0}
-</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "c86b204540794b838558e4ac893759c3", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="ow">not</span> <span class="n">interactive</span><span class="p">:</span>
     <span class="n">plot_scaling</span><span class="p">(</span><span class="n">scalers</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
+</details>
 </div>
 <section id="why-do-we-need-scaling">
-<h3>Why do we need scaling?<a class="headerlink" href="#why-do-we-need-scaling" title="Permalink to this headline">#</a></h3>
+<h3>Why do we need scaling?<a class="headerlink" href="#why-do-we-need-scaling" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>KNN: Distances depend mainly on feature with larger values</p></li>
 <li><p>SVMs: (kernelized) dot products are also based on distances</p></li>
@@ -1371,6 +688,11 @@ title="Print to PDF"
 </li>
 </ul>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="kn">import</span> <span class="n">KNeighborsClassifier</span>
 <span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="kn">import</span> <span class="n">SVC</span><span class="p">,</span> <span class="n">LinearSVC</span>
@@ -1438,22 +760,27 @@ title="Print to PDF"
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "f46e4a71f7534a23b41ea2cba2b2b7c2", "version_major": 2, "version_minor": 0}
-</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "f46e4a71f7534a23b41ea2cba2b2b7c2", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="ow">not</span> <span class="n">interactive</span><span class="p">:</span>
     <span class="n">plot_scaling_effect</span><span class="p">(</span><span class="n">classifier</span><span class="o">=</span><span class="n">clfs</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">show_test</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
+</details>
 </div>
 </section>
 <section id="standard-scaling-standardization">
-<h3>Standard scaling (standardization)<a class="headerlink" href="#standard-scaling-standardization" title="Permalink to this headline">#</a></h3>
+<h3>Standard scaling (standardization)<a class="headerlink" href="#standard-scaling-standardization" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Generally most useful, assumes data is more or less normally distributed</p></li>
 <li><p>Per feature, subtract the mean value <span class="math notranslate nohighlight">\(\mu\)</span>, scale by standard deviation <span class="math notranslate nohighlight">\(\sigma\)</span></p></li>
@@ -1461,18 +788,24 @@ title="Print to PDF"
 $<span class="math notranslate nohighlight">\(\mathbf{x}_{new} = \frac{\mathbf{x} - \mu}{\sigma}\)</span>$</p></li>
 </ul>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_scaling</span><span class="p">(</span><span class="n">scaler</span><span class="o">=</span><span class="n">StandardScaler</span><span class="p">())</span>
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<img alt="../_images/06 - Data Preprocessing_10_0.png" src="../_images/06 - Data Preprocessing_10_0.png" />
+<img alt="../_images/8c6976e3c7c0c97b7bc92e0a0624390f94f48ae9f4b398bd009d5d7cad518609.png" src="../_images/8c6976e3c7c0c97b7bc92e0a0624390f94f48ae9f4b398bd009d5d7cad518609.png" />
 </div>
 </div>
 </section>
 <section id="min-max-scaling">
-<h3>Min-max scaling<a class="headerlink" href="#min-max-scaling" title="Permalink to this headline">#</a></h3>
+<h3>Min-max scaling<a class="headerlink" href="#min-max-scaling" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Scales all features between a given <span class="math notranslate nohighlight">\(min\)</span> and <span class="math notranslate nohighlight">\(max\)</span> value (e.g. 0 and 1)</p></li>
 <li><p>Makes sense if min/max values have meaning in your data</p></li>
@@ -1481,36 +814,48 @@ $<span class="math notranslate nohighlight">\(\mathbf{x}_{new} = \frac{\mathbf{x
 <div class="math notranslate nohighlight">
 \[\mathbf{x}_{new} = \frac{\mathbf{x} - x_{min}}{x_{max} - x_{min}} \cdot (max - min) + min \]</div>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_scaling</span><span class="p">(</span><span class="n">scaler</span><span class="o">=</span><span class="n">MinMaxScaler</span><span class="p">(</span><span class="n">feature_range</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)))</span>
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<img alt="../_images/06 - Data Preprocessing_12_0.png" src="../_images/06 - Data Preprocessing_12_0.png" />
+<img alt="../_images/0f61a8b4d24f1c3946070d9598f4b13e3bcb7e29cae3bf29aec9f7728c2ccb81.png" src="../_images/0f61a8b4d24f1c3946070d9598f4b13e3bcb7e29cae3bf29aec9f7728c2ccb81.png" />
 </div>
 </div>
 </section>
 <section id="robust-scaling">
-<h3>Robust scaling<a class="headerlink" href="#robust-scaling" title="Permalink to this headline">#</a></h3>
+<h3>Robust scaling<a class="headerlink" href="#robust-scaling" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Subtracts the median, scales between quantiles <span class="math notranslate nohighlight">\(q_{25}\)</span> and <span class="math notranslate nohighlight">\(q_{75}\)</span></p></li>
 <li><p>New feature has median 0, <span class="math notranslate nohighlight">\(q_{25}=-1\)</span> and <span class="math notranslate nohighlight">\(q_{75}=1\)</span></p></li>
 <li><p>Similar to standard scaler, but ignores outliers</p></li>
 </ul>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_scaling</span><span class="p">(</span><span class="n">scaler</span><span class="o">=</span><span class="n">RobustScaler</span><span class="p">())</span>
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<img alt="../_images/06 - Data Preprocessing_14_0.png" src="../_images/06 - Data Preprocessing_14_0.png" />
+<img alt="../_images/5dc9c9e07d29b3ce183b675a7a23818e743c787002d1547764de78bb5f303308.png" src="../_images/5dc9c9e07d29b3ce183b675a7a23818e743c787002d1547764de78bb5f303308.png" />
 </div>
 </div>
 </section>
 <section id="normalization">
-<h3>Normalization<a class="headerlink" href="#normalization" title="Permalink to this headline">#</a></h3>
+<h3>Normalization<a class="headerlink" href="#normalization" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Makes sure that feature values of each point (each row) sum up to 1 (L1 norm)</p>
 <ul>
@@ -1525,18 +870,24 @@ $<span class="math notranslate nohighlight">\(\mathbf{x}_{new} = \frac{\mathbf{x
 </li>
 </ul>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_scaling</span><span class="p">(</span><span class="n">scaler</span><span class="o">=</span><span class="n">Normalizer</span><span class="p">(</span><span class="n">norm</span><span class="o">=</span><span class="s1">&#39;l1&#39;</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<img alt="../_images/06 - Data Preprocessing_16_0.png" src="../_images/06 - Data Preprocessing_16_0.png" />
+<img alt="../_images/ac169bf68cc562d86c39f62ade24f35e49fc57690f61fb0fcfbb7fcbfd4fe976.png" src="../_images/ac169bf68cc562d86c39f62ade24f35e49fc57690f61fb0fcfbb7fcbfd4fe976.png" />
 </div>
 </div>
 </section>
 <section id="maximum-absolute-scaler">
-<h3>Maximum Absolute scaler<a class="headerlink" href="#maximum-absolute-scaler" title="Permalink to this headline">#</a></h3>
+<h3>Maximum Absolute scaler<a class="headerlink" href="#maximum-absolute-scaler" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>For sparse data (many features, but few are non-zero)</p>
 <ul>
@@ -1547,18 +898,24 @@ $<span class="math notranslate nohighlight">\(\mathbf{x}_{new} = \frac{\mathbf{x
 <li><p>Similar to Min-Max scaling without changing 0 values</p></li>
 </ul>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_scaling</span><span class="p">(</span><span class="n">scaler</span><span class="o">=</span><span class="n">MaxAbsScaler</span><span class="p">())</span>
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<img alt="../_images/06 - Data Preprocessing_18_0.png" src="../_images/06 - Data Preprocessing_18_0.png" />
+<img alt="../_images/5bfccef1d2f77a6f0c8c1c59c8104467169ba1d78e082f3547b8f92495bf1740.png" src="../_images/5bfccef1d2f77a6f0c8c1c59c8104467169ba1d78e082f3547b8f92495bf1740.png" />
 </div>
 </div>
 </section>
 <section id="power-transformations">
-<h3>Power transformations<a class="headerlink" href="#power-transformations" title="Permalink to this headline">#</a></h3>
+<h3>Power transformations<a class="headerlink" href="#power-transformations" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Some features follow certain distributions</p>
 <ul>
@@ -1573,6 +930,11 @@ $<span class="math notranslate nohighlight">\(bc_{\lambda}(x) = \begin{cases} lo
 </li>
 </ul>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Adapted from an example by Eric Chang and Nicolas Hug </span>
 <span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">PowerTransformer</span>
@@ -1627,18 +989,24 @@ $<span class="math notranslate nohighlight">\(bc_{\lambda}(x) = \begin{cases} lo
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<img alt="../_images/06 - Data Preprocessing_20_0.png" src="../_images/06 - Data Preprocessing_20_0.png" />
+<img alt="../_images/bd4fefb247deb688a8cd868162df66e0d5b13d84aa4bdcd6c475c1852a056fcb.png" src="../_images/bd4fefb247deb688a8cd868162df66e0d5b13d84aa4bdcd6c475c1852a056fcb.png" />
 </div>
 </div>
 </section>
 </section>
 <section id="categorical-feature-encoding">
-<h2>Categorical feature encoding<a class="headerlink" href="#categorical-feature-encoding" title="Permalink to this headline">#</a></h2>
+<h2>Categorical feature encoding<a class="headerlink" href="#categorical-feature-encoding" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Many algorithms can only handle numeric features, so we need to encode the categorical ones</p></li>
 </ul>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">table_font_size</span> <span class="o">=</span> <span class="mi">20</span>
 <span class="n">heading_properties</span> <span class="o">=</span> <span class="p">[(</span><span class="s1">&#39;font-size&#39;</span><span class="p">,</span> <span class="n">table_font_size</span><span class="p">)]</span>
@@ -1648,6 +1016,7 @@ $<span class="math notranslate nohighlight">\(bc_{\lambda}(x) = \begin{cases} lo
 </pre></div>
 </div>
 </div>
+</details>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1673,6 +1042,11 @@ th {font-size: 10px}
 </div></div>
 </div>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
@@ -1685,6 +1059,7 @@ th {font-size: 10px}
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
 <div class="output text_html"><style type="text/css">
 #T_8cde1 th {
@@ -1745,7 +1120,7 @@ th {font-size: 10px}
 </div></div>
 </div>
 <section id="ordinal-encoding">
-<h3>Ordinal encoding<a class="headerlink" href="#ordinal-encoding" title="Permalink to this headline">#</a></h3>
+<h3>Ordinal encoding<a class="headerlink" href="#ordinal-encoding" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Simply assigns an integer value to each category in the order they are encountered</p></li>
 <li><p>Only really useful if there exist a natural order in categories</p>
@@ -1755,6 +1130,11 @@ th {font-size: 10px}
 </li>
 </ul>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.compose</span> <span class="kn">import</span> <span class="n">ColumnTransformer</span>
 <span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">OrdinalEncoder</span>
@@ -1772,6 +1152,7 @@ th {font-size: 10px}
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
 <div class="output text_html"><style type="text/css">
 #T_1c0bd th {
@@ -1833,7 +1214,7 @@ th {font-size: 10px}
 </div>
 </section>
 <section id="one-hot-encoding-dummy-encoding">
-<h3>One-hot encoding (dummy encoding)<a class="headerlink" href="#one-hot-encoding-dummy-encoding" title="Permalink to this headline">#</a></h3>
+<h3>One-hot encoding (dummy encoding)<a class="headerlink" href="#one-hot-encoding-dummy-encoding" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Simply adds a new 0/1 feature for every category, having 1 (hot) if the sample has that category</p></li>
 <li><p>Can explode if a feature has lots of values, causing issues with high dimensionality</p></li>
@@ -1844,6 +1225,11 @@ th {font-size: 10px}
 </li>
 </ul>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">OneHotEncoder</span>
 
@@ -1860,6 +1246,7 @@ th {font-size: 10px}
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
 <div class="output text_html"><style type="text/css">
 #T_bfae7 th {
@@ -1942,7 +1329,7 @@ th {font-size: 10px}
 </div>
 </section>
 <section id="target-encoding">
-<h3>Target encoding<a class="headerlink" href="#target-encoding" title="Permalink to this headline">#</a></h3>
+<h3>Target encoding<a class="headerlink" href="#target-encoding" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Value close to 1 if category correlates with class 1, close to 0 if correlates with class 0</p></li>
 <li><p>Preferred when you have lots of category values. It only creates one new feature per class</p></li>
@@ -1956,6 +1343,11 @@ $<span class="math notranslate nohighlight">\(Enc(i) = \color{blue}{\frac{1}{1+e
 </li>
 </ul>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># smoothed sigmoid</span>
 <span class="k">def</span> <span class="nf">sigmoid</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">smoothing</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
@@ -1981,12 +1373,13 @@ $<span class="math notranslate nohighlight">\(Enc(i) = \color{blue}{\frac{1}{1+e
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<img alt="../_images/06 - Data Preprocessing_30_0.png" src="../_images/06 - Data Preprocessing_30_0.png" />
+<img alt="../_images/94d08af7cb16a75470cd151e99ce173a7b1dd673ca19b5aaeba034f919b5cd2f.png" src="../_images/94d08af7cb16a75470cd151e99ce173a7b1dd673ca19b5aaeba034f919b5cd2f.png" />
 </div>
 </div>
 <section id="example">
-<h4>Example<a class="headerlink" href="#example" title="Permalink to this headline">#</a></h4>
+<h4>Example<a class="headerlink" href="#example" title="Permalink to this heading">#</a></h4>
 <ul class="simple">
 <li><p>For Brooklyn, <span class="math notranslate nohighlight">\(n_{iY}=2, n_{i}=2, n_{Y}=2, n=6\)</span></p></li>
 <li><p>Would be closer to 1 if there were more examples, all with label 1
@@ -1994,6 +1387,11 @@ $<span class="math notranslate nohighlight">\(Enc(Brooklyn) = \frac{1}{1+e^{-1}}
 <li><p>Note: the implementation used here sets <span class="math notranslate nohighlight">\(Enc(i)=\frac{n_Y}{n}\)</span> when <span class="math notranslate nohighlight">\(n_{iY}=1\)</span></p></li>
 </ul>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Not in sklearn yet, use package category_encoders</span>
 <span class="kn">from</span> <span class="nn">category_encoders</span> <span class="kn">import</span> <span class="n">TargetEncoder</span>
@@ -2009,6 +1407,7 @@ $<span class="math notranslate nohighlight">\(Enc(Brooklyn) = \frac{1}{1+e^{-1}}
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
 <div class="output text_html"><style type="text/css">
 #T_1b38c th {
@@ -2078,7 +1477,7 @@ $<span class="math notranslate nohighlight">\(Enc(Brooklyn) = \frac{1}{1+e^{-1}}
 </section>
 </section>
 <section id="in-practice-scikit-learn">
-<h3>In practice (scikit-learn)<a class="headerlink" href="#in-practice-scikit-learn" title="Permalink to this headline">#</a></h3>
+<h3>In practice (scikit-learn)<a class="headerlink" href="#in-practice-scikit-learn" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Ordinal encoding and one-hot encoding are implemented in scikit-learn</p>
 <ul>
@@ -2116,7 +1515,7 @@ $<span class="math notranslate nohighlight">\(Enc(Brooklyn) = \frac{1}{1+e^{-1}}
 </section>
 </section>
 <section id="applying-data-transformations">
-<h2>Applying data transformations<a class="headerlink" href="#applying-data-transformations" title="Permalink to this headline">#</a></h2>
+<h2>Applying data transformations<a class="headerlink" href="#applying-data-transformations" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Data transformations should always follow a fit-predict paradigm</p>
 <ul>
@@ -2143,7 +1542,7 @@ $<span class="math notranslate nohighlight">\(Enc(Brooklyn) = \frac{1}{1+e^{-1}}
 </li>
 </ul>
 <section id="id1">
-<h3>In practice (scikit-learn)<a class="headerlink" href="#id1" title="Permalink to this headline">#</a></h3>
+<h3>In practice (scikit-learn)<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># choose scaling method and fit on training data</span>
 <span class="n">scaler</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
 <span class="n">scaler</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
@@ -2161,7 +1560,7 @@ $<span class="math notranslate nohighlight">\(Enc(Brooklyn) = \frac{1}{1+e^{-1}}
 </div>
 </section>
 <section id="test-set-distortion">
-<h3>Test set distortion<a class="headerlink" href="#test-set-distortion" title="Permalink to this headline">#</a></h3>
+<h3>Test set distortion<a class="headerlink" href="#test-set-distortion" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Properly scaled: <code class="docutils literal notranslate"><span class="pre">fit</span></code> on training set, <code class="docutils literal notranslate"><span class="pre">transform</span></code> on training and test set</p></li>
 <li><p>Improperly scaled: <code class="docutils literal notranslate"><span class="pre">fit</span></code> and <code class="docutils literal notranslate"><span class="pre">transform</span></code> on the training and test data separately</p>
@@ -2171,6 +1570,11 @@ $<span class="math notranslate nohighlight">\(Enc(Brooklyn) = \frac{1}{1+e^{-1}}
 </li>
 </ul>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">matplotlib.axes._axes</span> <span class="kn">import</span> <span class="n">_log</span> <span class="k">as</span> <span class="n">matplotlib_axes_logger</span>
 <span class="n">matplotlib_axes_logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="s1">&#39;ERROR&#39;</span><span class="p">)</span>
@@ -2224,13 +1628,14 @@ $<span class="math notranslate nohighlight">\(Enc(Brooklyn) = \frac{1}{1+e^{-1}}
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<img alt="../_images/06 - Data Preprocessing_38_0.png" src="../_images/06 - Data Preprocessing_38_0.png" />
+<img alt="../_images/462bcf0f9b285af11685f14fb4847956c3b4b7a0d0086e0d7768498c399c11bb.png" src="../_images/462bcf0f9b285af11685f14fb4847956c3b4b7a0d0086e0d7768498c399c11bb.png" />
 </div>
 </div>
 </section>
 <section id="data-leakage">
-<h3>Data leakage<a class="headerlink" href="#data-leakage" title="Permalink to this headline">#</a></h3>
+<h3>Data leakage<a class="headerlink" href="#data-leakage" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Cross-validation: training set is split into training and validation sets for model selection</p></li>
 <li><p>Incorrect: Scaler is fit on whole training set before doing cross-validation</p>
@@ -2242,7 +1647,7 @@ $<span class="math notranslate nohighlight">\(Enc(Brooklyn) = \frac{1}{1+e^{-1}}
 </ul>
 <img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/infoleak.png" alt="ml" style="width: 1500px;"/></section>
 <section id="pipelines">
-<h3>Pipelines<a class="headerlink" href="#pipelines" title="Permalink to this headline">#</a></h3>
+<h3>Pipelines<a class="headerlink" href="#pipelines" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>A pipeline is a combination of data transformation and learning algorithms</p></li>
 <li><p>It has a <code class="docutils literal notranslate"><span class="pre">fit</span></code>, <code class="docutils literal notranslate"><span class="pre">predict</span></code>, and <code class="docutils literal notranslate"><span class="pre">score</span></code> method, just like any other learning algorithm</p>
@@ -2252,7 +1657,7 @@ $<span class="math notranslate nohighlight">\(Enc(Brooklyn) = \frac{1}{1+e^{-1}}
 </li>
 </ul>
 <img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/07_pipelines.png" alt="ml" style="width: 600px;"/><section id="id2">
-<h4>In practice (scikit-learn)<a class="headerlink" href="#id2" title="Permalink to this headline">#</a></h4>
+<h4>In practice (scikit-learn)<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h4>
 <ul class="simple">
 <li><p>A <code class="docutils literal notranslate"><span class="pre">pipeline</span></code> combines multiple processing <em>steps</em> in a single estimator</p></li>
 <li><p>All but the last step should be data transformer (have a <code class="docutils literal notranslate"><span class="pre">transform</span></code> method)</p></li>
@@ -2306,7 +1711,7 @@ pipe = make_pipeline(preprocessor, LinearSVC())
 </div>
 <img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/columntransformer.png" alt="ml" style="width: 900px;"/></section>
 <section id="pipeline-selection">
-<h4>Pipeline selection<a class="headerlink" href="#pipeline-selection" title="Permalink to this headline">#</a></h4>
+<h4>Pipeline selection<a class="headerlink" href="#pipeline-selection" title="Permalink to this heading">#</a></h4>
 <ul class="simple">
 <li><p>We can safely use pipelines in model selection (e.g. grid search)</p></li>
 <li><p>Use <code class="docutils literal notranslate"><span class="pre">'__'</span></code> to refer to the hyperparameters of a step, e.g. <code class="docutils literal notranslate"><span class="pre">svm__C</span></code></p></li>
@@ -2326,7 +1731,7 @@ pipe = make_pipeline(preprocessor, LinearSVC())
 </div>
 </section>
 <section id="example-tune-multiple-steps-at-once">
-<h4>Example: Tune multiple steps at once<a class="headerlink" href="#example-tune-multiple-steps-at-once" title="Permalink to this headline">#</a></h4>
+<h4>Example: Tune multiple steps at once<a class="headerlink" href="#example-tune-multiple-steps-at-once" title="Permalink to this heading">#</a></h4>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pipe</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">StandardScaler</span><span class="p">(),</span><span class="n">PolynomialFeatures</span><span class="p">(),</span> <span class="n">Ridge</span><span class="p">())</span>
 <span class="n">param_grid</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;polynomialfeatures__degree&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
               <span class="s1">&#39;ridge__alpha&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.001</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">]}</span>
@@ -2334,6 +1739,11 @@ pipe = make_pipeline(preprocessor, LinearSVC())
 </pre></div>
 </div>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">make_pipeline</span>
 <span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">Ridge</span>
@@ -2364,15 +1774,16 @@ pipe = make_pipeline(preprocessor, LinearSVC())
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<img alt="../_images/06 - Data Preprocessing_48_0.png" src="../_images/06 - Data Preprocessing_48_0.png" />
+<img alt="../_images/e28d68845b9539611f45bb62db1bd6a2f7d3db75e2554c3e06b0deb4d8f6adec.png" src="../_images/e28d68845b9539611f45bb62db1bd6a2f7d3db75e2554c3e06b0deb4d8f6adec.png" />
 </div>
 </div>
 </section>
 </section>
 </section>
 <section id="automatic-feature-selection">
-<h2>Automatic Feature Selection<a class="headerlink" href="#automatic-feature-selection" title="Permalink to this headline">#</a></h2>
+<h2>Automatic Feature Selection<a class="headerlink" href="#automatic-feature-selection" title="Permalink to this heading">#</a></h2>
 <p>It can be a good idea to reduce the number of features to only the most useful ones</p>
 <ul class="simple">
 <li><p>Simpler models that generalize better (less overfitting)</p>
@@ -2391,7 +1802,7 @@ pipe = make_pipeline(preprocessor, LinearSVC())
 <li><p>More interpretable models: fewer features to look at</p></li>
 </ul>
 <section id="example-bike-sharing">
-<h3>Example: bike sharing<a class="headerlink" href="#example-bike-sharing" title="Permalink to this headline">#</a></h3>
+<h3>Example: bike sharing<a class="headerlink" href="#example-bike-sharing" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>The Bike Sharing Demand dataset shows the amount of bikes rented in Washington DC</p></li>
 <li><p>Some features are clearly more informative than others (e.g. temp, hour)</p></li>
@@ -2399,6 +1810,11 @@ pipe = make_pipeline(preprocessor, LinearSVC())
 <li><p>We add two random features at the end</p></li>
 </ul>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">fetch_openml</span>
 <span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">OneHotEncoder</span>
@@ -2428,16 +1844,28 @@ pipe = make_pipeline(preprocessor, LinearSVC())
 </pre></div>
 </div>
 </div>
+</details>
 </div>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#pd.set_option(&#39;display.max_columns&#39;, 20)</span>
 <span class="c1">#pd.DataFrame(data=X_bike, columns=bike_names).head()</span>
 </pre></div>
 </div>
 </div>
+</details>
 </div>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="o">*</span><span class="n">fig_scale</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">fig_scale</span><span class="p">))</span>
 <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">ax</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">axes</span><span class="o">.</span><span class="n">ravel</span><span class="p">()):</span>
@@ -2451,11 +1879,17 @@ pipe = make_pipeline(preprocessor, LinearSVC())
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<img alt="../_images/06 - Data Preprocessing_53_0.png" src="../_images/06 - Data Preprocessing_53_0.png" />
+<img alt="../_images/905c18e4fd61f37f8dcbe769cacf499eb38672e0f1f4009d246d41511fffb881.png" src="../_images/905c18e4fd61f37f8dcbe769cacf499eb38672e0f1f4009d246d41511fffb881.png" />
 </div>
 </div>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#fig, ax = plt.subplots(figsize=(6*fig_scale, 2*fig_scale))</span>
 <span class="c1">#ax.plot(X_bike[:, 2])</span>
@@ -2463,10 +1897,11 @@ pipe = make_pipeline(preprocessor, LinearSVC())
 </pre></div>
 </div>
 </div>
+</details>
 </div>
 </section>
 <section id="unsupervised-feature-selection">
-<h3>Unsupervised feature selection<a class="headerlink" href="#unsupervised-feature-selection" title="Permalink to this headline">#</a></h3>
+<h3>Unsupervised feature selection<a class="headerlink" href="#unsupervised-feature-selection" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Variance-based</p>
 <ul>
@@ -2487,6 +1922,11 @@ pipe = make_pipeline(preprocessor, LinearSVC())
 </li>
 </ul>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.feature_selection</span> <span class="kn">import</span> <span class="n">VarianceThreshold</span>
 <span class="n">selector</span> <span class="o">=</span> <span class="n">VarianceThreshold</span><span class="p">()</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">MinMaxScaler</span><span class="p">()</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_bike</span><span class="p">))</span>
@@ -2501,18 +1941,24 @@ pipe = make_pipeline(preprocessor, LinearSVC())
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<img alt="../_images/06 - Data Preprocessing_56_0.png" src="../_images/06 - Data Preprocessing_56_0.png" />
+<img alt="../_images/0fc20ec46c72d2e479fcbdd14646b8004c4c0d3bc5710ee81d01d67b7b0c5620.png" src="../_images/0fc20ec46c72d2e479fcbdd14646b8004c4c0d3bc5710ee81d01d67b7b0c5620.png" />
 </div>
 </div>
 <section id="covariance-based-feature-selection">
-<h4>Covariance based feature selection<a class="headerlink" href="#covariance-based-feature-selection" title="Permalink to this headline">#</a></h4>
+<h4>Covariance based feature selection<a class="headerlink" href="#covariance-based-feature-selection" title="Permalink to this heading">#</a></h4>
 <ul class="simple">
 <li><p>Remove features <span class="math notranslate nohighlight">\(X_i\)</span> (= <span class="math notranslate nohighlight">\(\mathbf{X_{:,i}}\)</span>) that are highly correlated (have high correlation coefficient <span class="math notranslate nohighlight">\(\rho\)</span>)
 $<span class="math notranslate nohighlight">\(\rho (X_1,X_2)={\frac  {{\mathrm  {cov}}(X_1,X_2)}{\sigma (X_1)\sigma (X_2)}} = {\frac { \frac{1}{N-1} \sum_i (X_{i,1} - \overline{X_1})(X_{i,2} - \overline{X_2}) }{\sigma (X_1)\sigma (X_2)}}\)</span>$</p></li>
 <li><p>Should we remove <code class="docutils literal notranslate"><span class="pre">feel_temp</span></code>? Or <code class="docutils literal notranslate"><span class="pre">temp</span></code>? Maybe one correlates more with the target?</p></li>
 </ul>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">scale</span>
 <span class="kn">from</span> <span class="nn">scipy.cluster</span> <span class="kn">import</span> <span class="n">hierarchy</span>
@@ -2532,11 +1978,17 @@ $<span class="math notranslate nohighlight">\(\rho (X_1,X_2)={\frac  {{\mathrm  
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<img alt="../_images/06 - Data Preprocessing_58_0.png" src="../_images/06 - Data Preprocessing_58_0.png" />
+<img alt="../_images/5ff3dcd7a820d535d4ed34d4ce115235be2a4843f3db432174dd84d8d082e2b0.png" src="../_images/5ff3dcd7a820d535d4ed34d4ce115235be2a4843f3db432174dd84d8d082e2b0.png" />
 </div>
 </div>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.feature_selection</span> <span class="kn">import</span> <span class="n">f_regression</span><span class="p">,</span> <span class="n">SelectPercentile</span><span class="p">,</span> <span class="n">mutual_info_regression</span><span class="p">,</span> <span class="n">SelectFromModel</span><span class="p">,</span> <span class="n">RFE</span>
 <span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">RidgeCV</span><span class="p">,</span> <span class="n">LassoCV</span>
@@ -2647,50 +2099,40 @@ $<span class="math notranslate nohighlight">\(\rho (X_1,X_2)={\frac  {{\mathrm  
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Computing F test
 </pre></div>
 </div>
-<script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "3482da325300457e810dc2d06a647f96", "version_major": 2, "version_minor": 0}
-</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Computing Mutual information
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "3482da325300457e810dc2d06a647f96", "version_major": 2, "version_minor": 0}</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Computing Mutual information
 </pre></div>
 </div>
-<script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "7990872cf8a544a3a9ee8fe3025b33ae", "version_major": 2, "version_minor": 0}
-</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Computing Random Forest
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "7990872cf8a544a3a9ee8fe3025b33ae", "version_major": 2, "version_minor": 0}</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Computing Random Forest
 </pre></div>
 </div>
-<script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "3efc3038c2e44668808a50da14e7d21b", "version_major": 2, "version_minor": 0}
-</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Computing Ridge
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "3efc3038c2e44668808a50da14e7d21b", "version_major": 2, "version_minor": 0}</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Computing Ridge
 </pre></div>
 </div>
-<script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "06b4326958b94caa9be67b2d09716b66", "version_major": 2, "version_minor": 0}
-</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Computing Lasso
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "06b4326958b94caa9be67b2d09716b66", "version_major": 2, "version_minor": 0}</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Computing Lasso
 </pre></div>
 </div>
-<script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "f8edab29fe564291b7b45ff0afc36130", "version_major": 2, "version_minor": 0}
-</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Computing RFE
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "f8edab29fe564291b7b45ff0afc36130", "version_major": 2, "version_minor": 0}</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Computing RFE
 </pre></div>
 </div>
-<script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "c627bc87159448b4a4acfc71a04cf622", "version_major": 2, "version_minor": 0}
-</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Computing Forward selection
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "c627bc87159448b4a4acfc71a04cf622", "version_major": 2, "version_minor": 0}</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Computing Forward selection
 </pre></div>
 </div>
-<script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "8e34d8c6734a49099fa5ac2ad2dfd365", "version_major": 2, "version_minor": 0}
-</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Computing Permutation importance
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "8e34d8c6734a49099fa5ac2ad2dfd365", "version_major": 2, "version_minor": 0}</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Computing Permutation importance
 </pre></div>
 </div>
-<script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "a372b0ba55564de099b9f49a75d87334", "version_major": 2, "version_minor": 0}
-</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "a372b0ba55564de099b9f49a75d87334", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_feature_importances</span><span class="p">(</span><span class="n">method1</span><span class="o">=</span><span class="s1">&#39;f_test&#39;</span><span class="p">,</span> <span class="n">method2</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">0.5</span><span class="p">):</span>
     
@@ -2720,11 +2162,12 @@ $<span class="math notranslate nohighlight">\(\rho (X_1,X_2)={\frac  {{\mathrm  
 </pre></div>
 </div>
 </div>
+</details>
 </div>
 </section>
 </section>
 <section id="supervised-feature-selection-overview">
-<h3>Supervised feature selection: overview<a class="headerlink" href="#supervised-feature-selection-overview" title="Permalink to this headline">#</a></h3>
+<h3>Supervised feature selection: overview<a class="headerlink" href="#supervised-feature-selection-overview" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Univariate: F-test and Mutual Information</p></li>
 <li><p>Model-based: Random Forests, Linear models, kNN</p></li>
@@ -2732,6 +2175,11 @@ $<span class="math notranslate nohighlight">\(\rho (X_1,X_2)={\frac  {{\mathrm  
 <li><p>Permutation importance</p></li>
 </ul>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nd">@interact</span>
 <span class="k">def</span> <span class="nf">compare_feature_importances</span><span class="p">(</span><span class="n">method1</span><span class="o">=</span><span class="n">methods</span><span class="p">,</span> <span class="n">method2</span><span class="o">=</span><span class="n">methods</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="p">(</span><span class="mf">0.25</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mf">0.25</span><span class="p">)):</span>
@@ -2739,14 +2187,13 @@ $<span class="math notranslate nohighlight">\(\rho (X_1,X_2)={\frac  {{\mathrm  
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "49adf796f84d4cb48f87c0e4410b754e", "version_major": 2, "version_minor": 0}
-</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "49adf796f84d4cb48f87c0e4410b754e", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 </section>
 <section id="univariate-statistics-f-test">
-<h3>Univariate statistics (F-test)<a class="headerlink" href="#univariate-statistics-f-test" title="Permalink to this headline">#</a></h3>
+<h3>Univariate statistics (F-test)<a class="headerlink" href="#univariate-statistics-f-test" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Consider each feature individually (univariate), independent of the model that you aim to apply</p></li>
 <li><p>Use a statistical test: is there a <em>linear</em> <strong>statistically significant relationship</strong> with the target?</p></li>
@@ -2758,17 +2205,23 @@ $<span class="math notranslate nohighlight">\(\rho (X_1,X_2)={\frac  {{\mathrm  
 <li><p>Cannot detect correlations (e.g. temp and feel_temp) or interactions (e.g. binary features)</p></li>
 </ul>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_feature_importances</span><span class="p">(</span><span class="s1">&#39;FTest&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">0.75</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<img alt="../_images/06 - Data Preprocessing_64_0.png" src="../_images/06 - Data Preprocessing_64_0.png" />
+<img alt="../_images/911b85f7e9c26f250e0e4cf636a5dbd674f8798815bcd5a4fbeb6908d652fc74.png" src="../_images/911b85f7e9c26f250e0e4cf636a5dbd674f8798815bcd5a4fbeb6908d652fc74.png" />
 </div>
 </div>
 <section id="f-statistic">
-<h4>F-statistic<a class="headerlink" href="#f-statistic" title="Permalink to this headline">#</a></h4>
+<h4>F-statistic<a class="headerlink" href="#f-statistic" title="Permalink to this heading">#</a></h4>
 <ul class="simple">
 <li><p>For regression: does feature <span class="math notranslate nohighlight">\(X_i\)</span> correlate (positively or negatively) with the target <span class="math notranslate nohighlight">\(y\)</span>?
 $<span class="math notranslate nohighlight">\(\text{F-statistic} = \frac{\rho(X_i,y)^2}{1-\rho(X_i,y)^2} \cdot (N-1)\)</span>$</p></li>
@@ -2782,7 +2235,7 @@ $<span class="math notranslate nohighlight">\(\text{F-statistic} = \frac{\text{w
 </ul>
 </section>
 <section id="mutual-information">
-<h4>Mutual information<a class="headerlink" href="#mutual-information" title="Permalink to this headline">#</a></h4>
+<h4>Mutual information<a class="headerlink" href="#mutual-information" title="Permalink to this heading">#</a></h4>
 <ul class="simple">
 <li><p>Measures how much information <span class="math notranslate nohighlight">\(X_i\)</span> gives about the target <span class="math notranslate nohighlight">\(Y\)</span>. In terms of entropy <span class="math notranslate nohighlight">\(H\)</span>:
 $<span class="math notranslate nohighlight">\(MI(X,Y) = H(X) + H(Y) - H(X,Y)\)</span>$</p></li>
@@ -2794,19 +2247,25 @@ $<span class="math notranslate nohighlight">\(MI(X,Y) = H(X) + H(Y) - H(X,Y)\)</
 <li><p>Captures complex dependencies (e.g. hour, month), but requires more samples to be accurate</p></li>
 </ul>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_feature_importances</span><span class="p">(</span><span class="s1">&#39;MutualInformation&#39;</span><span class="p">,</span> <span class="s1">&#39;FTest&#39;</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">0.75</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<img alt="../_images/06 - Data Preprocessing_67_0.png" src="../_images/06 - Data Preprocessing_67_0.png" />
+<img alt="../_images/1d446587820ebd4d9cdecc1082c53abf06de609b8e602d50aa84bfee62dfd943.png" src="../_images/1d446587820ebd4d9cdecc1082c53abf06de609b8e602d50aa84bfee62dfd943.png" />
 </div>
 </div>
 </section>
 </section>
 <section id="model-based-feature-selection">
-<h3>Model-based Feature Selection<a class="headerlink" href="#model-based-feature-selection" title="Permalink to this headline">#</a></h3>
+<h3>Model-based Feature Selection<a class="headerlink" href="#model-based-feature-selection" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Use a <a class="reference external" href="https://explained.ai/rf-importance/index.html">tuned</a>(!) supervised model to judge the importance of each feature</p>
 <ul>
@@ -2819,17 +2278,23 @@ $<span class="math notranslate nohighlight">\(MI(X,Y) = H(X) + H(Y) - H(X,Y)\)</
 <li><p>RandomForests: learns complex interactions (e.g. hour), but biased to high cardinality features</p></li>
 </ul>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_feature_importances</span><span class="p">(</span><span class="s1">&#39;RandomForest&#39;</span><span class="p">,</span> <span class="s1">&#39;Lasso&#39;</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">0.75</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<img alt="../_images/06 - Data Preprocessing_69_0.png" src="../_images/06 - Data Preprocessing_69_0.png" />
+<img alt="../_images/c986232b836105c15994de607915f3aec8b131c2bdd2e7d0393adac7c5bde513.png" src="../_images/c986232b836105c15994de607915f3aec8b131c2bdd2e7d0393adac7c5bde513.png" />
 </div>
 </div>
 <section id="relief-model-based-selection-with-knn">
-<h4>Relief: Model-based selection with kNN<a class="headerlink" href="#relief-model-based-selection-with-knn" title="Permalink to this headline">#</a></h4>
+<h4>Relief: Model-based selection with kNN<a class="headerlink" href="#relief-model-based-selection-with-knn" title="Permalink to this heading">#</a></h4>
 <ul class="simple">
 <li><p>For I iterations, choose a random point <span class="math notranslate nohighlight">\(\mathbf{x_i}\)</span> and find <span class="math notranslate nohighlight">\(k\)</span> nearest neighbors <span class="math notranslate nohighlight">\(\mathbf{x_{k}}\)</span></p></li>
 <li><p>Increase feature weights if <span class="math notranslate nohighlight">\(\mathbf{x_i}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{x_{k}}\)</span> have different class (near miss), else decrease</p>
@@ -2841,7 +2306,7 @@ $<span class="math notranslate nohighlight">\(MI(X,Y) = H(X) + H(Y) - H(X,Y)\)</
 </ul>
 <img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/relief.png" alt="ml" style="width: 40%;"/></section>
 <section id="iterative-model-based-feature-selection">
-<h4>Iterative Model-based Feature Selection<a class="headerlink" href="#iterative-model-based-feature-selection" title="Permalink to this headline">#</a></h4>
+<h4>Iterative Model-based Feature Selection<a class="headerlink" href="#iterative-model-based-feature-selection" title="Permalink to this heading">#</a></h4>
 <ul class="simple">
 <li><p>Dropping many features at once is not ideal: feature importance may change in subset</p></li>
 <li><p>Recursive Feature Elimination (RFE)</p>
@@ -2852,19 +2317,25 @@ $<span class="math notranslate nohighlight">\(MI(X,Y) = H(X) + H(Y) - H(X,Y)\)</
 <li><p>Can be rather slow</p></li>
 </ul>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_feature_importances</span><span class="p">(</span><span class="s1">&#39;RFE&#39;</span><span class="p">,</span> <span class="s1">&#39;RandomForest&#39;</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<img alt="../_images/06 - Data Preprocessing_72_0.png" src="../_images/06 - Data Preprocessing_72_0.png" />
+<img alt="../_images/4d896ca501c23f0a784d2034af85ccdc186e0169921fe1141e8119bf3b67ca89.png" src="../_images/4d896ca501c23f0a784d2034af85ccdc186e0169921fe1141e8119bf3b67ca89.png" />
 </div>
 </div>
 </section>
 </section>
 <section id="sequential-feature-selection-wrapping">
-<h3>Sequential feature selection (Wrapping)<a class="headerlink" href="#sequential-feature-selection-wrapping" title="Permalink to this headline">#</a></h3>
+<h3>Sequential feature selection (Wrapping)<a class="headerlink" href="#sequential-feature-selection-wrapping" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Evaluate your model with different sets of features, find best subset based on performance</p></li>
 <li><p>Greedy black-box search (can end up in local minima)</p>
@@ -2877,18 +2348,24 @@ $<span class="math notranslate nohighlight">\(MI(X,Y) = H(X) + H(Y) - H(X,Y)\)</
 <li><p>Stochastic search: use random mutations in candidate subset (e.g. simulated annealing)</p></li>
 </ul>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_feature_importances</span><span class="p">(</span><span class="s1">&#39;ForwardSelection&#39;</span><span class="p">,</span> <span class="s1">&#39;Ridge&#39;</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<img alt="../_images/06 - Data Preprocessing_74_0.png" src="../_images/06 - Data Preprocessing_74_0.png" />
+<img alt="../_images/9425d19621ae41d97ca5522c5a143df989badd35b6f9e00ba2bbc102573b7b4a.png" src="../_images/9425d19621ae41d97ca5522c5a143df989badd35b6f9e00ba2bbc102573b7b4a.png" />
 </div>
 </div>
 </section>
 <section id="permutation-feature-importance">
-<h3>Permutation feature importance<a class="headerlink" href="#permutation-feature-importance" title="Permalink to this headline">#</a></h3>
+<h3>Permutation feature importance<a class="headerlink" href="#permutation-feature-importance" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Defined as the decrease in model performance when a single feature value is randomly shuffled</p>
 <ul>
@@ -2900,18 +2377,24 @@ $<span class="math notranslate nohighlight">\(MI(X,Y) = H(X) + H(Y) - H(X,Y)\)</
 <li><p>Less biased towards high-cardinality features (compared with RandomForests)</p></li>
 </ul>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_feature_importances</span><span class="p">(</span><span class="s1">&#39;Permutation&#39;</span><span class="p">,</span> <span class="s1">&#39;RandomForest&#39;</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<img alt="../_images/06 - Data Preprocessing_76_0.png" src="../_images/06 - Data Preprocessing_76_0.png" />
+<img alt="../_images/1ebea4495695c603e0bfa9e240f5ab33a5e15eca9a5a1dad4fc84d50313f38cd.png" src="../_images/1ebea4495695c603e0bfa9e240f5ab33a5e15eca9a5a1dad4fc84d50313f38cd.png" />
 </div>
 </div>
 </section>
 <section id="comparison">
-<h3>Comparison<a class="headerlink" href="#comparison" title="Permalink to this headline">#</a></h3>
+<h3>Comparison<a class="headerlink" href="#comparison" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Feature importances (scaled) and cross-validated <span class="math notranslate nohighlight">\(R^2\)</span> score of pipeline</p>
 <ul>
@@ -2922,6 +2405,11 @@ $<span class="math notranslate nohighlight">\(MI(X,Y) = H(X) + H(Y) - H(X,Y)\)</
 <li><p>Best method ultimately depends on the problem and dataset at hand</p></li>
 </ul>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nd">@interact</span>
 <span class="k">def</span> <span class="nf">compare_feature_importances</span><span class="p">(</span><span class="n">method1</span><span class="o">=</span><span class="n">methods</span><span class="p">,</span> <span class="n">method2</span><span class="o">=</span><span class="n">methods</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="p">(</span><span class="mf">0.25</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mf">0.25</span><span class="p">)):</span>
@@ -2929,22 +2417,27 @@ $<span class="math notranslate nohighlight">\(MI(X,Y) = H(X) + H(Y) - H(X,Y)\)</
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "448f654261954d2181214bd2df3ed2f7", "version_major": 2, "version_minor": 0}
-</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "448f654261954d2181214bd2df3ed2f7", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="ow">not</span> <span class="n">interactive</span><span class="p">:</span>
     <span class="n">plot_feature_importances</span><span class="p">(</span><span class="s1">&#39;Permutation&#39;</span><span class="p">,</span> <span class="s1">&#39;FTest&#39;</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
+</details>
 </div>
 </section>
 <section id="id3">
-<h3>In practice (scikit-learn)<a class="headerlink" href="#id3" title="Permalink to this headline">#</a></h3>
+<h3>In practice (scikit-learn)<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Unsupervised: <code class="docutils literal notranslate"><span class="pre">VarianceTreshold</span></code></p></li>
 </ul>
@@ -3002,7 +2495,7 @@ $<span class="math notranslate nohighlight">\(MI(X,Y) = H(X) + H(Y) - H(X,Y)\)</
 </section>
 </section>
 <section id="feature-engineering">
-<h2>Feature Engineering<a class="headerlink" href="#feature-engineering" title="Permalink to this headline">#</a></h2>
+<h2>Feature Engineering<a class="headerlink" href="#feature-engineering" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Create new features based on existing ones</p>
 <ul>
@@ -3019,7 +2512,7 @@ $<span class="math notranslate nohighlight">\(MI(X,Y) = H(X) + H(Y) - H(X,Y)\)</
 </li>
 </ul>
 <section id="polynomials">
-<h3>Polynomials<a class="headerlink" href="#polynomials" title="Permalink to this headline">#</a></h3>
+<h3>Polynomials<a class="headerlink" href="#polynomials" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Add all polynomials up to degree <span class="math notranslate nohighlight">\(d\)</span> and all products</p>
 <ul>
@@ -3029,6 +2522,11 @@ $<span class="math notranslate nohighlight">\([1, x_1, ..., x_p] \xrightarrow{} 
 </li>
 </ul>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LinearRegression</span>
 <span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="kn">import</span> <span class="n">DecisionTreeRegressor</span>
@@ -3057,19 +2555,25 @@ $<span class="math notranslate nohighlight">\([1, x_1, ..., x_p] \xrightarrow{} 
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<img alt="../_images/06 - Data Preprocessing_84_0.png" src="../_images/06 - Data Preprocessing_84_0.png" />
+<img alt="../_images/ff95c23fc02bb7f438884ccf7ba318ef9ff4aa1f69184e452aa6099b5614842d.png" src="../_images/ff95c23fc02bb7f438884ccf7ba318ef9ff4aa1f69184e452aa6099b5614842d.png" />
 </div>
 </div>
 </section>
 <section id="binning">
-<h3>Binning<a class="headerlink" href="#binning" title="Permalink to this headline">#</a></h3>
+<h3>Binning<a class="headerlink" href="#binning" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Partition numeric feature values into <span class="math notranslate nohighlight">\(n\)</span> intervals (bins)</p></li>
 <li><p>Create <span class="math notranslate nohighlight">\(n\)</span> new one-hot features, 1 if original value falls in corresponding bin</p></li>
 <li><p>Models different intervals differently (e.g. different age groups)</p></li>
 </ul>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">OneHotEncoder</span>
 
@@ -3094,6 +2598,7 @@ $<span class="math notranslate nohighlight">\([1, x_1, ..., x_p] \xrightarrow{} 
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
 <div class="output text_html"><style type="text/css">
 #T_70c87 th {
@@ -3144,6 +2649,11 @@ $<span class="math notranslate nohighlight">\([1, x_1, ..., x_p] \xrightarrow{} 
 </div></div>
 </div>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">line_binned</span> <span class="o">=</span> <span class="n">encoder</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">digitize</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">))</span>
 <span class="n">reg</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_combined</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
@@ -3163,13 +2673,14 @@ $<span class="math notranslate nohighlight">\([1, x_1, ..., x_p] \xrightarrow{} 
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<img alt="../_images/06 - Data Preprocessing_87_0.png" src="../_images/06 - Data Preprocessing_87_0.png" />
+<img alt="../_images/28eb0fc314231476d895b866990e2b673f22146fd543b298012d430beb3d4801.png" src="../_images/28eb0fc314231476d895b866990e2b673f22146fd543b298012d430beb3d4801.png" />
 </div>
 </div>
 </section>
 <section id="binning-interaction-features">
-<h3>Binning + interaction features<a class="headerlink" href="#binning-interaction-features" title="Permalink to this headline">#</a></h3>
+<h3>Binning + interaction features<a class="headerlink" href="#binning-interaction-features" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Add <em>interaction features</em> (or <em>product features</em> )</p>
 <ul>
@@ -3179,6 +2690,11 @@ $<span class="math notranslate nohighlight">\([1, x_1, ..., x_p] \xrightarrow{} 
 </li>
 </ul>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_product</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="n">X_binned</span><span class="p">,</span> <span class="n">X</span> <span class="o">*</span> <span class="n">X_binned</span><span class="p">])</span>
 <span class="n">bin_sname</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;b&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">)]</span> 
@@ -3189,6 +2705,7 @@ $<span class="math notranslate nohighlight">\([1, x_1, ..., x_p] \xrightarrow{} 
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
 <div class="output text_html"><style type="text/css">
 #T_83cf6 th {
@@ -3255,6 +2772,11 @@ $<span class="math notranslate nohighlight">\([1, x_1, ..., x_p] \xrightarrow{} 
 </div></div>
 </div>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">reg</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_product</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
 
@@ -3272,19 +2794,25 @@ $<span class="math notranslate nohighlight">\([1, x_1, ..., x_p] \xrightarrow{} 
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<img alt="../_images/06 - Data Preprocessing_90_0.png" src="../_images/06 - Data Preprocessing_90_0.png" />
+<img alt="../_images/c94759333d1fd80d658b892d6caf0189673afb4d486014b96d0ee294bd6a11a0.png" src="../_images/c94759333d1fd80d658b892d6caf0189673afb4d486014b96d0ee294bd6a11a0.png" />
 </div>
 </div>
 </section>
 <section id="categorical-feature-interactions">
-<h3>Categorical feature interactions<a class="headerlink" href="#categorical-feature-interactions" title="Permalink to this headline">#</a></h3>
+<h3>Categorical feature interactions<a class="headerlink" href="#categorical-feature-interactions" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>One-hot-encode categorical feature</p></li>
 <li><p>Multiply every one-hot-encoded column with every numeric feature</p></li>
 <li><p>Allows to built different submodels for different categories</p></li>
 </ul>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;gender&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;M&#39;</span><span class="p">,</span> <span class="s1">&#39;F&#39;</span><span class="p">,</span> <span class="s1">&#39;M&#39;</span><span class="p">,</span> <span class="s1">&#39;F&#39;</span><span class="p">,</span> <span class="s1">&#39;F&#39;</span><span class="p">],</span>
                    <span class="s1">&#39;age&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">14</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">22</span><span class="p">],</span>
@@ -3296,6 +2824,7 @@ $<span class="math notranslate nohighlight">\([1, x_1, ..., x_p] \xrightarrow{} 
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
 <div class="output text_html"><style type="text/css">
 #T_ff8e6 th {
@@ -3356,6 +2885,11 @@ $<span class="math notranslate nohighlight">\([1, x_1, ..., x_p] \xrightarrow{} 
 </div></div>
 </div>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dummies</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">get_dummies</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
 <span class="n">df_f</span> <span class="o">=</span> <span class="n">dummies</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="n">dummies</span><span class="o">.</span><span class="n">gender_F</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="s1">&#39;rows&#39;</span><span class="p">)</span>
@@ -3368,6 +2902,7 @@ $<span class="math notranslate nohighlight">\([1, x_1, ..., x_p] \xrightarrow{} 
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
 <div class="output text_html"><style type="text/css">
 #T_52302 th {
@@ -3454,7 +2989,7 @@ $<span class="math notranslate nohighlight">\([1, x_1, ..., x_p] \xrightarrow{} 
 </section>
 </section>
 <section id="missing-value-imputation">
-<h2>Missing value imputation<a class="headerlink" href="#missing-value-imputation" title="Permalink to this headline">#</a></h2>
+<h2>Missing value imputation<a class="headerlink" href="#missing-value-imputation" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Data can be missing in different ways:</p>
 <ul>
@@ -3475,6 +3010,11 @@ $<span class="math notranslate nohighlight">\([1, x_1, ..., x_p] \xrightarrow{} 
 <li><p>Also labels can be missing (remove example or use semi-supervised learning)</p></li>
 </ul>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.experimental</span> <span class="kn">import</span> <span class="n">enable_iterative_imputer</span>
 <span class="kn">from</span> <span class="nn">sklearn.impute</span> <span class="kn">import</span> <span class="n">SimpleImputer</span><span class="p">,</span> <span class="n">KNNImputer</span><span class="p">,</span> <span class="n">IterativeImputer</span>
@@ -3550,9 +3090,10 @@ $<span class="math notranslate nohighlight">\([1, x_1, ..., x_p] \xrightarrow{} 
 </pre></div>
 </div>
 </div>
+</details>
 </div>
 <section id="overview">
-<h3>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">#</a></h3>
+<h3>Overview<a class="headerlink" href="#overview" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Mean/constant imputation</p></li>
 <li><p>kNN-based imputation</p></li>
@@ -3560,6 +3101,11 @@ $<span class="math notranslate nohighlight">\([1, x_1, ..., x_p] \xrightarrow{} 
 <li><p>Matrix Factorization techniques</p></li>
 </ul>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ipywidgets</span> <span class="kn">import</span> <span class="n">interact</span><span class="p">,</span> <span class="n">interact_manual</span>
 <span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">fetch_openml</span>
@@ -3574,22 +3120,27 @@ $<span class="math notranslate nohighlight">\([1, x_1, ..., x_p] \xrightarrow{} 
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "fedea1a24f5a4800a2abf36bac0ef7b4", "version_major": 2, "version_minor": 0}
-</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "fedea1a24f5a4800a2abf36bac0ef7b4", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="ow">not</span> <span class="n">interactive</span><span class="p">:</span>
     <span class="n">plot_imputation</span><span class="p">(</span><span class="s2">&quot;kNN Imputation&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
+</details>
 </div>
 </section>
 <section id="mean-imputation">
-<h3>Mean imputation<a class="headerlink" href="#mean-imputation" title="Permalink to this headline">#</a></h3>
+<h3>Mean imputation<a class="headerlink" href="#mean-imputation" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Replace all missing values of a feature by the same value</p>
 <ul>
@@ -3602,35 +3153,47 @@ $<span class="math notranslate nohighlight">\([1, x_1, ..., x_p] \xrightarrow{} 
 <li><p>Example: Iris dataset (randomly removed values in 3rd and 4th column)</p></li>
 </ul>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_imputation</span><span class="p">(</span><span class="s2">&quot;Mean Imputation&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<img alt="../_images/06 - Data Preprocessing_100_0.png" src="../_images/06 - Data Preprocessing_100_0.png" />
+<img alt="../_images/8d8cdca543777fbe2ee3bf9768aee8e4d4591fa8c588c5d444fffbcbf6498790.png" src="../_images/8d8cdca543777fbe2ee3bf9768aee8e4d4591fa8c588c5d444fffbcbf6498790.png" />
 </div>
 </div>
 </section>
 <section id="knn-imputation">
-<h3>kNN imputation<a class="headerlink" href="#knn-imputation" title="Permalink to this headline">#</a></h3>
+<h3>kNN imputation<a class="headerlink" href="#knn-imputation" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Use special version of kNN to predict value of missing points</p></li>
 <li><p>Uses only non-missing data when computing distances</p></li>
 </ul>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_imputation</span><span class="p">(</span><span class="s2">&quot;kNN Imputation&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<img alt="../_images/06 - Data Preprocessing_102_0.png" src="../_images/06 - Data Preprocessing_102_0.png" />
+<img alt="../_images/efbc86dc6c938faeea0ab8ee5c45a9adb6dfb2e2faa1d99a892e0ec3fe351f68.png" src="../_images/efbc86dc6c938faeea0ab8ee5c45a9adb6dfb2e2faa1d99a892e0ec3fe351f68.png" />
 </div>
 </div>
 </section>
 <section id="iterative-model-based-imputation">
-<h3>Iterative (model-based) Imputation<a class="headerlink" href="#iterative-model-based-imputation" title="Permalink to this headline">#</a></h3>
+<h3>Iterative (model-based) Imputation<a class="headerlink" href="#iterative-model-based-imputation" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Better known as Multiple Imputation by Chained Equations (MICE)</p></li>
 <li><p>Iterative approach</p>
@@ -3646,18 +3209,24 @@ $<span class="math notranslate nohighlight">\([1, x_1, ..., x_p] \xrightarrow{} 
 </li>
 </ul>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_imputation</span><span class="p">(</span><span class="s2">&quot;Iterative Imputation (RandomForest)&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<img alt="../_images/06 - Data Preprocessing_104_0.png" src="../_images/06 - Data Preprocessing_104_0.png" />
+<img alt="../_images/ab7f7923acd300e4d2eac485d89bada67c9572ad612abab7f61314cb20e9aa1a.png" src="../_images/ab7f7923acd300e4d2eac485d89bada67c9572ad612abab7f61314cb20e9aa1a.png" />
 </div>
 </div>
 </section>
 <section id="matrix-factorization">
-<h3>Matrix Factorization<a class="headerlink" href="#matrix-factorization" title="Permalink to this headline">#</a></h3>
+<h3>Matrix Factorization<a class="headerlink" href="#matrix-factorization" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Basic idea: low-rank approximation</p>
 <ul>
@@ -3673,18 +3242,24 @@ $<span class="math notranslate nohighlight">\([1, x_1, ..., x_p] \xrightarrow{} 
 </li>
 </ul>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_imputation</span><span class="p">(</span><span class="s2">&quot;Matrix Factorization&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<img alt="../_images/06 - Data Preprocessing_106_0.png" src="../_images/06 - Data Preprocessing_106_0.png" />
+<img alt="../_images/4ff3490d0b574e5b0f404104c9de6176e3e93816b5105fdee58236c4876750ed.png" src="../_images/4ff3490d0b574e5b0f404104c9de6176e3e93816b5105fdee58236c4876750ed.png" />
 </div>
 </div>
 </section>
 <section id="soft-thresholded-singular-value-decomposition-svd">
-<h3>Soft-thresholded Singular Value Decomposition (SVD)<a class="headerlink" href="#soft-thresholded-singular-value-decomposition-svd" title="Permalink to this headline">#</a></h3>
+<h3>Soft-thresholded Singular Value Decomposition (SVD)<a class="headerlink" href="#soft-thresholded-singular-value-decomposition-svd" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Same basic idea, but smoother</p>
 <ul>
@@ -3700,18 +3275,24 @@ $<span class="math notranslate nohighlight">\([1, x_1, ..., x_p] \xrightarrow{} 
 </li>
 </ul>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_imputation</span><span class="p">(</span><span class="s2">&quot;SoftImpute&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<img alt="../_images/06 - Data Preprocessing_108_0.png" src="../_images/06 - Data Preprocessing_108_0.png" />
+<img alt="../_images/e100c851fb3795cacc1ee02369d240b94bf3a7858ec991cf3b723b720103c949.png" src="../_images/e100c851fb3795cacc1ee02369d240b94bf3a7858ec991cf3b723b720103c949.png" />
 </div>
 </div>
 </section>
 <section id="id4">
-<h3>Comparison<a class="headerlink" href="#id4" title="Permalink to this headline">#</a></h3>
+<h3>Comparison<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Best method depends on the problem and dataset at hand. Use cross-validation.</p></li>
 <li><p>Iterative Imputation (MICE) generally works well for missing (completely) at random data</p>
@@ -3722,6 +3303,11 @@ $<span class="math notranslate nohighlight">\([1, x_1, ..., x_p] \xrightarrow{} 
 <li><p>Low-rank approximation techniques scale well to large datasets</p></li>
 </ul>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nd">@interact</span>
 <span class="k">def</span> <span class="nf">compare_imputers</span><span class="p">(</span><span class="n">imputer</span><span class="o">=</span><span class="n">imputers</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
@@ -3729,22 +3315,27 @@ $<span class="math notranslate nohighlight">\([1, x_1, ..., x_p] \xrightarrow{} 
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "8c71f106fce6421693fa074bb01dafc5", "version_major": 2, "version_minor": 0}
-</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "8c71f106fce6421693fa074bb01dafc5", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="ow">not</span> <span class="n">interactive</span><span class="p">:</span>
     <span class="n">plot_imputation</span><span class="p">(</span><span class="s2">&quot;Iterative Imputation (RandomForest)&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
+</details>
 </div>
 </section>
 <section id="id5">
-<h3>In practice (scikit-learn)<a class="headerlink" href="#id5" title="Permalink to this headline">#</a></h3>
+<h3>In practice (scikit-learn)<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Simple replacement: <code class="docutils literal notranslate"><span class="pre">SimpleImputer</span></code></p>
 <ul>
@@ -3777,7 +3368,7 @@ $<span class="math notranslate nohighlight">\([1, x_1, ..., x_p] \xrightarrow{} 
 </div>
 </section>
 <section id="in-practice-fancyimpute">
-<h3>In practice (fancyimpute)<a class="headerlink" href="#in-practice-fancyimpute" title="Permalink to this headline">#</a></h3>
+<h3>In practice (fancyimpute)<a class="headerlink" href="#in-practice-fancyimpute" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Cannot be used in CV pipelines (has <code class="docutils literal notranslate"><span class="pre">fit_transform</span></code> but no <code class="docutils literal notranslate"><span class="pre">transform</span></code>)</p></li>
 <li><p>Soft-Thresholded SVD: <code class="docutils literal notranslate"><span class="pre">SoftImpute</span></code></p>
@@ -3807,7 +3398,7 @@ $<span class="math notranslate nohighlight">\([1, x_1, ..., x_p] \xrightarrow{} 
 </section>
 </section>
 <section id="handling-imbalanced-data">
-<h2>Handling imbalanced data<a class="headerlink" href="#handling-imbalanced-data" title="Permalink to this headline">#</a></h2>
+<h2>Handling imbalanced data<a class="headerlink" href="#handling-imbalanced-data" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Problem:</p>
 <ul>
@@ -3839,6 +3430,11 @@ $<span class="math notranslate nohighlight">\([1, x_1, ..., x_p] \xrightarrow{} 
 </li>
 </ul>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">imblearn.over_sampling</span> <span class="kn">import</span> <span class="n">RandomOverSampler</span><span class="p">,</span> <span class="n">SMOTE</span><span class="p">,</span> <span class="n">ADASYN</span>
 <span class="kn">from</span> <span class="nn">imblearn.under_sampling</span> <span class="kn">import</span> <span class="n">RandomUnderSampler</span><span class="p">,</span> <span class="n">EditedNearestNeighbours</span><span class="p">,</span> <span class="n">CondensedNearestNeighbour</span>
@@ -3920,9 +3516,10 @@ $<span class="math notranslate nohighlight">\([1, x_1, ..., x_p] \xrightarrow{} 
 </pre></div>
 </div>
 </div>
+</details>
 </div>
 <section id="random-undersampling">
-<h3>Random Undersampling<a class="headerlink" href="#random-undersampling" title="Permalink to this headline">#</a></h3>
+<h3>Random Undersampling<a class="headerlink" href="#random-undersampling" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Copy the points from the minority class</p></li>
 <li><p>Randomly sample from the majority class (with or without replacement) until balanced</p>
@@ -3934,18 +3531,24 @@ $<span class="math notranslate nohighlight">\([1, x_1, ..., x_p] \xrightarrow{} 
 <li><p>Preferred for large datasets, often yields smaller/faster models with similar performance</p></li>
 </ul>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_imbalance</span><span class="p">(</span><span class="n">RandomUnderSampler</span><span class="p">())</span>
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<img alt="../_images/06 - Data Preprocessing_117_0.png" src="../_images/06 - Data Preprocessing_117_0.png" />
+<img alt="../_images/7ba1f90cb030f1e6c5b66bbcc29bb6c1c742ed45263343810259bfb27d6d23a7.png" src="../_images/7ba1f90cb030f1e6c5b66bbcc29bb6c1c742ed45263343810259bfb27d6d23a7.png" />
 </div>
 </div>
 </section>
 <section id="model-based-undersampling">
-<h3>Model-based Undersampling<a class="headerlink" href="#model-based-undersampling" title="Permalink to this headline">#</a></h3>
+<h3>Model-based Undersampling<a class="headerlink" href="#model-based-undersampling" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Edited Nearest Neighbors</p>
 <ul>
@@ -3961,18 +3564,24 @@ $<span class="math notranslate nohighlight">\([1, x_1, ..., x_p] \xrightarrow{} 
 </li>
 </ul>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_imbalance</span><span class="p">(</span><span class="n">EditedNearestNeighbours</span><span class="p">(),</span> <span class="n">CondensedNearestNeighbour</span><span class="p">())</span>
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<img alt="../_images/06 - Data Preprocessing_119_0.png" src="../_images/06 - Data Preprocessing_119_0.png" />
+<img alt="../_images/5e536fb132c915c3d8b5d5bd1886e5f5ee057fbccf156270e3f9922af0983146.png" src="../_images/5e536fb132c915c3d8b5d5bd1886e5f5ee057fbccf156270e3f9922af0983146.png" />
 </div>
 </div>
 </section>
 <section id="random-oversampling">
-<h3>Random Oversampling<a class="headerlink" href="#random-oversampling" title="Permalink to this headline">#</a></h3>
+<h3>Random Oversampling<a class="headerlink" href="#random-oversampling" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Copy the points from the majority class</p></li>
 <li><p>Randomly sample from the minority class, with replacement, until balanced</p>
@@ -3984,18 +3593,24 @@ $<span class="math notranslate nohighlight">\([1, x_1, ..., x_p] \xrightarrow{} 
 <li><p>Similar to giving minority class(es) a higher weight (and more expensive)</p></li>
 </ul>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_imbalance</span><span class="p">(</span><span class="n">RandomOverSampler</span><span class="p">())</span>
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<img alt="../_images/06 - Data Preprocessing_121_0.png" src="../_images/06 - Data Preprocessing_121_0.png" />
+<img alt="../_images/eafc77cfa45e6175b94722edce6522d2f8e4d0f1994321904070a474a9934d6a.png" src="../_images/eafc77cfa45e6175b94722edce6522d2f8e4d0f1994321904070a474a9934d6a.png" />
 </div>
 </div>
 </section>
 <section id="synthetic-minority-oversampling-technique-smote">
-<h3>Synthetic Minority Oversampling Technique (SMOTE)<a class="headerlink" href="#synthetic-minority-oversampling-technique-smote" title="Permalink to this headline">#</a></h3>
+<h3>Synthetic Minority Oversampling Technique (SMOTE)<a class="headerlink" href="#synthetic-minority-oversampling-technique-smote" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Repeatedly choose a random minority point and a neighboring minority point</p>
 <ul>
@@ -4010,18 +3625,24 @@ $<span class="math notranslate nohighlight">\([1, x_1, ..., x_p] \xrightarrow{} 
 </li>
 </ul>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_imbalance</span><span class="p">(</span><span class="n">SMOTE</span><span class="p">(),</span> <span class="n">ADASYN</span><span class="p">())</span>
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<img alt="../_images/06 - Data Preprocessing_123_0.png" src="../_images/06 - Data Preprocessing_123_0.png" />
+<img alt="../_images/7b5b35d1d968a432b9d1e77fd616d7c55c60bf65237e053deb2435bb49da2db3.png" src="../_images/7b5b35d1d968a432b9d1e77fd616d7c55c60bf65237e053deb2435bb49da2db3.png" />
 </div>
 </div>
 </section>
 <section id="combined-techniques">
-<h3>Combined techniques<a class="headerlink" href="#combined-techniques" title="Permalink to this headline">#</a></h3>
+<h3>Combined techniques<a class="headerlink" href="#combined-techniques" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Combines over- and under-sampling</p></li>
 <li><p>E.g. oversampling with SMOTE, undersampling with Edited Nearest Neighbors (ENN)</p>
@@ -4032,18 +3653,24 @@ $<span class="math notranslate nohighlight">\([1, x_1, ..., x_p] \xrightarrow{} 
 </li>
 </ul>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_imbalance</span><span class="p">(</span><span class="n">SMOTEENN</span><span class="p">())</span>
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<img alt="../_images/06 - Data Preprocessing_125_0.png" src="../_images/06 - Data Preprocessing_125_0.png" />
+<img alt="../_images/03ecbfb58dfa172d4b4265f5778dc72d8a018ba2b50bab68d48e646c6ec79d63.png" src="../_images/03ecbfb58dfa172d4b4265f5778dc72d8a018ba2b50bab68d48e646c6ec79d63.png" />
 </div>
 </div>
 </section>
 <section id="ensemble-resampling">
-<h3>Ensemble Resampling<a class="headerlink" href="#ensemble-resampling" title="Permalink to this headline">#</a></h3>
+<h3>Ensemble Resampling<a class="headerlink" href="#ensemble-resampling" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Bagged ensemble of balanced base learners. Acts as a learner, not a preprocessor</p></li>
 <li><p>BalancedBagging: take bootstraps, randomly undersample each, train models (e.g. trees)</p>
@@ -4058,18 +3685,24 @@ $<span class="math notranslate nohighlight">\([1, x_1, ..., x_p] \xrightarrow{} 
 </li>
 </ul>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_imbalance</span><span class="p">(</span><span class="n">EasyEnsembleClassifier</span><span class="p">(),</span> <span class="n">BalancedBaggingClassifier</span><span class="p">())</span> 
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<img alt="../_images/06 - Data Preprocessing_127_0.png" src="../_images/06 - Data Preprocessing_127_0.png" />
+<img alt="../_images/fcf99a2cb5be6bbad8a947b8c1b94060eed7fa17df991a8f4342fba856adbbd4.png" src="../_images/fcf99a2cb5be6bbad8a947b8c1b94060eed7fa17df991a8f4342fba856adbbd4.png" />
 </div>
 </div>
 </section>
 <section id="id6">
-<h3>Comparison<a class="headerlink" href="#id6" title="Permalink to this headline">#</a></h3>
+<h3>Comparison<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>The best method depends on the data (amount of data, imbalance,…)</p>
 <ul>
@@ -4084,6 +3717,11 @@ $<span class="math notranslate nohighlight">\([1, x_1, ..., x_p] \xrightarrow{} 
 </li>
 </ul>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nd">@interact</span>
 <span class="k">def</span> <span class="nf">compare_imbalance</span><span class="p">(</span><span class="n">sampler</span><span class="o">=</span><span class="n">samplers</span><span class="p">,</span> <span class="n">learner</span><span class="o">=</span><span class="n">learners</span><span class="p">):</span>
@@ -4091,22 +3729,27 @@ $<span class="math notranslate nohighlight">\([1, x_1, ..., x_p] \xrightarrow{} 
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "a450f35133b14345b18bd90723c6eb20", "version_major": 2, "version_minor": 0}
-</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "a450f35133b14345b18bd90723c6eb20", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="ow">not</span> <span class="n">interactive</span><span class="p">:</span>
     <span class="n">plot_imbalance</span><span class="p">(</span><span class="n">EasyEnsembleClassifier</span><span class="p">())</span>
 </pre></div>
 </div>
 </div>
+</details>
 </div>
 </section>
 <section id="in-practice-imblearn">
-<h3>In practice (<a class="reference external" href="http://imbalanced-learn.org">imblearn</a>)<a class="headerlink" href="#in-practice-imblearn" title="Permalink to this headline">#</a></h3>
+<h3>In practice (<a class="reference external" href="http://imbalanced-learn.org">imblearn</a>)<a class="headerlink" href="#in-practice-imblearn" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Follows fit-sample paradigm (equivalent of fit-transform, but also affects y)</p></li>
 <li><p>Undersampling: RandomUnderSampler, EditedNearestNeighbours,…</p></li>
@@ -4138,13 +3781,18 @@ $<span class="math notranslate nohighlight">\([1, x_1, ..., x_p] \xrightarrow{} 
 </div>
 </section>
 <section id="real-world-data">
-<h3>Real-world data<a class="headerlink" href="#real-world-data" title="Permalink to this headline">#</a></h3>
+<h3>Real-world data<a class="headerlink" href="#real-world-data" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>The effect of sampling procedures can be unpredictable</p></li>
 <li><p>Best method can depend on the data and FP/FN trade-offs</p></li>
 <li><p>SMOTE and ensembling techniques often work well</p></li>
 </ul>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">roc_curve</span><span class="p">,</span> <span class="n">precision_recall_curve</span>
 
@@ -4202,6 +3850,7 @@ $<span class="math notranslate nohighlight">\([1, x_1, ..., x_p] \xrightarrow{} 
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Dataset Speech
 Evaluating RandomUnderSampler
@@ -4218,6 +3867,11 @@ Evaluating SMOTEENN
 </div>
 </div>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Colors for 9 methods</span>
 <span class="n">cm</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="s1">&#39;hsv&#39;</span><span class="p">)</span>
@@ -4260,23 +3914,28 @@ Evaluating SMOTEENN
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "9c89ff9d62d348fb901ea6b8d1d4c60d", "version_major": 2, "version_minor": 0}
-</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "9c89ff9d62d348fb901ea6b8d1d4c60d", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="ow">not</span> <span class="n">interactive</span><span class="p">:</span>
     <span class="n">roc_imbalance</span><span class="p">(</span><span class="n">dataset</span><span class="o">=</span><span class="s1">&#39;Speech&#39;</span><span class="p">,</span> <span class="n">curve</span><span class="o">=</span><span class="s1">&#39;ROC&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
+</details>
 </div>
 </section>
 </section>
 <section id="summary">
-<h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">#</a></h2>
+<h2>Summary<a class="headerlink" href="#summary" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Data preprocessing is a crucial part of machine learning</p>
 <ul>
@@ -4315,7 +3974,7 @@ Evaluating SMOTEENN
             mode: "python"
         },
         kernelOptions: {
-            kernelName: "python3",
+            name: "python3",
             path: "./notebooks"
         },
         predefinedOutput: true
@@ -4323,50 +3982,186 @@ Evaluating SMOTEENN
     </script>
     <script>kernelName = 'python3'</script>
 
-              </div>
+                </article>
               
-            </main>
-            <footer class="footer-article noprint">
-                
-    <!-- Previous / next buttons -->
-<div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="05%20-%20Ensemble%20Learning.html" title="previous page">
-        <i class="fas fa-angle-left"></i>
-        <div class="prev-next-info">
-            <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Lecture 5. Ensemble Learning</p>
-        </div>
+
+              
+              
+                <footer class="bd-footer-article">
+                  <!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="05%20-%20Ensemble%20Learning.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Lecture 5. Ensemble Learning</p>
+      </div>
     </a>
-    <a class='right-next' id="next-link" href="07%20-%20Bayesian%20Learning.html" title="next page">
-    <div class="prev-next-info">
+    <a class="right-next"
+       href="07%20-%20Bayesian%20Learning.html"
+       title="next page">
+      <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
         <p class="prev-next-title">Lecture 7. Bayesian Learning</p>
-    </div>
-    <i class="fas fa-angle-right"></i>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
-            </footer>
-        </div>
-    </div>
-    <div class="footer-content row">
-        <footer class="col footer"><p>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-transformations">Data transformations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scaling">Scaling</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-do-we-need-scaling">Why do we need scaling?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#standard-scaling-standardization">Standard scaling (standardization)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#min-max-scaling">Min-max scaling</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#robust-scaling">Robust scaling</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#normalization">Normalization</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#maximum-absolute-scaler">Maximum Absolute scaler</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#power-transformations">Power transformations</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#categorical-feature-encoding">Categorical feature encoding</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ordinal-encoding">Ordinal encoding</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#one-hot-encoding-dummy-encoding">One-hot encoding (dummy encoding)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#target-encoding">Target encoding</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#example">Example</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#in-practice-scikit-learn">In practice (scikit-learn)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#applying-data-transformations">Applying data transformations</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">In practice (scikit-learn)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#test-set-distortion">Test set distortion</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-leakage">Data leakage</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pipelines">Pipelines</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">In practice (scikit-learn)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pipeline-selection">Pipeline selection</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#example-tune-multiple-steps-at-once">Example: Tune multiple steps at once</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#automatic-feature-selection">Automatic Feature Selection</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-bike-sharing">Example: bike sharing</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unsupervised-feature-selection">Unsupervised feature selection</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#covariance-based-feature-selection">Covariance based feature selection</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#supervised-feature-selection-overview">Supervised feature selection: overview</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#univariate-statistics-f-test">Univariate statistics (F-test)</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#f-statistic">F-statistic</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mutual-information">Mutual information</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#model-based-feature-selection">Model-based Feature Selection</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#relief-model-based-selection-with-knn">Relief: Model-based selection with kNN</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#iterative-model-based-feature-selection">Iterative Model-based Feature Selection</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sequential-feature-selection-wrapping">Sequential feature selection (Wrapping)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#permutation-feature-importance">Permutation feature importance</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#comparison">Comparison</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">In practice (scikit-learn)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#feature-engineering">Feature Engineering</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#polynomials">Polynomials</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#binning">Binning</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#binning-interaction-features">Binning + interaction features</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#categorical-feature-interactions">Categorical feature interactions</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#missing-value-imputation">Missing value imputation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mean-imputation">Mean imputation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#knn-imputation">kNN imputation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#iterative-model-based-imputation">Iterative (model-based) Imputation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#matrix-factorization">Matrix Factorization</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#soft-thresholded-singular-value-decomposition-svd">Soft-thresholded Singular Value Decomposition (SVD)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Comparison</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">In practice (scikit-learn)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#in-practice-fancyimpute">In practice (fancyimpute)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#handling-imbalanced-data">Handling imbalanced data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#random-undersampling">Random Undersampling</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#model-based-undersampling">Model-based Undersampling</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#random-oversampling">Random Oversampling</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#synthetic-minority-oversampling-technique-smote">Synthetic Minority Oversampling Technique (SMOTE)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#combined-techniques">Combined techniques</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ensemble-resampling">Ensemble Resampling</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Comparison</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#in-practice-imblearn">In practice (imblearn)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#real-world-data">Real-world data</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            <div class="bd-footer-content__inner">
+<div class="bd-footer-content__inner container">
   
-    By Joaquin Vanschoren<br/>
-  
-      &copy; Copyright 2023. CC0 Licensed - Use as you like.<br/>
-</p>
-        </footer>
-    </div>
+  <div class="footer-item">
     
-</div>
+<p class="component-author">
+By Joaquin Vanschoren
+</p>
 
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2023. CC0 Licensed - Use as you like.
+      <br/>
+    
+  </p>
 
-      </div>
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div></div>
+          </footer>
+        
+
+      </main>
     </div>
+  </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d"></script>
 
-
+  <footer class="bd-footer">
+  </footer>
   </body>
 </html>

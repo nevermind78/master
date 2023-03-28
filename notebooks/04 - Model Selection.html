@@ -1,48 +1,59 @@
 
+
 <!DOCTYPE html>
 
-<html>
+
+<html lang="en" >
+
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>Lecture 4: Model Selection &#8212; ML Engineering</title>
-    
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  <link href="../_static/styles/theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
 
-    
-  <link rel="stylesheet"
-    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
-    
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d" />
 
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../_static/togglebutton.js"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script src="../_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
 const thebe_selector = ".thebe,.cell"
@@ -52,62 +63,94 @@ const thebe_selector_output = ".output, .cell_output"
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/04 - Model Selection';</script>
     <link rel="shortcut icon" href="../_static/favicon.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Lecture 5. Ensemble Learning" href="05%20-%20Ensemble%20Learning.html" />
     <link rel="prev" title="Lecture 3: Kernelization" href="03%20-%20Kernelization.html" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
-    
-
-    <!-- Google Analytics -->
-    
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
-<!-- Checkboxes to toggle the left sidebar -->
-<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
-<label class="overlay overlay-navbar" for="__navigation">
-    <div class="visually-hidden">Toggle navigation sidebar</div>
-</label>
-<!-- Checkboxes to toggle the in-page toc -->
-<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
-<label class="overlay overlay-pagetoc" for="__page-toc">
-    <div class="visually-hidden">Toggle in-page Table of Contents</div>
-</label>
-<!-- Headers at the top -->
-<div class="announcement header-item noprint"></div>
-<div class="header header-item noprint"></div>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
-    
-    <div class="container-fluid" id="banner"></div>
-
-    
-
-    <div class="container-xl">
-      <div class="row">
-          
-<!-- Sidebar -->
-<div class="bd-sidebar noprint" id="site-navigation">
-    <div class="bd-sidebar__content">
-        <div class="bd-sidebar__top"><div class="navbar-brand-box">
-    <a class="navbar-brand text-wrap" href="../index.html">
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
       
-        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+      <div class="bd-sidebar-primary bd-sidebar">
         
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+    
+    
       
-      
-      <img src="../_static/banner.jpeg" class="logo" alt="logo">
-      
-      
-      <h1 class="site-logo" id="site-title">ML Engineering</h1>
-      
-    </a>
-</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
-  <i class="icon fas fa-search"></i>
-  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
-    <div class="bd-toc-item active">
+    
+    
+    <img src="../_static/banner.jpeg" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../_static/banner.jpeg" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
@@ -117,1046 +160,384 @@ const thebe_selector_output = ".output, .cell_output"
             </li>
         </ul>
         <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%200%20-%20Prerequisites.html">
-   Prerequisites
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="../labs/Lab%200%20-%20Prerequisites.html">Prerequisites</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Lectures
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Lectures</span></p>
 <ul class="current nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="01%20-%20Introduction.html">
-   Lecture 1: Introduction
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="02%20-%20Linear%20Models.html">
-   Lecture 2: Linear models
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="03%20-%20Kernelization.html">
-   Lecture 3: Kernelization
-  </a>
- </li>
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
-   Lecture 4: Model Selection
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="05%20-%20Ensemble%20Learning.html">
-   Lecture 5. Ensemble Learning
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="06%20-%20Data%20Preprocessing.html">
-   Lecture 6. Data preprocessing
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="07%20-%20Bayesian%20Learning.html">
-   Lecture 7. Bayesian Learning
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="08%20-%20Neural%20Networks.html">
-   Lecture 8. Neural Networks
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="09%20-%20Convolutional%20Neural%20Networks.html">
-   Lecture 9: Convolutional Neural Networks
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="10%20-%20Neural%20Networks%20for%20text.html">
-   Lecture 10. Neural Networks for text
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="01%20-%20Introduction.html">Lecture 1: Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02%20-%20Linear%20Models.html">Lecture 2: Linear models</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="03%20-%20Kernelization.html">Lecture 3: Kernelization</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Lecture 4: Model Selection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05%20-%20Ensemble%20Learning.html">Lecture 5. Ensemble Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06%20-%20Data%20Preprocessing.html">Lecture 6. Data preprocessing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07%20-%20Bayesian%20Learning.html">Lecture 7. Bayesian Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="08%20-%20Neural%20Networks.html">Lecture 8. Neural Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="09%20-%20Convolutional%20Neural%20Networks.html">Lecture 9: Convolutional Neural Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="10%20-%20Neural%20Networks%20for%20text.html">Lecture 10. Neural Networks for text</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Labs
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Labs</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%201a%20-%20Linear%20Models%20for%20Regression.html">
-   Lab 1a: Linear regression
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%201b%20-%20Linear%20Models%20for%20Classification.html">
-   Lab 1b: Linear classification
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%202a%20-%20Kernelization.html">
-   Lab 2a: Kernelization
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%202b%20-%20Model%20Selection.html">
-   Lab 2b: Model selection
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%203%20-%20Ensembles.html">
-   Lab 3b: Ensembles
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%204%20-%20Pipelines.html">
-   Lab 4:  Data preprocessing
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%205%20-%20Bayesian%20learning.html">
-   Lab 5: Bayesian models
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%206%20-%20Neural%20Networks.html">
-   Lab 6: Neural networks
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%207a%20-%20Convolutional%20Neural%20Networks.html">
-   Lab 7a: Convolutional neural nets
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%207b%20-%20Neural%20Networks%20for%20text.html">
-   Lab 7b: Neural Networks for text
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%208%20-%20AutoML.html">
-   Lab 8: AutoML
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="../labs/Lab%201a%20-%20Linear%20Models%20for%20Regression.html">Lab 1a: Linear regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../labs/Lab%201b%20-%20Linear%20Models%20for%20Classification.html">Lab 1b: Linear classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../labs/Lab%202a%20-%20Kernelization.html">Lab 2a: Kernelization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../labs/Lab%202b%20-%20Model%20Selection.html">Lab 2b: Model selection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../labs/Lab%203%20-%20Ensembles.html">Lab 3: Ensembles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../labs/Lab%204%20-%20Pipelines.html">Lab 4:  Data preprocessing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../labs/Lab%205%20-%20Bayesian%20learning.html">Lab 5: Bayesian models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../labs/Lab%206%20-%20Neural%20Networks.html">Lab 6: Neural networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../labs/Lab%207a%20-%20Convolutional%20Neural%20Networks.html">Lab 7a: Convolutional neural nets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../labs/Lab%207b%20-%20Neural%20Networks%20for%20text.html">Lab 7b: Neural Networks for text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../labs/Lab%208%20-%20AutoML.html">Lab 8: AutoML</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Tutorials
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="Tutorial%201%20-%20Python.html">
-   Python for data analysis
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Tutorial%202%20-%20Python%20for%20Data%20Analysis.html">
-   Python for scientific computing
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Tutorial%203%20-%20Machine%20Learning%20in%20Python.html">
-   Machine Learning in Python
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Tutorial%204%20-%20Decision%20Trees.html">
-   Recap: Decision Trees
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Tutorial%205%20-%20Nearest%20Neighbors.html">
-   Recap: k-Nearest Neighbor
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%201%20-%20Tutorial.html">
-   Lab 1: Machine Learning with Python
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%204%20-%20Tutorial.html">
-   Lab 4 Tutorial: Data engineering pipelines
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%206%20-%20Tutorial.html">
-   Lab 6 Tutorial: Deep Learning with TensorFlow
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../labs/Lab%207%20-%20Tutorial.html">
-   Lab 7 Tutorial: Deep Learning for text
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial%201%20-%20Python.html">Python for data analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial%202%20-%20Python%20for%20Data%20Analysis.html">Python for scientific computing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial%203%20-%20Machine%20Learning%20in%20Python.html">Machine Learning in Python</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="Tutorial%204%20-%20Decision%20Trees.html">Recap: Decision Trees</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="Tutorial%205%20-%20Nearest%20Neighbors.html">Recap: k-Nearest Neighbor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../labs/Lab%201%20-%20Tutorial.html">Lab 1: Machine Learning with Python</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="../labs/Lab%204%20-%20Tutorial.html">Lab 4 Tutorial: Data engineering pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../labs/Lab%206%20-%20Tutorial.html">Lab 6 Tutorial: Deep Learning with TensorFlow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../labs/Lab%207%20-%20Tutorial.html">Lab 7 Tutorial: Deep Learning for text</a></li>
 </ul>
 
     </div>
 </nav></div>
-        <div class="bd-sidebar__bottom">
-             <!-- To handle the deprecated key -->
-            
-        </div>
     </div>
-    <div id="rtd-footer-container"></div>
-</div>
-
-
-          
-
-
-          
-<!-- A tiny helper pixel to detect if we've scrolled -->
-<div class="sbt-scroll-pixel-helper"></div>
-<!-- Main content -->
-<div class="col py-0 content-container">
-    
-    <div class="header-article row sticky-top noprint">
-        
-
-
-
-<div class="col py-1 d-flex header-article-main">
-    <div class="header-article__left">
-        
-        <label for="__navigation"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="right"
-title="Toggle navigation"
->
   
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-bars"></i>
-  </span>
-
-</label>
-
-        
-    </div>
-    <div class="header-article__right">
-<div class="menu-dropdown menu-dropdown-launch-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Launch interactive content">
-      <i class="fas fa-rocket"></i>
-  </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="https://mybinder.org/v2/gh/ml-course/master/master?urlpath=tree/notebooks/04 - Model Selection.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Launch on Binder"
->
   
-
-<span class="headerbtn__icon-container">
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
   
-    <img src="../_static/images/logo_binder.svg">
-  </span>
-<span class="headerbtn__text-container">Binder</span>
-</a>
+  <div id="rtd-footer-container"></div>
 
-      </li>
+
+      </div>
       
-      <li>
-        <a href="https://colab.research.google.com/github/ml-course/master/blob/master/notebooks/04 - Model Selection.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Launch on Colab"
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/ml-course/master/blob/master/notebooks/04 - Model Selection.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onColab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   
     <img src="../_static/images/logo_colab.png">
   </span>
-<span class="headerbtn__text-container">Colab</span>
+<span class="btn__text-container">Colab</span>
 </a>
-
-      </li>
+</li>
       
-    </ul>
-  </div>
+  </ul>
 </div>
 
-<button onclick="toggleFullScreen()"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="bottom"
-title="Fullscreen mode"
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/ml-course/master" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/ml-course/master/issues/new?title=Issue%20on%20page%20%2Fnotebooks/04 - Model Selection.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/notebooks/04 - Model Selection.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
   <i class="fas fa-expand"></i>
   </span>
 
 </button>
 
-<div class="menu-dropdown menu-dropdown-repository-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Source repositories">
-      <i class="fab fa-github"></i>
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
   </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="https://github.com/ml-course/master"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Source repository"
->
-  
+`);
+</script>
 
-<span class="headerbtn__icon-container">
-  <i class="fab fa-github"></i>
-  </span>
-<span class="headerbtn__text-container">repository</span>
-</a>
-
-      </li>
-      
-      <li>
-        <a href="https://github.com/ml-course/master/issues/new?title=Issue%20on%20page%20%2Fnotebooks/04 - Model Selection.html&body=Your%20issue%20content%20here."
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Open an issue"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-lightbulb"></i>
-  </span>
-<span class="headerbtn__text-container">open issue</span>
-</a>
-
-      </li>
-      
-    </ul>
-  </div>
-</div>
-
-<div class="menu-dropdown menu-dropdown-download-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Download this page">
-      <i class="fas fa-download"></i>
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
   </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="../_sources/notebooks/04 - Model Selection.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Download source file"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-file"></i>
-  </span>
-<span class="headerbtn__text-container">.ipynb</span>
-</a>
-
-      </li>
-      
-      <li>
-        
-<button onclick="printPdf(this)"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="left"
-title="Print to PDF"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-file-pdf"></i>
-  </span>
-<span class="headerbtn__text-container">.pdf</span>
-</button>
-
-      </li>
-      
-    </ul>
-  </div>
-</div>
-<label for="__page-toc"
-  class="headerbtn headerbtn-page-toc"
-  
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-list"></i>
-  </span>
-
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
 </label>
-
+</div></div>
+      
     </div>
+  
 </div>
-
-<!-- Table of contents -->
-<div class="col-md-3 bd-toc show noprint">
-    <div class="tocsection onthispage pt-5 pb-3">
-        <i class="fas fa-list"></i> Contents
-    </div>
-    <nav id="bd-toc-nav" aria-label="Page">
-        <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#evaluation">
-   Evaluation
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#designing-machine-learning-systems">
-     Designing Machine Learning systems
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#real-world-evaluations">
-     Real world evaluations
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#performance-estimation-techniques">
-   Performance estimation techniques
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#k-fold-cross-validation">
-     K-fold Cross-validation
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#stratified-k-fold-cross-validation">
-       Stratified K-Fold cross-validation
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#leave-one-out-cross-validation">
-       Leave-One-Out cross-validation
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#shuffle-split-cross-validation">
-       Shuffle-Split cross-validation
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#the-bootstrap">
-     The Bootstrap
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#repeated-cross-validation">
-     Repeated cross-validation
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#cross-validation-with-groups">
-     Cross-validation with groups
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#time-series">
-     Time series
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#test-then-train-prequential-evaluation">
-       Test-then-train (prequential evaluation)
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#choosing-a-performance-estimation-procedure">
-     Choosing a performance estimation procedure
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#evaluation-metrics-for-classification">
-   Evaluation Metrics for Classification
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#evaluation-vs-optimization">
-     Evaluation vs Optimization
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#binary-classification">
-     Binary classification
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#confusion-matrices">
-       Confusion matrices
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#predictive-accuracy">
-       Predictive accuracy
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#precision">
-       Precision
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#recall">
-       Recall
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#f1-score">
-       F1-score
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#multi-class-classification">
-     Multi-class classification
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#other-useful-classification-metrics">
-     Other useful classification metrics
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#probabilistic-evaluation">
-   Probabilistic evaluation
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#the-decision-function">
-     The decision function
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#predicting-probabilities">
-     Predicting probabilities
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#threshold-calibration">
-     Threshold calibration
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#precision-recall-curve">
-     Precision-Recall curve
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#model-selection">
-       Model selection
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#hyperparameter-effects">
-       Hyperparameter effects
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#receiver-operating-characteristics-roc">
-     Receiver Operating Characteristics (ROC)
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#visualization">
-       Visualization
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id1">
-       Model selection
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#multi-class-auroc-or-auprc">
-       Multi-class AUROC (or AUPRC)
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#model-calibration">
-     Model calibration
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#brier-score">
-       Brier score
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#model-calibration-techniques">
-       Model calibration techniques
-      </a>
-      <ul class="nav section-nav flex-column">
-       <li class="toc-h5 nav-item toc-entry">
-        <a class="reference internal nav-link" href="#platt-scaling">
-         Platt Scaling
-        </a>
-       </li>
-       <li class="toc-h5 nav-item toc-entry">
-        <a class="reference internal nav-link" href="#isotonic-regression">
-         Isotonic regression
-        </a>
-       </li>
-      </ul>
-     </li>
-    </ul>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#cost-sensitive-classification-dealing-with-imbalance">
-   Cost-sensitive classification (dealing with imbalance)
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#class-weighting">
-     Class weighting
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#instance-weighting">
-     Instance weighting
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#cost-sensitive-algorithms">
-     Cost-sensitive algorithms
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#tuning-the-decision-threshold">
-     Tuning the decision threshold
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#regression-metrics">
-   Regression metrics
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#r-squared">
-     R squared
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#visualizing-regression-errors">
-     Visualizing regression errors
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#bias-variance-decomposition">
-   Bias-Variance decomposition
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#computing-bias-and-variance-error">
-     Computing bias and variance error
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#bias-and-variance-underfitting-and-overfitting">
-     Bias and variance, underfitting and overfitting
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#understanding-under-and-overfitting">
-     Understanding under- and overfitting
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#hyperparameter-tuning">
-   Hyperparameter tuning
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#nested-cross-validation">
-     Nested cross-validation
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#summary">
-   Summary
-  </a>
- </li>
-</ul>
-
-    </nav>
 </div>
-    </div>
-    <div class="article row">
-        <div class="col pl-md-3 pl-lg-5 content-container">
-            <!-- Table of contents that is only displayed when printing the page -->
-            <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Lecture 4: Model Selection</h1>
-                <!-- Table of contents -->
-                <div id="print-main-content">
-                    <div id="jb-print-toc">
-                        
-                        <div>
-                            <h2> Contents </h2>
-                        </div>
-                        <nav aria-label="Page">
-                            <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#evaluation">
-   Evaluation
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#designing-machine-learning-systems">
-     Designing Machine Learning systems
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#real-world-evaluations">
-     Real world evaluations
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#performance-estimation-techniques">
-   Performance estimation techniques
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#k-fold-cross-validation">
-     K-fold Cross-validation
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#stratified-k-fold-cross-validation">
-       Stratified K-Fold cross-validation
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#leave-one-out-cross-validation">
-       Leave-One-Out cross-validation
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#shuffle-split-cross-validation">
-       Shuffle-Split cross-validation
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#the-bootstrap">
-     The Bootstrap
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#repeated-cross-validation">
-     Repeated cross-validation
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#cross-validation-with-groups">
-     Cross-validation with groups
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#time-series">
-     Time series
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#test-then-train-prequential-evaluation">
-       Test-then-train (prequential evaluation)
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#choosing-a-performance-estimation-procedure">
-     Choosing a performance estimation procedure
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#evaluation-metrics-for-classification">
-   Evaluation Metrics for Classification
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#evaluation-vs-optimization">
-     Evaluation vs Optimization
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#binary-classification">
-     Binary classification
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#confusion-matrices">
-       Confusion matrices
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#predictive-accuracy">
-       Predictive accuracy
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#precision">
-       Precision
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#recall">
-       Recall
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#f1-score">
-       F1-score
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#multi-class-classification">
-     Multi-class classification
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#other-useful-classification-metrics">
-     Other useful classification metrics
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#probabilistic-evaluation">
-   Probabilistic evaluation
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#the-decision-function">
-     The decision function
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#predicting-probabilities">
-     Predicting probabilities
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#threshold-calibration">
-     Threshold calibration
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#precision-recall-curve">
-     Precision-Recall curve
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#model-selection">
-       Model selection
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#hyperparameter-effects">
-       Hyperparameter effects
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#receiver-operating-characteristics-roc">
-     Receiver Operating Characteristics (ROC)
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#visualization">
-       Visualization
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id1">
-       Model selection
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#multi-class-auroc-or-auprc">
-       Multi-class AUROC (or AUPRC)
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#model-calibration">
-     Model calibration
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#brier-score">
-       Brier score
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#model-calibration-techniques">
-       Model calibration techniques
-      </a>
-      <ul class="nav section-nav flex-column">
-       <li class="toc-h5 nav-item toc-entry">
-        <a class="reference internal nav-link" href="#platt-scaling">
-         Platt Scaling
-        </a>
-       </li>
-       <li class="toc-h5 nav-item toc-entry">
-        <a class="reference internal nav-link" href="#isotonic-regression">
-         Isotonic regression
-        </a>
-       </li>
-      </ul>
-     </li>
-    </ul>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#cost-sensitive-classification-dealing-with-imbalance">
-   Cost-sensitive classification (dealing with imbalance)
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#class-weighting">
-     Class weighting
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#instance-weighting">
-     Instance weighting
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#cost-sensitive-algorithms">
-     Cost-sensitive algorithms
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#tuning-the-decision-threshold">
-     Tuning the decision threshold
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#regression-metrics">
-   Regression metrics
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#r-squared">
-     R squared
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#visualizing-regression-errors">
-     Visualizing regression errors
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#bias-variance-decomposition">
-   Bias-Variance decomposition
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#computing-bias-and-variance-error">
-     Computing bias and variance error
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#bias-and-variance-underfitting-and-overfitting">
-     Bias and variance, underfitting and overfitting
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#understanding-under-and-overfitting">
-     Understanding under- and overfitting
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#hyperparameter-tuning">
-   Hyperparameter tuning
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#nested-cross-validation">
-     Nested cross-validation
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#summary">
-   Summary
-  </a>
- </li>
-</ul>
+              
+              
 
-                        </nav>
-                    </div>
-                </div>
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Lecture 4: Model Selection</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
             </div>
-            <main id="main-content" role="main">
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluation">Evaluation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#designing-machine-learning-systems">Designing Machine Learning systems</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#real-world-evaluations">Real world evaluations</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#performance-estimation-techniques">Performance estimation techniques</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#k-fold-cross-validation">K-fold Cross-validation</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#stratified-k-fold-cross-validation">Stratified K-Fold cross-validation</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#leave-one-out-cross-validation">Leave-One-Out cross-validation</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#shuffle-split-cross-validation">Shuffle-Split cross-validation</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-bootstrap">The Bootstrap</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#repeated-cross-validation">Repeated cross-validation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cross-validation-with-groups">Cross-validation with groups</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#time-series">Time series</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#test-then-train-prequential-evaluation">Test-then-train (prequential evaluation)</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#choosing-a-performance-estimation-procedure">Choosing a performance estimation procedure</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluation-metrics-for-classification">Evaluation Metrics for Classification</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluation-vs-optimization">Evaluation vs Optimization</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#binary-classification">Binary classification</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#confusion-matrices">Confusion matrices</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#predictive-accuracy">Predictive accuracy</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#precision">Precision</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#recall">Recall</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#f1-score">F1-score</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-class-classification">Multi-class classification</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#other-useful-classification-metrics">Other useful classification metrics</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#probabilistic-evaluation">Probabilistic evaluation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-decision-function">The decision function</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#predicting-probabilities">Predicting probabilities</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#threshold-calibration">Threshold calibration</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#precision-recall-curve">Precision-Recall curve</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#model-selection">Model selection</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#hyperparameter-effects">Hyperparameter effects</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#receiver-operating-characteristics-roc">Receiver Operating Characteristics (ROC)</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#visualization">Visualization</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Model selection</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-class-auroc-or-auprc">Multi-class AUROC (or AUPRC)</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#model-calibration">Model calibration</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#brier-score">Brier score</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#model-calibration-techniques">Model calibration techniques</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#platt-scaling">Platt Scaling</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#isotonic-regression">Isotonic regression</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cost-sensitive-classification-dealing-with-imbalance">Cost-sensitive classification (dealing with imbalance)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#class-weighting">Class weighting</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#instance-weighting">Instance weighting</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cost-sensitive-algorithms">Cost-sensitive algorithms</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tuning-the-decision-threshold">Tuning the decision threshold</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#regression-metrics">Regression metrics</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#r-squared">R squared</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizing-regression-errors">Visualizing regression errors</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bias-variance-decomposition">Bias-Variance decomposition</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#computing-bias-and-variance-error">Computing bias and variance error</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bias-and-variance-underfitting-and-overfitting">Bias and variance, underfitting and overfitting</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#understanding-under-and-overfitting">Understanding under- and overfitting</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hyperparameter-tuning">Hyperparameter tuning</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nested-cross-validation">Nested cross-validation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
                 
-              <div>
-                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
   <section class="tex2jax_ignore mathjax_ignore" id="lecture-4-model-selection">
-<h1>Lecture 4: Model Selection<a class="headerlink" href="#lecture-4-model-selection" title="Permalink to this headline">#</a></h1>
+<h1>Lecture 4: Model Selection<a class="headerlink" href="#lecture-4-model-selection" title="Permalink to this heading">#</a></h1>
 <p><strong>Can I trust you?</strong></p>
 <p>Joaquin Vanschoren</p>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Auto-setup when running on Google Colab</span>
 <span class="kn">import</span> <span class="nn">os</span>
@@ -1177,9 +558,10 @@ title="Print to PDF"
 </pre></div>
 </div>
 </div>
+</details>
 </div>
 <section id="evaluation">
-<h2>Evaluation<a class="headerlink" href="#evaluation" title="Permalink to this headline">#</a></h2>
+<h2>Evaluation<a class="headerlink" href="#evaluation" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>To know whether we can <em>trust</em> our method or system, we need to evaluate it.</p></li>
 <li><p>Model selection: choose between different models in a data-driven way.</p>
@@ -1200,7 +582,7 @@ title="Print to PDF"
 </li>
 </ul>
 <img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/eval_trust.png" alt="ml" style="width: 50%;"/><section id="designing-machine-learning-systems">
-<h3>Designing Machine Learning systems<a class="headerlink" href="#designing-machine-learning-systems" title="Permalink to this headline">#</a></h3>
+<h3>Designing Machine Learning systems<a class="headerlink" href="#designing-machine-learning-systems" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Just running your favourite algorithm is usually not a great way to start</p></li>
 <li><p>Consider the problem: How to measure success? Are there costs involved?</p>
@@ -1222,7 +604,7 @@ title="Print to PDF"
 </ul>
 <img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/eval_debt2.png" alt="ml" style="width: 75%;"/></section>
 <section id="real-world-evaluations">
-<h3>Real world evaluations<a class="headerlink" href="#real-world-evaluations" title="Permalink to this headline">#</a></h3>
+<h3>Real world evaluations<a class="headerlink" href="#real-world-evaluations" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Evaluate predictions, but also how outcomes improve <em>because of them</em></p></li>
 <li><p>Beware of feedback loops: predictions can influence future input data</p>
@@ -1240,7 +622,7 @@ title="Print to PDF"
 <img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/eval_abbandit.png" alt="ml" style="width: 50%"/></section>
 </section>
 <section id="performance-estimation-techniques">
-<h2>Performance estimation techniques<a class="headerlink" href="#performance-estimation-techniques" title="Permalink to this headline">#</a></h2>
+<h2>Performance estimation techniques<a class="headerlink" href="#performance-estimation-techniques" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Always evaluate models <em>as if they are predicting future data</em></p></li>
 <li><p>We do not have access to future data, so we pretend that some data is hidden</p></li>
@@ -1252,6 +634,11 @@ title="Print to PDF"
 </li>
 </ul>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="p">(</span><span class="n">TimeSeriesSplit</span><span class="p">,</span> <span class="n">KFold</span><span class="p">,</span> <span class="n">ShuffleSplit</span><span class="p">,</span> <span class="n">train_test_split</span><span class="p">,</span>
                                      <span class="n">StratifiedKFold</span><span class="p">,</span> <span class="n">GroupShuffleSplit</span><span class="p">,</span>
@@ -1279,8 +666,14 @@ title="Print to PDF"
 </pre></div>
 </div>
 </div>
+</details>
 </div>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="o">*</span><span class="n">fig_scale</span><span class="p">,</span> <span class="mi">3</span><span class="o">*</span><span class="n">fig_scale</span><span class="p">))</span>
@@ -1293,12 +686,13 @@ title="Print to PDF"
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<img alt="../_images/04 - Model Selection_7_0.png" src="../_images/04 - Model Selection_7_0.png" />
+<img alt="../_images/d262fbe8414ae605bfcb5bd20cc2ffa504f8fc57c2e0b44d21b508e84b292309.png" src="../_images/d262fbe8414ae605bfcb5bd20cc2ffa504f8fc57c2e0b44d21b508e84b292309.png" />
 </div>
 </div>
 <section id="k-fold-cross-validation">
-<h3>K-fold Cross-validation<a class="headerlink" href="#k-fold-cross-validation" title="Permalink to this headline">#</a></h3>
+<h3>K-fold Cross-validation<a class="headerlink" href="#k-fold-cross-validation" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Each random split can yield very different models (and scores)</p>
 <ul>
@@ -1315,6 +709,11 @@ title="Print to PDF"
 <li><p>Large <em>k</em> gives better estimates (more training data), but is expensive</p></li>
 </ul>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_cv_indices</span><span class="p">(</span><span class="n">cv</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">group</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">show_groups</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">700</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Create a sample plot for indices of a cross-validation object.&quot;&quot;&quot;</span>
@@ -1359,8 +758,14 @@ title="Print to PDF"
 </pre></div>
 </div>
 </div>
+</details>
 </div>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="o">*</span><span class="n">fig_scale</span><span class="p">,</span> <span class="mi">3</span><span class="o">*</span><span class="n">fig_scale</span><span class="p">))</span>
 <span class="n">cv</span> <span class="o">=</span> <span class="n">KFold</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
@@ -1368,8 +773,9 @@ title="Print to PDF"
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<img alt="../_images/04 - Model Selection_10_0.png" src="../_images/04 - Model Selection_10_0.png" />
+<img alt="../_images/f212bb4de398fa28000967d695924984b9613286336c77903673141f8c1351b7.png" src="../_images/f212bb4de398fa28000967d695924984b9613286336c77903673141f8c1351b7.png" />
 </div>
 </div>
 <p>Can you explain this result?</p>
@@ -1378,6 +784,11 @@ title="Print to PDF"
 </pre></div>
 </div>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">KFold</span><span class="p">,</span> <span class="n">StratifiedKFold</span><span class="p">,</span> <span class="n">cross_val_score</span>
 <span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_iris</span>
@@ -1391,6 +802,7 @@ title="Print to PDF"
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cross-validation scores KFold(n_splits=3):
 [0. 0. 0.]
@@ -1399,6 +811,11 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="o">*</span><span class="n">fig_scale</span><span class="p">,</span> <span class="mi">3</span><span class="o">*</span><span class="n">fig_scale</span><span class="p">))</span>
 <span class="n">plot_cv_indices</span><span class="p">(</span><span class="n">kfold</span><span class="p">,</span> <span class="n">iris</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">iris</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="n">iris</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">700</span><span class="p">)</span>
@@ -1406,12 +823,13 @@ title="Print to PDF"
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<img alt="../_images/04 - Model Selection_13_0.png" src="../_images/04 - Model Selection_13_0.png" />
+<img alt="../_images/b1e86268971334c389bbd845c34853539a64524f5ffd166af0c80a92a01f99a4.png" src="../_images/b1e86268971334c389bbd845c34853539a64524f5ffd166af0c80a92a01f99a4.png" />
 </div>
 </div>
 <section id="stratified-k-fold-cross-validation">
-<h4>Stratified K-Fold cross-validation<a class="headerlink" href="#stratified-k-fold-cross-validation" title="Permalink to this headline">#</a></h4>
+<h4>Stratified K-Fold cross-validation<a class="headerlink" href="#stratified-k-fold-cross-validation" title="Permalink to this heading">#</a></h4>
 <ul class="simple">
 <li><p>If the data is unbalanced, some classes have only few samples</p></li>
 <li><p>Likely that some classes are not present in the test set</p></li>
@@ -1424,6 +842,11 @@ title="Print to PDF"
 </li>
 </ul>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="o">*</span><span class="n">fig_scale</span><span class="p">,</span> <span class="mi">3</span><span class="o">*</span><span class="n">fig_scale</span><span class="p">))</span>
 <span class="n">cv</span> <span class="o">=</span> <span class="n">StratifiedKFold</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
@@ -1432,13 +855,14 @@ title="Print to PDF"
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<img alt="../_images/04 - Model Selection_15_0.png" src="../_images/04 - Model Selection_15_0.png" />
+<img alt="../_images/104e65ced5cddd97e367c07518304e79b462ad9f63da550b52777b228414ec03.png" src="../_images/104e65ced5cddd97e367c07518304e79b462ad9f63da550b52777b228414ec03.png" />
 </div>
 </div>
 </section>
 <section id="leave-one-out-cross-validation">
-<h4>Leave-One-Out cross-validation<a class="headerlink" href="#leave-one-out-cross-validation" title="Permalink to this headline">#</a></h4>
+<h4>Leave-One-Out cross-validation<a class="headerlink" href="#leave-one-out-cross-validation" title="Permalink to this heading">#</a></h4>
 <ul class="simple">
 <li><p><em>k</em> fold cross-validation with <em>k</em> equal to the number of samples</p></li>
 <li><p>Completely unbiased (in terms of data splits), but computationally expensive</p></li>
@@ -1452,6 +876,11 @@ title="Print to PDF"
 <li><p>Recommended only for small datasets</p></li>
 </ul>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="o">*</span><span class="n">fig_scale</span><span class="p">,</span> <span class="mi">4</span><span class="o">*</span><span class="n">fig_scale</span><span class="p">))</span>
 <span class="n">cv</span> <span class="o">=</span> <span class="n">KFold</span><span class="p">(</span><span class="mi">33</span><span class="p">)</span> <span class="c1"># There are more than 33 classes, but this visualizes better.</span>
@@ -1460,19 +889,25 @@ title="Print to PDF"
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<img alt="../_images/04 - Model Selection_17_0.png" src="../_images/04 - Model Selection_17_0.png" />
+<img alt="../_images/099186bc00990c8f708ec9c04c6555f69904352e78d0f5d0c063a516ba56cdbe.png" src="../_images/099186bc00990c8f708ec9c04c6555f69904352e78d0f5d0c063a516ba56cdbe.png" />
 </div>
 </div>
 </section>
 <section id="shuffle-split-cross-validation">
-<h4>Shuffle-Split cross-validation<a class="headerlink" href="#shuffle-split-cross-validation" title="Permalink to this headline">#</a></h4>
+<h4>Shuffle-Split cross-validation<a class="headerlink" href="#shuffle-split-cross-validation" title="Permalink to this heading">#</a></h4>
 <ul class="simple">
 <li><p>Shuffles the data, samples (<code class="docutils literal notranslate"><span class="pre">train_size</span></code>) points randomly as the training set</p></li>
 <li><p>Can also use a smaller (<code class="docutils literal notranslate"><span class="pre">test_size</span></code>), handy with very large datasets</p></li>
 <li><p>Never use if the data is ordered (e.g. time series)</p></li>
 </ul>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="o">*</span><span class="n">fig_scale</span><span class="p">,</span> <span class="mi">3</span><span class="o">*</span><span class="n">fig_scale</span><span class="p">))</span>
 <span class="n">cv</span> <span class="o">=</span> <span class="n">ShuffleSplit</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">.2</span><span class="p">)</span>
@@ -1483,14 +918,15 @@ title="Print to PDF"
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<img alt="../_images/04 - Model Selection_19_0.png" src="../_images/04 - Model Selection_19_0.png" />
+<img alt="../_images/4846f2a4e808e058557fbe2b0acd2bdab3a32aef113ab6e89d5f09076a73a5f0.png" src="../_images/4846f2a4e808e058557fbe2b0acd2bdab3a32aef113ab6e89d5f09076a73a5f0.png" />
 </div>
 </div>
 </section>
 </section>
 <section id="the-bootstrap">
-<h3>The Bootstrap<a class="headerlink" href="#the-bootstrap" title="Permalink to this headline">#</a></h3>
+<h3>The Bootstrap<a class="headerlink" href="#the-bootstrap" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Sample <em>n</em> (dataset size) data points, with replacement, as training set (the bootstrap)</p>
 <ul>
@@ -1502,6 +938,11 @@ title="Print to PDF"
 <li><p>Similar to Shuffle-Split with <code class="docutils literal notranslate"><span class="pre">train_size=0.66</span></code>, <code class="docutils literal notranslate"><span class="pre">test_size=0.34</span></code> but without duplicates</p></li>
 </ul>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.utils</span> <span class="kn">import</span> <span class="n">resample</span>
 
@@ -1531,13 +972,14 @@ title="Print to PDF"
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<img alt="../_images/04 - Model Selection_21_0.png" src="../_images/04 - Model Selection_21_0.png" />
+<img alt="../_images/f852c95bec380f1e7b186a8abf8bb73af8ca18d36de031933e99183f9c652212.png" src="../_images/f852c95bec380f1e7b186a8abf8bb73af8ca18d36de031933e99183f9c652212.png" />
 </div>
 </div>
 </section>
 <section id="repeated-cross-validation">
-<h3>Repeated cross-validation<a class="headerlink" href="#repeated-cross-validation" title="Permalink to this headline">#</a></h3>
+<h3>Repeated cross-validation<a class="headerlink" href="#repeated-cross-validation" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Cross-validation is still biased in that the initial split can be made in many ways</p></li>
 <li><p>Repeated, or n-times-k-fold cross-validation:</p>
@@ -1549,6 +991,11 @@ title="Print to PDF"
 <li><p>Unbiased, very robust, but n times more expensive</p></li>
 </ul>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">RepeatedStratifiedKFold</span>
 <span class="kn">from</span> <span class="nn">matplotlib.patches</span> <span class="kn">import</span> <span class="n">Rectangle</span>
@@ -1564,13 +1011,14 @@ title="Print to PDF"
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<img alt="../_images/04 - Model Selection_23_0.png" src="../_images/04 - Model Selection_23_0.png" />
+<img alt="../_images/2d7e8bd24df42346087d5df2ac0fe8b5ebfce241533819cef46832d59f2f05a6.png" src="../_images/2d7e8bd24df42346087d5df2ac0fe8b5ebfce241533819cef46832d59f2f05a6.png" />
 </div>
 </div>
 </section>
 <section id="cross-validation-with-groups">
-<h3>Cross-validation with groups<a class="headerlink" href="#cross-validation-with-groups" title="Permalink to this headline">#</a></h3>
+<h3>Cross-validation with groups<a class="headerlink" href="#cross-validation-with-groups" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Sometimes the data contains inherent groups:</p>
 <ul>
@@ -1587,6 +1035,11 @@ title="Print to PDF"
 </li>
 </ul>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="o">*</span><span class="n">fig_scale</span><span class="p">,</span> <span class="mi">3</span><span class="o">*</span><span class="n">fig_scale</span><span class="p">))</span>
 <span class="n">cv</span> <span class="o">=</span> <span class="n">GroupKFold</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
@@ -1595,15 +1048,21 @@ title="Print to PDF"
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<img alt="../_images/04 - Model Selection_25_0.png" src="../_images/04 - Model Selection_25_0.png" />
+<img alt="../_images/28b0d588f3eae35fb0441db7c999817061fbce11b1f812c8678b600b5663b4cf.png" src="../_images/28b0d588f3eae35fb0441db7c999817061fbce11b1f812c8678b600b5663b4cf.png" />
 </div>
 </div>
 </section>
 <section id="time-series">
-<h3>Time series<a class="headerlink" href="#time-series" title="Permalink to this headline">#</a></h3>
+<h3>Time series<a class="headerlink" href="#time-series" title="Permalink to this heading">#</a></h3>
 <p>When the data is ordered, random test sets are not a good idea</p>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="n">approval</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;https://projects.fivethirtyeight.com/trump-approval-data/approval_topline.csv&quot;</span><span class="p">)</span>
@@ -1622,12 +1081,13 @@ title="Print to PDF"
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<img alt="../_images/04 - Model Selection_27_0.png" src="../_images/04 - Model Selection_27_0.png" />
+<img alt="../_images/0205cb2ddd98aa260b4557eb2498148d0b20c343fe0e583c08833e2e3a7a4dd5.png" src="../_images/0205cb2ddd98aa260b4557eb2498148d0b20c343fe0e583c08833e2e3a7a4dd5.png" />
 </div>
 </div>
 <section id="test-then-train-prequential-evaluation">
-<h4>Test-then-train (prequential evaluation)<a class="headerlink" href="#test-then-train-prequential-evaluation" title="Permalink to this headline">#</a></h4>
+<h4>Test-then-train (prequential evaluation)<a class="headerlink" href="#test-then-train-prequential-evaluation" title="Permalink to this heading">#</a></h4>
 <ul class="simple">
 <li><p>Every new sample is evaluated only once, then added to the training set</p>
 <ul>
@@ -1646,6 +1106,11 @@ title="Print to PDF"
 </li>
 </ul>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.utils</span> <span class="kn">import</span> <span class="n">shuffle</span>
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="o">*</span><span class="n">fig_scale</span><span class="p">,</span> <span class="mi">3</span><span class="o">*</span><span class="n">fig_scale</span><span class="p">))</span>
@@ -1656,14 +1121,15 @@ title="Print to PDF"
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<img alt="../_images/04 - Model Selection_29_0.png" src="../_images/04 - Model Selection_29_0.png" />
+<img alt="../_images/5319a8ac5f1301a62abdf6f538fcfefd49fea4cc36dba67706f223c3a7d4fb61.png" src="../_images/5319a8ac5f1301a62abdf6f538fcfefd49fea4cc36dba67706f223c3a7d4fb61.png" />
 </div>
 </div>
 </section>
 </section>
 <section id="choosing-a-performance-estimation-procedure">
-<h3>Choosing a performance estimation procedure<a class="headerlink" href="#choosing-a-performance-estimation-procedure" title="Permalink to this headline">#</a></h3>
+<h3>Choosing a performance estimation procedure<a class="headerlink" href="#choosing-a-performance-estimation-procedure" title="Permalink to this heading">#</a></h3>
 <p>No strict rules, only guidelines:</p>
 <ul class="simple">
 <li><p>Always use stratification for classification (sklearn does this by default)</p></li>
@@ -1689,9 +1155,9 @@ title="Print to PDF"
 </section>
 </section>
 <section id="evaluation-metrics-for-classification">
-<h2>Evaluation Metrics for Classification<a class="headerlink" href="#evaluation-metrics-for-classification" title="Permalink to this headline">#</a></h2>
+<h2>Evaluation Metrics for Classification<a class="headerlink" href="#evaluation-metrics-for-classification" title="Permalink to this heading">#</a></h2>
 <section id="evaluation-vs-optimization">
-<h3>Evaluation vs Optimization<a class="headerlink" href="#evaluation-vs-optimization" title="Permalink to this headline">#</a></h3>
+<h3>Evaluation vs Optimization<a class="headerlink" href="#evaluation-vs-optimization" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Each algorithm optimizes a given objective function (on the training data)</p>
 <ul>
@@ -1710,7 +1176,7 @@ $<span class="math notranslate nohighlight">\(\mathcal{L}_{Ridge} = \sum_{n=1}^{
 </ul>
 </section>
 <section id="binary-classification">
-<h3>Binary classification<a class="headerlink" href="#binary-classification" title="Permalink to this headline">#</a></h3>
+<h3>Binary classification<a class="headerlink" href="#binary-classification" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>We have a positive and a negative class</p></li>
 <li><p>2 different kind of errors:</p>
@@ -1726,7 +1192,7 @@ $<span class="math notranslate nohighlight">\(\mathcal{L}_{Ridge} = \sum_{n=1}^{
 </li>
 </ul>
 <img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/type1error.jpg" alt="ml" style="width: 60%"/><section id="confusion-matrices">
-<h4>Confusion matrices<a class="headerlink" href="#confusion-matrices" title="Permalink to this headline">#</a></h4>
+<h4>Confusion matrices<a class="headerlink" href="#confusion-matrices" title="Permalink to this heading">#</a></h4>
 <ul class="simple">
 <li><p>We can represent all predictions (correct and incorrect) in a confusion matrix</p>
 <ul>
@@ -1737,7 +1203,7 @@ $<span class="math notranslate nohighlight">\(\mathcal{L}_{Ridge} = \sum_{n=1}^{
 </ul>
 </li>
 </ul>
-<table class="colwidths-auto table">
+<table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p></p></th>
 <th class="head"><p>Predicted Neg</p></th>
@@ -1756,6 +1222,11 @@ $<span class="math notranslate nohighlight">\(\mathcal{L}_{Ridge} = \sum_{n=1}^{
 </tbody>
 </table>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span><span class="p">,</span> <span class="n">confusion_matrix</span>
 <span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
@@ -1771,6 +1242,7 @@ $<span class="math notranslate nohighlight">\(\mathcal{L}_{Ridge} = \sum_{n=1}^{
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>confusion_matrix(y_test, y_pred): 
  [[48  5]
@@ -1781,7 +1253,7 @@ $<span class="math notranslate nohighlight">\(\mathcal{L}_{Ridge} = \sum_{n=1}^{
 </div>
 </section>
 <section id="predictive-accuracy">
-<h4>Predictive accuracy<a class="headerlink" href="#predictive-accuracy" title="Permalink to this headline">#</a></h4>
+<h4>Predictive accuracy<a class="headerlink" href="#predictive-accuracy" title="Permalink to this heading">#</a></h4>
 <ul class="simple">
 <li><p>Accuracy can be computed based on the confusion matrix</p></li>
 <li><p>Not useful if the dataset is very imbalanced</p>
@@ -1797,6 +1269,11 @@ $<span class="math notranslate nohighlight">\(\mathcal{L}_{Ridge} = \sum_{n=1}^{
 <li><p>3 models: very different predictions, same accuracy:</p></li>
 </ul>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># From Applied Machine Learning</span>
 <span class="k">def</span> <span class="nf">plot_confusion_matrix</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;predicted labels&quot;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;true labels&quot;</span><span class="p">,</span> <span class="n">xticklabels</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -1870,8 +1347,14 @@ $<span class="math notranslate nohighlight">\(\mathcal{L}_{Ridge} = \sum_{n=1}^{
 </pre></div>
 </div>
 </div>
+</details>
 </div>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Artificial 90-10 imbalanced target</span>
 <span class="n">y_true</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
@@ -1893,20 +1376,27 @@ $<span class="math notranslate nohighlight">\(\mathcal{L}_{Ridge} = \sum_{n=1}^{
 </pre></div>
 </div>
 </div>
+</details>
 </div>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_measure</span><span class="p">(</span><span class="n">accuracy_score</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<img alt="../_images/04 - Model Selection_39_0.png" src="../_images/04 - Model Selection_39_0.png" />
+<img alt="../_images/dd94cfdd1d5a496885b4f3982baa7aecf6708a1cc44eb6c59a49b323647599b2.png" src="../_images/dd94cfdd1d5a496885b4f3982baa7aecf6708a1cc44eb6c59a49b323647599b2.png" />
 </div>
 </div>
 </section>
 <section id="precision">
-<h4>Precision<a class="headerlink" href="#precision" title="Permalink to this headline">#</a></h4>
+<h4>Precision<a class="headerlink" href="#precision" title="Permalink to this heading">#</a></h4>
 <ul class="simple">
 <li><p>Use when the goal is to limit FPs</p>
 <ul>
@@ -1919,19 +1409,25 @@ $<span class="math notranslate nohighlight">\(\mathcal{L}_{Ridge} = \sum_{n=1}^{
 \text{Precision} = \frac{\text{TP}}{\text{TP} + \text{FP}}
 \end{equation}</p>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">precision_score</span>
 <span class="n">plot_measure</span><span class="p">(</span><span class="n">precision_score</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<img alt="../_images/04 - Model Selection_41_0.png" src="../_images/04 - Model Selection_41_0.png" />
+<img alt="../_images/9b46b7ffd1c6011ad11a94e7eefa73b8e989f5b3225bbc5cc5b3b42b35571501.png" src="../_images/9b46b7ffd1c6011ad11a94e7eefa73b8e989f5b3225bbc5cc5b3b42b35571501.png" />
 </div>
 </div>
 </section>
 <section id="recall">
-<h4>Recall<a class="headerlink" href="#recall" title="Permalink to this headline">#</a></h4>
+<h4>Recall<a class="headerlink" href="#recall" title="Permalink to this heading">#</a></h4>
 <ul class="simple">
 <li><p>Use when the goal is to limit FNs</p>
 <ul>
@@ -1945,21 +1441,27 @@ $<span class="math notranslate nohighlight">\(\mathcal{L}_{Ridge} = \sum_{n=1}^{
 \text{Recall} = \frac{\text{TP}}{\text{TP} + \text{FN}}
 \end{equation}</p>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">recall_score</span>
 <span class="n">plot_measure</span><span class="p">(</span><span class="n">recall_score</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<img alt="../_images/04 - Model Selection_43_0.png" src="../_images/04 - Model Selection_43_0.png" />
+<img alt="../_images/6f137b5366c611a33a8117c1e878eb8444fb1bafa1037afc8d08d1de1ed97811.png" src="../_images/6f137b5366c611a33a8117c1e878eb8444fb1bafa1037afc8d08d1de1ed97811.png" />
 </div>
 </div>
 <p><strong>Comparison</strong><br />
 <img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/07_precision-recall.jpg" alt="ml" style="width: 50%"/></p>
 </section>
 <section id="f1-score">
-<h4>F1-score<a class="headerlink" href="#f1-score" title="Permalink to this headline">#</a></h4>
+<h4>F1-score<a class="headerlink" href="#f1-score" title="Permalink to this heading">#</a></h4>
 <ul class="simple">
 <li><p>Trades off precision and recall:</p></li>
 </ul>
@@ -1967,14 +1469,20 @@ $<span class="math notranslate nohighlight">\(\mathcal{L}_{Ridge} = \sum_{n=1}^{
 \text{F1} = 2 \cdot \frac{\text{precision} \cdot \text{recall}}{\text{precision} + \text{recall}}
 \end{equation}</p>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">f1_score</span>
 <span class="n">plot_measure</span><span class="p">(</span><span class="n">f1_score</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<img alt="../_images/04 - Model Selection_46_0.png" src="../_images/04 - Model Selection_46_0.png" />
+<img alt="../_images/2cd4062d9e1277312a33c8e93773cdcda74eb919ae7db2caa01e39b351a7918c.png" src="../_images/2cd4062d9e1277312a33c8e93773cdcda74eb919ae7db2caa01e39b351a7918c.png" />
 </div>
 </div>
 <p><strong>Classification measure Zoo</strong><br />
@@ -1983,7 +1491,7 @@ $<span class="math notranslate nohighlight">\(\mathcal{L}_{Ridge} = \sum_{n=1}^{
 </section>
 </section>
 <section id="multi-class-classification">
-<h3>Multi-class classification<a class="headerlink" href="#multi-class-classification" title="Permalink to this headline">#</a></h3>
+<h3>Multi-class classification<a class="headerlink" href="#multi-class-classification" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Train models <em>per class</em> : one class viewed as positive, other(s) als negative, then average</p>
 <ul>
@@ -2005,6 +1513,11 @@ $<span class="math notranslate nohighlight">\(\frac{1}{C} \sum_{c=1}^C R(y_c,\ha
 </li>
 </ul>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">classification_report</span>
 
@@ -2022,15 +1535,16 @@ $<span class="math notranslate nohighlight">\(\frac{1}{C} \sum_{c=1}^C R(y_c,\ha
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<img alt="../_images/04 - Model Selection_49_0.png" src="../_images/04 - Model Selection_49_0.png" />
-<img alt="../_images/04 - Model Selection_49_1.png" src="../_images/04 - Model Selection_49_1.png" />
-<img alt="../_images/04 - Model Selection_49_2.png" src="../_images/04 - Model Selection_49_2.png" />
+<img alt="../_images/be9edf7cab0bb401331b998912d7e826e3985cd12b9d6c3e5f5123042636122a.png" src="../_images/be9edf7cab0bb401331b998912d7e826e3985cd12b9d6c3e5f5123042636122a.png" />
+<img alt="../_images/88f3c29b1f43565038e39320a2e56c9e2a0525fbf156147675deff20eae7e281.png" src="../_images/88f3c29b1f43565038e39320a2e56c9e2a0525fbf156147675deff20eae7e281.png" />
+<img alt="../_images/5e342f64448ebc4a499aeb49898b894ec31c238e3e784ebfd3abfe2f9ffcc337.png" src="../_images/5e342f64448ebc4a499aeb49898b894ec31c238e3e784ebfd3abfe2f9ffcc337.png" />
 </div>
 </div>
 </section>
 <section id="other-useful-classification-metrics">
-<h3>Other useful classification metrics<a class="headerlink" href="#other-useful-classification-metrics" title="Permalink to this headline">#</a></h3>
+<h3>Other useful classification metrics<a class="headerlink" href="#other-useful-classification-metrics" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Cohen’s Kappa</p>
 <ul>
@@ -2057,7 +1571,7 @@ $<span class="math notranslate nohighlight">\(MCC = \frac{tp \times tn - fp \tim
 </section>
 </section>
 <section id="probabilistic-evaluation">
-<h2>Probabilistic evaluation<a class="headerlink" href="#probabilistic-evaluation" title="Permalink to this headline">#</a></h2>
+<h2>Probabilistic evaluation<a class="headerlink" href="#probabilistic-evaluation" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Classifiers can often provide uncertainty estimates of predictions.</p></li>
 <li><p>Remember that linear models actually return a numeric value.</p>
@@ -2075,7 +1589,7 @@ $<span class="math notranslate nohighlight">\(\hat{y} = w_0 * x_0 + w_1 * x_1 + 
 </li>
 </ul>
 <section id="the-decision-function">
-<h3>The decision function<a class="headerlink" href="#the-decision-function" title="Permalink to this headline">#</a></h3>
+<h3>The decision function<a class="headerlink" href="#the-decision-function" title="Permalink to this heading">#</a></h3>
 <p>In the binary classification case, the return value of the decision function encodes how strongly the model believes a data point
 belongs to the “positive” class.</p>
 <ul class="simple">
@@ -2083,6 +1597,11 @@ belongs to the “positive” class.</p>
 <li><p>The range can be arbitrary, and can be affected by hyperparameters. Hard to interpret.</p></li>
 </ul>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># create and split a synthetic dataset</span>
 <span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
@@ -2125,16 +1644,22 @@ belongs to the “positive” class.</p>
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<img alt="../_images/04 - Model Selection_53_0.png" src="../_images/04 - Model Selection_53_0.png" />
+<img alt="../_images/b67b0eb26e880293342f9b24fc1f69e3443d72042e0aa6f2c531e1e15e096363.png" src="../_images/b67b0eb26e880293342f9b24fc1f69e3443d72042e0aa6f2c531e1e15e096363.png" />
 </div>
 </div>
 </section>
 <section id="predicting-probabilities">
-<h3>Predicting probabilities<a class="headerlink" href="#predicting-probabilities" title="Permalink to this headline">#</a></h3>
+<h3>Predicting probabilities<a class="headerlink" href="#predicting-probabilities" title="Permalink to this heading">#</a></h3>
 <p>Some models can also return a <em>probability</em> for each class with every prediction. These sum up to 1.
 We can visualize them again. Note that the gradient looks different now.</p>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="o">*</span><span class="n">fig_scale</span><span class="p">,</span> <span class="mf">3.5</span><span class="o">*</span><span class="n">fig_scale</span><span class="p">))</span>
     
@@ -2161,13 +1686,14 @@ We can visualize them again. Note that the gradient looks different now.</p>
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<img alt="../_images/04 - Model Selection_55_0.png" src="../_images/04 - Model Selection_55_0.png" />
+<img alt="../_images/eb34c206fb434702a53e5cadfa498d6dcd3865309cdde40b73a492f2422e5074.png" src="../_images/eb34c206fb434702a53e5cadfa498d6dcd3865309cdde40b73a492f2422e5074.png" />
 </div>
 </div>
 </section>
 <section id="threshold-calibration">
-<h3>Threshold calibration<a class="headerlink" href="#threshold-calibration" title="Permalink to this headline">#</a></h3>
+<h3>Threshold calibration<a class="headerlink" href="#threshold-calibration" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>By default, we threshold at 0 for  <code class="docutils literal notranslate"><span class="pre">decision_function</span></code> and 0.5 for <code class="docutils literal notranslate"><span class="pre">predict_proba</span></code></p></li>
 <li><p>Depending on the application, you may want to threshold differently</p>
@@ -2177,6 +1703,11 @@ We can visualize them again. Note that the gradient looks different now.</p>
 </li>
 </ul>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mglearn.datasets</span> <span class="kn">import</span> <span class="n">make_blobs</span>
 <span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="kn">import</span> <span class="n">SVC</span>
@@ -2232,12 +1763,16 @@ We can visualize them again. Note that the gradient looks different now.</p>
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "b1f09b9d42014044999eb06149e07724", "version_major": 2, "version_minor": 0}
-</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "b1f09b9d42014044999eb06149e07724", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="ow">not</span> <span class="n">interactive</span><span class="p">:</span>
     <span class="n">plot_decision_threshold</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
@@ -2245,10 +1780,11 @@ We can visualize them again. Note that the gradient looks different now.</p>
 </pre></div>
 </div>
 </div>
+</details>
 </div>
 </section>
 <section id="precision-recall-curve">
-<h3>Precision-Recall curve<a class="headerlink" href="#precision-recall-curve" title="Permalink to this headline">#</a></h3>
+<h3>Precision-Recall curve<a class="headerlink" href="#precision-recall-curve" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>The best trade-off between precision and recall depends on your application</p>
 <ul>
@@ -2263,6 +1799,11 @@ We can visualize them again. Note that the gradient looks different now.</p>
 </li>
 </ul>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestClassifier</span>
 <span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">precision_recall_curve</span>
@@ -2301,21 +1842,26 @@ We can visualize them again. Note that the gradient looks different now.</p>
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "4831c83f2d474498a97e7b9700456cc1", "version_major": 2, "version_minor": 0}
-</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "4831c83f2d474498a97e7b9700456cc1", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="ow">not</span> <span class="n">interactive</span><span class="p">:</span>
     <span class="n">plot_PR_curve</span><span class="p">(</span><span class="n">threshold</span><span class="o">=-</span><span class="mf">0.99</span><span class="p">,</span><span class="n">model</span><span class="o">=</span><span class="n">svc2</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
+</details>
 </div>
 <section id="model-selection">
-<h4>Model selection<a class="headerlink" href="#model-selection" title="Permalink to this headline">#</a></h4>
+<h4>Model selection<a class="headerlink" href="#model-selection" title="Permalink to this heading">#</a></h4>
 <ul class="simple">
 <li><p>Some models can achieve trade-offs that others can’t</p></li>
 <li><p>Your application may require very high recall (or very high precision)</p>
@@ -2326,6 +1872,11 @@ We can visualize them again. Note that the gradient looks different now.</p>
 <li><p>The area under the PR curve (AUPRC) gives the <em>best overall</em> model</p></li>
 </ul>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">auc</span>
 <span class="n">colors</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;b&#39;</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">,</span><span class="s1">&#39;g&#39;</span><span class="p">,</span><span class="s1">&#39;y&#39;</span><span class="p">]</span>
@@ -2355,15 +1906,21 @@ We can visualize them again. Note that the gradient looks different now.</p>
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<img alt="../_images/04 - Model Selection_63_0.png" src="../_images/04 - Model Selection_63_0.png" />
+<img alt="../_images/0ddf5076bd4f4f1991f20ab008a7e1076675f226c1502668e9591862611a891d.png" src="../_images/0ddf5076bd4f4f1991f20ab008a7e1076675f226c1502668e9591862611a891d.png" />
 </div>
 </div>
 </section>
 <section id="hyperparameter-effects">
-<h4>Hyperparameter effects<a class="headerlink" href="#hyperparameter-effects" title="Permalink to this headline">#</a></h4>
+<h4>Hyperparameter effects<a class="headerlink" href="#hyperparameter-effects" title="Permalink to this heading">#</a></h4>
 <p>Of course, hyperparameters affect predictions and hence also the shape of the curve</p>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">svc3</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">(</span><span class="n">gamma</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">Xp_train</span><span class="p">,</span> <span class="n">yp_train</span><span class="p">)</span>
 <span class="n">svc4</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">(</span><span class="n">gamma</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">Xp_train</span><span class="p">,</span> <span class="n">yp_train</span><span class="p">)</span>
@@ -2371,14 +1928,15 @@ We can visualize them again. Note that the gradient looks different now.</p>
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<img alt="../_images/04 - Model Selection_65_0.png" src="../_images/04 - Model Selection_65_0.png" />
+<img alt="../_images/f07fe3b3d0697547ea65d04a8b767cb58f623e3dd13236086e5cf4a3d826c4f5.png" src="../_images/f07fe3b3d0697547ea65d04a8b767cb58f623e3dd13236086e5cf4a3d826c4f5.png" />
 </div>
 </div>
 </section>
 </section>
 <section id="receiver-operating-characteristics-roc">
-<h3>Receiver Operating Characteristics (ROC)<a class="headerlink" href="#receiver-operating-characteristics-roc" title="Permalink to this headline">#</a></h3>
+<h3>Receiver Operating Characteristics (ROC)<a class="headerlink" href="#receiver-operating-characteristics-roc" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Trade off <em>true positive rate</em> <span class="math notranslate nohighlight">\(\textit{TPR}= \frac{TP}{TP + FN}\)</span> with <em>false positive rate</em> <span class="math notranslate nohighlight">\(\textit{FPR} = \frac{FP}{FP + TN}\)</span></p></li>
 <li><p>Plotting TPR against FPR <em>for all possible thresholds</em> yields a <em>Receiver Operating Characteristics curve</em></p>
@@ -2389,6 +1947,11 @@ We can visualize them again. Note that the gradient looks different now.</p>
 </li>
 </ul>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">roc_curve</span>
 
@@ -2413,27 +1976,37 @@ We can visualize them again. Note that the gradient looks different now.</p>
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "25389b59f5ea4ddaa092b8c34e578c87", "version_major": 2, "version_minor": 0}
-</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "25389b59f5ea4ddaa092b8c34e578c87", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="ow">not</span> <span class="n">interactive</span><span class="p">:</span>
     <span class="n">plot_ROC_curve</span><span class="p">(</span><span class="n">threshold</span><span class="o">=-</span><span class="mf">0.99</span><span class="p">,</span><span class="n">model</span><span class="o">=</span><span class="n">svc2</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
+</details>
 </div>
 <section id="visualization">
-<h4>Visualization<a class="headerlink" href="#visualization" title="Permalink to this headline">#</a></h4>
+<h4>Visualization<a class="headerlink" href="#visualization" title="Permalink to this heading">#</a></h4>
 <ul class="simple">
 <li><p>Histograms show the amount of points with a certain decision value (for each class)</p></li>
 <li><p><span class="math notranslate nohighlight">\(\textit{TPR}= \frac{\color{red}{TP}}{\color{red}{TP} + \color{magenta}{FN}}\)</span> can be seen from the positive predictions (top histogram)</p></li>
 <li><p><span class="math notranslate nohighlight">\(\textit{FPR} = \frac{\color{cyan}{FP}}{\color{cyan}{FP} + \color{blue}{TN}}\)</span>  can be seen from the negative predictions (bottom histogram)</p></li>
 </ul>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># More data for a smoother curve</span>
 <span class="n">Xb</span><span class="p">,</span> <span class="n">yb</span> <span class="o">=</span> <span class="n">make_blobs</span><span class="p">(</span><span class="n">n_samples</span><span class="o">=</span><span class="p">(</span><span class="mi">4000</span><span class="p">,</span> <span class="mi">4000</span><span class="p">),</span> <span class="n">centers</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">cluster_std</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span>
@@ -2479,22 +2052,27 @@ We can visualize them again. Note that the gradient looks different now.</p>
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "472b44a9b74745e7958095dc180d84a3", "version_major": 2, "version_minor": 0}
-</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "472b44a9b74745e7958095dc180d84a3", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="ow">not</span> <span class="n">interactive</span><span class="p">:</span>
     <span class="n">plot_roc_threshold</span><span class="p">(</span><span class="n">threshold</span><span class="o">=-</span><span class="mf">0.99</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
+</details>
 </div>
 </section>
 <section id="id1">
-<h4>Model selection<a class="headerlink" href="#id1" title="Permalink to this headline">#</a></h4>
+<h4>Model selection<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h4>
 <ul class="simple">
 <li><p>Again, some models can achieve trade-offs that others can’t</p></li>
 <li><p>Your application may require minizing FPR (low FP), or maximizing TPR (low FN)</p></li>
@@ -2506,6 +2084,11 @@ We can visualize them again. Note that the gradient looks different now.</p>
 </li>
 </ul>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">auc</span>
 <span class="kn">from</span> <span class="nn">sklearn.dummy</span> <span class="kn">import</span> <span class="n">DummyClassifier</span>
@@ -2536,13 +2119,14 @@ We can visualize them again. Note that the gradient looks different now.</p>
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<img alt="../_images/04 - Model Selection_73_0.png" src="../_images/04 - Model Selection_73_0.png" />
+<img alt="../_images/39fca436d522711c51b5ffb50c2b7dfc82934cec7731c4d2cba80bab79114b95.png" src="../_images/39fca436d522711c51b5ffb50c2b7dfc82934cec7731c4d2cba80bab79114b95.png" />
 </div>
 </div>
 </section>
 <section id="multi-class-auroc-or-auprc">
-<h4>Multi-class AUROC (or AUPRC)<a class="headerlink" href="#multi-class-auroc-or-auprc" title="Permalink to this headline">#</a></h4>
+<h4>Multi-class AUROC (or AUPRC)<a class="headerlink" href="#multi-class-auroc-or-auprc" title="Permalink to this heading">#</a></h4>
 <ul class="simple">
 <li><p>We again need to choose between micro- or macro averaging TPR and FPR.</p>
 <ul>
@@ -2552,6 +2136,11 @@ We can visualize them again. Note that the gradient looks different now.</p>
 </li>
 </ul>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">cycle</span>
 
@@ -2632,14 +2221,15 @@ We can visualize them again. Note that the gradient looks different now.</p>
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<img alt="../_images/04 - Model Selection_75_0.png" src="../_images/04 - Model Selection_75_0.png" />
+<img alt="../_images/9576f76b7a1d1b9e9c916c34c7a29acf5be456cab8c38f617673213ff699a3c8.png" src="../_images/9576f76b7a1d1b9e9c916c34c7a29acf5be456cab8c38f617673213ff699a3c8.png" />
 </div>
 </div>
 </section>
 </section>
 <section id="model-calibration">
-<h3>Model calibration<a class="headerlink" href="#model-calibration" title="Permalink to this headline">#</a></h3>
+<h3>Model calibration<a class="headerlink" href="#model-calibration" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>For some models, the <em>predicted</em> uncertainty does not reflect the <em>actual</em> uncertainty</p>
 <ul>
@@ -2655,6 +2245,11 @@ We can visualize them again. Note that the gradient looks different now.</p>
 </li>
 </ul>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="kn">import</span> <span class="n">SVC</span>
 <span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">make_classification</span>
@@ -2729,12 +2324,13 @@ We can visualize them again. Note that the gradient looks different now.</p>
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<img alt="../_images/04 - Model Selection_77_0.png" src="../_images/04 - Model Selection_77_0.png" />
+<img alt="../_images/10bd8c065892d946cf3f4ea6477210b4a5b219c59b21ba1f2758aa5cceca6b95.png" src="../_images/10bd8c065892d946cf3f4ea6477210b4a5b219c59b21ba1f2758aa5cceca6b95.png" />
 </div>
 </div>
 <section id="brier-score">
-<h4>Brier score<a class="headerlink" href="#brier-score" title="Permalink to this headline">#</a></h4>
+<h4>Brier score<a class="headerlink" href="#brier-score" title="Permalink to this heading">#</a></h4>
 <ul class="simple">
 <li><p>You may want to select models based on how accurate the class confidences are.</p></li>
 <li><p>The <strong>Brier score loss</strong>: squared loss between predicted probability <span class="math notranslate nohighlight">\(\hat{p}\)</span> and actual outcome <span class="math notranslate nohighlight">\(y\)</span></p>
@@ -2745,6 +2341,11 @@ $<span class="math notranslate nohighlight">\(\mathcal{L}_{Brier} =  \frac{1}{n}
 </li>
 </ul>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_breast_cancer</span>
 <span class="n">cancer</span> <span class="o">=</span> <span class="n">load_breast_cancer</span><span class="p">()</span>
@@ -2763,6 +2364,7 @@ $<span class="math notranslate nohighlight">\(\mathcal{L}_{Brier} =  \frac{1}{n}
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Logistic Regression Brier score loss: 0.0322
 SVM Brier score loss: 0.0795
@@ -2772,7 +2374,7 @@ SVM Brier score loss: 0.0795
 </div>
 </section>
 <section id="model-calibration-techniques">
-<h4>Model calibration techniques<a class="headerlink" href="#model-calibration-techniques" title="Permalink to this headline">#</a></h4>
+<h4>Model calibration techniques<a class="headerlink" href="#model-calibration-techniques" title="Permalink to this heading">#</a></h4>
 <ul class="simple">
 <li><p>We can post-process trained models to make them more calibrated.</p></li>
 <li><p>Fit a regression model (a calibrator) to map the model’s outcomes <span class="math notranslate nohighlight">\(f(x)\)</span> to a calibrated probability in [0,1]</p>
@@ -2790,7 +2392,7 @@ SVM Brier score loss: 0.0795
 <div class="math notranslate nohighlight">
 \[f_{calib}(f(x))≈p(y)\]</div>
 <section id="platt-scaling">
-<h5>Platt Scaling<a class="headerlink" href="#platt-scaling" title="Permalink to this headline">#</a></h5>
+<h5>Platt Scaling<a class="headerlink" href="#platt-scaling" title="Permalink to this heading">#</a></h5>
 <ul class="simple">
 <li><p>Calibrator is a logistic (sigmoid) function:</p>
 <ul>
@@ -2800,6 +2402,11 @@ $<span class="math notranslate nohighlight">\(f_{platt}=\frac{1}{1+\exp(−w_1 f
 </li>
 </ul>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.calibration</span> <span class="kn">import</span> <span class="n">CalibratedClassifierCV</span>
 <span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
@@ -2821,13 +2428,14 @@ $<span class="math notranslate nohighlight">\(f_{platt}=\frac{1}{1+\exp(−w_1 f
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<img alt="../_images/04 - Model Selection_82_0.png" src="../_images/04 - Model Selection_82_0.png" />
+<img alt="../_images/88fcb74cd33db8758c32707ec9132ad99457f6af427c79a5b7aba9284eab50e7.png" src="../_images/88fcb74cd33db8758c32707ec9132ad99457f6af427c79a5b7aba9284eab50e7.png" />
 </div>
 </div>
 </section>
 <section id="isotonic-regression">
-<h5>Isotonic regression<a class="headerlink" href="#isotonic-regression" title="Permalink to this headline">#</a></h5>
+<h5>Isotonic regression<a class="headerlink" href="#isotonic-regression" title="Permalink to this heading">#</a></h5>
 <ul class="simple">
 <li><p>Maps input <span class="math notranslate nohighlight">\(x_i\)</span> to an output <span class="math notranslate nohighlight">\(\hat{y}_i\)</span> so that <span class="math notranslate nohighlight">\(\hat{y}_i\)</span> increases monotonically with <span class="math notranslate nohighlight">\(x_i\)</span> and minimizes loss <span class="math notranslate nohighlight">\(\sum_i^n (y_i-\hat{y}_i)\)</span></p>
 <ul>
@@ -2838,6 +2446,11 @@ $<span class="math notranslate nohighlight">\(f_{platt}=\frac{1}{1+\exp(−w_1 f
 <li><p>Corrects any monotonic distortion, but tends to overfit on small samples</p></li>
 </ul>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.isotonic</span> <span class="kn">import</span> <span class="n">IsotonicRegression</span>
 
@@ -2847,8 +2460,9 @@ $<span class="math notranslate nohighlight">\(f_{platt}=\frac{1}{1+\exp(−w_1 f
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<img alt="../_images/04 - Model Selection_84_0.png" src="../_images/04 - Model Selection_84_0.png" />
+<img alt="../_images/2302c3da331e941df2e5c97b3a368d5f113af0bf2c125933a41ef9ae15f1b23b.png" src="../_images/2302c3da331e941df2e5c97b3a368d5f113af0bf2c125933a41ef9ae15f1b23b.png" />
 </div>
 </div>
 </section>
@@ -2856,7 +2470,7 @@ $<span class="math notranslate nohighlight">\(f_{platt}=\frac{1}{1+\exp(−w_1 f
 </section>
 </section>
 <section id="cost-sensitive-classification-dealing-with-imbalance">
-<h2>Cost-sensitive classification (dealing with imbalance)<a class="headerlink" href="#cost-sensitive-classification-dealing-with-imbalance" title="Permalink to this headline">#</a></h2>
+<h2>Cost-sensitive classification (dealing with imbalance)<a class="headerlink" href="#cost-sensitive-classification-dealing-with-imbalance" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>In the real world, different kinds of misclassification can have different costs</p>
 <ul>
@@ -2873,7 +2487,7 @@ $<span class="math notranslate nohighlight">\(f_{platt}=\frac{1}{1+\exp(−w_1 f
 </li>
 </ul>
 <section id="class-weighting">
-<h3>Class weighting<a class="headerlink" href="#class-weighting" title="Permalink to this headline">#</a></h3>
+<h3>Class weighting<a class="headerlink" href="#class-weighting" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>If some classes are more important than others, we can give them more weight</p>
 <ul>
@@ -2888,6 +2502,11 @@ $<span class="math notranslate nohighlight">\(\mathcal{L_{log}}(\mathbf{w}) = - 
 </li>
 </ul>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_decision_function</span><span class="p">(</span><span class="n">classifier</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_weight</span><span class="p">,</span> <span class="n">axis</span><span class="p">,</span> <span class="n">title</span><span class="p">):</span>
     <span class="c1"># plot the decision function</span>
@@ -2919,13 +2538,14 @@ $<span class="math notranslate nohighlight">\(\mathcal{L_{log}}(\mathbf{w}) = - 
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<img alt="../_images/04 - Model Selection_87_0.png" src="../_images/04 - Model Selection_87_0.png" />
+<img alt="../_images/cd03663916607a1df16863fc1019daf6eade8f4bfcd7d258eeec1dc6b79e8b1a.png" src="../_images/cd03663916607a1df16863fc1019daf6eade8f4bfcd7d258eeec1dc6b79e8b1a.png" />
 </div>
 </div>
 </section>
 <section id="instance-weighting">
-<h3>Instance weighting<a class="headerlink" href="#instance-weighting" title="Permalink to this headline">#</a></h3>
+<h3>Instance weighting<a class="headerlink" href="#instance-weighting" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>If some <em>training instances</em> are important to get right, we can give them more weight</p>
 <ul>
@@ -2940,6 +2560,11 @@ $<span class="math notranslate nohighlight">\(\mathcal{L_{log}}(\mathbf{w}) = - 
 </li>
 </ul>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example from https://scikit-learn.org/stable/auto_examples/svm/plot_weighted_samples.html</span>
 <span class="k">def</span> <span class="nf">plot_instance_weights</span><span class="p">():</span>
@@ -2970,13 +2595,14 @@ $<span class="math notranslate nohighlight">\(\mathcal{L_{log}}(\mathbf{w}) = - 
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<img alt="../_images/04 - Model Selection_89_0.png" src="../_images/04 - Model Selection_89_0.png" />
+<img alt="../_images/4eb6030636e50bae34ff73dc30d3287a595dd259b1bd64d4254ed32b8443dd19.png" src="../_images/4eb6030636e50bae34ff73dc30d3287a595dd259b1bd64d4254ed32b8443dd19.png" />
 </div>
 </div>
 </section>
 <section id="cost-sensitive-algorithms">
-<h3>Cost-sensitive algorithms<a class="headerlink" href="#cost-sensitive-algorithms" title="Permalink to this headline">#</a></h3>
+<h3>Cost-sensitive algorithms<a class="headerlink" href="#cost-sensitive-algorithms" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Cost-sensitive algorithms</p>
 <ul>
@@ -2998,7 +2624,7 @@ $<span class="math notranslate nohighlight">\(\mathcal{L_{log}}(\mathbf{w}) = - 
 </ul>
 </section>
 <section id="tuning-the-decision-threshold">
-<h3>Tuning the decision threshold<a class="headerlink" href="#tuning-the-decision-threshold" title="Permalink to this headline">#</a></h3>
+<h3>Tuning the decision threshold<a class="headerlink" href="#tuning-the-decision-threshold" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>If every FP or FN has a certain cost, we can compute the total cost for a given model:
 $<span class="math notranslate nohighlight">\(\text{total cost} = \text{FPR} * cost_{FP} * ratio_{pos} + (1-\text{TPR}) *  cost_{FN} * (1-ratio_{pos})\)</span>$</p></li>
@@ -3006,6 +2632,11 @@ $<span class="math notranslate nohighlight">\(\text{total cost} = \text{FPR} * c
 <li><p>Optimal threshold is the point on the ROC curve where cost is minimal (line search)</p></li>
 </ul>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ipywidgets</span> <span class="k">as</span> <span class="nn">widgets</span>
 <span class="kn">from</span> <span class="nn">ipywidgets</span> <span class="kn">import</span> <span class="n">interact</span><span class="p">,</span> <span class="n">interact_manual</span>
@@ -3053,12 +2684,16 @@ $<span class="math notranslate nohighlight">\(\text{total cost} = \text{FPR} * c
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "0faf23a6b1f04fd5aac0221d95e7895f", "version_major": 2, "version_minor": 0}
-</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "0faf23a6b1f04fd5aac0221d95e7895f", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="ow">not</span> <span class="n">interactive</span><span class="p">:</span>
     <span class="n">plot_isometrics</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
@@ -3066,11 +2701,12 @@ $<span class="math notranslate nohighlight">\(\text{total cost} = \text{FPR} * c
 </pre></div>
 </div>
 </div>
+</details>
 </div>
 </section>
 </section>
 <section id="regression-metrics">
-<h2>Regression metrics<a class="headerlink" href="#regression-metrics" title="Permalink to this headline">#</a></h2>
+<h2>Regression metrics<a class="headerlink" href="#regression-metrics" title="Permalink to this heading">#</a></h2>
 <p>Most commonly used are</p>
 <ul class="simple">
 <li><p>mean squared error: <span class="math notranslate nohighlight">\(\frac{\sum_{i}(y_{pred_i}-y_{actual_i})^2}{n}\)</span></p>
@@ -3085,7 +2721,7 @@ $<span class="math notranslate nohighlight">\(\text{total cost} = \text{FPR} * c
 </li>
 </ul>
 <img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/distracted_rmse.jpg" alt="ml" style="width: 500px;"/><section id="r-squared">
-<h3>R squared<a class="headerlink" href="#r-squared" title="Permalink to this headline">#</a></h3>
+<h3>R squared<a class="headerlink" href="#r-squared" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\(R^2 = 1 - \frac{\color{blue}{\sum_{i}(y_{pred_i}-y_{actual_i})^2}}{\color{red}{\sum_{i}(y_{mean}-y_{actual_i})^2}}\)</span></p>
 <ul>
@@ -3097,7 +2733,7 @@ $<span class="math notranslate nohighlight">\(\text{total cost} = \text{FPR} * c
 </ul>
 <img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/07_r2.png" alt="ml" style="width: 600px;"/></section>
 <section id="visualizing-regression-errors">
-<h3>Visualizing regression errors<a class="headerlink" href="#visualizing-regression-errors" title="Permalink to this headline">#</a></h3>
+<h3>Visualizing regression errors<a class="headerlink" href="#visualizing-regression-errors" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Prediction plot (left): predicted vs actual target values</p></li>
 <li><p>Residual plot (right): residuals vs actual target values</p>
@@ -3107,6 +2743,11 @@ $<span class="math notranslate nohighlight">\(\text{total cost} = \text{FPR} * c
 </li>
 </ul>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">Ridge</span>
 <span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">fetch_openml</span>
@@ -3136,14 +2777,15 @@ $<span class="math notranslate nohighlight">\(\text{total cost} = \text{FPR} * c
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<img alt="../_images/04 - Model Selection_97_0.png" src="../_images/04 - Model Selection_97_0.png" />
+<img alt="../_images/3bc46b2a0dac717e37b3aa1d0de6f6710da5530204f541def161d3bb533d8a99.png" src="../_images/3bc46b2a0dac717e37b3aa1d0de6f6710da5530204f541def161d3bb533d8a99.png" />
 </div>
 </div>
 </section>
 </section>
 <section id="bias-variance-decomposition">
-<h2>Bias-Variance decomposition<a class="headerlink" href="#bias-variance-decomposition" title="Permalink to this headline">#</a></h2>
+<h2>Bias-Variance decomposition<a class="headerlink" href="#bias-variance-decomposition" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Evaluate the same algorithm multiple times on different random samples of the data</p></li>
 <li><p>Two types of errors can be observed:</p>
@@ -3162,7 +2804,7 @@ $<span class="math notranslate nohighlight">\(\text{total cost} = \text{FPR} * c
 </li>
 </ul>
 <img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/03_bias_variance.png" alt="ml" style="width: 40%"/><section id="computing-bias-and-variance-error">
-<h3>Computing bias and variance error<a class="headerlink" href="#computing-bias-and-variance-error" title="Permalink to this headline">#</a></h3>
+<h3>Computing bias and variance error<a class="headerlink" href="#computing-bias-and-variance-error" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Take 100 or more bootstraps (or shuffle-splits)</p></li>
 <li><p>Regression: for each data point x:</p>
@@ -3186,6 +2828,11 @@ $<span class="math notranslate nohighlight">\(\text{total cost} = \text{FPR} * c
 <li><p>Total variance: <span class="math notranslate nohighlight">\(\sum_{x} variance(x) * w_x\)</span></p></li>
 </ul>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">ShuffleSplit</span><span class="p">,</span> <span class="n">train_test_split</span><span class="p">,</span> <span class="n">GridSearchCV</span>
 
@@ -3220,10 +2867,11 @@ $<span class="math notranslate nohighlight">\(\text{total cost} = \text{FPR} * c
 </pre></div>
 </div>
 </div>
+</details>
 </div>
 </section>
 <section id="bias-and-variance-underfitting-and-overfitting">
-<h3>Bias and variance, underfitting and overfitting<a class="headerlink" href="#bias-and-variance-underfitting-and-overfitting" title="Permalink to this headline">#</a></h3>
+<h3>Bias and variance, underfitting and overfitting<a class="headerlink" href="#bias-and-variance-underfitting-and-overfitting" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>High variance means that you are likely overfitting</p>
 <ul>
@@ -3243,7 +2891,7 @@ $<span class="math notranslate nohighlight">\(\text{total cost} = \text{FPR} * c
 </ul>
 <img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/03_Bias-Variance-Tradeoff.png" alt="ml" style="width: 40%"/></section>
 <section id="understanding-under-and-overfitting">
-<h3>Understanding under- and overfitting<a class="headerlink" href="#understanding-under-and-overfitting" title="Permalink to this headline">#</a></h3>
+<h3>Understanding under- and overfitting<a class="headerlink" href="#understanding-under-and-overfitting" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Regularization reduces variance error (increases stability of predictions)</p>
 <ul>
@@ -3262,6 +2910,11 @@ $<span class="math notranslate nohighlight">\(\text{total cost} = \text{FPR} * c
 </li>
 </ul>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_breast_cancer</span>
 <span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestClassifier</span><span class="p">,</span> <span class="n">AdaBoostClassifier</span>
@@ -3313,15 +2966,16 @@ $<span class="math notranslate nohighlight">\(\text{total cost} = \text{FPR} * c
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<img alt="../_images/04 - Model Selection_104_0.png" src="../_images/04 - Model Selection_104_0.png" />
+<img alt="../_images/e8190cfa66b6ebf13b74780b30424571f38371344724ac4d03f7c38c4d223e88.png" src="../_images/e8190cfa66b6ebf13b74780b30424571f38371344724ac4d03f7c38c4d223e88.png" />
 </div>
 </div>
 <p>Summary Flowchart (by Andrew Ng)</p>
 <img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/03_Bias-Variance-Flowchart.png" alt="ml" style="width: 50%"/></section>
 </section>
 <section id="hyperparameter-tuning">
-<h2>Hyperparameter tuning<a class="headerlink" href="#hyperparameter-tuning" title="Permalink to this headline">#</a></h2>
+<h2>Hyperparameter tuning<a class="headerlink" href="#hyperparameter-tuning" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>There exists a huge range of techniques to tune hyperparameters. The simplest:</p>
 <ul>
@@ -3350,6 +3004,11 @@ $<span class="math notranslate nohighlight">\(\text{total cost} = \text{FPR} * c
 <li><p>Retrain best configurations on full training set, evaluate on held-out test data</p></li>
 </ul>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">interactive</span><span class="p">:</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.dpi&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">75</span>
@@ -3358,19 +3017,26 @@ $<span class="math notranslate nohighlight">\(\text{total cost} = \text{FPR} * c
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<img alt="../_images/04 - Model Selection_108_0.png" src="../_images/04 - Model Selection_108_0.png" />
+<img alt="../_images/dd42d3df56f55fc24a2a1d2f887517fde2bc64eb668df6576b3cb9a9e46b9c26.png" src="../_images/dd42d3df56f55fc24a2a1d2f887517fde2bc64eb668df6576b3cb9a9e46b9c26.png" />
 </div>
 </div>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.stats.distributions</span> <span class="kn">import</span> <span class="n">expon</span>
 </pre></div>
 </div>
 </div>
+</details>
 </div>
 <section id="nested-cross-validation">
-<h3>Nested cross-validation<a class="headerlink" href="#nested-cross-validation" title="Permalink to this headline">#</a></h3>
+<h3>Nested cross-validation<a class="headerlink" href="#nested-cross-validation" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Simplest approach: single outer split and single inner split (shown below)</p></li>
 <li><p>Risk of over-tuning hyperparameters on specific train-test split</p>
@@ -3396,19 +3062,25 @@ $<span class="math notranslate nohighlight">\(\text{total cost} = \text{FPR} * c
 </pre></div>
 </div>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mglearn</span><span class="o">.</span><span class="n">plots</span><span class="o">.</span><span class="n">plot_threefold_split</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<img alt="../_images/04 - Model Selection_111_0.png" src="../_images/04 - Model Selection_111_0.png" />
+<img alt="../_images/68d46b88202b26bea4daf5a6b84c65a560d94cef35bc7cb1632e58fccacf6161.png" src="../_images/68d46b88202b26bea4daf5a6b84c65a560d94cef35bc7cb1632e58fccacf6161.png" />
 </div>
 </div>
 </section>
 </section>
 <section id="summary">
-<h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">#</a></h2>
+<h2>Summary<a class="headerlink" href="#summary" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Split the data into training and test sets according to the application</p>
 <ul>
@@ -3456,7 +3128,7 @@ $<span class="math notranslate nohighlight">\(\text{total cost} = \text{FPR} * c
             mode: "python"
         },
         kernelOptions: {
-            kernelName: "python3",
+            name: "python3",
             path: "./notebooks"
         },
         predefinedOutput: true
@@ -3464,50 +3136,183 @@ $<span class="math notranslate nohighlight">\(\text{total cost} = \text{FPR} * c
     </script>
     <script>kernelName = 'python3'</script>
 
-              </div>
+                </article>
               
-            </main>
-            <footer class="footer-article noprint">
-                
-    <!-- Previous / next buttons -->
-<div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="03%20-%20Kernelization.html" title="previous page">
-        <i class="fas fa-angle-left"></i>
-        <div class="prev-next-info">
-            <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Lecture 3: Kernelization</p>
-        </div>
+
+              
+              
+                <footer class="bd-footer-article">
+                  <!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="03%20-%20Kernelization.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Lecture 3: Kernelization</p>
+      </div>
     </a>
-    <a class='right-next' id="next-link" href="05%20-%20Ensemble%20Learning.html" title="next page">
-    <div class="prev-next-info">
+    <a class="right-next"
+       href="05%20-%20Ensemble%20Learning.html"
+       title="next page">
+      <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
         <p class="prev-next-title">Lecture 5. Ensemble Learning</p>
-    </div>
-    <i class="fas fa-angle-right"></i>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
-            </footer>
-        </div>
-    </div>
-    <div class="footer-content row">
-        <footer class="col footer"><p>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluation">Evaluation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#designing-machine-learning-systems">Designing Machine Learning systems</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#real-world-evaluations">Real world evaluations</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#performance-estimation-techniques">Performance estimation techniques</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#k-fold-cross-validation">K-fold Cross-validation</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#stratified-k-fold-cross-validation">Stratified K-Fold cross-validation</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#leave-one-out-cross-validation">Leave-One-Out cross-validation</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#shuffle-split-cross-validation">Shuffle-Split cross-validation</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-bootstrap">The Bootstrap</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#repeated-cross-validation">Repeated cross-validation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cross-validation-with-groups">Cross-validation with groups</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#time-series">Time series</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#test-then-train-prequential-evaluation">Test-then-train (prequential evaluation)</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#choosing-a-performance-estimation-procedure">Choosing a performance estimation procedure</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluation-metrics-for-classification">Evaluation Metrics for Classification</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluation-vs-optimization">Evaluation vs Optimization</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#binary-classification">Binary classification</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#confusion-matrices">Confusion matrices</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#predictive-accuracy">Predictive accuracy</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#precision">Precision</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#recall">Recall</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#f1-score">F1-score</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-class-classification">Multi-class classification</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#other-useful-classification-metrics">Other useful classification metrics</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#probabilistic-evaluation">Probabilistic evaluation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-decision-function">The decision function</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#predicting-probabilities">Predicting probabilities</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#threshold-calibration">Threshold calibration</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#precision-recall-curve">Precision-Recall curve</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#model-selection">Model selection</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#hyperparameter-effects">Hyperparameter effects</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#receiver-operating-characteristics-roc">Receiver Operating Characteristics (ROC)</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#visualization">Visualization</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Model selection</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-class-auroc-or-auprc">Multi-class AUROC (or AUPRC)</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#model-calibration">Model calibration</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#brier-score">Brier score</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#model-calibration-techniques">Model calibration techniques</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#platt-scaling">Platt Scaling</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#isotonic-regression">Isotonic regression</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cost-sensitive-classification-dealing-with-imbalance">Cost-sensitive classification (dealing with imbalance)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#class-weighting">Class weighting</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#instance-weighting">Instance weighting</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cost-sensitive-algorithms">Cost-sensitive algorithms</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tuning-the-decision-threshold">Tuning the decision threshold</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#regression-metrics">Regression metrics</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#r-squared">R squared</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizing-regression-errors">Visualizing regression errors</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bias-variance-decomposition">Bias-Variance decomposition</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#computing-bias-and-variance-error">Computing bias and variance error</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bias-and-variance-underfitting-and-overfitting">Bias and variance, underfitting and overfitting</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#understanding-under-and-overfitting">Understanding under- and overfitting</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hyperparameter-tuning">Hyperparameter tuning</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nested-cross-validation">Nested cross-validation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            <div class="bd-footer-content__inner">
+<div class="bd-footer-content__inner container">
   
-    By Joaquin Vanschoren<br/>
-  
-      &copy; Copyright 2023. CC0 Licensed - Use as you like.<br/>
-</p>
-        </footer>
-    </div>
+  <div class="footer-item">
     
-</div>
+<p class="component-author">
+By Joaquin Vanschoren
+</p>
 
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2023. CC0 Licensed - Use as you like.
+      <br/>
+    
+  </p>
 
-      </div>
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div></div>
+          </footer>
+        
+
+      </main>
     </div>
+  </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d"></script>
 
-
+  <footer class="bd-footer">
+  </footer>
   </body>
 </html>
