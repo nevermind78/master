@@ -453,11 +453,13 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pre-trained-embeddings">Pre-trained embeddings</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#word2vec">Word2Vec</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#word2vec-properties">Word2Vec properties</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#doc2vec">Doc2Vec</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#fasttext">FastText</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#global-vector-model-glove">Global Vector model (GloVe)</a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#document-paragraph-embeddings">Document/paragraph embeddings</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#neural-networks-on-word-embeddings">Neural networks on word embeddings</a><ul class="nav section-nav flex-column">
@@ -911,7 +913,7 @@ $<span class="math notranslate nohighlight">\( t_i = \frac{t_i}{\| t\|_2 }\)</sp
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/0b1659ea39656333bba92552fccdbba702166bb8314152c4f278071b6ae97085.png" src="../_images/0b1659ea39656333bba92552fccdbba702166bb8314152c4f278071b6ae97085.png" />
+<img alt="../_images/cb93769500bffd6f9b9f3353788e3fdc82f137baf6bb42a5757bba6abab7dfe1.png" src="../_images/cb93769500bffd6f9b9f3353788e3fdc82f137baf6bb42a5757bba6abab7dfe1.png" />
 </div>
 </div>
 <section id="predictions">
@@ -930,10 +932,10 @@ $<span class="math notranslate nohighlight">\( t_i = \frac{t_i}{\| t\|_2 }\)</sp
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>782/782 [==============================] - 2s 2ms/step
 Review 0:  ? please give this one a miss br br ? ? and the rest of the cast rendered terrible performances the show is flat flat flat br br i don&#39;t know how michael madison could have allowed this one on his plate he almost seemed to know this wasn&#39;t going to work out and his performance was quite ? so all you madison fans give this a miss
-Predicted positiveness:  [0.021]
+Predicted positiveness:  [0.046]
 
 Review 16:  ? from 1996 first i watched this movie i feel never reach the end of my satisfaction i feel that i want to watch more and more until now my god i don&#39;t believe it was ten years ago and i can believe that i almost remember every word of the dialogues i love this movie and i love this novel absolutely perfection i love willem ? he has a strange voice to spell the words black night and i always say it for many times never being bored i love the music of it&#39;s so much made me come into another world deep in my heart anyone can feel what i feel and anyone could make the movie like this i don&#39;t believe so thanks thanks
-Predicted positiveness:  [0.925]
+Predicted positiveness:  [0.956]
 </pre></div>
 </div>
 </div>
@@ -972,14 +974,15 @@ Predicted positiveness:  [0.925]
 <li><p>Input layer uses fixed length documents (with 0-padding). 2D tensor (samples, max_length)</p></li>
 <li><p>Add an <em>embedding layer</em> to learn the embedding</p>
 <ul>
-<li><p>Create <span class="math notranslate nohighlight">\(n\)</span>-dimensional one-hot encoding. 3D tensor (samples, max_length, <span class="math notranslate nohighlight">\(n\)</span>)</p></li>
+<li><p>Create <span class="math notranslate nohighlight">\(n\)</span>-dimensional one-hot encoding. Yields a 3D tensor (samples, max_length, <span class="math notranslate nohighlight">\(n\)</span>)</p></li>
 <li><p>To learn an <span class="math notranslate nohighlight">\(m\)</span>-dimensional embedding, use <span class="math notranslate nohighlight">\(m\)</span> hidden nodes. Weight matrix <span class="math notranslate nohighlight">\(W^{n x m}\)</span></p></li>
 <li><p>Linear activation function: <span class="math notranslate nohighlight">\(\mathbf{X}_{embed} = W \mathbf{X}_{orig}\)</span>. 3D tensor (samples, max_length, <span class="math notranslate nohighlight">\(m\)</span>)</p></li>
 </ul>
 </li>
-<li><p>Add layers to map word embeddings to the desired output. Learn all weights from data.</p></li>
+<li><p>Combine all word embeddings into a document embedding (e.g. global pooling).</p></li>
+<li><p>Add (optional) layers to map word embeddings to the output. Learn embedding weights from data.</p></li>
 </ul>
-<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/10_embeddinglayer.png" alt="ml" style="width: 50%"></section>
+<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/10_embedding_layer.png" alt="ml" style="width: 60%; margin-left: auto; margin-right: auto;"></section>
 <section id="pre-trained-embeddings">
 <h3>Pre-trained embeddings<a class="headerlink" href="#pre-trained-embeddings" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
@@ -993,14 +996,14 @@ Predicted positiveness:  [0.925]
 <li><p>Most common approaches:</p>
 <ul>
 <li><p>Word2Vec: Learn neural embedding for a word based on surrounding words</p></li>
-<li><p>GloVe (Global Vector): Count co-occurrences of words in a matrix</p>
-<ul>
-<li><p>Use a low-rank approximation to get a latent vector representation</p></li>
-</ul>
-</li>
 <li><p>FastText: learns embedding for character n-grams</p>
 <ul>
 <li><p>Can also produce embeddings for new, unseen words</p></li>
+</ul>
+</li>
+<li><p>GloVe (Global Vector): Count co-occurrences of words in a matrix</p>
+<ul>
+<li><p>Use a low-rank approximation to get a latent vector representation</p></li>
 </ul>
 </li>
 </ul>
@@ -1010,11 +1013,15 @@ Predicted positiveness:  [0.925]
 <h4>Word2Vec<a class="headerlink" href="#word2vec" title="Permalink to this heading">#</a></h4>
 <ul class="simple">
 <li><p>Move a window over text to get <span class="math notranslate nohighlight">\(C\)</span> context words (<span class="math notranslate nohighlight">\(V\)</span>-dim one-hot encoded)</p></li>
-<li><p>Add hidden layer with <span class="math notranslate nohighlight">\(N\)</span> linear nodes, average pooling, and softmax layer(s)</p></li>
-<li><p>CBOW: predict word given context, use weights of last layer as embedding</p></li>
-<li><p>Skip-Gram: predict context given word, use weights of first layer as embedding (better for large corpora)</p></li>
+<li><p>Add embedding layer with <span class="math notranslate nohighlight">\(N\)</span> linear nodes, global average pooling, and softmax layer(s)</p></li>
+<li><p>CBOW: predict word given context, use weights of last layer <span class="math notranslate nohighlight">\(W^{'}_{NxV}\)</span> as embedding</p></li>
+<li><p>Skip-Gram: predict context given word, use weights of first layer <span class="math notranslate nohighlight">\(W^{T}_{VxN}\)</span> as embedding</p>
+<ul>
+<li><p>Scales to larger text corpora, learns relationships between words better</p></li>
 </ul>
-<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/09_word_embeddings_3.png" alt="ml" style="width: 600px;"/></section>
+</li>
+</ul>
+<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/09_word_embeddings_3.png" alt="ml" style="width: 55%; margin-left: auto; margin-right: auto;"/></section>
 <section id="word2vec-properties">
 <h4>Word2Vec properties<a class="headerlink" href="#word2vec-properties" title="Permalink to this heading">#</a></h4>
 <ul class="simple">
@@ -1031,68 +1038,65 @@ Predicted positiveness:  [0.925]
 </ul>
 </li>
 </ul>
-<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/word2vec.png" alt="ml" style="width: 800px;"/></section>
-<section id="fasttext">
+<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/word2vec.png" alt="ml" style="width: 80%; margin-left: auto; margin-right: auto;"/></section>
+</section>
+<section id="doc2vec">
+<h3>Doc2Vec<a class="headerlink" href="#doc2vec" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Alternative way to combine word embeddings (instead of global pooling)</p></li>
+<li><p>Adds a paragraph (or document) embedding: learns how paragraphs (or docs) relate to each other</p>
+<ul>
+<li><p>Captures document-level semantics: context and meaning of entire document</p></li>
+</ul>
+</li>
+<li><p>Can be used to determine semantic similarity between documents.</p></li>
+</ul>
+<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/doc2vec.png" alt="ml" style="width:50%; margin-left: auto; margin-right: auto;"/><section id="fasttext">
 <h4>FastText<a class="headerlink" href="#fasttext" title="Permalink to this heading">#</a></h4>
 <ul class="simple">
 <li><p>Limitations of Word2Vec:</p>
 <ul>
 <li><p>Cannot represent new (out-of-vocabulary) words</p></li>
-<li><p>Words like ‘meet’ and ‘meeting’ are learned independently: less efficient (no parameter sharing)</p></li>
+<li><p>Similar words are learned independently: less efficient (no parameter sharing)</p>
+<ul>
+<li><p>E.g. ‘meet’ and ‘meeting’</p></li>
 </ul>
 </li>
-<li><p>FastText addresses this by using character n-grams</p>
+</ul>
+</li>
+<li><p>FastText: same model, but uses <em>character n-grams</em></p>
 <ul>
-<li><p>Basic model can be Skip-gram or CBOW</p></li>
 <li><p>Words are represented by all character n-grams of length 3 to 6</p>
 <ul>
 <li><p>“football” 3-grams: &lt;fo, foo, oot, otb, tba, bal, all, ll&gt;</p></li>
-<li><p>Because there are so many n-grams, they are hashed</p>
-<ul>
-<li><p>Dimensionality V = bin size</p></li>
 </ul>
 </li>
+<li><p>Because there are so many n-grams, they are hashed (dimensionality = bin size)</p></li>
 <li><p>Representation of word “football” is sum of its n-gram embeddings</p></li>
 </ul>
 </li>
+<li><p>Negative sampling: also trains on random negative examples (out-of-context words)</p>
+<ul>
+<li><p>Weights are updated so that they are <em>less</em> likely to be predicted</p></li>
 </ul>
 </li>
-<li><p>Training with positive examples (in-context words) and random negative examples</p></li>
 </ul>
 </section>
 <section id="global-vector-model-glove">
 <h4>Global Vector model (GloVe)<a class="headerlink" href="#global-vector-model-glove" title="Permalink to this heading">#</a></h4>
 <ul class="simple">
-<li><p>Builds a co-occurence matrix <span class="math notranslate nohighlight">\(\mathbf{X}\)</span></p>
+<li><p>Builds a co-occurence matrix <span class="math notranslate nohighlight">\(\mathbf{X}\)</span>: counts how often 2 words occur in the same context</p></li>
+<li><p>Learns a k-dimensional embedding <span class="math notranslate nohighlight">\(W\)</span> through matrix factorization with rank k</p>
 <ul>
-<li><p>Counts how often 2 words occur in the same context (and how close)</p></li>
-</ul>
-</li>
-<li><p>Learns a k-dimensional embedding <span class="math notranslate nohighlight">\(w\)</span> through matrix factorization with rank k</p>
-<ul>
-<li><p>Actually learns 2 embeddings <span class="math notranslate nohighlight">\(w\)</span> and <span class="math notranslate nohighlight">\(w'\)</span> (differ in random initialization)</p></li>
+<li><p>Actually learns 2 embeddings <span class="math notranslate nohighlight">\(W\)</span> and <span class="math notranslate nohighlight">\(W'\)</span> (differ in random initialization)</p></li>
 </ul>
 </li>
 <li><p>Minimizes loss <span class="math notranslate nohighlight">\(\mathcal{L}\)</span>, where <span class="math notranslate nohighlight">\(b_i\)</span> and <span class="math notranslate nohighlight">\(b'_i\)</span> are bias terms and <span class="math notranslate nohighlight">\(f\)</span> is a weighting function</p></li>
 </ul>
 <div class="math notranslate nohighlight">
 \[\mathcal{L} = \sum_{i,j=1}^{V} f(\mathbf{X}_{ij}) (\mathbf{w_i} \mathbf{w'_j} + b_i + b'_j - log(\mathbf{X}_{ij}))^2\]</div>
-<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/glove3.png" alt="ml" style="width: 800px;"/></section>
+<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/glove3.png" alt="ml" style="width: 80%; margin-left: auto; margin-right: auto;"/></section>
 </section>
-<section id="document-paragraph-embeddings">
-<h3>Document/paragraph embeddings<a class="headerlink" href="#document-paragraph-embeddings" title="Permalink to this heading">#</a></h3>
-<ul class="simple">
-<li><p>Simplest approach to represent a document: sum or average of all word vectors</p></li>
-<li><p>Doc2Vec</p>
-<ul>
-<li><p>Next to word embeddings, also learn an embedding for the document/paragraph</p></li>
-<li><p>Acts as a memory that remembers what is missing from the current context (the topic of the paragraph)</p></li>
-<li><p>Can be used to determine semantic similarity between documents.</p></li>
-<li><p>Can be tricky to train.</p></li>
-</ul>
-</li>
-</ul>
-<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/doc2vec.png" alt="ml" style="width:600px;"/></section>
 </section>
 <section id="neural-networks-on-word-embeddings">
 <h2>Neural networks on word embeddings<a class="headerlink" href="#neural-networks-on-word-embeddings" title="Permalink to this heading">#</a></h2>
@@ -1137,7 +1141,7 @@ Predicted positiveness:  [0.925]
 
 <span class="n">model</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">Sequential</span><span class="p">()</span>
 <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">Embedding</span><span class="p">(</span><span class="n">vocab_size</span><span class="p">,</span> <span class="n">embedding_length</span><span class="p">,</span> <span class="n">input_length</span><span class="o">=</span><span class="n">max_length</span><span class="p">))</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">Flatten</span><span class="p">())</span>
+<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">GlobalAveragePooling1D</span><span class="p">())</span>
 <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;sigmoid&#39;</span><span class="p">))</span>
 </pre></div>
 </div>
@@ -1150,7 +1154,7 @@ Predicted positiveness:  [0.925]
 <span class="c1"># define the model</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">Sequential</span><span class="p">()</span>
 <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">Embedding</span><span class="p">(</span><span class="n">vocab_size</span><span class="p">,</span> <span class="n">embedding_length</span><span class="p">,</span> <span class="n">input_length</span><span class="o">=</span><span class="n">max_length</span><span class="p">))</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">Flatten</span><span class="p">())</span>
+<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">GlobalAveragePooling1D</span><span class="p">())</span>
 <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;sigmoid&#39;</span><span class="p">))</span>
 <span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="s1">&#39;rmsprop&#39;</span><span class="p">,</span> <span class="n">loss</span><span class="o">=</span><span class="s1">&#39;binary_crossentropy&#39;</span><span class="p">,</span> <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;accuracy&#39;</span><span class="p">])</span>
 
@@ -1160,19 +1164,20 @@ Predicted positiveness:  [0.925]
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Model: &quot;sequential_8&quot;
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Model: &quot;sequential_6&quot;
 _________________________________________________________________
  Layer (type)                Output Shape              Param #   
 =================================================================
- embedding_2 (Embedding)     (None, 20, 16)            160000    
+ embedding_4 (Embedding)     (None, 20, 16)            160000    
                                                                  
- flatten_1 (Flatten)         (None, 320)               0         
+ global_average_pooling1d (G  (None, 16)               0         
+ lobalAveragePooling1D)                                          
                                                                  
- dense_20 (Dense)            (None, 1)                 321       
+ dense_8 (Dense)             (None, 1)                 17        
                                                                  
 =================================================================
-Total params: 160,321
-Trainable params: 160,321
+Total params: 160,017
+Trainable params: 160,017
 Non-trainable params: 0
 _________________________________________________________________
 </pre></div>
@@ -1184,14 +1189,14 @@ _________________________________________________________________
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">keras</span> <span class="kn">import</span> <span class="n">preprocessing</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">keras.utils</span> <span class="kn">import</span> <span class="n">pad_sequences</span>
 
 <span class="c1"># Load reviews again</span>
 <span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">),</span> <span class="p">(</span><span class="n">x_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span> <span class="o">=</span> <span class="n">imdb</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">num_words</span><span class="o">=</span><span class="mi">10000</span><span class="p">)</span>
 
 <span class="c1"># Turn word ID&#39;s into a 2D integer tensor of shape `(samples, maxlen)`</span>
-<span class="n">x_train</span> <span class="o">=</span> <span class="n">preprocessing</span><span class="o">.</span><span class="n">sequence</span><span class="o">.</span><span class="n">pad_sequences</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">maxlen</span><span class="o">=</span><span class="n">max_length</span><span class="p">)</span>
-<span class="n">x_test</span> <span class="o">=</span> <span class="n">preprocessing</span><span class="o">.</span><span class="n">sequence</span><span class="o">.</span><span class="n">pad_sequences</span><span class="p">(</span><span class="n">x_test</span><span class="p">,</span> <span class="n">maxlen</span><span class="o">=</span><span class="n">max_length</span><span class="p">)</span>
+<span class="n">x_train</span> <span class="o">=</span> <span class="n">pad_sequences</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">maxlen</span><span class="o">=</span><span class="n">max_length</span><span class="p">)</span>
+<span class="n">x_test</span> <span class="o">=</span> <span class="n">pad_sequences</span><span class="p">(</span><span class="n">x_test</span><span class="p">,</span> <span class="n">maxlen</span><span class="o">=</span><span class="n">max_length</span><span class="p">)</span>
 
 <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
           <span class="n">batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">validation_split</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">callbacks</span><span class="o">=</span><span class="p">[</span><span class="n">plot_losses</span><span class="p">]);</span>
@@ -1199,7 +1204,7 @@ _________________________________________________________________
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/2fc911c5d04dd40e00902755db2b5e809160a4238042b7fb3be84a8f61235385.png" src="../_images/2fc911c5d04dd40e00902755db2b5e809160a4238042b7fb3be84a8f61235385.png" />
+<img alt="../_images/1fe215eb716b6b330cb4e4a4997a8a5af808e1ead99d83b39ea6cb1cd377f03b.png" src="../_images/1fe215eb716b6b330cb4e4a4997a8a5af808e1ead99d83b39ea6cb1cd377f03b.png" />
 </div>
 </div>
 </section>
@@ -1708,11 +1713,13 @@ _________________________________________________________________
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pre-trained-embeddings">Pre-trained embeddings</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#word2vec">Word2Vec</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#word2vec-properties">Word2Vec properties</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#doc2vec">Doc2Vec</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#fasttext">FastText</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#global-vector-model-glove">Global Vector model (GloVe)</a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#document-paragraph-embeddings">Document/paragraph embeddings</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#neural-networks-on-word-embeddings">Neural networks on word embeddings</a><ul class="nav section-nav flex-column">
@@ -1751,7 +1758,7 @@ By Joaquin Vanschoren
     
   <p class="copyright">
     
-      © Copyright 2023. CC0 Licensed - Use as you like.
+      © Copyright 2023. CC0 Licensed - Use as you like. Appropriate credit is very welcome.
       <br/>
     
   </p>
