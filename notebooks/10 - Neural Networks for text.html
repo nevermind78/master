@@ -1396,12 +1396,8 @@ To: /Users/jvanscho/Documents/ml-course/master/data/glove.txt
 <section id="recurrent-neural-networks-rnns">
 <h3>Recurrent neural networks (RNNs)<a class="headerlink" href="#recurrent-neural-networks-rnns" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
-<li><p>Adds a recurrent connection that concats previous output to next input</p>
-<ul>
-<li><p>Hidden layer
+<li><p>Adds a recurrent connection that concats previous output to next input
 <span class="math notranslate nohighlight">\({\color{orange} h_t} = \sigma \left( {\color{orange} W } \left[ \begin{array}{c} {\color{blue}x}_t \\ {\color{orange} h}_{t-1} \end{array} \right] + b \right)\)</span></p></li>
-</ul>
-</li>
 <li><p>Unbounded memory, but training requires <em>backpropagation through time</em></p>
 <ul>
 <li><p>Requires storing previous network states (slow + lots of memory)</p></li>
@@ -1437,7 +1433,7 @@ To: /Users/jvanscho/Documents/ml-course/master/data/glove.txt
 </ul>
 </li>
 </ul>
-<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/10_selfattention.png" alt="ml" style="width:40%;"/></section>
+<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/10_selfattention.png" alt="ml" style="width:50%;"/></section>
 <section id="simple-self-attention-layer">
 <h3>Simple self-attention layer<a class="headerlink" href="#simple-self-attention-layer" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
@@ -1456,7 +1452,7 @@ To: /Users/jvanscho/Documents/ml-course/master/data/glove.txt
 <li><p>Self-attention can learn that the meaning on the word <em>terrible</em> is inverted by the presence of the word <em>not</em>, even if it is further away in the sequence.</p></li>
 <li><p>In general, each self attention layer can learn specific relationships between words (e.g. inversion). We’ll need many of them.</p></li>
 </ul>
-<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/10_selfattention_negation.png" alt="ml" style="width:40%;"/></section>
+<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/10_selfattention_negation.png" alt="ml" style="width:50%;"/></section>
 <section id="standard-self-attention">
 <h3>Standard self-attention<a class="headerlink" href="#standard-self-attention" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
@@ -1488,7 +1484,7 @@ To: /Users/jvanscho/Documents/ml-course/master/data/glove.txt
 <li><p>Makes self-attention more flexible, learnable</p></li>
 <li><p>Learn what to pay attention to in the input (e.g. sequence, image,…)</p></li>
 </ul>
-<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/10_selfattention_kqv2.png" alt="ml" style="width:20%;"/></section>
+<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/10_selfattention_kqv2.png" alt="ml" style="width:30%;"/></section>
 <section id="standard-self-attention-2">
 <h3>Standard self-attention (2)<a class="headerlink" href="#standard-self-attention-2" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
@@ -1496,7 +1492,7 @@ To: /Users/jvanscho/Documents/ml-course/master/data/glove.txt
 <li><p>To learn these in parallel, we can split the self-attention in multiple heads</p></li>
 <li><p>Input vector is embedded (linearly) into lower dimensionality, multiple times</p></li>
 </ul>
-<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/10_multihead_attention.png" alt="ml" style="width:50%;"/></section>
+<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/10_multihead_attention.png" alt="ml" style="width:60%;"/></section>
 <section id="standard-self-attention-3">
 <h3>Standard self-attention (3)<a class="headerlink" href="#standard-self-attention-3" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
@@ -1525,15 +1521,15 @@ To: /Users/jvanscho/Documents/ml-course/master/data/glove.txt
 <img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/10_transformer_model.png" alt="ml" style="width:60%;"/><section id="positional-encoding">
 <h3>Positional encoding<a class="headerlink" href="#positional-encoding" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
-<li><p>We need some way to tell the self-attention layer about position in sequencet</p></li>
+<li><p>We need some way to tell the self-attention layer about position in the sequence</p></li>
 <li><p>Represent position by vectors, using some easy-to-learn predictable pattern</p>
 <ul>
 <li><p>Add these encodings to vector embeddings</p></li>
-<li><p>Give information on how far one input is fron the others</p></li>
+<li><p>Givee information on how far one input is from the others</p></li>
 </ul>
 </li>
 </ul>
-<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/10_encoding.png" alt="ml" style="width:60%;"/></section>
+<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/10_encoding.png" alt="ml" style="width:70%;"/></section>
 </section>
 <section id="summary">
 <h2>Summary<a class="headerlink" href="#summary" title="Permalink to this heading">#</a></h2>
