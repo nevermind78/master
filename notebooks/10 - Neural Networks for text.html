@@ -449,7 +449,7 @@ document.write(`
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#word-embeddings">Word Embeddings</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#training-embedding-layers-from-scratch">Training Embedding layers from scratch</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-embeddings-from-scratch">Learning embeddings from scratch</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pre-trained-embeddings">Pre-trained embeddings</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#word2vec">Word2Vec</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#word2vec-properties">Word2Vec properties</a></li>
@@ -462,16 +462,22 @@ document.write(`
 </li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#neural-networks-on-word-embeddings">Neural networks on word embeddings</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Training embedding layers from scratch</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#d-convolutional-networks">1D convolutional networks</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#conv1d-model">Conv1D model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sequence-to-sequence-seq2seq-models">Sequence-to-sequence (seq2seq) models</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#seq2seq-models">seq2seq models</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#d-convolutional-networks">1D convolutional networks</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#recurrent-neural-networks-rnns">Recurrent neural networks (RNNs)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#simple-self-attention">Simple self-attention</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#simple-self-attention-2">Simple self-attention (2)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#simple-self-attention-layer">Simple self-attention layer</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Simple self-attention layer</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#standard-self-attention">Standard self-attention</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Standard self-attention</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#standard-self-attention-2">Standard self-attention (2)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#standard-self-attention-3">Standard self-attention (3)</a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-pretrained-embeddings">Using pretrained embeddings</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Conv1D model</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#transformer-model">Transformer model</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#positional-encoding">Positional encoding</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
@@ -946,30 +952,14 @@ Predicted positiveness:  [0.956]
 <section id="word-embeddings">
 <h2>Word Embeddings<a class="headerlink" href="#word-embeddings" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
-<li><p>An embedding maps each word to a point in a much smaller <span class="math notranslate nohighlight">\(m\)</span>-dimensional space</p>
+<li><p>A word embedding is a numeric vector representation of a word</p>
 <ul>
-<li><p>E.g. from 10.000 (one-hot-encoded) to 300 (embedded) dimensions</p></li>
-</ul>
-</li>
-<li><p>2 main approaches:</p>
-<ul>
-<li><p>Learn the embedding from scratch</p>
-<ul>
-<li><p>Add an <em>embedding layer</em> with <span class="math notranslate nohighlight">\(m\)</span> hidden nodes to map word IDs to an <span class="math notranslate nohighlight">\(m\)</span>-dimensional vector</p></li>
-<li><p>Add your hidden and output layers, learn weights end-to-end with SGD</p></li>
-</ul>
-</li>
-<li><p>Use a pre-trained embedding</p>
-<ul>
-<li><p>Pre-trained on another, much bigger task (e.g. Wikipedia, Google News,…)</p></li>
-<li><p>Freeze embedding weights to produce simple word embeddings, or finetune to a new tasks</p></li>
+<li><p>Can be manual or <em>learned</em> from an existing representation (e.g. one-hot)</p></li>
 </ul>
 </li>
 </ul>
-</li>
-</ul>
-<section id="training-embedding-layers-from-scratch">
-<h3>Training Embedding layers from scratch<a class="headerlink" href="#training-embedding-layers-from-scratch" title="Permalink to this heading">#</a></h3>
+<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/10_embeddings.png" alt="ml" style="width: 60%; margin-left: auto; margin-right: auto;"><section id="learning-embeddings-from-scratch">
+<h3>Learning embeddings from scratch<a class="headerlink" href="#learning-embeddings-from-scratch" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Input layer uses fixed length documents (with 0-padding). 2D tensor (samples, max_length)</p></li>
 <li><p>Add an <em>embedding layer</em> to learn the embedding</p>
@@ -982,7 +972,85 @@ Predicted positiveness:  [0.956]
 <li><p>Combine all word embeddings into a document embedding (e.g. global pooling).</p></li>
 <li><p>Add (optional) layers to map word embeddings to the output. Learn embedding weights from data.</p></li>
 </ul>
-<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/10_embedding_layer.png" alt="ml" style="width: 60%; margin-left: auto; margin-right: auto;"></section>
+<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/10_embedding_layer.png" alt="ml" style="width: 60%; margin-left: auto; margin-right: auto;"><p>Let’s try this:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">max_length</span> <span class="o">=</span> <span class="mi">100</span> <span class="c1"># pad documents to a maximum number of words</span>
+<span class="n">vocab_size</span> <span class="o">=</span> <span class="mi">10000</span> <span class="c1"># vocabulary size</span>
+<span class="n">embedding_length</span> <span class="o">=</span> <span class="mi">20</span> <span class="c1"># embedding length (more would be better)</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">Sequential</span><span class="p">()</span>
+<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">Embedding</span><span class="p">(</span><span class="n">vocab_size</span><span class="p">,</span> <span class="n">embedding_length</span><span class="p">,</span> <span class="n">input_length</span><span class="o">=</span><span class="n">max_length</span><span class="p">))</span>
+<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">GlobalAveragePooling1D</span><span class="p">())</span>
+<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;sigmoid&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">max_length</span> <span class="o">=</span> <span class="mi">100</span> <span class="c1"># pad documents to a maximum number of words</span>
+<span class="n">vocab_size</span> <span class="o">=</span> <span class="mi">10000</span> <span class="c1"># vocabulary size</span>
+<span class="n">embedding_length</span> <span class="o">=</span> <span class="mi">20</span> <span class="c1"># embedding length</span>
+
+<span class="c1"># define the model</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">Sequential</span><span class="p">()</span>
+<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">Embedding</span><span class="p">(</span><span class="n">vocab_size</span><span class="p">,</span> <span class="n">embedding_length</span><span class="p">,</span> <span class="n">input_length</span><span class="o">=</span><span class="n">max_length</span><span class="p">))</span>
+<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">GlobalAveragePooling1D</span><span class="p">())</span>
+<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;sigmoid&#39;</span><span class="p">))</span>
+<span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="s1">&#39;rmsprop&#39;</span><span class="p">,</span> <span class="n">loss</span><span class="o">=</span><span class="s1">&#39;binary_crossentropy&#39;</span><span class="p">,</span> <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;accuracy&#39;</span><span class="p">])</span>
+
+<span class="c1"># summarize the model</span>
+<span class="n">model</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Model: &quot;sequential_13&quot;
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #   
+=================================================================
+ embedding_11 (Embedding)    (None, 100, 20)           200000    
+                                                                 
+ global_average_pooling1d_7   (None, 20)               0         
+ (GlobalAveragePooling1D)                                        
+                                                                 
+ dense_15 (Dense)            (None, 1)                 21        
+                                                                 
+=================================================================
+Total params: 200,021
+Trainable params: 200,021
+Non-trainable params: 0
+_________________________________________________________________
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>Training on the IMDB dataset: slightly worse than using bag-of-words?</p>
+<ul>
+<li><p>Embedding of dim 20 is very small, should be closer to 100 (or 300)</p></li>
+<li><p>We don’t have enough data to learn a really good embedding from scratch</p></li>
+</ul>
+</li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">keras.utils</span> <span class="kn">import</span> <span class="n">pad_sequences</span>
+
+<span class="c1"># Load reviews again</span>
+<span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">),</span> <span class="p">(</span><span class="n">x_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span> <span class="o">=</span> <span class="n">imdb</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">num_words</span><span class="o">=</span><span class="mi">10000</span><span class="p">)</span>
+
+<span class="c1"># Turn word ID&#39;s into a 2D integer tensor of shape `(samples, maxlen)`</span>
+<span class="n">x_train</span> <span class="o">=</span> <span class="n">pad_sequences</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">maxlen</span><span class="o">=</span><span class="n">max_length</span><span class="p">)</span>
+<span class="n">x_test</span> <span class="o">=</span> <span class="n">pad_sequences</span><span class="p">(</span><span class="n">x_test</span><span class="p">,</span> <span class="n">maxlen</span><span class="o">=</span><span class="n">max_length</span><span class="p">)</span>
+
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+          <span class="n">batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">validation_split</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">callbacks</span><span class="o">=</span><span class="p">[</span><span class="n">plot_losses</span><span class="p">]);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/bce056f83c90135cbfdf84973926c246319960fd2b2b91bfb1491d3ae439dfd1.png" src="../_images/bce056f83c90135cbfdf84973926c246319960fd2b2b91bfb1491d3ae439dfd1.png" />
+</div>
+</div>
+</section>
 <section id="pre-trained-embeddings">
 <h3>Pre-trained embeddings<a class="headerlink" href="#pre-trained-embeddings" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
@@ -993,6 +1061,7 @@ Predicted positiveness:  [0.956]
 <li><p>Also called self-supervised learning. Supervision is provided by data itself</p></li>
 </ul>
 </li>
+<li><p>Freeze embedding weights to produce simple word embeddings, or finetune to a new tasks</p></li>
 <li><p>Most common approaches:</p>
 <ul>
 <li><p>Word2Vec: Learn neural embedding for a word based on surrounding words</p></li>
@@ -1095,207 +1164,12 @@ Predicted positiveness:  [0.956]
 </ul>
 <div class="math notranslate nohighlight">
 \[\mathcal{L} = \sum_{i,j=1}^{V} f(\mathbf{X}_{ij}) (\mathbf{w_i} \mathbf{w'_j} + b_i + b'_j - log(\mathbf{X}_{ij}))^2\]</div>
-<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/glove3.png" alt="ml" style="width: 80%; margin-left: auto; margin-right: auto;"/></section>
-</section>
-</section>
-<section id="neural-networks-on-word-embeddings">
-<h2>Neural networks on word embeddings<a class="headerlink" href="#neural-networks-on-word-embeddings" title="Permalink to this heading">#</a></h2>
+<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/glove3.png" alt="ml" style="width: 80%; margin-left: auto; margin-right: auto;"/><p>Let’s try this</p>
 <ul class="simple">
-<li><p>Say that we have m-dimensional word embeddings and documents of size <span class="math notranslate nohighlight">\(l\)</span></p></li>
-<li><p>Our embedding layer will produce a 3D tensor of shape (samples, <span class="math notranslate nohighlight">\(l\)</span>, <span class="math notranslate nohighlight">\(m\)</span>)</p></li>
-<li><p>We now need to map this to the desired output</p>
-<ul>
-<li><p>Simply flattening the tensor learns a direct mapping. This destroys the word order.</p></li>
-<li><p>A recurrent neural network (RNN) could leverage the exact sequence of the words</p>
-<ul>
-<li><p>Can be slow to train, have limited memory of previous terms</p></li>
+<li><p>Download the <a class="reference external" href="https://nlp.stanford.edu/projects/glove">GloVe embeddings trained on Wikipedia</a></p></li>
+<li><p>We can now get embeddings for 400,000 English words</p></li>
+<li><p>E.g. ‘queen’ (in 100-dim):</p></li>
 </ul>
-</li>
-<li><p>A 1D convolutional network can also leverage locality (learn local patterns)</p>
-<ul>
-<li><p>Often competitive with RNNs, and much faster/cheaper</p></li>
-<li><p>Works well for simple tasks like classification and forecasting</p></li>
-</ul>
-</li>
-<li><p>Attention-based networks can learn which previous terms to pay more attention to</p>
-<ul>
-<li><p>Mostly for sequence-to-sequence tasks (e.g. language translation)</p></li>
-<li><p>Transformers: use attention only, no RNNs (<a class="reference external" href="https://arxiv.org/abs/1706.03762">paper</a>, <a class="reference external" href="https://www.youtube.com/watch?v=iDulhoQ2pro">video</a>)</p></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<section id="id1">
-<h3>Training embedding layers from scratch<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
-<ul class="simple">
-<li><p>Simple model with an embedding layer and direct mapping to binary class</p>
-<ul>
-<li><p>Embedding layer is trained from scratch</p></li>
-</ul>
-</li>
-</ul>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">max_length</span> <span class="o">=</span> <span class="mi">20</span> <span class="c1"># pad documents to a maximum number of words</span>
-<span class="n">vocab_size</span> <span class="o">=</span> <span class="mi">10000</span> <span class="c1"># vocabulary size</span>
-<span class="n">embedding_length</span> <span class="o">=</span> <span class="mi">16</span> <span class="c1"># embedding length (more would be better)</span>
-
-<span class="n">model</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">Sequential</span><span class="p">()</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">Embedding</span><span class="p">(</span><span class="n">vocab_size</span><span class="p">,</span> <span class="n">embedding_length</span><span class="p">,</span> <span class="n">input_length</span><span class="o">=</span><span class="n">max_length</span><span class="p">))</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">GlobalAveragePooling1D</span><span class="p">())</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;sigmoid&#39;</span><span class="p">))</span>
-</pre></div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">max_length</span> <span class="o">=</span> <span class="mi">20</span> <span class="c1"># pad documents to a maximum number of words</span>
-<span class="n">vocab_size</span> <span class="o">=</span> <span class="mi">10000</span> <span class="c1"># vocabulary size</span>
-<span class="n">embedding_length</span> <span class="o">=</span> <span class="mi">16</span> <span class="c1"># embedding length</span>
-
-<span class="c1"># define the model</span>
-<span class="n">model</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">Sequential</span><span class="p">()</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">Embedding</span><span class="p">(</span><span class="n">vocab_size</span><span class="p">,</span> <span class="n">embedding_length</span><span class="p">,</span> <span class="n">input_length</span><span class="o">=</span><span class="n">max_length</span><span class="p">))</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">GlobalAveragePooling1D</span><span class="p">())</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;sigmoid&#39;</span><span class="p">))</span>
-<span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="s1">&#39;rmsprop&#39;</span><span class="p">,</span> <span class="n">loss</span><span class="o">=</span><span class="s1">&#39;binary_crossentropy&#39;</span><span class="p">,</span> <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;accuracy&#39;</span><span class="p">])</span>
-
-<span class="c1"># summarize the model</span>
-<span class="n">model</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Model: &quot;sequential_6&quot;
-_________________________________________________________________
- Layer (type)                Output Shape              Param #   
-=================================================================
- embedding_4 (Embedding)     (None, 20, 16)            160000    
-                                                                 
- global_average_pooling1d (G  (None, 16)               0         
- lobalAveragePooling1D)                                          
-                                                                 
- dense_8 (Dense)             (None, 1)                 17        
-                                                                 
-=================================================================
-Total params: 160,017
-Trainable params: 160,017
-Non-trainable params: 0
-_________________________________________________________________
-</pre></div>
-</div>
-</div>
-</div>
-<ul class="simple">
-<li><p>Training on the IMDB dataset (not better than bag-of-words)</p></li>
-</ul>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">keras.utils</span> <span class="kn">import</span> <span class="n">pad_sequences</span>
-
-<span class="c1"># Load reviews again</span>
-<span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">),</span> <span class="p">(</span><span class="n">x_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span> <span class="o">=</span> <span class="n">imdb</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">num_words</span><span class="o">=</span><span class="mi">10000</span><span class="p">)</span>
-
-<span class="c1"># Turn word ID&#39;s into a 2D integer tensor of shape `(samples, maxlen)`</span>
-<span class="n">x_train</span> <span class="o">=</span> <span class="n">pad_sequences</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">maxlen</span><span class="o">=</span><span class="n">max_length</span><span class="p">)</span>
-<span class="n">x_test</span> <span class="o">=</span> <span class="n">pad_sequences</span><span class="p">(</span><span class="n">x_test</span><span class="p">,</span> <span class="n">maxlen</span><span class="o">=</span><span class="n">max_length</span><span class="p">)</span>
-
-<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-          <span class="n">batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">validation_split</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">callbacks</span><span class="o">=</span><span class="p">[</span><span class="n">plot_losses</span><span class="p">]);</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/1fe215eb716b6b330cb4e4a4997a8a5af808e1ead99d83b39ea6cb1cd377f03b.png" src="../_images/1fe215eb716b6b330cb4e4a4997a8a5af808e1ead99d83b39ea6cb1cd377f03b.png" />
-</div>
-</div>
-</section>
-<section id="d-convolutional-networks">
-<h3>1D convolutional networks<a class="headerlink" href="#d-convolutional-networks" title="Permalink to this heading">#</a></h3>
-<ul class="simple">
-<li><p>Similar to 2D convnets, 1D convnets extract local 1D patches from image tensors</p>
-<ul>
-<li><p>Apply identical transformation (filter) to every patch</p></li>
-</ul>
-</li>
-<li><p>Pattern learned can later be recognized elsewhere (translation invariance)</p></li>
-<li><p>1D Pooling: extracts 1D patches and outputs the max value (max pooling) or average</p></li>
-</ul>
-<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/1Dconvnet.png" alt="ml" style="width:500px;"/><section id="conv1d-model">
-<h4>Conv1D model<a class="headerlink" href="#conv1d-model" title="Permalink to this heading">#</a></h4>
-<ul class="simple">
-<li><p>First layer learns the word embeddings</p></li>
-<li><p>Two 1D convolutional layers with MaxPooling</p></li>
-<li><p>The latter does global max pooling (over the entire time dimension)</p></li>
-<li><p>One dense layer with dropout</p></li>
-</ul>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">Sequential</span><span class="p">()</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">Embedding</span><span class="p">(</span><span class="mi">10000</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="n">input_length</span><span class="o">=</span><span class="mi">100</span><span class="p">))</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">Conv1D</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">))</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">MaxPooling1D</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">Conv1D</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">))</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">GlobalMaxPooling1D</span><span class="p">())</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
-</pre></div>
-</div>
-<ul class="simple">
-<li><p>A lot better than the previous self-trained embeddings.</p></li>
-<li><p>Starts overfitting after a few epochs, needs regularization (try at home)</p></li>
-<li><p>Let’s try <em>pretrained</em> embeddings together with 1D convolutional layers</p></li>
-</ul>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">max_words</span> <span class="o">=</span> <span class="mi">10000</span>
-<span class="n">max_length</span> <span class="o">=</span> <span class="mi">100</span>
-
-<span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">),</span> <span class="p">(</span><span class="n">x_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span> <span class="o">=</span> <span class="n">imdb</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">num_words</span><span class="o">=</span><span class="n">max_words</span><span class="p">)</span>
-
-<span class="n">x_train</span> <span class="o">=</span> <span class="n">preprocessing</span><span class="o">.</span><span class="n">sequence</span><span class="o">.</span><span class="n">pad_sequences</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">maxlen</span><span class="o">=</span><span class="n">max_length</span><span class="p">)</span>
-<span class="n">x_test</span> <span class="o">=</span> <span class="n">preprocessing</span><span class="o">.</span><span class="n">sequence</span><span class="o">.</span><span class="n">pad_sequences</span><span class="p">(</span><span class="n">x_test</span><span class="p">,</span> <span class="n">maxlen</span><span class="o">=</span><span class="n">max_length</span><span class="p">)</span>
-
-<span class="n">model</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">Sequential</span><span class="p">()</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">Embedding</span><span class="p">(</span><span class="n">max_words</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="n">input_length</span><span class="o">=</span><span class="n">max_length</span><span class="p">))</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">Conv1D</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">))</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">MaxPooling1D</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">Conv1D</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">))</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">GlobalMaxPooling1D</span><span class="p">())</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
-
-<span class="n">model</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
-
-<span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="s2">&quot;rmsprop&quot;</span><span class="p">,</span>
-              <span class="n">loss</span><span class="o">=</span><span class="s1">&#39;binary_crossentropy&#39;</span><span class="p">,</span>
-              <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;accuracy&#39;</span><span class="p">])</span>
-<span class="n">history</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span>
-                    <span class="n">epochs</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
-                    <span class="n">batch_size</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span>
-                    <span class="n">validation_split</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>
-                    <span class="n">callbacks</span><span class="o">=</span><span class="p">[</span><span class="n">plot_losses</span><span class="p">])</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/c55c0d91063005d35c2f0cf123eb503dcb7b1c9773fb4caf8af4c6ee2ed6dfef.png" src="../_images/c55c0d91063005d35c2f0cf123eb503dcb7b1c9773fb4caf8af4c6ee2ed6dfef.png" />
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>157/157 [==============================] - 3s 18ms/step - loss: 0.0807 - accuracy: 0.9932 - val_loss: 1.5570 - val_accuracy: 0.8172
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-</section>
-<section id="using-pretrained-embeddings">
-<h3>Using pretrained embeddings<a class="headerlink" href="#using-pretrained-embeddings" title="Permalink to this heading">#</a></h3>
-<ul class="simple">
-<li><p>Download the <a class="reference external" href="https://nlp.stanford.edu/projects/glove">GloVe embeddings trained on Wikipedia</a> (400k words)</p></li>
-<li><p>Use it to build an <em>embedding matrix</em> of shape (max_words, embedding_dim)</p></li>
-<li><p>Use this to initialize the embedding layer and freeze it</p></li>
-</ul>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">embedding_layer</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Embedding</span><span class="p">(</span>
-    <span class="n">num_tokens</span><span class="p">,</span>
-    <span class="n">embedding_dim</span><span class="p">,</span>
-    <span class="n">embeddings_initializer</span><span class="o">=</span><span class="n">keras</span><span class="o">.</span><span class="n">initializers</span><span class="o">.</span><span class="n">Constant</span><span class="p">(</span><span class="n">embedding_matrix</span><span class="p">),</span>
-    <span class="n">trainable</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="c1"># Freeze the pretrained weights</span>
-<span class="p">)</span>
-</pre></div>
-</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># To find the original data files, see</span>
@@ -1311,11 +1185,15 @@ _________________________________________________________________
     <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;https://drive.google.com/uc?id=1ZOd5P9kreaBYg5Oh2n5McC-BozYcsKIH&#39;</span>
     <span class="n">output</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_dir</span><span class="p">,</span><span class="s2">&quot;glove.txt&quot;</span><span class="p">)</span>
     <span class="n">gdown</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="n">quiet</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-    
-    <span class="c1"># Unpack 20-newsgroup data </span>
-    <span class="n">my_tar</span> <span class="o">=</span> <span class="n">tarfile</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_dir</span><span class="p">,</span><span class="s1">&#39;news20.tar.gz&#39;</span><span class="p">))</span>
-    <span class="n">my_tar</span><span class="o">.</span><span class="n">extractall</span><span class="p">(</span><span class="n">data_dir</span><span class="p">)</span> <span class="c1"># specify which folder to extract to</span>
-    <span class="n">my_tar</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Downloading...
+From (uriginal): https://drive.google.com/uc?id=1ZOd5P9kreaBYg5Oh2n5McC-BozYcsKIH
+From (redirected): https://drive.google.com/uc?id=1ZOd5P9kreaBYg5Oh2n5McC-BozYcsKIH&amp;confirm=t&amp;uuid=bf2a469d-0c15-4e31-a0b4-ea05f143b0ac
+To: /Users/jvanscho/Documents/ml-course/master/data/glove.txt
+100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 347M/347M [00:19&lt;00:00, 17.4MB/s]
 </pre></div>
 </div>
 </div>
@@ -1340,256 +1218,322 @@ _________________________________________________________________
 </div>
 </div>
 </div>
-<p>Practical example</p>
-<ul class="simple">
-<li><p>Dataset: <a class="reference external" href="http://www.cs.cmu.edu/afs/cs.cmu.edu/project/theo-20/www/data/news20">20 newsgroups dataset</a></p>
-<ul>
-<li><p>20,000 message board messages belonging to 20 different topic categories</p></li>
-</ul>
-</li>
-<li><p>Preprocess the data: vectorize using Keras’ <code class="docutils literal notranslate"><span class="pre">TextVectorization</span></code> layer</p>
-<ul>
-<li><p>Lowercasing, punctuation removal, tokenization, indexing, integer encoding (or TFIDF)</p></li>
-</ul>
-</li>
-</ul>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">vectorizer</span> <span class="o">=</span> <span class="n">TextVectorization</span><span class="p">(</span><span class="n">max_tokens</span><span class="o">=</span><span class="mi">20000</span><span class="p">,</span> <span class="n">output_sequence_length</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
-<span class="n">x_train</span> <span class="o">=</span> <span class="n">vectorizer</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">s</span><span class="p">]</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">train_samples</span><span class="p">]))</span>
-<span class="n">x_val</span> <span class="o">=</span> <span class="n">vectorizer</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">s</span><span class="p">]</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">val_samples</span><span class="p">]))</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
-</pre></div>
-</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
-
-<span class="c1"># Get raw training data</span>
-<span class="n">news_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_dir</span><span class="p">,</span><span class="s1">&#39;20_newsgroup&#39;</span><span class="p">)</span>
-<span class="n">dirnames</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">news_dir</span><span class="p">)</span>
-<span class="n">fnames</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">news_dir</span> <span class="o">+</span> <span class="s2">&quot;/comp.graphics&quot;</span><span class="p">)</span>
-<span class="c1">#print(open(os.path.join(news_dir, &quot;comp.graphics&quot;, &quot;38987&quot;)).read())</span>
-
-<span class="n">samples</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="n">labels</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="n">class_names</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="n">class_index</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="k">for</span> <span class="n">dirname</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">news_dir</span><span class="p">)):</span>
-    <span class="n">class_names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dirname</span><span class="p">)</span>
-    <span class="n">dirpath</span> <span class="o">=</span> <span class="n">news_dir</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="n">dirname</span>
-    <span class="n">fnames</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">dirpath</span><span class="p">)</span>
-    <span class="c1">#print(&quot;Processing %s, %d files found&quot; % (dirname, len(fnames)))</span>
-    <span class="k">for</span> <span class="n">fname</span> <span class="ow">in</span> <span class="n">fnames</span><span class="p">:</span>
-        <span class="n">fpath</span> <span class="o">=</span> <span class="n">dirpath</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="n">fname</span>
-        <span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">fpath</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;latin-1&quot;</span><span class="p">)</span>
-        <span class="n">content</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
-        <span class="n">lines</span> <span class="o">=</span> <span class="n">content</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="n">lines</span> <span class="o">=</span> <span class="n">lines</span><span class="p">[</span><span class="mi">10</span><span class="p">:]</span>
-        <span class="n">content</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span>
-        <span class="n">samples</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
-        <span class="n">labels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">class_index</span><span class="p">)</span>
-    <span class="n">class_index</span> <span class="o">+=</span> <span class="mi">1</span>
-
-<span class="c1">#print(&quot;Classes:&quot;, class_names)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Number of samples:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">samples</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">embeddings_index</span><span class="p">[</span><span class="s1">&#39;queen&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Number of samples: 19997
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([-0.5  , -0.708,  0.554,  0.673,  0.225,  0.603, -0.262,  0.739,
+       -0.654, -0.216, -0.338,  0.245, -0.515,  0.857, -0.372, -0.588,
+        0.306, -0.307, -0.219,  0.784, -0.619, -0.549,  0.431, -0.027,
+        0.976,  0.462,  0.115, -0.998,  1.066, -0.208,  0.532,  0.409,
+        1.041,  0.249,  0.187,  0.415, -0.954,  0.368, -0.379, -0.68 ,
+       -0.146, -0.201,  0.171, -0.557,  0.719,  0.07 , -0.236,  0.495,
+        1.158, -0.051,  0.257, -0.091,  1.266,  1.105, -0.516, -2.003,
+       -0.648,  0.164,  0.329,  0.048,  0.19 ,  0.661,  0.081,  0.336,
+        0.228,  0.146, -0.51 ,  0.638,  0.473, -0.328,  0.084, -0.785,
+        0.099,  0.039,  0.279,  0.117,  0.579,  0.044, -0.16 , -0.353,
+       -0.049, -0.325,  1.498,  0.581, -1.132, -0.607, -0.375, -1.181,
+        0.801, -0.5  , -0.166, -0.706,  0.43 ,  0.511, -0.803, -0.666,
+       -0.637, -0.36 ,  0.133, -0.561], dtype=float32)
 </pre></div>
 </div>
 </div>
 </div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tensorflow.keras.layers</span> <span class="kn">import</span> <span class="n">TextVectorization</span>
-
-<span class="c1"># Shuffle the data</span>
-<span class="n">seed</span> <span class="o">=</span> <span class="mi">1337</span>
-<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">RandomState</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
-<span class="n">rng</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="n">samples</span><span class="p">)</span>
-<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">RandomState</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
-<span class="n">rng</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span>
-
-<span class="c1"># Extract a training &amp; validation split</span>
-<span class="n">validation_split</span> <span class="o">=</span> <span class="mf">0.2</span>
-<span class="n">num_validation_samples</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">validation_split</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">samples</span><span class="p">))</span>
-<span class="n">train_samples</span> <span class="o">=</span> <span class="n">samples</span><span class="p">[:</span><span class="o">-</span><span class="n">num_validation_samples</span><span class="p">]</span>
-<span class="n">val_samples</span> <span class="o">=</span> <span class="n">samples</span><span class="p">[</span><span class="o">-</span><span class="n">num_validation_samples</span><span class="p">:]</span>
-<span class="n">train_labels</span> <span class="o">=</span> <span class="n">labels</span><span class="p">[:</span><span class="o">-</span><span class="n">num_validation_samples</span><span class="p">]</span>
-<span class="n">val_labels</span> <span class="o">=</span> <span class="n">labels</span><span class="p">[</span><span class="o">-</span><span class="n">num_validation_samples</span><span class="p">:]</span>
-
-<span class="c1"># Vectorize the data. Takes a while!</span>
-<span class="n">vectorizer</span> <span class="o">=</span> <span class="n">TextVectorization</span><span class="p">(</span><span class="n">max_tokens</span><span class="o">=</span><span class="mi">20000</span><span class="p">,</span> <span class="n">output_sequence_length</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
-<span class="n">text_ds</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">Dataset</span><span class="o">.</span><span class="n">from_tensor_slices</span><span class="p">(</span><span class="n">train_samples</span><span class="p">)</span><span class="o">.</span><span class="n">batch</span><span class="p">(</span><span class="mi">128</span><span class="p">)</span>
-<span class="n">vectorizer</span><span class="o">.</span><span class="n">adapt</span><span class="p">(</span><span class="n">text_ds</span><span class="p">)</span>
-
-<span class="c1"># Vocabulary</span>
-<span class="n">voc</span> <span class="o">=</span> <span class="n">vectorizer</span><span class="o">.</span><span class="n">get_vocabulary</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-</div>
-<ul class="simple">
-<li><p>With the vocabulary of the input dataset, we can build the embedding matrix</p></li>
-<li><p>The vocabulary has 2000 tokens, and we used 100D GloVe embeddings</p></li>
-</ul>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">word</span><span class="p">,</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">word_index</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-    <span class="n">embedding_matrix</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">embeddings_index</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">word</span><span class="p">)</span>
-    
-<span class="n">embedding_layer</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Embedding</span><span class="p">(</span>
-    <span class="n">num_tokens</span><span class="p">,</span> <span class="c1"># 20000</span>
-    <span class="n">embedding_dim</span><span class="p">,</span> <span class="c1"># 100</span>
-    <span class="n">embeddings_initializer</span><span class="o">=</span><span class="n">keras</span><span class="o">.</span><span class="n">initializers</span><span class="o">.</span><span class="n">Constant</span><span class="p">(</span><span class="n">embedding_matrix</span><span class="p">)</span>
-    <span class="n">trainable</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="c1"># Freeze the pretrained weights</span>
-<span class="p">)</span>
+<p>Same simple model, but with frozen GloVe embeddings: much worse!</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">embedding_layer</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Embedding</span><span class="p">(</span><span class="n">input_dim</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span> <span class="n">output_dim</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+                                   <span class="n">input_length</span><span class="o">=</span><span class="n">max_length</span><span class="p">,</span> <span class="n">trainable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">embedding_layer</span><span class="o">.</span><span class="n">set_weights</span><span class="p">([</span><span class="n">weights</span><span class="p">])</span> <span class="c1"># set pre-trained weigths</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">Sequential</span><span class="p">([</span>
+    <span class="n">embedding_layer</span><span class="p">,</span> <span class="n">layers</span><span class="o">.</span><span class="n">GlobalAveragePooling1D</span><span class="p">(),</span>
+    <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;sigmoid&#39;</span><span class="p">)]</span>
 </pre></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">num_tokens</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">voc</span><span class="p">)</span> <span class="o">+</span> <span class="mi">2</span>
-<span class="n">word_index</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">voc</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">voc</span><span class="p">))))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">embedding_dim</span> <span class="o">=</span> <span class="mi">100</span>
 
-<span class="n">embedding_dim</span> <span class="o">=</span> <span class="mi">100</span>
-<span class="n">hits</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="n">misses</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="c1"># Create embedding layer</span>
+<span class="n">embedding_layer</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Embedding</span><span class="p">(</span><span class="n">input_dim</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span>
+                                   <span class="n">output_dim</span><span class="o">=</span><span class="n">embedding_dim</span><span class="p">,</span>
+                                   <span class="n">input_length</span><span class="o">=</span><span class="n">max_length</span><span class="p">,</span>
+                                   <span class="n">trainable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
-<span class="c1"># Prepare embedding matrix</span>
-<span class="n">embedding_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">num_tokens</span><span class="p">,</span> <span class="n">embedding_dim</span><span class="p">))</span>
-<span class="k">for</span> <span class="n">word</span><span class="p">,</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">word_index</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-    <span class="n">embedding_vector</span> <span class="o">=</span> <span class="n">embeddings_index</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">word</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">embedding_vector</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="c1"># Words not found in embedding index will be all-zeros.</span>
-        <span class="c1"># This includes the representation for &quot;padding&quot; and &quot;OOV&quot;</span>
-        <span class="n">embedding_matrix</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">embedding_vector</span>
-        <span class="n">hits</span> <span class="o">+=</span> <span class="mi">1</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">misses</span> <span class="o">+=</span> <span class="mi">1</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Converted </span><span class="si">%d</span><span class="s2"> words (</span><span class="si">%d</span><span class="s2"> misses)&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">hits</span><span class="p">,</span> <span class="n">misses</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Converted 17999 words (2001 misses)
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">embedding_layer</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Embedding</span><span class="p">(</span>
-    <span class="n">num_tokens</span><span class="p">,</span>
-    <span class="n">embedding_dim</span><span class="p">,</span>
-    <span class="n">embeddings_initializer</span><span class="o">=</span><span class="n">keras</span><span class="o">.</span><span class="n">initializers</span><span class="o">.</span><span class="n">Constant</span><span class="p">(</span><span class="n">embedding_matrix</span><span class="p">),</span>
-    <span class="n">trainable</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<section id="id2">
-<h4>Conv1D model<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h4>
-<ul class="simple">
-<li><p>First layer learns the word embeddings)</p></li>
-<li><p>Three 1D convolutional layers with MaxPooling</p></li>
-<li><p>One dense layer with dropout</p></li>
-<li><p>Output later (20 classes) with softmax activation</p></li>
-</ul>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">Sequential</span><span class="p">()</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">embedding_layer</span><span class="p">)</span> <span class="c1"># Pretrained with on GloVe</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">Conv1D</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">))</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">MaxPooling1D</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">Conv1D</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">))</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">GlobalMaxPooling1D</span><span class="p">())</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">))</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="mf">0.5</span><span class="p">))</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">class_names</span><span class="p">),</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;softmax&quot;</span><span class="p">))</span>
-</pre></div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">keras</span><span class="o">.</span><span class="n">backend</span><span class="o">.</span><span class="n">clear_session</span><span class="p">()</span> 
-
+<span class="c1"># define the model</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">Sequential</span><span class="p">()</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">Input</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="kc">None</span><span class="p">,),</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;int64&quot;</span><span class="p">))</span>
 <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">embedding_layer</span><span class="p">)</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">Conv1D</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">))</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">MaxPooling1D</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">Conv1D</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">))</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">GlobalMaxPooling1D</span><span class="p">())</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">))</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="mf">0.5</span><span class="p">))</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">class_names</span><span class="p">),</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;softmax&quot;</span><span class="p">))</span>
-<span class="n">model</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Model: &quot;sequential&quot;
-_________________________________________________________________
- Layer (type)                Output Shape              Param #   
-=================================================================
- embedding_5 (Embedding)     (None, None, 100)         2000200   
-                                                                 
- conv1d (Conv1D)             (None, None, 128)         64128     
-                                                                 
- max_pooling1d (MaxPooling1D  (None, None, 128)        0         
- )                                                               
-                                                                 
- conv1d_1 (Conv1D)           (None, None, 128)         82048     
-                                                                 
- global_max_pooling1d (Globa  (None, 128)              0         
- lMaxPooling1D)                                                  
-                                                                 
- dense (Dense)               (None, 128)               16512     
-                                                                 
- dropout (Dropout)           (None, 128)               0         
-                                                                 
- dense_1 (Dense)             (None, 20)                2580      
-                                                                 
-=================================================================
-Total params: 2,165,468
-Trainable params: 165,268
-Non-trainable params: 2,000,200
-_________________________________________________________________
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Build vectorized train and test sets</span>
-<span class="n">x_train</span> <span class="o">=</span> <span class="n">vectorizer</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">s</span><span class="p">]</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">train_samples</span><span class="p">]))</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
-<span class="n">x_val</span> <span class="o">=</span> <span class="n">vectorizer</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">s</span><span class="p">]</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">val_samples</span><span class="p">]))</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">GlobalAveragePooling1D</span><span class="p">())</span>
+<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;sigmoid&#39;</span><span class="p">))</span>
 
-<span class="n">y_train</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">train_labels</span><span class="p">)</span>
-<span class="n">y_val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">val_labels</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>Decent performing model, yet still overfitting: more regularization (or more data) is needed.</p>
-<ul class="simple">
-<li><p>Do explore ways to make the model overfit less.</p></li>
-</ul>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">loss</span><span class="o">=</span><span class="s2">&quot;sparse_categorical_crossentropy&quot;</span><span class="p">,</span> <span class="n">optimizer</span><span class="o">=</span><span class="s2">&quot;rmsprop&quot;</span><span class="p">,</span> <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;accuracy&quot;</span><span class="p">])</span>
-<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">validation_data</span><span class="o">=</span><span class="p">(</span><span class="n">x_val</span><span class="p">,</span> <span class="n">y_val</span><span class="p">),</span> <span class="n">callbacks</span><span class="o">=</span><span class="p">[</span><span class="n">plot_losses</span><span class="p">])</span>
+<span class="c1"># Set pre-trained GloVe weights for the embedding layer</span>
+<span class="n">weights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">10000</span><span class="p">,</span> <span class="n">embedding_dim</span><span class="p">))</span>
+<span class="n">cnt</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">word</span><span class="p">,</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">word_index</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">10000</span><span class="p">:</span>
+        <span class="n">embedding_vector</span> <span class="o">=</span> <span class="n">embeddings_index</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">word</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">embedding_vector</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">weights</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">embedding_vector</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">cnt</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">cnt</span><span class="p">,</span> <span class="s2">&quot;unknown words&quot;</span><span class="p">)</span>
+<span class="n">embedding_layer</span><span class="o">.</span><span class="n">set_weights</span><span class="p">([</span><span class="n">weights</span><span class="p">])</span>
+
+<span class="c1"># Compile</span>
+<span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="s1">&#39;adam&#39;</span><span class="p">,</span> <span class="n">loss</span><span class="o">=</span><span class="s1">&#39;binary_crossentropy&#39;</span><span class="p">,</span> <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;accuracy&#39;</span><span class="p">])</span>
+
+<span class="c1"># Train</span>
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+          <span class="n">batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">validation_split</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">callbacks</span><span class="o">=</span><span class="p">[</span><span class="n">plot_losses</span><span class="p">]);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/a84716e1f54cb0c57b72377ca20fe2fe59a7f3b80be3efa89d254ad1fe324bbb.png" src="../_images/a84716e1f54cb0c57b72377ca20fe2fe59a7f3b80be3efa89d254ad1fe324bbb.png" />
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>250/250 [==============================] - 3s 11ms/step - loss: 0.1460 - accuracy: 0.9509 - val_loss: 2.1686 - val_accuracy: 0.6874
+<img alt="../_images/51170b01dac4359eb11b068a3bfd1d40441e5749d5d0b1ffa592368437dfc208.png" src="../_images/51170b01dac4359eb11b068a3bfd1d40441e5749d5d0b1ffa592368437dfc208.png" />
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="sequence-to-sequence-seq2seq-models">
+<h2>Sequence-to-sequence (seq2seq) models<a class="headerlink" href="#sequence-to-sequence-seq2seq-models" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Global average pooling or flattening destroys the word order</p></li>
+<li><p>We need to model sequences explictly, e.g.:</p>
+<ul>
+<li><p>1D convolutional models: run a 1D filter over the input data</p>
+<ul>
+<li><p>Fast, but can only look at small part of the sentence</p></li>
+</ul>
+</li>
+<li><p>Recurrent neural networks (RNNs)</p>
+<ul>
+<li><p>Can look back at the entire previous sequence</p></li>
+<li><p>Much slower to train, have limited memory in practice</p></li>
+</ul>
+</li>
+<li><p>Attention-based networks (Transformers)</p>
+<ul>
+<li><p>Best of both worlds: fast and very long memory</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<section id="seq2seq-models">
+<h3>seq2seq models<a class="headerlink" href="#seq2seq-models" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Produce a series of output given a series of inputs over time</p></li>
+<li><p>Can handle sequences of different lengths</p>
+<ul>
+<li><p>Label-to-sequence, Sequence-to-label, seq2seq,…</p></li>
+<li><p>Autoregressive models (e.g. predict the next character, unsupervised)</p></li>
+</ul>
+</li>
+</ul>
+<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/10_seq2seq.png" alt="ml" style="width: 80%; margin-left: auto; margin-right: auto;"/></section>
+<section id="d-convolutional-networks">
+<h3>1D convolutional networks<a class="headerlink" href="#d-convolutional-networks" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Similar to 2D convnets, but moves only in 1 direction (time)</p>
+<ul>
+<li><p>Extract local 1D patch, apply filter (kernel) to every patch</p></li>
+<li><p>Pattern learned can later be recognized elsewhere (translation invariance)</p></li>
+</ul>
+</li>
+<li><p>Limited memory: only sees a small part of the sequence (receptive field)</p>
+<ul>
+<li><p>You can use multiple layers, dilations,… but becomes expensive</p></li>
+</ul>
+</li>
+<li><p>Looks at ‘future’ parts of the series, but can be made to look only at the past</p>
+<ul>
+<li><p>Known as ‘causal’ models (not related to causality)</p></li>
+</ul>
+</li>
+</ul>
+<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/10_1dconv.png" alt="ml" style="width:100%;"/><ul class="simple">
+<li><p>Same embedding, but add 2 <code class="docutils literal notranslate"><span class="pre">Conv1D</span></code> layers and <code class="docutils literal notranslate"><span class="pre">MaxPooling1D</span></code>. Better!</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">Sequential</span><span class="p">([</span>
+        <span class="n">embedding_layer</span><span class="p">,</span>
+        <span class="n">layers</span><span class="o">.</span><span class="n">Conv1D</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">),</span>
+        <span class="n">layers</span><span class="o">.</span><span class="n">MaxPooling1D</span><span class="p">(</span><span class="mi">5</span><span class="p">),</span>
+        <span class="n">layers</span><span class="o">.</span><span class="n">Conv1D</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">),</span>
+        <span class="n">layers</span><span class="o">.</span><span class="n">GlobalAveragePooling1D</span><span class="p">(),</span>
+        <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;sigmoid&#39;</span><span class="p">)]</span>
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;keras.callbacks.History at 0x293648430&gt;
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">Sequential</span><span class="p">()</span>
+<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">Embedding</span><span class="p">(</span><span class="n">max_words</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="n">input_length</span><span class="o">=</span><span class="n">max_length</span><span class="p">))</span>
+<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">Conv1D</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">))</span>
+<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">MaxPooling1D</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
+<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">Conv1D</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">))</span>
+<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">GlobalMaxPooling1D</span><span class="p">())</span>
+<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+<span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="s2">&quot;rmsprop&quot;</span><span class="p">,</span>
+              <span class="n">loss</span><span class="o">=</span><span class="s1">&#39;binary_crossentropy&#39;</span><span class="p">,</span>
+              <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;accuracy&#39;</span><span class="p">])</span>
+<span class="n">history</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span>
+                    <span class="n">epochs</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+                    <span class="n">batch_size</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span>
+                    <span class="n">validation_split</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>
+                    <span class="n">callbacks</span><span class="o">=</span><span class="p">[</span><span class="n">plot_losses</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/c55c0d91063005d35c2f0cf123eb503dcb7b1c9773fb4caf8af4c6ee2ed6dfef.png" src="../_images/c55c0d91063005d35c2f0cf123eb503dcb7b1c9773fb4caf8af4c6ee2ed6dfef.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>157/157 [==============================] - 3s 18ms/step - loss: 0.0807 - accuracy: 0.9932 - val_loss: 1.5570 - val_accuracy: 0.8172
 </pre></div>
 </div>
 </div>
 </div>
 </section>
+<section id="recurrent-neural-networks-rnns">
+<h3>Recurrent neural networks (RNNs)<a class="headerlink" href="#recurrent-neural-networks-rnns" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Adds a recurrent connection that concats previous output to next input</p>
+<ul>
+<li><p>Hidden layer
+<span class="math notranslate nohighlight">\({\color{orange} h_t} = \sigma \left( {\color{orange} W } \left[ \begin{array}{c} {\color{blue}x}_t \\ {\color{orange} h}_{t-1} \end{array} \right] + b \right)\)</span></p></li>
+</ul>
+</li>
+<li><p>Unbounded memory, but training requires <em>backpropagation through time</em></p>
+<ul>
+<li><p>Requires storing previous network states (slow + lots of memory)</p></li>
+<li><p>Vanishing gradients strongly limit practical memory</p></li>
+</ul>
+</li>
+<li><p>Improved with <em>gating</em>: learn what to input, forget, output (LSTMs, GRUs,…)</p></li>
+</ul>
+<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/10_rnn.png" alt="ml" style="width:70%;"/></section>
+<section id="simple-self-attention">
+<h3>Simple self-attention<a class="headerlink" href="#simple-self-attention" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Compute dot product of input vector <span class="math notranslate nohighlight">\(x_i\)</span> with every <span class="math notranslate nohighlight">\(x_j\)</span> (including itself): <span class="math notranslate nohighlight">\({\color{Orange} w_{ij}}\)</span></p></li>
+<li><p>Compute softmax over all these weights (positive, sum to 1)</p></li>
+<li><p>Multiply by each input vector, and sum everything up</p></li>
+<li><p>Can be easily vectorized: <span class="math notranslate nohighlight">\({\color{green} Y}^T = {\color{orange} W}{\color{blue} X^T}\)</span>, <span class="math notranslate nohighlight">\({\color{orange} W} = \textrm{softmax}( {\color{blue} X}^T {\color{blue}X} )\)</span></p></li>
+</ul>
+<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/10_selfattention.png" alt="ml" style="width:70%;"/></section>
+<section id="simple-self-attention-2">
+<h3>Simple self-attention (2)<a class="headerlink" href="#simple-self-attention-2" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Output is mostly influenced by the current input (<span class="math notranslate nohighlight">\({\color{Orange} w_{ii}}\)</span> is largest)</p>
+<ul>
+<li><p>Mixes in information from other inputs according to how <em>similar</em> they are</p></li>
+</ul>
+</li>
+<li><p>Doesn’t learn (no parameters), the embedding of <span class="math notranslate nohighlight">\({\color{blue} X}\)</span> defines self-attention</p></li>
+<li><p><span class="math notranslate nohighlight">\({\color{green} Y}^T = {\color{orange} W}{\color{blue} X^T}\)</span> is <em>linear</em>, vanishing gradients only through softmax</p></li>
+<li><p>Has no problem looking <em>very</em> far back in the sequence</p></li>
+<li><p>Operates on <em>sets</em> (permutation invariant): allows img-to-set, set-to-set,… tasks</p>
+<ul>
+<li><p>No access to sequence. For seq tasks we encode sequence in embedding</p></li>
+</ul>
+</li>
+</ul>
+<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/10_selfattention.png" alt="ml" style="width:40%;"/></section>
+<section id="simple-self-attention-layer">
+<h3>Simple self-attention layer<a class="headerlink" href="#simple-self-attention-layer" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Let’s add a simple self-attention layer to our movie sentiment model</p></li>
+<li><p>Without self-attention, every word would contribute independently from others</p>
+<ul>
+<li><p>Exactly as in a bag-of-words model</p></li>
+<li><p>The word <em>terrible</em> will likely result in a negative prediction</p></li>
+</ul>
+</li>
+</ul>
+<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/10_selfattention_layer.png" alt="ml" style="width:40%;"/></section>
+<section id="id1">
+<h3>Simple self-attention layer<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Self-attention can learn that the meaning on the word <em>terrible</em> is inverted by the presence of the word <em>not</em>, even if it is further away in the sequence.</p></li>
+<li><p>In general, each self attention layer can learn specific relationships between words (e.g. inversion). We’ll need many of them.</p></li>
+</ul>
+<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/10_selfattention_negation.png" alt="ml" style="width:40%;"/></section>
+<section id="standard-self-attention">
+<h3>Standard self-attention<a class="headerlink" href="#standard-self-attention" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Inputs occur in one of 3 positions in the self-attention layer:</p>
+<ul>
+<li><p>Value <span class="math notranslate nohighlight">\(v\)</span>: input vector that provides the output, weighted by:</p></li>
+<li><p>Query <span class="math notranslate nohighlight">\(q\)</span>: the vector that corresponds to the wanted <em>output</em></p></li>
+<li><p>Key <span class="math notranslate nohighlight">\(k\)</span>: The vector that the query is matched aganinst</p></li>
+</ul>
+</li>
+<li><p>Works as a soft version of a dictionary, in which:</p>
+<ul>
+<li><p>Every key matches the query to some extent (w.r.t. its dot product)</p></li>
+<li><p>A weighted mixture of all values (normalized by softmax)</p></li>
+</ul>
+</li>
+</ul>
+<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/10_selfattention_kqv.png" alt="ml" style="width:30%;"/></section>
+<section id="id2">
+<h3>Standard self-attention<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>We want to <em>learn</em> how each of these interact by adding learned transformations</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(k_i = K x_i + b_k\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(q_i = Q x_i + b_q\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(v_i = V x_i + b_v\)</span></p></li>
+</ul>
+</li>
+<li><p>Makes self-attention more flexible, learnable</p></li>
+<li><p>Learn what to pay attention to in the input (e.g. sequence, image,…)</p></li>
+</ul>
+<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/10_selfattention_kqv2.png" alt="ml" style="width:20%;"/></section>
+<section id="standard-self-attention-2">
+<h3>Standard self-attention (2)<a class="headerlink" href="#standard-self-attention-2" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Inputs can have multiple relationships with each other (e.g. negation, strengtening,…)</p></li>
+<li><p>To learn these in parallel, we can split the self-attention in multiple heads</p></li>
+<li><p>Input vector is embedded (linearly) into lower dimensionality, multiple times</p></li>
+</ul>
+<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/10_multihead_attention.png" alt="ml" style="width:50%;"/></section>
+<section id="standard-self-attention-3">
+<h3>Standard self-attention (3)<a class="headerlink" href="#standard-self-attention-3" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>The softmax operation can still lead to vanishing gradients (unless values are small)</p>
+<ul>
+<li><p>We can scale the dot product by the input dimension <span class="math notranslate nohighlight">\(k\)</span>: <span class="math notranslate nohighlight">\({\color{orange}w^{'}_{ij}} = \frac{{\color{blue} x_i}^T \color{blue} x_j}{\sqrt{k}}\)</span></p></li>
+</ul>
+</li>
+</ul>
 </section>
+</section>
+<section id="transformer-model">
+<h2>Transformer model<a class="headerlink" href="#transformer-model" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Repeat self-attention multiple times in controlled fashion</p></li>
+<li><p>Works for sequences, images, graphs,… (learn how sets of objects interact)</p></li>
+<li><p>Models consist of multiple transformer blocks, usually:</p>
+<ul>
+<li><p>Layer normalization (every input is normalized independently)</p></li>
+<li><p>Self-attention layer (learn interactions)</p></li>
+<li><p>Residual connections (preserve gradients in deep networks)</p></li>
+<li><p>Feed-forward layer (learn mappings)</p></li>
+</ul>
+</li>
+</ul>
+<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/10_transformer_model.png" alt="ml" style="width:60%;"/><section id="positional-encoding">
+<h3>Positional encoding<a class="headerlink" href="#positional-encoding" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>We need some way to tell the self-attention layer about position in sequencet</p></li>
+<li><p>Represent position by vectors, using some easy-to-learn predictable pattern</p>
+<ul>
+<li><p>Add these encodings to vector embeddings</p></li>
+<li><p>Give information on how far one input is fron the others</p></li>
+</ul>
+</li>
+</ul>
+<img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/10_encoding.png" alt="ml" style="width:60%;"/></section>
 </section>
 <section id="summary">
 <h2>Summary<a class="headerlink" href="#summary" title="Permalink to this heading">#</a></h2>
@@ -1607,27 +1551,21 @@ _________________________________________________________________
 <li><p>Word2Vec: learns good embeddings and interesting relationships</p></li>
 <li><p>FastText: can also compute embeddings for entirely new words</p></li>
 <li><p>GloVe: also takes the global context of words into account</p></li>
-<li><p>Language models: state-of-the-art, but expensive</p></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><p>1D convolutional nets</p>
+<li><p>Sequence-to-sequence models</p>
 <ul>
-<li><p>Allow us to use the sequence of the words in text, cheaper than RNNs</p></li>
+<li><p>1D convolutional nets (fast, limited memory)</p></li>
+<li><p>RNNs (slow, also quite limited memory)</p></li>
+<li><p>Self-attention (allows very large memory)</p></li>
 </ul>
 </li>
-<li><p>In practice</p>
-<ul>
-<li><p>Using pretrained embeddings gives good performance</p>
-<ul>
-<li><p>Embedding weights can be frozen or finetuned to the task at hand</p></li>
+<li><p>Transformers</p></li>
 </ul>
-</li>
-<li><p>Nowadays these problems are better solved by language models, but that’s for another lecture/ course</p></li>
-</ul>
-</li>
-</ul>
+<p>Acknowledgement</p>
+<p>Several figures came from the excellent <a class="reference external" href="https://dlvu.github.io/">VU Deep Learning course</a></p>
 </section>
 </section>
 
@@ -1709,7 +1647,7 @@ _________________________________________________________________
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#word-embeddings">Word Embeddings</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#training-embedding-layers-from-scratch">Training Embedding layers from scratch</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-embeddings-from-scratch">Learning embeddings from scratch</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pre-trained-embeddings">Pre-trained embeddings</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#word2vec">Word2Vec</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#word2vec-properties">Word2Vec properties</a></li>
@@ -1722,16 +1660,22 @@ _________________________________________________________________
 </li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#neural-networks-on-word-embeddings">Neural networks on word embeddings</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Training embedding layers from scratch</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#d-convolutional-networks">1D convolutional networks</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#conv1d-model">Conv1D model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sequence-to-sequence-seq2seq-models">Sequence-to-sequence (seq2seq) models</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#seq2seq-models">seq2seq models</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#d-convolutional-networks">1D convolutional networks</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#recurrent-neural-networks-rnns">Recurrent neural networks (RNNs)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#simple-self-attention">Simple self-attention</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#simple-self-attention-2">Simple self-attention (2)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#simple-self-attention-layer">Simple self-attention layer</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Simple self-attention layer</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#standard-self-attention">Standard self-attention</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Standard self-attention</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#standard-self-attention-2">Standard self-attention (2)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#standard-self-attention-3">Standard self-attention (3)</a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-pretrained-embeddings">Using pretrained embeddings</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Conv1D model</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#transformer-model">Transformer model</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#positional-encoding">Positional encoding</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
