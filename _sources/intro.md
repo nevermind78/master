@@ -20,7 +20,7 @@ Upon opening the notebooks, you can <i class="fas fa-rocket"></i> launch them in
 | 10 | [Neural Networks for text](https://ml-course.github.io/master/notebooks/010%20-%20Neural%20Networks%20for%20text.html)<sup>2</sup>   | [HTML](https://ml-course.github.io/master/10%20-%20Neural%20Networks%20for%20text.slides.html)<sup>2</sup>  - [PDF](https://ml-course.github.io/master/10%20-%20Neural%20Networks%20for%20text.pdf)<sup>2</sup>  | [Youtube](https://www.youtube.com/watch?v=THbqTlVNIPg&list=PLl4kuMJ32K2r2CUKkZSVVxDnjB4NM335-)<sup>2</sup> |
 
 <sup>1</sup> The order of the slides in the video is slightly different.  
-<sup>2</sup> This lecture will be significantly updated. Stay tuned.  
+<sup>2</sup> This lecture has been significantly updated since the youtube video. A new recording is pending. TUe students: please see the lecture recording.
 
 ```{admonition} Get your hands dirty
 Retrieve all materials by cloning the <i class="fab fa-github"></i> [GitHub repo](https://ml-course.github.io/master). To run the notebooks locally, see the [prerequisites](https://ml-course.github.io/master/labs/Lab%200%20-%20Prerequisites.html).
