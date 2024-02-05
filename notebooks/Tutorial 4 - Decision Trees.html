@@ -198,16 +198,15 @@ const thebe_selector_output = ".output, .cell_output"
 
 
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Recap: Decision Trees</a></li>
-
-
 <li class="toctree-l1"><a class="reference internal" href="Tutorial%205%20-%20Nearest%20Neighbors.html">Recap: k-Nearest Neighbor</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../labs/Lab%201%20-%20Tutorial.html">Lab 1: Machine Learning with Python</a></li>
 
 
 
-<li class="toctree-l1"><a class="reference internal" href="../labs/Lab%204%20-%20Tutorial.html">Lab 4 Tutorial: Data engineering pipelines</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../labs/Lab%206%20-%20Tutorial.html">Lab 6 Tutorial: Deep Learning with TensorFlow</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../labs/Lab%207%20-%20Tutorial.html">Lab 7 Tutorial: Deep Learning for text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../labs/Lab%202%20-%20Tutorial.html">Lab 2: Model Selection in scikit-learn</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../labs/Lab%204%20-%20Tutorial.html">Lab 4: Data engineering pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../labs/Lab%206%20-%20Tutorial.html">Lab 6: Deep Learning with TensorFlow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../labs/Lab%207%20-%20Tutorial.html">Lab 7: Deep Learning for text</a></li>
 </ul>
 
     </div>
@@ -432,32 +431,30 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Recap: Decision Trees</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#installation-note">Installation note</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#decision-tree-classification">Decision Tree classification</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#heuristics">Heuristics</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example">Example</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#heuristics-in-scikit-learn">Heuristics in scikit-learn</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installation-note">Installation note</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#decision-tree-classification">Decision Tree classification</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#heuristics">Heuristics</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example">Example</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#heuristics-in-scikit-learn">Heuristics in scikit-learn</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#handling-many-valued-features">Handling many-valued features</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overfitting-controlling-complexity-of-decision-trees">Overfitting: Controlling complexity of Decision Trees</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#decision-tree-regression">Decision tree regression</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#in-scikit-learn">In scikit-learn</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#handling-many-valued-features">Handling many-valued features</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#overfitting-controlling-complexity-of-decision-trees">Overfitting: Controlling complexity of Decision Trees</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#decision-tree-regression">Decision tree regression</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#in-scikit-learn">In scikit-learn</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-trees">Model trees</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#strengths-weaknesses-and-parameters">Strengths, weaknesses and parameters</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#on-under-and-overfitting">On under- and overfitting</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#algorithm-overview">Algorithm overview</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#model-trees">Model trees</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#strengths-weaknesses-and-parameters">Strengths, weaknesses and parameters</a></li>
 </ul>
 </li>
 </ul>
-
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#on-under-and-overfitting">On under- and overfitting</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#algorithm-overview">Algorithm overview</a></li>
+</ul>
+</li>
+</ul>
             </nav>
         </div>
     </div>
@@ -468,7 +465,7 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section id="recap-decision-trees">
+  <section class="tex2jax_ignore mathjax_ignore" id="recap-decision-trees">
 <h1>Recap: Decision Trees<a class="headerlink" href="#recap-decision-trees" title="Permalink to this heading">#</a></h1>
 <ul class="simple">
 <li><p>Representation: Assume we can represent the concept we want to learn with a <em>decision tree</em></p>
@@ -509,9 +506,8 @@ document.write(`
 </div>
 </div>
 </div>
-</section>
 <section id="installation-note">
-<h1>Installation note<a class="headerlink" href="#installation-note" title="Permalink to this heading">#</a></h1>
+<h2>Installation note<a class="headerlink" href="#installation-note" title="Permalink to this heading">#</a></h2>
 <p>To plot the decision trees in this notebook, you’ll need to install the graphviz executable:</p>
 <ul class="simple">
 <li><p>OS X: use homebrew: <code class="docutils literal notranslate"><span class="pre">brew</span> <span class="pre">install</span> <span class="pre">graphviz</span></code></p></li>
@@ -520,7 +516,7 @@ document.write(`
 </ul>
 <p>And the python package: <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">graphviz</span></code></p>
 <section id="decision-tree-classification">
-<h2>Decision Tree classification<a class="headerlink" href="#decision-tree-classification" title="Permalink to this heading">#</a></h2>
+<h3>Decision Tree classification<a class="headerlink" href="#decision-tree-classification" title="Permalink to this heading">#</a></h3>
 <p>Where would you make the first split?</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -580,7 +576,7 @@ document.write(`
 </div>
 </section>
 <section id="heuristics">
-<h2>Heuristics<a class="headerlink" href="#heuristics" title="Permalink to this heading">#</a></h2>
+<h3>Heuristics<a class="headerlink" href="#heuristics" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>We start from a dataset of <span class="math notranslate nohighlight">\(n\)</span> points <span class="math notranslate nohighlight">\(D = \{(x_i,y_i)\}_{i=1}^{n}\)</span> where <span class="math notranslate nohighlight">\(y_i\)</span> is one of <span class="math notranslate nohighlight">\(k\)</span> classes</p></li>
 <li><p>Consider splits between adjacent data point of different class, for every variable</p></li>
@@ -730,7 +726,7 @@ th {font-size: 20px}
 </div>
 </section>
 <section id="example">
-<h2>Example<a class="headerlink" href="#example" title="Permalink to this heading">#</a></h2>
+<h3>Example<a class="headerlink" href="#example" title="Permalink to this heading">#</a></h3>
 <p>Compute information gain for a dataset with categorical features:</p>
 <table class="table">
 <thead>
@@ -862,7 +858,7 @@ th {font-size: 20px}
 \[G(X, X_{a1}) = 1 - \frac{1}{2} 0.9183 - \frac{1}{2} 0.9183 = 0.0817 \]</div>
 <p>hence we split on a1</p>
 <section id="heuristics-in-scikit-learn">
-<h3>Heuristics in scikit-learn<a class="headerlink" href="#heuristics-in-scikit-learn" title="Permalink to this heading">#</a></h3>
+<h4>Heuristics in scikit-learn<a class="headerlink" href="#heuristics-in-scikit-learn" title="Permalink to this heading">#</a></h4>
 <p>The splitting criterion can be set with the <code class="docutils literal notranslate"><span class="pre">criterion</span></code> option in <code class="docutils literal notranslate"><span class="pre">DecisionTreeClassifier</span></code></p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">gini</span></code> (default): gini impurity index</p></li>
@@ -890,7 +886,7 @@ th {font-size: 20px}
 </section>
 </section>
 <section id="handling-many-valued-features">
-<h2>Handling many-valued features<a class="headerlink" href="#handling-many-valued-features" title="Permalink to this heading">#</a></h2>
+<h3>Handling many-valued features<a class="headerlink" href="#handling-many-valued-features" title="Permalink to this heading">#</a></h3>
 <p>What happens when a categorical feature has (almost) as many values as examples?</p>
 <ul class="simple">
 <li><p>Information Gain will select it</p></li>
@@ -902,7 +898,7 @@ $<span class="math notranslate nohighlight">\( GainRatio(X,X_i) = \frac{Gain(X,X
 <p>SplitInfo will be big if <span class="math notranslate nohighlight">\(X_i\)</span> fragments the data into many small subsets, resulting in a smaller Gain Ratio.</p>
 </section>
 <section id="overfitting-controlling-complexity-of-decision-trees">
-<h2>Overfitting: Controlling complexity of Decision Trees<a class="headerlink" href="#overfitting-controlling-complexity-of-decision-trees" title="Permalink to this heading">#</a></h2>
+<h3>Overfitting: Controlling complexity of Decision Trees<a class="headerlink" href="#overfitting-controlling-complexity-of-decision-trees" title="Permalink to this heading">#</a></h3>
 <p>Decision trees can very easily overfit the data. Regularization strategies:</p>
 <ul class="simple">
 <li><p>Pre-pruning: stop creation of new leafs at some point</p>
@@ -1019,7 +1015,7 @@ $<span class="math notranslate nohighlight">\( GainRatio(X,X_i) = \frac{Gain(X,X
 </div>
 </section>
 <section id="decision-tree-regression">
-<h2>Decision tree regression<a class="headerlink" href="#decision-tree-regression" title="Permalink to this heading">#</a></h2>
+<h3>Decision tree regression<a class="headerlink" href="#decision-tree-regression" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Heuristic: <em>Minimal quadratic distance</em></p></li>
 <li><p>Consider splits at every data point for every variable (or halfway between)</p></li>
@@ -1039,7 +1035,7 @@ $<span class="math notranslate nohighlight">\( GainRatio(X,X_i) = \frac{Gain(X,X
 \[ \hat{c}_1 = \text{avg}(y_i | x_{i} \in R_1(j,s)) \quad and \quad \hat{c}_2 = \text{avg}(y_i | x_{i} \in R_2(j,s)) \]</div>
 <p>with <span class="math notranslate nohighlight">\(x_i\)</span> being the i-th example in the data, with target value <span class="math notranslate nohighlight">\(y_i\)</span></p>
 <section id="in-scikit-learn">
-<h3>In scikit-learn<a class="headerlink" href="#in-scikit-learn" title="Permalink to this heading">#</a></h3>
+<h4>In scikit-learn<a class="headerlink" href="#in-scikit-learn" title="Permalink to this heading">#</a></h4>
 <p>Regression is done with  <code class="docutils literal notranslate"><span class="pre">DecisionTreeRegressor</span></code></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1155,7 +1151,7 @@ $<span class="math notranslate nohighlight">\( GainRatio(X,X_i) = \frac{Gain(X,X
 </section>
 </section>
 <section id="model-trees">
-<h2>Model trees<a class="headerlink" href="#model-trees" title="Permalink to this heading">#</a></h2>
+<h3>Model trees<a class="headerlink" href="#model-trees" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Instead of predicting a single value per leaf (e.g. mean value for regression), you can build a model on all the points remaining in a leaf</p>
 <ul>
@@ -1165,7 +1161,7 @@ $<span class="math notranslate nohighlight">\( GainRatio(X,X_i) = \frac{Gain(X,X
 <li><p>Can learn more complex concepts, extrapolates better. Overfits easily.</p></li>
 </ul>
 <img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/04_model_trees.png" alt="ml" style="float: left; width: 60%;"/><section id="strengths-weaknesses-and-parameters">
-<h3>Strengths, weaknesses and parameters<a class="headerlink" href="#strengths-weaknesses-and-parameters" title="Permalink to this heading">#</a></h3>
+<h4>Strengths, weaknesses and parameters<a class="headerlink" href="#strengths-weaknesses-and-parameters" title="Permalink to this heading">#</a></h4>
 <p>Decision trees:</p>
 <ul class="simple">
 <li><p>Work well with features on completely different scales, or a mix of binary and continuous features</p>
@@ -1185,7 +1181,7 @@ $<span class="math notranslate nohighlight">\( GainRatio(X,X_i) = \frac{Gain(X,X
 </section>
 </section>
 <section id="on-under-and-overfitting">
-<h1>On under- and overfitting<a class="headerlink" href="#on-under-and-overfitting" title="Permalink to this heading">#</a></h1>
+<h2>On under- and overfitting<a class="headerlink" href="#on-under-and-overfitting" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Let’s study which types of errors are made by decision trees</p></li>
 <li><p>Deep trees have high variance but low bias</p>
@@ -1266,7 +1262,7 @@ $<span class="math notranslate nohighlight">\( GainRatio(X,X_i) = \frac{Gain(X,X
 </div>
 </div>
 <section id="algorithm-overview">
-<h2>Algorithm overview<a class="headerlink" href="#algorithm-overview" title="Permalink to this heading">#</a></h2>
+<h3>Algorithm overview<a class="headerlink" href="#algorithm-overview" title="Permalink to this heading">#</a></h3>
 <table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p>Name</p></th>
@@ -1297,6 +1293,7 @@ $<span class="math notranslate nohighlight">\( GainRatio(X,X_i) = \frac{Gain(X,X
 </tr>
 </tbody>
 </table>
+</section>
 </section>
 </section>
 
@@ -1361,32 +1358,30 @@ $<span class="math notranslate nohighlight">\( GainRatio(X,X_i) = \frac{Gain(X,X
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Recap: Decision Trees</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#installation-note">Installation note</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#decision-tree-classification">Decision Tree classification</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#heuristics">Heuristics</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example">Example</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#heuristics-in-scikit-learn">Heuristics in scikit-learn</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installation-note">Installation note</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#decision-tree-classification">Decision Tree classification</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#heuristics">Heuristics</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example">Example</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#heuristics-in-scikit-learn">Heuristics in scikit-learn</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#handling-many-valued-features">Handling many-valued features</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overfitting-controlling-complexity-of-decision-trees">Overfitting: Controlling complexity of Decision Trees</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#decision-tree-regression">Decision tree regression</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#in-scikit-learn">In scikit-learn</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#handling-many-valued-features">Handling many-valued features</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#overfitting-controlling-complexity-of-decision-trees">Overfitting: Controlling complexity of Decision Trees</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#decision-tree-regression">Decision tree regression</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#in-scikit-learn">In scikit-learn</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-trees">Model trees</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#strengths-weaknesses-and-parameters">Strengths, weaknesses and parameters</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#on-under-and-overfitting">On under- and overfitting</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#algorithm-overview">Algorithm overview</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#model-trees">Model trees</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#strengths-weaknesses-and-parameters">Strengths, weaknesses and parameters</a></li>
 </ul>
 </li>
 </ul>
-
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#on-under-and-overfitting">On under- and overfitting</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#algorithm-overview">Algorithm overview</a></li>
+</ul>
+</li>
+</ul>
   </nav></div>
 
 </div></div>
