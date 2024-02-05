@@ -919,7 +919,7 @@ $<span class="math notranslate nohighlight">\( t_i = \frac{t_i}{\| t\|_2 }\)</sp
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/cb93769500bffd6f9b9f3353788e3fdc82f137baf6bb42a5757bba6abab7dfe1.png" src="../_images/cb93769500bffd6f9b9f3353788e3fdc82f137baf6bb42a5757bba6abab7dfe1.png" />
+<img alt="../_images/78c1181a48de137eb8345c4c2b063834d0897f3b2d4feedda415e3fd73447270.png" src="../_images/78c1181a48de137eb8345c4c2b063834d0897f3b2d4feedda415e3fd73447270.png" />
 </div>
 </div>
 <section id="predictions">
@@ -938,10 +938,10 @@ $<span class="math notranslate nohighlight">\( t_i = \frac{t_i}{\| t\|_2 }\)</sp
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>782/782 [==============================] - 2s 2ms/step
 Review 0:  ? please give this one a miss br br ? ? and the rest of the cast rendered terrible performances the show is flat flat flat br br i don&#39;t know how michael madison could have allowed this one on his plate he almost seemed to know this wasn&#39;t going to work out and his performance was quite ? so all you madison fans give this a miss
-Predicted positiveness:  [0.046]
+Predicted positiveness:  [0.045]
 
 Review 16:  ? from 1996 first i watched this movie i feel never reach the end of my satisfaction i feel that i want to watch more and more until now my god i don&#39;t believe it was ten years ago and i can believe that i almost remember every word of the dialogues i love this movie and i love this novel absolutely perfection i love willem ? he has a strange voice to spell the words black night and i always say it for many times never being bored i love the music of it&#39;s so much made me come into another world deep in my heart anyone can feel what i feel and anyone could make the movie like this i don&#39;t believe so thanks thanks
-Predicted positiveness:  [0.956]
+Predicted positiveness:  [0.816]
 </pre></div>
 </div>
 </div>
@@ -1002,16 +1002,16 @@ Predicted positiveness:  [0.956]
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Model: &quot;sequential_13&quot;
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Model: &quot;sequential_1&quot;
 _________________________________________________________________
  Layer (type)                Output Shape              Param #   
 =================================================================
- embedding_11 (Embedding)    (None, 100, 20)           200000    
+ embedding (Embedding)       (None, 100, 20)           200000    
                                                                  
- global_average_pooling1d_7   (None, 20)               0         
- (GlobalAveragePooling1D)                                        
+ global_average_pooling1d (G  (None, 20)               0         
+ lobalAveragePooling1D)                                          
                                                                  
- dense_15 (Dense)            (None, 1)                 21        
+ dense_3 (Dense)             (None, 1)                 21        
                                                                  
 =================================================================
 Total params: 200,021
@@ -1047,7 +1047,7 @@ _________________________________________________________________
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/bce056f83c90135cbfdf84973926c246319960fd2b2b91bfb1491d3ae439dfd1.png" src="../_images/bce056f83c90135cbfdf84973926c246319960fd2b2b91bfb1491d3ae439dfd1.png" />
+<img alt="../_images/dba5e39aacc3d771a87e7fd8c9784decdaf44b2e6c16268024c6cd9c5bdf851a.png" src="../_images/dba5e39aacc3d771a87e7fd8c9784decdaf44b2e6c16268024c6cd9c5bdf851a.png" />
 </div>
 </div>
 </section>
@@ -1188,15 +1188,6 @@ _________________________________________________________________
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Downloading...
-From (uriginal): https://drive.google.com/uc?id=1ZOd5P9kreaBYg5Oh2n5McC-BozYcsKIH
-From (redirected): https://drive.google.com/uc?id=1ZOd5P9kreaBYg5Oh2n5McC-BozYcsKIH&amp;confirm=t&amp;uuid=bf2a469d-0c15-4e31-a0b4-ea05f143b0ac
-To: /Users/jvanscho/Documents/ml-course/master/data/glove.txt
-100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 347M/347M [00:19&lt;00:00, 17.4MB/s]
-</pre></div>
-</div>
-</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1290,7 +1281,7 @@ To: /Users/jvanscho/Documents/ml-course/master/data/glove.txt
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/51170b01dac4359eb11b068a3bfd1d40441e5749d5d0b1ffa592368437dfc208.png" src="../_images/51170b01dac4359eb11b068a3bfd1d40441e5749d5d0b1ffa592368437dfc208.png" />
+<img alt="../_images/4d57cf5bf28003baaa024578ac2e9adff324ff1190e8fe158a3891a63a3fb5d0.png" src="../_images/4d57cf5bf28003baaa024578ac2e9adff324ff1190e8fe158a3891a63a3fb5d0.png" />
 </div>
 </div>
 </section>
@@ -1386,8 +1377,15 @@ To: /Users/jvanscho/Documents/ml-course/master/data/glove.txt
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/c55c0d91063005d35c2f0cf123eb503dcb7b1c9773fb4caf8af4c6ee2ed6dfef.png" src="../_images/c55c0d91063005d35c2f0cf123eb503dcb7b1c9773fb4caf8af4c6ee2ed6dfef.png" />
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>157/157 [==============================] - 3s 18ms/step - loss: 0.0807 - accuracy: 0.9932 - val_loss: 1.5570 - val_accuracy: 0.8172
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">18</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="n">model</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">Sequential</span><span class="p">()</span>
+<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">Embedding</span><span class="p">(</span><span class="n">max_words</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="n">input_length</span><span class="o">=</span><span class="n">max_length</span><span class="p">))</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">Conv1D</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">))</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">MaxPooling1D</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
+
+<span class="ne">NameError</span>: name &#39;max_words&#39; is not defined
 </pre></div>
 </div>
 </div>

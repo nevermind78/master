@@ -809,7 +809,7 @@ $<span class="math notranslate nohighlight">\(\color{blue}{h(\mathbf{x})} = \col
 </div>
 </details>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "1a225e3475bb442b88af088997fcbd38", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "4eaa4bb7131a495685fa80b0ef3f907a", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
@@ -893,7 +893,7 @@ $<span class="math notranslate nohighlight">\(\color{blue}{h(\mathbf{x})} = \col
 </div>
 </details>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "480b5ddc7d54418d8c226adbad2e3b75", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "53e5f06cc7c24098ad2f0a3554ce8fb3", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
@@ -1181,7 +1181,7 @@ $<span class="math notranslate nohighlight">\(\frac{\partial \mathcal{L}}{\parti
 </div>
 </details>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "c79a60b87105441299f8f33634ef1dd0", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "afd1c4acc3c147829dd9afda12e5cebc", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
@@ -1235,7 +1235,7 @@ $<span class="math notranslate nohighlight">\(\frac{\partial \mathcal{L}}{\parti
 </div>
 </details>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "020fd7995db04f2eb3a2f587b8d64555", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "9dc0bbcc0ca2458fac77322c740a867e", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
@@ -1314,7 +1314,7 @@ $<span class="math notranslate nohighlight">\(\frac{\partial \mathcal{L}}{\parti
 </div>
 </details>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "5b59958713774662a07caeea19562c90", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "f99f0b81c2fc478aab2bae6b888a8eff", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
@@ -1366,7 +1366,7 @@ $<span class="math notranslate nohighlight">\(\text{softmax}(\mathbf{x},i) = \fr
 </div>
 </details>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "dbdb245a6b554a999730c8a92b4b53c3", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "8da8c81066344fc6aa37617c7c44d3f0", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
@@ -1437,6 +1437,7 @@ $<span class="math notranslate nohighlight">\(\text{softmax}(\mathbf{x},i) = \fr
 </li>
 <li><p>Only works if the previous task is ‘similar’ enough</p>
 <ul>
+<li><p>Generally, weights learned on very diverse data (e.g. ImageNet) transfer better</p></li>
 <li><p>Meta-learning: learn a good initialization across many related tasks</p></li>
 </ul>
 </li>
@@ -1504,8 +1505,8 @@ $<span class="math notranslate nohighlight">\(\text{softmax}(\mathbf{x},i) = \fr
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Metal device set to: Apple M1 Pro
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2023-04-12 08:49:20.458370: I tensorflow/core/common_runtime/pluggable_device/pluggable_device_factory.cc:306] Could not identify NUMA node of platform GPU ID 0, defaulting to 0. Your kernel may not have been built with NUMA support.
-2023-04-12 08:49:20.458531: I tensorflow/core/common_runtime/pluggable_device/pluggable_device_factory.cc:272] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 0 MB memory) -&gt; physical PluggableDevice (device: 0, name: METAL, pci bus id: &lt;undefined&gt;)
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2023-09-22 09:09:17.551679: I tensorflow/core/common_runtime/pluggable_device/pluggable_device_factory.cc:306] Could not identify NUMA node of platform GPU ID 0, defaulting to 0. Your kernel may not have been built with NUMA support.
+2023-09-22 09:09:17.551955: I tensorflow/core/common_runtime/pluggable_device/pluggable_device_factory.cc:272] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 0 MB memory) -&gt; physical PluggableDevice (device: 0, name: METAL, pci bus id: &lt;undefined&gt;)
 </pre></div>
 </div>
 </div>
@@ -1681,7 +1682,7 @@ $<span class="math notranslate nohighlight">\(\text{softmax}(\mathbf{x},i) = \fr
 </div>
 </div>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "d5f0485707e042e390ce7eec13d2dc3d", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "98da38b722254022ba66c0a325ec1b9d", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 </section>
 <section id="id1">
@@ -1715,7 +1716,7 @@ $<span class="math notranslate nohighlight">\(\text{softmax}(\mathbf{x},i) = \fr
 </div>
 </details>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "06884b3f03b447b28727d845a7fdd748", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "33b958e6059d4a79a93e26608ac5eb4b", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
@@ -1790,7 +1791,7 @@ $<span class="math notranslate nohighlight">\(\color{blue}{\mathbf{v}_{(s)}} = \
 </div>
 </details>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "4c7c37eb22414b68b7a495ebe5fb36d3", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "e9896e629ba64f0d813a3baca9def1e7", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
@@ -1863,7 +1864,7 @@ $<span class="math notranslate nohighlight">\(w_{i,(s+1)} = w_{i,(s)}- \frac{\et
 </div>
 </details>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "92b50165ee774b84ab1af060a8195c6c", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "56e3653b6ad149f8a2c9d88c521d81a4", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 </section>
 <section id="adam-adaptive-moment-estimation">
@@ -1918,7 +1919,7 @@ $<span class="math notranslate nohighlight">\(w_{i,(s+1)} = w_{i,(s)}- \frac{\et
 </div>
 </details>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "74f684cdd5b14bcfaf4113ef8ea4da69", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "1ba838c2a6524f90bc1953d1b1dccedb", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 </section>
 <section id="sgd-optimizer-zoo">
@@ -1957,7 +1958,7 @@ $<span class="math notranslate nohighlight">\(w_{i,(s+1)} = w_{i,(s)}- \frac{\et
 </div>
 </details>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "ea39cb6e1f1b4c98a40b415934f86212", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "446f1fd09c6d4220a6faabf61e31bdfc", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
@@ -2271,8 +2272,8 @@ _________________________________________________________________
 </div>
 </details>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2023-04-12 08:50:02.309857: W tensorflow/core/platform/profile_utils/cpu_utils.cc:128] Failed to get CPU frequency: 0 Hz
-2023-04-12 08:50:03.363654: I tensorflow/core/grappler/optimizers/custom_graph_optimizer_registry.cc:114] Plugin optimizer for device_type GPU is enabled.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2023-09-22 09:09:27.549837: W tensorflow/core/platform/profile_utils/cpu_utils.cc:128] Failed to get CPU frequency: 0 Hz
+2023-09-22 09:09:27.889092: I tensorflow/core/grappler/optimizers/custom_graph_optimizer_registry.cc:114] Plugin optimizer for device_type GPU is enabled.
 </pre></div>
 </div>
 </div>
@@ -2305,11 +2306,11 @@ _________________________________________________________________
 </div>
 </details>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2023-04-12 08:52:25.483482: I tensorflow/core/grappler/optimizers/custom_graph_optimizer_registry.cc:114] Plugin optimizer for device_type GPU is enabled.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2023-09-22 09:18:52.963181: I tensorflow/core/grappler/optimizers/custom_graph_optimizer_registry.cc:114] Plugin optimizer for device_type GPU is enabled.
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0.0988096 0.0003385 0.6747018 0.0004403 0.017712  0.        0.2071131
- 0.0000004 0.0008842 0.       ]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0.0090286 0.0000066 0.8731063 0.0004194 0.0108315 0.0000054 0.1064771
+ 0.0000001 0.0001248 0.0000002]
 </pre></div>
 </div>
 <img alt="../_images/de5c80099d786cfab8f18da7e5b37611c03b06acce2c083a889e978d5d49c8af.png" src="../_images/de5c80099d786cfab8f18da7e5b37611c03b06acce2c083a889e978d5d49c8af.png" />
@@ -2329,10 +2330,7 @@ _________________________________________________________________
 </div>
 </details>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2023-04-12 08:52:28.329407: I tensorflow/core/grappler/optimizers/custom_graph_optimizer_registry.cc:114] Plugin optimizer for device_type GPU is enabled.
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Test accuracy: 0.8699000477790833
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Test accuracy: 0.8842999935150146
 </pre></div>
 </div>
 </div>
@@ -2432,7 +2430,7 @@ _________________________________________________________________
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/e29ab3eda2b5933052f7ad5843fef658cc6235faec826d035f44379ca0d4a4db.png" src="../_images/e29ab3eda2b5933052f7ad5843fef658cc6235faec826d035f44379ca0d4a4db.png" />
+<img alt="../_images/af0c6b8446ed6b939a18e0669761e5d24af468bdb59f0b704076fc479ad426b5.png" src="../_images/af0c6b8446ed6b939a18e0669761e5d24af468bdb59f0b704076fc479ad426b5.png" />
 </div>
 </div>
 <section id="early-stopping">
@@ -2469,7 +2467,7 @@ _________________________________________________________________
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/c23faf1110d2bc091fed6ec608c78d630f15708acec80dd0a588af37d0e40344.png" src="../_images/c23faf1110d2bc091fed6ec608c78d630f15708acec80dd0a588af37d0e40344.png" />
+<img alt="../_images/3729676e104e6c9664df31de374d6f5579669d709a28152db01c3222d78d8285.png" src="../_images/3729676e104e6c9664df31de374d6f5579669d709a28152db01c3222d78d8285.png" />
 </div>
 </div>
 </section>
@@ -2511,7 +2509,7 @@ _________________________________________________________________
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/b32e82588aef9892b5a6c99480a0bf694f67bc61175c74ef3e6d4ef5e6f5d48b.png" src="../_images/b32e82588aef9892b5a6c99480a0bf694f67bc61175c74ef3e6d4ef5e6f5d48b.png" />
+<img alt="../_images/8e0eb907d67be103c3093b679e6c92518564e360d311931150240934f4b00214.png" src="../_images/8e0eb907d67be103c3093b679e6c92518564e360d311931150240934f4b00214.png" />
 </div>
 </div>
 <section id="information-bottleneck">
@@ -2546,6 +2544,9 @@ _________________________________________________________________
 </div>
 </div>
 </details>
+<div class="cell_output docutils container">
+<img alt="../_images/16232f703eb19ad2b4b7dd747cdb2a408a962310eaa8b0b1aaa013bbbcc127f6.png" src="../_images/16232f703eb19ad2b4b7dd747cdb2a408a962310eaa8b0b1aaa013bbbcc127f6.png" />
+</div>
 </div>
 </section>
 <section id="weight-regularization-weight-decay">
@@ -2584,6 +2585,9 @@ _________________________________________________________________
 </div>
 </div>
 </details>
+<div class="cell_output docutils container">
+<img alt="../_images/3541952072a560d0811d60555335e088c3ec7b334cae0e0f6a764c47cc770c13.png" src="../_images/3541952072a560d0811d60555335e088c3ec7b334cae0e0f6a764c47cc770c13.png" />
+</div>
 </div>
 </section>
 </section>
@@ -2614,6 +2618,9 @@ _________________________________________________________________
 </div>
 </div>
 </details>
+<div class="cell_output docutils container">
+<img alt="../_images/ab336bf4ed358714c768747ebd025df4feb128815db1a633c979fcec069c53c2.png" src="../_images/ab336bf4ed358714c768747ebd025df4feb128815db1a633c979fcec069c53c2.png" />
+</div>
 </div>
 <section id="dropout-layers">
 <h4>Dropout layers<a class="headerlink" href="#dropout-layers" title="Permalink to this heading">#</a></h4>
@@ -2649,6 +2656,9 @@ _________________________________________________________________
 </div>
 </div>
 </details>
+<div class="cell_output docutils container">
+<img alt="../_images/1e8fe280259dcc9c278466a07d108be4cb7fbd67a248265174e355ad8b8ed2f1.png" src="../_images/1e8fe280259dcc9c278466a07d108be4cb7fbd67a248265174e355ad8b8ed2f1.png" />
+</div>
 </div>
 </section>
 <section id="batch-normalization">
@@ -2714,6 +2724,9 @@ _________________________________________________________________
 </div>
 </div>
 </details>
+<div class="cell_output docutils container">
+<img alt="../_images/3dca5d327eb935749f1a81f4b4af41bd6bd38cabe5ad8e918710dec66ef7b662.png" src="../_images/3dca5d327eb935749f1a81f4b4af41bd6bd38cabe5ad8e918710dec66ef7b662.png" />
+</div>
 </div>
 </section>
 </section>
