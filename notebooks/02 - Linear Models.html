@@ -198,16 +198,15 @@ const thebe_selector_output = ".output, .cell_output"
 
 
 <li class="toctree-l1"><a class="reference internal" href="Tutorial%204%20-%20Decision%20Trees.html">Recap: Decision Trees</a></li>
-
-
 <li class="toctree-l1"><a class="reference internal" href="Tutorial%205%20-%20Nearest%20Neighbors.html">Recap: k-Nearest Neighbor</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../labs/Lab%201%20-%20Tutorial.html">Lab 1: Machine Learning with Python</a></li>
 
 
 
-<li class="toctree-l1"><a class="reference internal" href="../labs/Lab%204%20-%20Tutorial.html">Lab 4 Tutorial: Data engineering pipelines</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../labs/Lab%206%20-%20Tutorial.html">Lab 6 Tutorial: Deep Learning with TensorFlow</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../labs/Lab%207%20-%20Tutorial.html">Lab 7 Tutorial: Deep Learning for text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../labs/Lab%202%20-%20Tutorial.html">Lab 2: Model Selection in scikit-learn</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../labs/Lab%204%20-%20Tutorial.html">Lab 4: Data engineering pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../labs/Lab%206%20-%20Tutorial.html">Lab 6: Deep Learning with TensorFlow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../labs/Lab%207%20-%20Tutorial.html">Lab 7: Deep Learning for text</a></li>
 </ul>
 
     </div>
@@ -603,7 +602,7 @@ document.write(`
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/326eb183ca0a0bacd6ac9bd8a773951fe7168034e71c4e65e2edbc3edea008b4.png" src="../_images/326eb183ca0a0bacd6ac9bd8a773951fe7168034e71c4e65e2edbc3edea008b4.png" />
+<img alt="../_images/b3f575246d0460b9db7b11623a8dd59551a46ece45386c39cbdf20b7ade17d3e.png" src="../_images/b3f575246d0460b9db7b11623a8dd59551a46ece45386c39cbdf20b7ade17d3e.png" />
 </div>
 </div>
 <ul class="simple">
@@ -744,7 +743,7 @@ document.write(`
 </div>
 </details>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "f5e2017321da4eb3b8c4c8725ab9ad9b", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "537bd2ed2cc04d80bab03ebef76a4e15", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
@@ -848,7 +847,7 @@ document.write(`
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>w_1: 0.393906  w_0: -0.031804
 </pre></div>
 </div>
-<img alt="../_images/36d9c97dc02052af94cdf2d985444fe143107c35059de6294c9c2d5f5a2a232f.png" src="../_images/36d9c97dc02052af94cdf2d985444fe143107c35059de6294c9c2d5f5a2a232f.png" />
+<img alt="../_images/7571bf0d3c211d78c64485cfe22cd7c52dd08966d9a662dd8948d25c5ee75ae2.png" src="../_images/7571bf0d3c211d78c64485cfe22cd7c52dd08966d9a662dd8948d25c5ee75ae2.png" />
 </div>
 </div>
 <section id="linear-regression-aka-ordinary-least-squares">
@@ -895,7 +894,7 @@ document.write(`
 <ul>
 <li><p>Start with an initial, random set of weights: <span class="math notranslate nohighlight">\(\mathbf{w}^0\)</span></p></li>
 <li><p>Given a differentiable loss function <span class="math notranslate nohighlight">\(\mathcal{L}\)</span> (e.g. <span class="math notranslate nohighlight">\(\mathcal{L}_{SSE}\)</span>), compute <span class="math notranslate nohighlight">\(\nabla \mathcal{L}\)</span></p></li>
-<li><p>For least squares: <span class="math notranslate nohighlight">\(\frac{\partial \mathcal{L}_{SSE}}{\partial w_i}(\mathbf{w}) = -2 \sum_{n=1}^{N} (y_n-\hat{y}_n) x_{n,i}\)</span></p>
+<li><p>For least squares: <span class="math notranslate nohighlight">\(\frac{\partial \mathcal{L}_{SSE}}{\partial w_i}(\mathbf{w}) = -2\sum_{n=1}^{N} (y_n-\hat{y}_n) x_{n,i}\)</span></p>
 <ul class="simple">
 <li><p>If feature <span class="math notranslate nohighlight">\(X_{:,i}\)</span> is associated with big errors, the gradient wrt <span class="math notranslate nohighlight">\(w_i\)</span> will be large</p></li>
 </ul>
@@ -941,7 +940,7 @@ document.write(`
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">math</span>
 <span class="c1"># Some convex function to represent the loss</span>
-<span class="k">def</span> <span class="nf">l_fx</span><span class="p">(</span><span class="n">x</span><span class="p">):</span> 
+<span class="k">def</span> <span class="nf">l_fx</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="k">return</span> <span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="mi">4</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> 
 <span class="c1"># Derivative to compute the gradient</span>
 <span class="k">def</span> <span class="nf">l_dfx0</span><span class="p">(</span><span class="n">x0</span><span class="p">):</span>
@@ -976,7 +975,7 @@ document.write(`
 </div>
 </details>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "79a0ffa03c2c466d8b918bf82dceaaee", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "6f37c4a9263442f0a11919721eeaaf3e", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
@@ -1049,8 +1048,8 @@ document.write(`
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Metal device set to: Apple M1 Pro
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2023-04-12 08:47:58.169040: I tensorflow/core/common_runtime/pluggable_device/pluggable_device_factory.cc:306] Could not identify NUMA node of platform GPU ID 0, defaulting to 0. Your kernel may not have been built with NUMA support.
-2023-04-12 08:47:58.169176: I tensorflow/core/common_runtime/pluggable_device/pluggable_device_factory.cc:272] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 0 MB memory) -&gt; physical PluggableDevice (device: 0, name: METAL, pci bus id: &lt;undefined&gt;)
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-02-07 09:48:11.923957: I tensorflow/core/common_runtime/pluggable_device/pluggable_device_factory.cc:306] Could not identify NUMA node of platform GPU ID 0, defaulting to 0. Your kernel may not have been built with NUMA support.
+2024-02-07 09:48:11.924073: I tensorflow/core/common_runtime/pluggable_device/pluggable_device_factory.cc:272] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 0 MB memory) -&gt; physical PluggableDevice (device: 0, name: METAL, pci bus id: &lt;undefined&gt;)
 </pre></div>
 </div>
 </div>
@@ -1226,7 +1225,7 @@ document.write(`
 </summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nd">@interact</span>
-<span class="k">def</span> <span class="nf">plot_lr</span><span class="p">(</span><span class="n">iterations</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="n">learning_rate</span><span class="o">=</span><span class="p">(</span><span class="mf">0.005</span><span class="p">,</span><span class="mf">0.04</span><span class="p">,</span><span class="mf">0.005</span><span class="p">)):</span>
+<span class="k">def</span> <span class="nf">plot_lr</span><span class="p">(</span><span class="n">iterations</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="n">learning_rate</span><span class="o">=</span><span class="p">(</span><span class="mf">0.01</span><span class="p">,</span><span class="mf">0.04</span><span class="p">,</span><span class="mf">0.005</span><span class="p">)):</span>
     <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="o">*</span><span class="n">fig_scale</span><span class="p">,</span><span class="mi">4</span><span class="o">*</span><span class="n">fig_scale</span><span class="p">))</span>
     <span class="n">plot_learning_rate_optimizers</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span><span class="n">iterations</span><span class="p">,</span><span class="n">learning_rate</span><span class="p">)</span>
     
@@ -1237,7 +1236,7 @@ document.write(`
 </div>
 </details>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "2c0f3bb7a33a40a891d6f25a3560c633", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "dd096ae3e5a54b29a8e467a3707789ef", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <p><strong>Effect of learning rate decay</strong></p>
 <div class="cell tag_hide-input docutils container">
@@ -1259,7 +1258,7 @@ document.write(`
 </div>
 </details>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "12385d9cac3e44f0a6689d8ae7ad9663", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "2012f03433b44de98c45e534a163bbff", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <p>In two dimensions:
 <img src="https://raw.githubusercontent.com/ML-course/master/master/notebooks/images/01_gradient_descent_2D.png" alt="ml" style="width: 900px;"/></p>
@@ -1484,7 +1483,7 @@ Test set score: 0.75
 </div>
 </details>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "c2c8070fcdbd46eabb2787bec507171b", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "53a3a01d8bb64b11897c0d9968a68de8", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
@@ -1537,7 +1536,7 @@ Test set score: 0.75
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/79b56f1f0e617923fa47dbff9ff87861ca1b9421b04a0ed1ba98ac7d945959ba.png" src="../_images/79b56f1f0e617923fa47dbff9ff87861ca1b9421b04a0ed1ba98ac7d945959ba.png" />
+<img alt="../_images/551aba160df659d46444ff8d650291fd5e40fcc8c5fdfedb08770b2819754e11.png" src="../_images/551aba160df659d46444ff8d650291fd5e40fcc8c5fdfedb08770b2819754e11.png" />
 </div>
 </div>
 </section>
@@ -1571,7 +1570,7 @@ Test set score: 0.75
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/afa463b5408b9c7e206ba94bf225f4366245ecb0ff32a4486d22a71be989c92a.png" src="../_images/afa463b5408b9c7e206ba94bf225f4366245ecb0ff32a4486d22a71be989c92a.png" />
+<img alt="../_images/d07bbf9208d8883e6636f1bc45793dc8cdb6ac12b22b9fc04a7a8b1078425c8e.png" src="../_images/d07bbf9208d8883e6636f1bc45793dc8cdb6ac12b22b9fc04a7a8b1078425c8e.png" />
 </div>
 </div>
 </section>
@@ -1631,7 +1630,7 @@ Test set score: 0.75
 </div>
 </details>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "da49e3768c794d70b41e8fea2f3680b0", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "a8efcdf0afcf428d99c74df99973c1f7", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
@@ -1677,18 +1676,23 @@ Test set score: 0.75
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{aligned} \partial_{w_i} \mathcal{L}_{Lasso}(w_i) &amp;= \partial_{w_i} \mathcal{L}_{SSE}(w_i) + \partial_{w_i} \alpha |w_i| \\ 0 &amp;= (w_i - \rho_i) + \alpha \cdot \partial_{w_i} |w_i| \\ w_i &amp;= \rho_i - \alpha \cdot \partial_{w_i} |w_i| \end{aligned}\end{split}\]</div>
 <ul class="simple">
-<li><p>In which <span class="math notranslate nohighlight">\(\rho_i\)</span> is the solution for <span class="math notranslate nohighlight">\(\mathcal{L}_{SSE}(w_i)\)</span></p></li>
+<li><p>In which <span class="math notranslate nohighlight">\(\rho_i\)</span> is the part of <span class="math notranslate nohighlight">\(\partial_{w_i} \mathcal{L}_{SSE}(w_i)\)</span> excluding <span class="math notranslate nohighlight">\(w_i\)</span> (assume <span class="math notranslate nohighlight">\(z_i=1\)</span> for now)</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(\rho_i\)</span> can be seen as the <span class="math notranslate nohighlight">\(\mathcal{L}_{SSE}\)</span> ‘solution’: <span class="math notranslate nohighlight">\(w_i = \rho_i\)</span> if <span class="math notranslate nohighlight">\(\partial_{w_i} \mathcal{L}_{SSE}(w_i) = 0\)</span>
+$<span class="math notranslate nohighlight">\(\partial_{w_i} \mathcal{L}_{SSE}(w_i) = \partial_{w_i} \sum_{n=1}^{N} (y_n-(\mathbf{w}\mathbf{x_n} + w_0))^2 = z_i w_i -\rho_i \)</span>$</p></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
 <ul>
 <li><p>We found: <span class="math notranslate nohighlight">\(w_i = \rho_i - \alpha \cdot \partial_{w_i} |w_i|\)</span></p></li>
-<li><p>Lasso solution has the form of a <em>soft thresholding function</em> <span class="math notranslate nohighlight">\(S\)</span></p>
+<li><p><a class="reference external" href="https://xavierbourretsicotte.github.io/lasso_derivation.html">The Lasso solution</a> has the form of a <em>soft thresholding function</em> <span class="math notranslate nohighlight">\(S\)</span></p>
 <div class="math notranslate nohighlight">
 \[\begin{split}w_i^* = S(\rho_i,\alpha) = \begin{cases} \rho_i + \alpha, &amp; \rho_i &lt; -\alpha \\  0, &amp; -\alpha &lt; \rho_i &lt; \alpha \\ \rho_i - \alpha, &amp; \rho_i &gt; \alpha \\ \end{cases}\end{split}\]</div>
 <ul class="simple">
 <li><p>Small weights become 0: sparseness!</p></li>
-<li><p>If the data is not normalized, <span class="math notranslate nohighlight">\(w_i^* = \frac{1}{z_i}S(\rho_i,\alpha)\)</span> with <span class="math notranslate nohighlight">\(z_i\)</span> a normalizing constant</p></li>
+<li><p>If the data is not normalized, <span class="math notranslate nohighlight">\(w_i^* = \frac{1}{z_i}S(\rho_i,\alpha)\)</span> with constant <span class="math notranslate nohighlight">\(z_i = \sum_{n=1}^{N} x_{ni}^2\)</span></p></li>
 </ul>
 </li>
 <li><p>Ridge solution: <span class="math notranslate nohighlight">\(w_i = \rho_i - \alpha \cdot \partial_{w_i} w_i^2 = \rho_i - 2\alpha \cdot w_i\)</span>, thus <span class="math notranslate nohighlight">\(w_i^* = \frac{\rho_i}{1 + 2\alpha}\)</span></p></li>
@@ -1718,7 +1722,7 @@ Test set score: 0.75
 </div>
 </details>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "f66bbd65f32c49deb89a760fdcb019ce", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "f003e13a58b24db9a7f279b9cd3b314b", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
@@ -1798,7 +1802,7 @@ Test set score: 0.75
 </div>
 </details>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "7ea578893ee94ce4b67d817e97e5c4b3", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "a3f73d39405a4529951dd989f02d8a97", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
@@ -1879,7 +1883,7 @@ Test set score: 0.75
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/3517030e18d83cd4957b858d33b8f3906eabd46f21a8b4b155a435b487625043.png" src="../_images/3517030e18d83cd4957b858d33b8f3906eabd46f21a8b4b155a435b487625043.png" />
+<img alt="../_images/fb8ccf589bdd69f85394ab9218d018681d79c37666c8569d67a720d4c60dc245.png" src="../_images/fb8ccf589bdd69f85394ab9218d018681d79c37666c8569d67a720d4c60dc245.png" />
 </div>
 </div>
 </section>
@@ -1959,7 +1963,7 @@ For binary classification (2 classes), we aim to fit the following function:</p>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/826be92ee8247b3ada0a6ff16849477d2fc2d423ae3c406f82e9f0189ba4c363.png" src="../_images/826be92ee8247b3ada0a6ff16849477d2fc2d423ae3c406f82e9f0189ba4c363.png" />
+<img alt="../_images/49fbfcc0266b4ab0f74d031d02fded88f514290511fa53468a734eadf4eb433f.png" src="../_images/49fbfcc0266b4ab0f74d031d02fded88f514290511fa53468a734eadf4eb433f.png" />
 </div>
 </div>
 <ul class="simple">
@@ -2036,7 +2040,7 @@ For binary classification (2 classes), we aim to fit the following function:</p>
 </div>
 </details>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "d2e95b70862e4825904b60c1251ab072", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "36ee22a5ec504ca3a1dfe2a5aa45ec8b", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
@@ -2116,7 +2120,7 @@ For binary classification (2 classes), we aim to fit the following function:</p>
 </div>
 </details>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "e69fc7d51e3e4b5194bae54543f848cc", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "66ef2e58a1c546b69578627de56b09de", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
@@ -2177,7 +2181,7 @@ For binary classification (2 classes), we aim to fit the following function:</p>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/fdf5fd9d66de4c8dcd5ca6b4988fa5ac07feb2a8d05ccf8dec568ab2f0ede0f2.png" src="../_images/fdf5fd9d66de4c8dcd5ca6b4988fa5ac07feb2a8d05ccf8dec568ab2f0ede0f2.png" />
+<img alt="../_images/be8595df4d5027381e98dc5ef94e2ddf8cc8fcd1f2c79d662befc0fbb0d9b0a4.png" src="../_images/be8595df4d5027381e98dc5ef94e2ddf8cc8fcd1f2c79d662befc0fbb0d9b0a4.png" />
 </div>
 </div>
 </section>
@@ -2263,7 +2267,7 @@ For binary classification (2 classes), we aim to fit the following function:</p>
 </div>
 </details>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "188e5fbd580c4235b75a0f752847d526", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "c75b6dc958cb4ae2b0f2fb5b7d568a00", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
@@ -2305,7 +2309,7 @@ For binary classification (2 classes), we aim to fit the following function:</p>
 <span class="n">train_score</span><span class="o">=</span><span class="p">[]</span>
 <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">C</span><span class="p">:</span>
     <span class="n">lr</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">C</span><span class="o">=</span><span class="n">c</span><span class="p">)</span>
-    <span class="n">scores</span> <span class="o">=</span> <span class="n">cross_validate</span><span class="p">(</span><span class="n">lr</span><span class="p">,</span><span class="n">X_C</span><span class="p">,</span><span class="n">y_C</span><span class="p">,</span><span class="n">cv</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">return_train_score</span><span class="o">=</span><span class="s2">&quot;True&quot;</span><span class="p">)</span>
+    <span class="n">scores</span> <span class="o">=</span> <span class="n">cross_validate</span><span class="p">(</span><span class="n">lr</span><span class="p">,</span><span class="n">X_C</span><span class="p">,</span><span class="n">y_C</span><span class="p">,</span><span class="n">cv</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">return_train_score</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">test_score</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">scores</span><span class="p">[</span><span class="s1">&#39;test_score&#39;</span><span class="p">]))</span>
     <span class="n">train_score</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">scores</span><span class="p">[</span><span class="s1">&#39;train_score&#39;</span><span class="p">]))</span>
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="o">*</span><span class="n">fig_scale</span><span class="p">,</span><span class="mi">4</span><span class="o">*</span><span class="n">fig_scale</span><span class="p">))</span>
@@ -2321,7 +2325,7 @@ For binary classification (2 classes), we aim to fit the following function:</p>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/8f6948afab13671b104e3ba10a7f3b417819d910a1e21d6ddc756a3b15b7b5e9.png" src="../_images/8f6948afab13671b104e3ba10a7f3b417819d910a1e21d6ddc756a3b15b7b5e9.png" />
+<img alt="../_images/9f86db014c87840b548bfb2254659b1eb943e48a86f590f63fb1fa89840680c2.png" src="../_images/9f86db014c87840b548bfb2254659b1eb943e48a86f590f63fb1fa89840680c2.png" />
 </div>
 </div>
 <ul class="simple">
@@ -2355,7 +2359,7 @@ For binary classification (2 classes), we aim to fit the following function:</p>
 </div>
 </details>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "408e7ab39da949c59bb7d3649d797665", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "3b19dab9218f445c8735da41f2418dac", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
@@ -2484,7 +2488,7 @@ For binary classification (2 classes), we aim to fit the following function:</p>
 </div>
 </details>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "289a59939c004912a1cfa57b52bbb40d", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "289a59939c004912a1cfa57b52bbb40d", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "0aedd34214544f02803f3f328c7512fb", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
@@ -2607,7 +2611,7 @@ For binary classification (2 classes), we aim to fit the following function:</p>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/5bc105a964fda9004ae33106a2644fc56f5a9520213a86bcb21c7aedcbfcc802.png" src="../_images/5bc105a964fda9004ae33106a2644fc56f5a9520213a86bcb21c7aedcbfcc802.png" />
+<img alt="../_images/f89c8a187e9e54b4179c79f80b60aaeb1adb04c5b23f129457d6b58b9604f554.png" src="../_images/f89c8a187e9e54b4179c79f80b60aaeb1adb04c5b23f129457d6b58b9604f554.png" />
 </div>
 </div>
 </section>
@@ -2696,7 +2700,7 @@ For binary classification (2 classes), we aim to fit the following function:</p>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/10a47d865ddbdb7272fa38f78d270cec83297067a22dfabe635ccb9537ed4b92.png" src="../_images/10a47d865ddbdb7272fa38f78d270cec83297067a22dfabe635ccb9537ed4b92.png" />
+<img alt="../_images/5458150270843cbd80694a832ad45ad12b25548f7fe3c4759b943fdaded57965.png" src="../_images/5458150270843cbd80694a832ad45ad12b25548f7fe3c4759b943fdaded57965.png" />
 </div>
 </div>
 </section>
@@ -2737,7 +2741,7 @@ For binary classification (2 classes), we aim to fit the following function:</p>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/db42bd008fe510e5a6013d55c815da6e584a134178609ecef538de58a21ef9d7.png" src="../_images/db42bd008fe510e5a6013d55c815da6e584a134178609ecef538de58a21ef9d7.png" />
+<img alt="../_images/63b2e9cbaf18a142028eac44be2a49d63fe736033ce9ac9a615f1f0e33595d4d.png" src="../_images/63b2e9cbaf18a142028eac44be2a49d63fe736033ce9ac9a615f1f0e33595d4d.png" />
 </div>
 </div>
 </section>
@@ -2768,7 +2772,7 @@ For binary classification (2 classes), we aim to fit the following function:</p>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/6f36d4aceaa6b77c2cad487e6cba62ddbb74ad1dd1bb279b81200b65e50ebf66.png" src="../_images/6f36d4aceaa6b77c2cad487e6cba62ddbb74ad1dd1bb279b81200b65e50ebf66.png" />
+<img alt="../_images/15552c4b7ec92237b818f9a48c64aaaaa8ee1304e7289f9b15aeca65276aff6f.png" src="../_images/15552c4b7ec92237b818f9a48c64aaaaa8ee1304e7289f9b15aeca65276aff6f.png" />
 </div>
 </div>
 <p>Same for non-linearly separable data</p>
@@ -2788,7 +2792,7 @@ For binary classification (2 classes), we aim to fit the following function:</p>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/c301911ab336548fa5e956dc7cc37dfef13e3a6a1451c218f66fe5fe6da29198.png" src="../_images/c301911ab336548fa5e956dc7cc37dfef13e3a6a1451c218f66fe5fe6da29198.png" />
+<img alt="../_images/8c8c4376edc817b227637cc16c0afda172e30158f5fa3cd1901528c4b9994069.png" src="../_images/8c8c4376edc817b227637cc16c0afda172e30158f5fa3cd1901528c4b9994069.png" />
 </div>
 </div>
 <p>Large C values can lead to overfitting (e.g. fitting noise), small values can lead to underfitting</p>
@@ -2805,7 +2809,7 @@ For binary classification (2 classes), we aim to fit the following function:</p>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/2b1aaf518d090072b7b3151556a0902c6ef26d6e5b40ea782d845ccae72ec485.png" src="../_images/2b1aaf518d090072b7b3151556a0902c6ef26d6e5b40ea782d845ccae72ec485.png" />
+<img alt="../_images/32237e54f7f4f661bcec31cd6ca339ede5f76f7b9d03ed5a40a83b50a318bff9.png" src="../_images/32237e54f7f4f661bcec31cd6ca339ede5f76f7b9d03ed5a40a83b50a318bff9.png" />
 </div>
 </div>
 </section>
@@ -2910,7 +2914,7 @@ Coefficients:
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/10a47d865ddbdb7272fa38f78d270cec83297067a22dfabe635ccb9537ed4b92.png" src="../_images/10a47d865ddbdb7272fa38f78d270cec83297067a22dfabe635ccb9537ed4b92.png" />
+<img alt="../_images/5458150270843cbd80694a832ad45ad12b25548f7fe3c4759b943fdaded57965.png" src="../_images/5458150270843cbd80694a832ad45ad12b25548f7fe3c4759b943fdaded57965.png" />
 </div>
 </div>
 </section>
@@ -2971,7 +2975,7 @@ Coefficients:
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/20000fea32086c0b42e9f9b654a902857d3f133fc43ab08b12dd1f754a4f3d56.png" src="../_images/20000fea32086c0b42e9f9b654a902857d3f133fc43ab08b12dd1f754a4f3d56.png" />
+<img alt="../_images/a139040383e44504e9b916b927f357da5e45487cd8598f6699d55b8129d44286.png" src="../_images/a139040383e44504e9b916b927f357da5e45487cd8598f6699d55b8129d44286.png" />
 </div>
 </div>
 </section>
@@ -3030,6 +3034,9 @@ Coefficients:
 </div>
 </div>
 </details>
+<div class="cell_output docutils container">
+<img alt="../_images/0daf6c4bcad43703063fa533304fe85cb0782bfea1d4f89c413e41c00c2b4ab2.png" src="../_images/0daf6c4bcad43703063fa533304fe85cb0782bfea1d4f89c413e41c00c2b4ab2.png" />
+</div>
 </div>
 <ul class="simple">
 <li><p>Every binary classifiers makes a prediction, the one with the highest score (&gt;0) wins</p></li>
@@ -3055,6 +3062,9 @@ Coefficients:
 </div>
 </div>
 </details>
+<div class="cell_output docutils container">
+<img alt="../_images/08e8998cd2366bc91d6999101fac264c80ed0a18bfb52a3ab90f7dd7527c35c1.png" src="../_images/08e8998cd2366bc91d6999101fac264c80ed0a18bfb52a3ab90f7dd7527c35c1.png" />
+</div>
 </div>
 </section>
 <section id="one-vs-one">
@@ -3097,6 +3107,15 @@ Coefficients:
 </div>
 </div>
 </details>
+<div class="cell_output docutils container">
+<div class="output text_html"><style>
+td {font-size: 16px}
+th {font-size: 16px}
+.rendered_html table, .rendered_html td, .rendered_html th {
+    font-size: 16px;
+}
+</style>
+</div></div>
 </div>
 </section>
 </section>
