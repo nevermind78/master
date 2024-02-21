@@ -1275,22 +1275,23 @@ $<span class="math notranslate nohighlight">\(\mathcal{L}_{Ridge} = \sum_{n=1}^{
     
     <span class="k">if</span> <span class="n">ax</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">(</span><span class="mi">6</span><span class="o">*</span><span class="n">fig_scale</span><span class="p">,</span> <span class="mi">6</span><span class="o">*</span><span class="n">fig_scale</span><span class="p">)</span>
     <span class="n">values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>  <span class="c1"># Ensure &#39;values&#39; is a numpy array for consistent handling</span>
     <span class="n">img</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">pcolormesh</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cmap</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">vmax</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="n">norm</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="n">xlabel</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">ylabel</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="n">xlabel</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">ylabel</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
 
     <span class="c1"># Setting the tick labels</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">values</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">+</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">minor</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">values</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">minor</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">(</span><span class="n">xticklabels</span> <span class="ow">or</span> <span class="p">[],</span> <span class="n">minor</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="n">xtickrotation</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">(</span><span class="n">yticklabels</span> <span class="ow">or</span> <span class="p">[],</span> <span class="n">minor</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">(</span><span class="n">xticklabels</span> <span class="ow">or</span> <span class="p">[],</span> <span class="n">minor</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="n">xtickrotation</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">(</span><span class="n">yticklabels</span> <span class="ow">or</span> <span class="p">[],</span> <span class="n">minor</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
 
     <span class="c1"># Loop over data dimensions and create text annotations.</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">values</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
         <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">values</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
             <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">j</span> <span class="o">+</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">fmt</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]),</span>
-                    <span class="n">ha</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;white&quot;</span> <span class="k">if</span> <span class="n">values</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">vmax</span><span class="o">/</span><span class="mi">2</span> <span class="k">else</span> <span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+                    <span class="n">ha</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;white&quot;</span> <span class="k">if</span> <span class="n">values</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">vmax</span><span class="o">/</span><span class="mi">2</span> <span class="k">else</span> <span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
 
     <span class="n">ax</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">)</span>  <span class="c1"># Optional: set aspect ratio to be equal</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">invert_yaxis</span><span class="p">()</span>
@@ -1320,7 +1321,7 @@ $<span class="math notranslate nohighlight">\(\mathcal{L}_{Ridge} = \sum_{n=1}^{
     <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">axes</span><span class="p">,</span> <span class="p">[</span><span class="n">y_pred_1</span><span class="p">,</span> <span class="n">y_pred_2</span><span class="p">,</span> <span class="n">y_pred_3</span><span class="p">])):</span>
         <span class="n">plot_confusion_matrix</span><span class="p">(</span><span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">),</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;gray_r&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
                               <span class="n">xticklabels</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;N&quot;</span><span class="p">,</span> <span class="s2">&quot;P&quot;</span><span class="p">],</span> <span class="n">yticklabels</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;N&quot;</span><span class="p">,</span> <span class="s2">&quot;P&quot;</span><span class="p">],</span> <span class="n">xtickrotation</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">: </span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">measure</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span><span class="n">measure</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="o">*</span><span class="n">fig_scale</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">: </span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">measure</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span><span class="n">measure</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="o">*</span><span class="n">fig_scale</span><span class="p">)</span>
 
     <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 </pre></div>
@@ -1341,7 +1342,7 @@ $<span class="math notranslate nohighlight">\(\mathcal{L}_{Ridge} = \sum_{n=1}^{
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/261e3e3aca26929359ac8c34da5fbc3547301a0122e2e450468c7347142c4a4c.png" src="../_images/261e3e3aca26929359ac8c34da5fbc3547301a0122e2e450468c7347142c4a4c.png" />
+<img alt="../_images/fac8728555478bd3144d8427440af001837bc8682fb497495343418cdbff4421.png" src="../_images/fac8728555478bd3144d8427440af001837bc8682fb497495343418cdbff4421.png" />
 </div>
 </div>
 </section>
@@ -1372,7 +1373,7 @@ $<span class="math notranslate nohighlight">\(\mathcal{L}_{Ridge} = \sum_{n=1}^{
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/39f7eaf158723bc41e979836c972c2b5e6826ae24989ae74f7249c8949b8034c.png" src="../_images/39f7eaf158723bc41e979836c972c2b5e6826ae24989ae74f7249c8949b8034c.png" />
+<img alt="../_images/5bc3951e25d4334669951b8b799791be1efd3d957640c5524d29737d17a3133a.png" src="../_images/5bc3951e25d4334669951b8b799791be1efd3d957640c5524d29737d17a3133a.png" />
 </div>
 </div>
 </section>
@@ -1404,7 +1405,7 @@ $<span class="math notranslate nohighlight">\(\mathcal{L}_{Ridge} = \sum_{n=1}^{
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/98b4caf05c7e72cb5154bf2aa75e10306e4ff26ab72b032cf7c8d0a061353d27.png" src="../_images/98b4caf05c7e72cb5154bf2aa75e10306e4ff26ab72b032cf7c8d0a061353d27.png" />
+<img alt="../_images/3cac4a582d3dd01a8bc5b0676da74622079a8a846bc51e74ee8da834bf467b56.png" src="../_images/3cac4a582d3dd01a8bc5b0676da74622079a8a846bc51e74ee8da834bf467b56.png" />
 </div>
 </div>
 <p><strong>Comparison</strong><br />
@@ -1432,7 +1433,7 @@ $<span class="math notranslate nohighlight">\(\mathcal{L}_{Ridge} = \sum_{n=1}^{
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/68807574529cdcc1ab6d32d6dba4cabfbb20d4cd9a1a0306d341f59b2ff38b88.png" src="../_images/68807574529cdcc1ab6d32d6dba4cabfbb20d4cd9a1a0306d341f59b2ff38b88.png" />
+<img alt="../_images/0bb92fcc6caf8a8a85ffd7fe30d99a7476294e13e417f4e3542b4ca8a832b397.png" src="../_images/0bb92fcc6caf8a8a85ffd7fe30d99a7476294e13e417f4e3542b4ca8a832b397.png" />
 </div>
 </div>
 <p><strong>Classification measure Zoo</strong><br />
@@ -1476,7 +1477,8 @@ $<span class="math notranslate nohighlight">\(\frac{1}{C} \sum_{c=1}^C R(y_c,\ha
     <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">)</span>
     <span class="n">plot_confusion_matrix</span><span class="p">(</span><span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">),</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;gray_r&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
                           <span class="n">xticklabels</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;N&quot;</span><span class="p">,</span> <span class="s2">&quot;P&quot;</span><span class="p">],</span> <span class="n">yticklabels</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;N&quot;</span><span class="p">,</span> <span class="s2">&quot;P&quot;</span><span class="p">],</span> <span class="n">xtickrotation</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">fsize</span><span class="o">=</span><span class="mf">2.5</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">1.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="n">classification_report</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">fontname</span><span class="o">=</span><span class="s2">&quot;Courier&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">fig_scale</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">fig_scale</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">1.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="n">classification_report</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">fontname</span><span class="o">=</span><span class="s2">&quot;Courier&quot;</span><span class="p">)</span>
 
     <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 <span class="n">report</span><span class="p">(</span><span class="n">y_pred_1</span><span class="p">)</span>
@@ -1487,9 +1489,9 @@ $<span class="math notranslate nohighlight">\(\frac{1}{C} \sum_{c=1}^C R(y_c,\ha
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/4925c069c28c4f43d3398295f5824a1456655a0d47cc94b671dde150ba8e2065.png" src="../_images/4925c069c28c4f43d3398295f5824a1456655a0d47cc94b671dde150ba8e2065.png" />
-<img alt="../_images/1b0d78b2eaa9d76b6dcd639863334f6309d4a879c97a298c8b74b69b4c9ab135.png" src="../_images/1b0d78b2eaa9d76b6dcd639863334f6309d4a879c97a298c8b74b69b4c9ab135.png" />
-<img alt="../_images/53930a7cdeb9de46296416591e1699f81f661d88290693821f12c76775911a4c.png" src="../_images/53930a7cdeb9de46296416591e1699f81f661d88290693821f12c76775911a4c.png" />
+<img alt="../_images/6d14c120d944214df54db39e43bcad07eb517bd7ddd3446f753b1a38c0a2056c.png" src="../_images/6d14c120d944214df54db39e43bcad07eb517bd7ddd3446f753b1a38c0a2056c.png" />
+<img alt="../_images/acd9e1619b5939d9d31cfd85a92300ad741ca74aa96a09f67cd78dd9b54a5294.png" src="../_images/acd9e1619b5939d9d31cfd85a92300ad741ca74aa96a09f67cd78dd9b54a5294.png" />
+<img alt="../_images/517a25bcec5525795b79d1a0151ff3e3c7eabc0bbf13fb9c1ebbae0677cdfab7.png" src="../_images/517a25bcec5525795b79d1a0151ff3e3c7eabc0bbf13fb9c1ebbae0677cdfab7.png" />
 </div>
 </div>
 </section>
@@ -1595,7 +1597,7 @@ belongs to the “positive” class.</p>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/3af988b93a224bf1756184df524e822192f0a7883f99da31c9e09bed765dd7bd.png" src="../_images/3af988b93a224bf1756184df524e822192f0a7883f99da31c9e09bed765dd7bd.png" />
+<img alt="../_images/66b57710eec4c55f10717d2d550b8ae9498541b841132b527aaf6f0ae51fc50b.png" src="../_images/66b57710eec4c55f10717d2d550b8ae9498541b841132b527aaf6f0ae51fc50b.png" />
 </div>
 </div>
 </section>
@@ -1636,7 +1638,7 @@ We can visualize them again. Note that the gradient looks different now.</p>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/1e4d81e1064fa99519abfb731eb15c69a705af4e26d7d4d51193f6c587d8af60.png" src="../_images/1e4d81e1064fa99519abfb731eb15c69a705af4e26d7d4d51193f6c587d8af60.png" />
+<img alt="../_images/4cf48f0dbd487a718665a9001017ea8f9ff74a2b37b506538d0c4139065e748b.png" src="../_images/4cf48f0dbd487a718665a9001017ea8f9ff74a2b37b506538d0c4139065e748b.png" />
 </div>
 </div>
 </section>
@@ -1713,7 +1715,7 @@ We can visualize them again. Note that the gradient looks different now.</p>
 </div>
 </details>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "4b15b9331d81400c9306bd57bc055665", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "7db58d9aff96482ca0b2888371628c01", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
@@ -1792,7 +1794,7 @@ We can visualize them again. Note that the gradient looks different now.</p>
 </div>
 </details>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "d9f7543bbfd54d7e9fb9760ef5e401f4", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "4c8b9cf0325746978e55086a5c7aca47", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
@@ -1926,7 +1928,7 @@ We can visualize them again. Note that the gradient looks different now.</p>
 </div>
 </details>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "d05914768b184e909ce439fe79e75c90", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "fa9abb23ff6c4917868d154ebeafee18", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
@@ -2002,7 +2004,7 @@ We can visualize them again. Note that the gradient looks different now.</p>
 </div>
 </details>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "dd4c399d6c214e378b2225ad7114c845", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "1405b09687c846f689d25ccf51f9cec3", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
@@ -2096,7 +2098,7 @@ We can visualize them again. Note that the gradient looks different now.</p>
 <span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
 <span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">label_binarize</span>
 <span class="kn">from</span> <span class="nn">sklearn.multiclass</span> <span class="kn">import</span> <span class="n">OneVsRestClassifier</span>
-<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">interp</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">interp</span>
 <span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">roc_auc_score</span>
 
 <span class="c1"># 3 class imbalanced data</span>
@@ -2634,7 +2636,7 @@ $<span class="math notranslate nohighlight">\(\text{total cost} = \text{FPR} * c
 </div>
 </details>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "ef5eea95303a4776883ab4aff9a3289e", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "bf6c4c1c8bee407388d102f8fd09c9a0", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
@@ -2916,7 +2918,7 @@ $<span class="math notranslate nohighlight">\(\text{total cost} = \text{FPR} * c
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/b683e3b8775d263eb5898587b285d573d88540c8d6442ebe8b244e74a38b087a.png" src="../_images/b683e3b8775d263eb5898587b285d573d88540c8d6442ebe8b244e74a38b087a.png" />
+<img alt="../_images/305fa5ffbe6ff285095c86c68380906174afec17cd55d2db3a63a548b2eaf0b3.png" src="../_images/305fa5ffbe6ff285095c86c68380906174afec17cd55d2db3a63a548b2eaf0b3.png" />
 </div>
 </div>
 <p>Summary Flowchart (by Andrew Ng)</p>
