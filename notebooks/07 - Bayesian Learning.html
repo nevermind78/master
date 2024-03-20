@@ -514,7 +514,7 @@ document.write(`
 <span class="c1"># Global imports and settings</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
 <span class="kn">from</span> <span class="nn">preamble</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="n">interactive</span> <span class="o">=</span> <span class="kc">False</span> <span class="c1"># Set to True for interactive plots</span>
+<span class="n">interactive</span> <span class="o">=</span> <span class="kc">True</span> <span class="c1"># Set to True for interactive plots</span>
 <span class="k">if</span> <span class="n">interactive</span><span class="p">:</span>
     <span class="n">fig_scale</span> <span class="o">=</span> <span class="mf">0.61</span>
     <span class="n">print_config</span><span class="p">[</span><span class="s1">&#39;font.size&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">7</span>
@@ -664,7 +664,7 @@ P(C|pos) &amp;= \frac{P(pos|C)P(C)}{P(pos)} \\
 </div>
 </details>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "9e7e3227a30e4cd7b106992257e9ad6f", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "d8b148028ab34d73adec8e59af9cef51", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
@@ -686,9 +686,6 @@ P(C|pos) &amp;= \frac{P(pos|C)P(C)}{P(pos)} \\
 </div>
 </div>
 </details>
-<div class="cell_output docutils container">
-<img alt="../_images/34bf7318b140bf051d28ea03fbfd831bd59340ebd693fb173491be0361ceb88c.png" src="../_images/34bf7318b140bf051d28ea03fbfd831bd59340ebd693fb173491be0361ceb88c.png" />
-</div>
 </div>
 <section id="generative-models">
 <h3>Generative models<a class="headerlink" href="#generative-models" title="Permalink to this heading">#</a></h3>
@@ -748,7 +745,7 @@ P(C|pos) &amp;= \frac{P(pos|C)P(C)}{P(pos)} \\
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/c00f616705299b2a8fb54f6b510f9e8d41adcabd894efed9d938fc6ca265c392.png" src="../_images/c00f616705299b2a8fb54f6b510f9e8d41adcabd894efed9d938fc6ca265c392.png" />
+<img alt="../_images/8f45bd3b4e8cc33a29894cdc865f4213dcfdfe213dc6c683001b7c152aa6e7c1.png" src="../_images/8f45bd3b4e8cc33a29894cdc865f4213dcfdfe213dc6c683001b7c152aa6e7c1.png" />
 </div>
 </div>
 <p>Other Naive Bayes classifiers:</p>
@@ -921,8 +918,7 @@ P(C|pos) &amp;= \frac{P(pos|C)P(C)}{P(pos)} \\
 </div>
 </details>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "0575266b10c54aae9abb578f2e96bf15", "version_major": 2, "version_minor": 0}</script><img alt="../_images/107d9a47d604834f64436af63ffefc542097e6c4f6f3fe5074cbec1bdbd8def8.png" src="../_images/107d9a47d604834f64436af63ffefc542097e6c4f6f3fe5074cbec1bdbd8def8.png" />
-</div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "5841350f417548a487e31d3ee2126b05", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 </section>
 </section>
@@ -990,13 +986,14 @@ P(C|pos) &amp;= \frac{P(pos|C)P(C)}{P(pos)} \\
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_test</span><span class="p">,</span> <span class="n">f_test</span><span class="p">,</span> <span class="s1">&#39;b-&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s1">&#39;ro&#39;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">4</span><span class="o">*</span><span class="n">fig_scale</span><span class="p">);</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Linear regression (w: </span><span class="si">{}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">w</span><span class="o">.</span><span class="n">T</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Pace (min/km)&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/aa5d30a4c6bfb731a3743da2dbea6c4faaafd817f804450d9af29feeb6886577.png" src="../_images/aa5d30a4c6bfb731a3743da2dbea6c4faaafd817f804450d9af29feeb6886577.png" />
+<img alt="../_images/e87716346ac19452e8941f297a96f883fac2a0b3d203541c0338418f027d6a05.png" src="../_images/e87716346ac19452e8941f297a96f883fac2a0b3d203541c0338418f027d6a05.png" />
 </div>
 </div>
 </section>
@@ -1020,13 +1017,14 @@ P(C|pos) &amp;= \frac{P(pos|C)P(C)}{P(pos)} \\
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_test</span><span class="p">,</span> <span class="n">f_test</span><span class="p">,</span> <span class="s1">&#39;b-&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s1">&#39;ro&#39;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">4</span><span class="o">*</span><span class="n">fig_scale</span><span class="p">);</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Polynomial regression (w: </span><span class="si">{}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">w</span><span class="o">.</span><span class="n">T</span><span class="p">))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Pace (min/km)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/e4952b36bfafe83ac63a175f9ff56c07c04dd7244eafa05a4ed491961c35f58d.png" src="../_images/e4952b36bfafe83ac63a175f9ff56c07c04dd7244eafa05a4ed491961c35f58d.png" />
+<img alt="../_images/cff2514cb226a7271ea0829d64045089df5436bdaf76a3cbac7c16d5efb4922a.png" src="../_images/cff2514cb226a7271ea0829d64045089df5436bdaf76a3cbac7c16d5efb4922a.png" />
 </div>
 </div>
 </section>
@@ -1059,6 +1057,7 @@ P(C|pos) &amp;= \frac{P(pos|C)P(C)}{P(pos)} \\
     
     <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s1">&#39;ro&#39;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">4</span><span class="o">*</span><span class="n">fig_scale</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Kernel Ridge&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Pace (min/km)&quot;</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;best&quot;</span><span class="p">);</span>
 
@@ -1069,8 +1068,7 @@ P(C|pos) &amp;= \frac{P(pos|C)P(C)}{P(pos)} \\
 </div>
 </details>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "b7a87d4c14bc48c38cfd6909f8a53d40", "version_major": 2, "version_minor": 0}</script><img alt="../_images/2910a45e1c20b174067d15dd8464f7d7ced862f1d6778a05abd1c35278e12272.png" src="../_images/2910a45e1c20b174067d15dd8464f7d7ced862f1d6778a05abd1c35278e12272.png" />
-</div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "24405b2d5bd04db59ce70ebdcff06093", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 </section>
 <section id="probabilistic-interpretation">
@@ -1122,6 +1120,7 @@ P(C|pos) &amp;= \frac{P(pos|C)P(C)}{P(pos)} \\
          <span class="n">alpha</span><span class="o">=</span><span class="mf">.5</span><span class="p">,</span> <span class="n">fc</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">ec</span><span class="o">=</span><span class="s1">&#39;None&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;95</span><span class="si">% c</span><span class="s1">onfidence interval&#39;</span><span class="p">)</span>
         
     <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="s1">&#39;b-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Bayesian Ridge&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Pace (min/km)&quot;</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 </pre></div>
@@ -1129,7 +1128,7 @@ P(C|pos) &amp;= \frac{P(pos|C)P(C)}{P(pos)} \\
 </div>
 </details>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "63cf4fb1528b476a99fd44882e32b286", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "6bcc3daca1aa40b691bc0317423d0839", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
@@ -1144,9 +1143,6 @@ P(C|pos) &amp;= \frac{P(pos|C)P(C)}{P(pos)} \\
 </div>
 </div>
 </details>
-<div class="cell_output docutils container">
-<img alt="../_images/d0b8e35ead16724cfbccffdad9d51d6ec9e8d15757a8fc763a7b393815331b94.png" src="../_images/d0b8e35ead16724cfbccffdad9d51d6ec9e8d15757a8fc763a7b393815331b94.png" />
-</div>
 </div>
 </section>
 </section>
@@ -1209,7 +1205,7 @@ $<span class="math notranslate nohighlight">\(w_i \sim \mathcal{N}(0,\alpha)\)</
 </div>
 </details>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "9f60c6efbf76467396948da4c07d1564", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "e5dedb04918349478ca851447a039523", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
@@ -1224,9 +1220,6 @@ $<span class="math notranslate nohighlight">\(w_i \sim \mathcal{N}(0,\alpha)\)</
 </div>
 </div>
 </details>
-<div class="cell_output docutils container">
-<img alt="../_images/8d5c526bf96c9bcb38a5d5d7645c350d4da5b05fdb512708789cfed8efb1e94f.png" src="../_images/8d5c526bf96c9bcb38a5d5d7645c350d4da5b05fdb512708789cfed8efb1e94f.png" />
-</div>
 </div>
 </section>
 <section id="sampling-from-the-prior-weight-space">
@@ -1305,7 +1298,7 @@ $<span class="math notranslate nohighlight">\(w_i \sim \mathcal{N}(0,\alpha)\)</
 </div>
 </details>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "6c530bbd2757409fa4980fa3d6ff0092", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "4c42a91fc1614d748a345c14c0d906eb", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
@@ -1320,9 +1313,6 @@ $<span class="math notranslate nohighlight">\(w_i \sim \mathcal{N}(0,\alpha)\)</
 </div>
 </div>
 </details>
-<div class="cell_output docutils container">
-<img alt="../_images/354fea737adef6fe6e0cb88405eaf138411a160daf64d4aef3e0dfcf5a365855.png" src="../_images/354fea737adef6fe6e0cb88405eaf138411a160daf64d4aef3e0dfcf5a365855.png" />
-</div>
 </div>
 </section>
 <section id="learning-gaussian-distributions">
@@ -1357,7 +1347,7 @@ $<span class="math notranslate nohighlight">\(w_i \sim \mathcal{N}(0,\alpha)\)</
 </div>
 </details>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "6a591f88659c48ac8e490ea52b6554dc", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "947daa5631324caea60546939416a475", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
@@ -1385,9 +1375,6 @@ $<span class="math notranslate nohighlight">\(w_i \sim \mathcal{N}(0,\alpha)\)</
 </div>
 </div>
 </details>
-<div class="cell_output docutils container">
-<img alt="../_images/938994fc22c1566861dce4fea092964c9e89ecd6ef554018ac9991d761ee1804.png" src="../_images/938994fc22c1566861dce4fea092964c9e89ecd6ef554018ac9991d761ee1804.png" />
-</div>
 </div>
 </section>
 <section id="understanding-covariances">
@@ -1419,7 +1406,8 @@ $<span class="math notranslate nohighlight">\(w_i \sim \mathcal{N}(0,\alpha)\)</
 </div>
 </details>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "6f46f28fdebc4b54be211c8039fdec76", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "3bf3f2588a3f4e059b8555687d9fbca2", "version_major": 2, "version_minor": 0}</script><img alt="../_images/df28321c429be6481352762fee9b173b82da31694ae096a4c1da777cf68aec8d.png" src="../_images/df28321c429be6481352762fee9b173b82da31694ae096a4c1da777cf68aec8d.png" />
+</div>
 </div>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
@@ -1444,9 +1432,6 @@ $<span class="math notranslate nohighlight">\(w_i \sim \mathcal{N}(0,\alpha)\)</
 </div>
 </div>
 </details>
-<div class="cell_output docutils container">
-<img alt="../_images/ee6bb713b7506a0a849660c3f59a0a7a2f082e256ee9a120a941beb424885005.png" src="../_images/ee6bb713b7506a0a849660c3f59a0a7a2f082e256ee9a120a941beb424885005.png" />
-</div>
 </div>
 </section>
 <section id="stochastic-processes-sampling-from-higher-dimensional-distributions">
@@ -1554,7 +1539,7 @@ $<span class="math notranslate nohighlight">\(w_i \sim \mathcal{N}(0,\alpha)\)</
 </div>
 </details>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "863e846a564144d0b699533f7e368367", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "b1c8361bba59478383777e22e6728872", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
@@ -1569,9 +1554,6 @@ $<span class="math notranslate nohighlight">\(w_i \sim \mathcal{N}(0,\alpha)\)</
 </div>
 </div>
 </details>
-<div class="cell_output docutils container">
-<img alt="../_images/4ea716a665e52382e67a00a1945236e3f27f010249fa35c100cd565d72c03c33.png" src="../_images/4ea716a665e52382e67a00a1945236e3f27f010249fa35c100cd565d72c03c33.png" />
-</div>
 </div>
 <p>Repeat for 40 dimensions, with <span class="math notranslate nohighlight">\(\boldsymbol{\Phi}\)</span> the polynomial transform:</p>
 <div class="cell tag_hide-input docutils container">
@@ -1587,7 +1569,7 @@ $<span class="math notranslate nohighlight">\(w_i \sim \mathcal{N}(0,\alpha)\)</
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/e7a6661eb9b54855cff8a806be761123b0ea29a88e62537b58546e09685b4ddc.png" src="../_images/e7a6661eb9b54855cff8a806be761123b0ea29a88e62537b58546e09685b4ddc.png" />
+<img alt="../_images/0dc18f4cc75921dbc7d35490a5b2b95e2b568e0a8dea79bc63a84058859fc719.png" src="../_images/0dc18f4cc75921dbc7d35490a5b2b95e2b568e0a8dea79bc63a84058859fc719.png" />
 </div>
 </div>
 <p><a class="reference external" href="https://pymc3-testing.readthedocs.io/en/rtd-docs/notebooks/GP-covariances.html">More examples of covariances</a></p>
@@ -1612,7 +1594,7 @@ $<span class="math notranslate nohighlight">\(
 </div>
 </details>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "d710acc0dea2458ea57faf6775c2c5ca", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "ee14ff715cce4538957ee699c60accec", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
@@ -1627,9 +1609,6 @@ $<span class="math notranslate nohighlight">\(
 </div>
 </div>
 </details>
-<div class="cell_output docutils container">
-<img alt="../_images/4516ee539edbc8814cf7f573bfdff2095635a6775c66cc79a8528337260c09e7.png" src="../_images/4516ee539edbc8814cf7f573bfdff2095635a6775c66cc79a8528337260c09e7.png" />
-</div>
 </div>
 </section>
 </section>
@@ -1682,8 +1661,7 @@ k(\mathbf{x}, \mathbf{x}^\prime) = \alpha \exp\left( -\frac{\left\Vert \mathbf{x
 </div>
 </details>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "ed5736cc735a4a16abd83688eec07018", "version_major": 2, "version_minor": 0}</script><img alt="../_images/0a5740a86a450817a2d7389689b3e0e03e5fd4d9e19a6d82bbd7c8b69ede6240.png" src="../_images/0a5740a86a450817a2d7389689b3e0e03e5fd4d9e19a6d82bbd7c8b69ede6240.png" />
-</div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "a0e263d4b2bc4a20bebbd73b6066cab9", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <section id="computing-the-posterior-p-mathbf-y-mathbf-x">
 <h3>Computing the posterior <span class="math notranslate nohighlight">\(P(\mathbf{y}|\mathbf{X})\)</span><a class="headerlink" href="#computing-the-posterior-p-mathbf-y-mathbf-x" title="Permalink to this heading">#</a></h3>
@@ -1782,37 +1760,20 @@ $</p>
 <section id="gaussian-process-example">
 <h3>Gaussian process example<a class="headerlink" href="#gaussian-process-example" title="Permalink to this heading">#</a></h3>
 <p>We can now get the mean and covariance learned on our dataset, and sample from this distribution!</p>
-<div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
-</summary>
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">shuffled_olympics</span><span class="p">():</span>
-    <span class="n">data</span> <span class="o">=</span> <span class="n">pods</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">olympic_marathon_men</span><span class="p">()</span>
-    <span class="n">X</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;X&#39;</span><span class="p">]</span>
-    <span class="n">Y</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;Y&#39;</span><span class="p">]</span>
-    <span class="n">perm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">RandomState</span><span class="p">(</span><span class="n">seed</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">permutation</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">))</span>
-    <span class="n">x_shuffle</span><span class="p">,</span> <span class="n">y_shuffle</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">perm</span><span class="p">],</span> <span class="n">Y</span><span class="p">[</span><span class="n">perm</span><span class="p">]</span>
-    <span class="n">X_test</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">1890</span><span class="p">,</span> <span class="mi">2020</span><span class="p">,</span> <span class="mi">100</span><span class="p">)[:,</span> <span class="kc">None</span><span class="p">]</span>
-    <span class="k">return</span> <span class="n">x_shuffle</span><span class="p">,</span> <span class="n">y_shuffle</span><span class="p">,</span> <span class="n">X_test</span>
-
-<span class="nd">@interact</span>
-<span class="k">def</span> <span class="nf">plot_gp_olympics</span><span class="p">(</span><span class="n">nr_points</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">27</span><span class="p">,</span><span class="mi">1</span><span class="p">)):</span>
-    <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">xt</span> <span class="o">=</span> <span class="n">shuffled_olympics</span><span class="p">()</span>
-    <span class="n">plot_gp</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">xt</span><span class="p">,</span> <span class="n">lengthscale</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">nr_points</span><span class="o">=</span><span class="n">nr_points</span><span class="p">,</span> <span class="n">nr_samples</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">show_covariance</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ylim</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
-    
-<span class="k">if</span> <span class="ow">not</span> <span class="n">interactive</span><span class="p">:</span>
-    <span class="n">plot_gp_olympics</span><span class="p">(</span><span class="n">nr_points</span><span class="o">=</span><span class="mi">13</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</details>
-<div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "c39392402c814550b8b9ab5f3b002e2f", "version_major": 2, "version_minor": 0}</script><img alt="../_images/17873653ff073f46098017e523e2051ff02634059ba4e01226713f9eb8e35501.png" src="../_images/17873653ff073f46098017e523e2051ff02634059ba4e01226713f9eb8e35501.png" />
-</div>
-</div>
+<p>def shuffled_olympics():
+data = pods.datasets.olympic_marathon_men()
+X = data[‘X’]
+Y = data[‘Y’]
+perm = np.random.RandomState(seed=0).permutation(len(X))
+x_shuffle, y_shuffle = X[perm], Y[perm]
+X_test = np.linspace(1890, 2020, 100)[:, None]
+return x_shuffle, y_shuffle, X_test</p>
+<p>&#64;interact
+def plot_gp_olympics(nr_points=(0,27,1)):
+x, y, xt = shuffled_olympics()
+plot_gp(x, y, xt, lengthscale=12, nr_points=nr_points, nr_samples=100, show_covariance=True, ylim=(-4,8))</p>
+<p>if not interactive:
+plot_gp_olympics(nr_points=13)</p>
 <p>Remember that our prediction is the sum of the mean and the variance: <span class="math notranslate nohighlight">\(P(\mathbf{y}|x_{test} , \mathbf{X}) = \mathcal{N}(\mathbf{\mu,\Sigma})\)</span></p>
 <ul class="simple">
 <li><p>The mean is the same as the one computed with kernel ridge (if given the same kernel and hyperparameters)</p></li>
@@ -1837,8 +1798,7 @@ $</p>
 </div>
 </details>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "113bc0c9c5de4186adca63c8d637f62d", "version_major": 2, "version_minor": 0}</script><img alt="../_images/7adf93665b96f9444c21baebd58f0ddd18c46c2af26aafc594625c56a08555d3.png" src="../_images/7adf93665b96f9444c21baebd58f0ddd18c46c2af26aafc594625c56a08555d3.png" />
-</div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "b86573bc194c46ebb76c50f29fdcfea1", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <p>The values on the diagonal of the covariance matrix give us the variance, so we can simply plot the mean and 95% confidence interval</p>
 <div class="cell tag_hide-input docutils container">
@@ -1860,8 +1820,7 @@ $</p>
 </div>
 </details>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "1976a74169e84e32ba5e78fd300eba03", "version_major": 2, "version_minor": 0}</script><img alt="../_images/6fbba97b41ec7bcbd5e549304bb22cb681a14e7621527ba7b33c9689c5c2c0f9.png" src="../_images/6fbba97b41ec7bcbd5e549304bb22cb681a14e7621527ba7b33c9689c5c2c0f9.png" />
-</div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "5ad2ae76295244adbea8ecce3dbfa6a0", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 </section>
 <section id="gaussian-processes-in-practice-with-gpy">
@@ -1917,7 +1876,7 @@ $</p>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/7557784ac05f605ec4256fda6b04abfc18caf50bafbd28f6bd5cbdf22f6b4698.png" src="../_images/7557784ac05f605ec4256fda6b04abfc18caf50bafbd28f6bd5cbdf22f6b4698.png" />
+<img alt="../_images/951a42bca36e831e792b549219e0d3f27a99499fe9791838c5e09ed12b01970c.png" src="../_images/951a42bca36e831e792b549219e0d3f27a99499fe9791838c5e09ed12b01970c.png" />
 </div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">Matern</span></code> is a generalized RBF kernel that can scale between RBF and Exponential. <code class="docutils literal notranslate"><span class="pre">Sum</span></code> is RBF + Linear * RatQuad</p>
@@ -1965,9 +1924,7 @@ $</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "f0baa548b6d344269556fcf6d8af213d", "version_major": 2, "version_minor": 0}</script><img alt="../_images/b91ae1b507e562d78c64f7ab228033fb45ea46bcdb76904b40b0df9aa30b1d04.png" src="../_images/b91ae1b507e562d78c64f7ab228033fb45ea46bcdb76904b40b0df9aa30b1d04.png" />
-<img alt="../_images/685507bb69a0193f371233a0800081c53ce577b9e1983fc11e58bdbf10b9d51a.png" src="../_images/685507bb69a0193f371233a0800081c53ce577b9e1983fc11e58bdbf10b9d51a.png" />
-</div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "7f24db7b701942deab76d55f1956d3ac", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <p>Build the untrained GP. The shaded region corresponds to ~95% confidence intervals (i.e. +/- 2 standard deviation)</p>
 <div class="cell tag_hide-input docutils container">
@@ -1990,7 +1947,7 @@ $</p>
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/3cfd56e36365cd3e97ee05b4928789fdde627ff1cc8d7a0b483e15a1b8552172.png" src="../_images/3cfd56e36365cd3e97ee05b4928789fdde627ff1cc8d7a0b483e15a1b8552172.png" />
+<img alt="../_images/f7964c90fef9ff810ed9a3b37bf38282197e7658a9447410aabdc0d669b55124.png" src="../_images/f7964c90fef9ff810ed9a3b37bf38282197e7658a9447410aabdc0d669b55124.png" />
 </div>
 </div>
 <p>Train the model (optimize the kernel parameters): maximize the likelihood of the data.<br />
@@ -2009,7 +1966,7 @@ Best to optimize with a few restarts: the optimizer may converges to the high-no
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/3eaa58a612cec22f416d8ec443c231127a12e3528b8d9ff9772427c2ebac9ec5.png" src="../_images/3eaa58a612cec22f416d8ec443c231127a12e3528b8d9ff9772427c2ebac9ec5.png" />
+<img alt="../_images/e70b5899c34549a3779097b41ac4df2c0d1c91985a30d8860d9ab09c29ed6f33.png" src="../_images/e70b5899c34549a3779097b41ac4df2c0d1c91985a30d8860d9ab09c29ed6f33.png" />
 </div>
 </div>
 <p>You can also show results in 2D</p>
@@ -2036,7 +1993,7 @@ Best to optimize with a few restarts: the optimizer may converges to the high-no
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/6ac3e7189b0e2bc609a004da3824496f758854d2d4b9fcc4a50869496cc0a762.png" src="../_images/6ac3e7189b0e2bc609a004da3824496f758854d2d4b9fcc4a50869496cc0a762.png" />
+<img alt="../_images/8e50c9ec94a126827c2c82de97a198e2d0e9cb3824d8fddd5a8af58b767ac942.png" src="../_images/8e50c9ec94a126827c2c82de97a198e2d0e9cb3824d8fddd5a8af58b767ac942.png" />
 </div>
 </div>
 <p>We can plot 2D slices using the <code class="docutils literal notranslate"><span class="pre">fixed_inputs</span></code> argument to the plot function.<br />
@@ -2059,7 +2016,7 @@ Best to optimize with a few restarts: the optimizer may converges to the high-no
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/d302195ca68dc0a0d3d31cc0f42429a44ecf36a32e85f1add1ac9075c8e57a5c.png" src="../_images/d302195ca68dc0a0d3d31cc0f42429a44ecf36a32e85f1add1ac9075c8e57a5c.png" />
+<img alt="../_images/74b862a01e08074658720615952ed79c141ed96546be4d7d1a01124326a03b11.png" src="../_images/74b862a01e08074658720615952ed79c141ed96546be4d7d1a01124326a03b11.png" />
 </div>
 </div>
 </section>
@@ -2154,7 +2111,7 @@ Best to optimize with a few restarts: the optimizer may converges to the high-no
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/9c137923145999d78d6882e1c31a2133f642ae7434b0e459c88797c867998070.png" src="../_images/9c137923145999d78d6882e1c31a2133f642ae7434b0e459c88797c867998070.png" />
+<img alt="../_images/d94933ee20ee0ec25d39a29b916040a68cad970f90be3aa37e0a657496ee8b0e.png" src="../_images/d94933ee20ee0ec25d39a29b916040a68cad970f90be3aa37e0a657496ee8b0e.png" />
 </div>
 </div>
 <p>Example with noisy data</p>
@@ -2205,7 +2162,7 @@ Best to optimize with a few restarts: the optimizer may converges to the high-no
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="../_images/00509565abc8506e7e542442a84c7742d4df1c9e56777fcb8139d2c67dc94aed.png" src="../_images/00509565abc8506e7e542442a84c7742d4df1c9e56777fcb8139d2c67dc94aed.png" />
+<img alt="../_images/2e40799b907b27075d44959e83517661fba8eba33d2b7ad2434753c8b181554f.png" src="../_images/2e40799b907b27075d44959e83517661fba8eba33d2b7ad2434753c8b181554f.png" />
 </div>
 </div>
 </section>
