@@ -707,7 +707,7 @@ Count encoding doc 2: [0 0 0 3 1 0 1 1 0 1 2 1 0 1 0 0 1 0 1 0 0 1 0 0 0 0 1 1 1
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Logistic regression accuracy: 0.8538
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Logistic regression accuracy: 0.8542
 </pre></div>
 </div>
 </div>
@@ -736,7 +736,7 @@ Count encoding doc 2: [0 0 0 3 1 0 1 1 0 1 2 1 0 1 0 0 1 0 1 0 0 1 0 0 0 0 1 1 1
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/546bd1866d415f6421e6e0e148fdae961fab217912d04870d83a88cf94a1a3eb.png" src="../_images/546bd1866d415f6421e6e0e148fdae961fab217912d04870d83a88cf94a1a3eb.png" />
+<img alt="../_images/3f2484258a8389255dce73c8df890e16e161576ff50e7b79847359b65c4c4cfd.png" src="../_images/3f2484258a8389255dce73c8df890e16e161576ff50e7b79847359b65c4c4cfd.png" />
 </div>
 </div>
 </section>
@@ -918,7 +918,7 @@ $<span class="math notranslate nohighlight">\( t_i = \frac{t_i}{\| t\|_2 }\)</sp
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/78c1181a48de137eb8345c4c2b063834d0897f3b2d4feedda415e3fd73447270.png" src="../_images/78c1181a48de137eb8345c4c2b063834d0897f3b2d4feedda415e3fd73447270.png" />
+<img alt="../_images/a8f6b65c41b4f1e81e84a786cb0c03bc6cc75de63c6197d675bfc16622288460.png" src="../_images/a8f6b65c41b4f1e81e84a786cb0c03bc6cc75de63c6197d675bfc16622288460.png" />
 </div>
 </div>
 <section id="predictions">
@@ -937,10 +937,10 @@ $<span class="math notranslate nohighlight">\( t_i = \frac{t_i}{\| t\|_2 }\)</sp
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>782/782 [==============================] - 2s 2ms/step
 Review 0:  ? please give this one a miss br br ? ? and the rest of the cast rendered terrible performances the show is flat flat flat br br i don&#39;t know how michael madison could have allowed this one on his plate he almost seemed to know this wasn&#39;t going to work out and his performance was quite ? so all you madison fans give this a miss
-Predicted positiveness:  [0.045]
+Predicted positiveness:  [0.073]
 
 Review 16:  ? from 1996 first i watched this movie i feel never reach the end of my satisfaction i feel that i want to watch more and more until now my god i don&#39;t believe it was ten years ago and i can believe that i almost remember every word of the dialogues i love this movie and i love this novel absolutely perfection i love willem ? he has a strange voice to spell the words black night and i always say it for many times never being bored i love the music of it&#39;s so much made me come into another world deep in my heart anyone can feel what i feel and anyone could make the movie like this i don&#39;t believe so thanks thanks
-Predicted positiveness:  [0.816]
+Predicted positiveness:  [0.976]
 </pre></div>
 </div>
 </div>
@@ -1007,15 +1007,15 @@ _________________________________________________________________
 =================================================================
  embedding (Embedding)       (None, 100, 20)           200000    
                                                                  
- global_average_pooling1d (G  (None, 20)               0         
- lobalAveragePooling1D)                                          
+ global_average_pooling1d (  (None, 20)                0         
+ GlobalAveragePooling1D)                                         
                                                                  
  dense_3 (Dense)             (None, 1)                 21        
                                                                  
 =================================================================
-Total params: 200,021
-Trainable params: 200,021
-Non-trainable params: 0
+Total params: 200021 (781.33 KB)
+Trainable params: 200021 (781.33 KB)
+Non-trainable params: 0 (0.00 Byte)
 _________________________________________________________________
 </pre></div>
 </div>
@@ -1046,7 +1046,7 @@ _________________________________________________________________
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/dba5e39aacc3d771a87e7fd8c9784decdaf44b2e6c16268024c6cd9c5bdf851a.png" src="../_images/dba5e39aacc3d771a87e7fd8c9784decdaf44b2e6c16268024c6cd9c5bdf851a.png" />
+<img alt="../_images/d755626ad34367c3ade5899aa75d6c7bad96fff6db74e119c0e51cae9470dfe6.png" src="../_images/d755626ad34367c3ade5899aa75d6c7bad96fff6db74e119c0e51cae9470dfe6.png" />
 </div>
 </div>
 </section>
@@ -1179,10 +1179,10 @@ _________________________________________________________________
 <span class="kn">import</span> <span class="nn">gdown</span>
 
 <span class="n">data_dir</span> <span class="o">=</span> <span class="s1">&#39;../data&#39;</span>
-<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_dir</span><span class="p">,</span><span class="s2">&quot;glove.txt&quot;</span><span class="p">)):</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_dir</span><span class="p">,</span><span class="s2">&quot;glove.6B.100d.txt&quot;</span><span class="p">)):</span>
     <span class="c1"># Download GloVe embedding</span>
-    <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;https://drive.google.com/uc?id=1ZOd5P9kreaBYg5Oh2n5McC-BozYcsKIH&#39;</span>
-    <span class="n">output</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_dir</span><span class="p">,</span><span class="s2">&quot;glove.txt&quot;</span><span class="p">)</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;https://drive.google.com/uc?id=1KkDoltpE7JxVbt_T_6wr3HM29uY6PdTQ&#39;</span>
+    <span class="n">output</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_dir</span><span class="p">,</span><span class="s2">&quot;glove.6B.100d.txt&quot;</span><span class="p">)</span>
     <span class="n">gdown</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="n">quiet</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1192,7 +1192,7 @@ _________________________________________________________________
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Build an index so that we can later easily compose the embedding matrix</span>
 <span class="n">embeddings_index</span> <span class="o">=</span> <span class="p">{}</span>
-<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_dir</span><span class="p">,</span> <span class="s1">&#39;glove.txt&#39;</span><span class="p">))</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_dir</span><span class="p">,</span> <span class="s1">&#39;glove.6B.100d.txt&#39;</span><span class="p">))</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
     <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">f</span><span class="p">:</span>
         <span class="n">word</span><span class="p">,</span> <span class="n">coefs</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">maxsplit</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
         <span class="n">coefs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fromstring</span><span class="p">(</span><span class="n">coefs</span><span class="p">,</span> <span class="s2">&quot;f&quot;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
@@ -1280,7 +1280,7 @@ _________________________________________________________________
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/4d57cf5bf28003baaa024578ac2e9adff324ff1190e8fe158a3891a63a3fb5d0.png" src="../_images/4d57cf5bf28003baaa024578ac2e9adff324ff1190e8fe158a3891a63a3fb5d0.png" />
+<img alt="../_images/b61e669ae75fa173eaa916a1b95655f475053fce3e75edc59902ab7862b298b1.png" src="../_images/b61e669ae75fa173eaa916a1b95655f475053fce3e75edc59902ab7862b298b1.png" />
 </div>
 </div>
 </section>
@@ -1378,7 +1378,7 @@ _________________________________________________________________
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">18</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">20</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
 <span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="n">model</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">Sequential</span><span class="p">()</span>
 <span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">Embedding</span><span class="p">(</span><span class="n">max_words</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="n">input_length</span><span class="o">=</span><span class="n">max_length</span><span class="p">))</span>
 <span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">Conv1D</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">))</span>
