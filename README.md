@@ -42,3 +42,6 @@ Partly based on notebooks by [Andreas Mueller](https://github.com/amueller/intro
 [François Chollet](https://github.com/fchollet/deep-learning-with-python-notebooks) (MIT licenced),
 [Sebastian Raschka](https://github.com/rasbt/python-machine-learning-book-2nd-edition) (MIT licenced), and
 [Neil Lawrence](https://github.com/lawrennd/talks) (with permission)
+
+
+2025
