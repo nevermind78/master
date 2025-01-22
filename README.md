@@ -1,12 +1,13 @@
 [![Jupyter Book Badge](https://raw.githubusercontent.com/executablebooks/jupyter-book/master/docs/images/badge.svg)](https://ml-course.github.io/)
-[![YouTube Channel Views](https://img.shields.io/youtube/channel/views/UCurDcl-q8dkRF5WFMCW1tSA?style=social)](https://www.youtube.com/channel/UCurDcl-q8dkRF5WFMCW1tSA)
 
+
+```conda create --name ml -c conda-forge --file requirements.txt```
 
 # An Open Machine Learning Course
 
 Jupyter notebooks for teaching machine learning. Based on scikit-learn and Keras, with OpenML used to experiment more extensively on many datasets.
 
-[Online course book](https://ml-course.github.io/) - powered by Jupyter-book
+
 
 ## Sources
 ### Practice-oriented materials
